@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main {
-    private static final String PROPERTIES_PATH = "C:\\Users\\saton\\Desktop\\lanit_team_project\\src\\main\\resources\\DaoProperties.properties";
+    private static final String PROPERTIES_PATH = "src\\main\\resources\\DaoProperties.properties";
     private static Connection connection;
 
     private static final String TABLE = "organizations";
