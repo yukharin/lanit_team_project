@@ -1,3 +1,4 @@
+package jdbc;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,8 +11,6 @@ import java.util.Properties;
 
 public class JdbcUtils {
 
-    private static final String URL_KEY = "url";
-
     public static Connection getConnection( String properties_path) {
         Connection connection = null;
         InputStream inputStream = null;
@@ -19,7 +18,16 @@ public class JdbcUtils {
             Properties properties = new Properties();
             inputStream = new FileInputStream(properties_path);
             properties.load(inputStream);
-            connection = DriverManager.getConnection(properties.getProperty(URL_KEY), properties);
+            System.out.println(properties.getProperty("url"));
+            System.out.println(properties.getProperty("user"));
+            System.out.println(properties.getProperty("password"));
+
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    connection = DriverManager.getConnection(
+                    properties.getProperty("url"),
+                    properties.getProperty("user"),
+                    properties.getProperty("password"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException | SQLException e) {
