@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main {
-    private static final String PROPERTIES_PATH = "C:\\Users\\saton\\Desktop\\lanit_team_project\\src\\main\\resources\\DaoProperties.properties";
+    private static final String PROPERTIES_PATH = "src\\main\\resources\\DaoProperties.properties";
     private static Connection connection;
 
     private static final String TABLE = "organizations";
     private static final String GET_ORGANIZATION_BY_ID = "SELECT * FROM " + TABLE + " WHERE id = ?";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException{
         connection = JdbcUtils.getConnection(PROPERTIES_PATH);
         int id =1;
 

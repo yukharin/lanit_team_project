@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class JdbcUtils {
 
-    public static Connection getConnection( String properties_path) {
+    public static Connection getConnection( String properties_path) throws ClassNotFoundException{
         Connection connection = null;
         InputStream inputStream = null;
         try {
@@ -22,9 +22,9 @@ public class JdbcUtils {
             System.out.println(properties.getProperty("user"));
             System.out.println(properties.getProperty("password"));
 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection(
-                    connection = DriverManager.getConnection(
+            //Class.forName("com.mysql.jdbc.Driver"); ///sys?useSSL=false
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
                     properties.getProperty("url"),
                     properties.getProperty("user"),
                     properties.getProperty("password"));
