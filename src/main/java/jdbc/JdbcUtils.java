@@ -22,7 +22,8 @@ public class JdbcUtils {
             System.out.println(properties.getProperty("user"));
             System.out.println(properties.getProperty("password"));
 
-            Class.forName("com.mysql.jdbc.Driver");
+            //Class.forName("com.mysql.jdbc.Driver"); ///sys?useSSL=false
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
                     properties.getProperty("url"),
                     properties.getProperty("user"),
