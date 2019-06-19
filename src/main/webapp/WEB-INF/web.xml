@@ -8,7 +8,7 @@
     <description>Simple Servlet API App</description>
     <servlet>
         <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>HelloServlet</servlet-class>
+        <servlet-class>servlet.HelloServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
