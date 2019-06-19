@@ -21,6 +21,7 @@ public class Action {
     @Column(name = "content")
     private String content;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date date;
 

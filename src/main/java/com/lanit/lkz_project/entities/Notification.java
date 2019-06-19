@@ -21,9 +21,11 @@ public class Notification {
     @OneToOne
     private NotificationStatus status;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_received")
     private Date dateRecieved;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_response")
     private Date dateResponse;
 
