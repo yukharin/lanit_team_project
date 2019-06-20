@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class ActionType {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Enumerated(EnumType.STRING)
@@ -16,5 +17,18 @@ public class ActionType {
         DIRECTING_RESPONSE, CONFORM_RESPONSE, REJECT_RESPONSE;
     }
 
+    public ActionType() {
+    }
 
+    public ActionType(Type type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "ActionType{" +
+                "id=" + id +
+                ", type=" + type +
+                '}';
+    }
 }
