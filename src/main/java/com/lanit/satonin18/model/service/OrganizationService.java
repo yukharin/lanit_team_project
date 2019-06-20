@@ -1,4 +1,4 @@
-package spring_mvc.model.service;
+package com.lanit.satonin18.model.service;
 
 import java.util.List;
 

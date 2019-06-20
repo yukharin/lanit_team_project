@@ -1,4 +1,4 @@
-package spring_mvc.model.entity;
+package com.lanit.satonin18.model.entity;
 
 import javax.persistence.*;
 
