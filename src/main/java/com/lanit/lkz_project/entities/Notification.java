@@ -17,6 +17,7 @@ public class Notification {
     private Organization organization;
 
     @Column(name = "notification_type")
+    @JoinColumn(name = "id_notification_status")
     private String notificationType;
 
     @OneToOne

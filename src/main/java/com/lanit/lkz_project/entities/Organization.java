@@ -8,7 +8,7 @@ import java.util.List;
 public class Organization {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", insertable = false, updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -18,7 +18,8 @@ public class Organization {
     @Column(name = "org_type")
     private boolean orgType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private Organization govOrganization;
 
     @OneToMany

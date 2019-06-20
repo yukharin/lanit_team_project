@@ -17,6 +17,7 @@ public class Action {
     private Notification notification;
 
     @OneToOne
+    @JoinColumn(name = "id_action_type")
     private ActionType actionType;
 
     @Column

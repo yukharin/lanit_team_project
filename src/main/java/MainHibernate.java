@@ -1,4 +1,3 @@
-import com.lanit.lkz_project.entities.Organization;
 import com.lanit.lkz_project.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 import java.io.File;
 
 public class MainHibernate {
+
 //    private static final SessionFactory ourSessionFactory;
 //
 //    static {
@@ -49,13 +49,15 @@ public class MainHibernate {
     public static void main(String[] args) {
         File file = new File("C:\\Users\\user1\\IdeaProjects\\lkz_project\\src\\main\\resources\\hibernate.cfg.xml");
         System.out.println(file.canRead());
-        SessionFactory factory = new Configuration().configure().addAnnotatedClass(User.class).buildSessionFactory();
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
         try {
             Session session = factory.getCurrentSession();
             session.beginTransaction();
-            User user = new User(new Organization(), "Vlad", "Yukharin");
-            session.save(user);
+            User user = session.get(User.class, 2);
+            user.setFirstName("Brian");
+            user.setLastName("Robson");
             session.getTransaction().commit();
+            session.close();
         } finally {
             factory.close();
         }

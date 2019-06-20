@@ -11,7 +11,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_org", nullable = false)
     private Organization organization;
 
     @Column(name = "first_name")
