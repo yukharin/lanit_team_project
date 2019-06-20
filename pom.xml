@@ -73,6 +73,7 @@
             <version>2.1.5.RELEASE</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -84,11 +85,23 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8080</port>
+                    <path>/</path>
+                    <warDirectory>/</warDirectory>
                 </configuration>
             </plugin>
         </plugins>
