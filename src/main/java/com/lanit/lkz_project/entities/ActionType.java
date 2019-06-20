@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class ActionType {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
