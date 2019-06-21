@@ -23,6 +23,21 @@ public class OrganizationController {
         return "home";
     }
 
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public ModelAndView main() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("organizationJSP", new Organization("orgName", true));
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/check-organization")
+    public ModelAndView checkOrganization(@ModelAttribute("organizationJSP") Organization organization) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("secondPage");
+        modelAndView.addObject("organizationJSP", organization);
+        return modelAndView; //после уйдем на представление, указанное чуть выше, если оно будет найдено.
+    }
 /*
     @Autowired
     private OrganizationService organizationService;

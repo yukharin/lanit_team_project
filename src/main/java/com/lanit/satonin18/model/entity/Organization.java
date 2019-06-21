@@ -1,7 +1,10 @@
 package com.lanit.satonin18.model.entity;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
+@Component //TODO CHECK SpringMVC without Hibernate
 @Entity
 @Table(name = "organizations")
 public class Organization { //Serializable
