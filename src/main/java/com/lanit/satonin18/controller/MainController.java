@@ -1,5 +1,3 @@
-package com.lanit.satonin18;
-
 import com.lanit.satonin18.model.entity.Organization;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
