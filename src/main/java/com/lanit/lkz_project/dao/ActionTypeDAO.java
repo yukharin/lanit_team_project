@@ -1,46 +1,41 @@
 package com.lanit.lkz_project.dao;
 
-import com.lanit.lkz_project.entities.User;
+import com.lanit.lkz_project.entities.ActionType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class UserDAO {
+public class ActionTypeDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
 
-    public void addUser(User user) {
+    public void addActionType(ActionType actionType) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(user);
+        session.persist(actionType);
     }
 
-
-    public void updateUser(User user) {
+    public void updateActionType(ActionType actionType) {
         Session session = sessionFactory.getCurrentSession();
-        session.merge(user);
+        session.merge(actionType);
     }
 
-
-    public void removeUser(int id) {
+    public void removeActionType(ActionType actionType) {
         Session session = sessionFactory.getCurrentSession();
-        User user = session.load(User.class, id);
-        if (user != null)
-            session.delete(user);
+        session.delete(actionType);
     }
 
-
-    public User getUserById(int id) {
+    public ActionType getActionType(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(User.class, id);
+        return session.load(ActionType.class, id);
     }
 
-
-    public List<User> users() {
+    public List<ActionType> actionTypeList() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from User", User.class).list();
+        return session.createQuery("FROM ActionType ").list();
     }
+
 }

@@ -95,10 +95,6 @@ public class Organization {
         return "Organization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", orgType=" + orgType +
-                ", govOrganization=" + govOrganization +
-                ", notifications=" + notifications +
-                ", users=" + users +
-                '}';
+                ", orgType=" + orgType;
     }
 }

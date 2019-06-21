@@ -1,4 +1,3 @@
-import com.lanit.lkz_project.entities.Organization;
 import com.lanit.lkz_project.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,18 +50,22 @@ public class MainHibernate {
         File file = new File("C:\\Users\\user1\\IdeaProjects\\lkz_project\\src\\main\\resources\\hibernate.cfg.xml");
         System.out.println(file.canRead());
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.getCurrentSession();
         try {
-            Session session = factory.getCurrentSession();
             session.beginTransaction();
-            Organization organization = new Organization("amazon", true, null, null, null);
-            session.persist(organization);
-            User user = new User(organization, "Vlad", "Mihalcea");
-            session.persist(user);
+            code(session);
             session.getTransaction().commit();
-            session.close();
+
         } finally {
+            session.close();
             factory.close();
         }
 
+    }
+
+    private static void code(Session session) {
+
+        User user = session.load(User.class, 4);
+        session.delete(user);
     }
 }
