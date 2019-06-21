@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-
+    <% response.sendRedirect("organization/list"); %>
 </body>
 </html>

@@ -1,22 +1,22 @@
 package com.lanit.satonin18.model.service;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-//import org.apache.log4j.Logger;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import org.springframework.stereotype.Service;
+import com.lanit.satonin18.model.dao.OrganizationDAO;
+import com.lanit.satonin18.model.entity.Organization;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("personService")
-@Transactional
-public class OrganizationService {
+import java.util.List;
+
+public interface OrganizationService {
+    public void addOrganization(Organization organization) ;
+
+    public void updateOrganization(Organization organization) ;
+
+    public List<Organization> searchOrganizations(String theSearchName) ;
+
+    public void removeOrganization(int id) ;
+
+    public Organization getOrganizationById(int id) ;
+
+    public List<Organization> organizations() ;
 }
