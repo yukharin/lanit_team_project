@@ -9,38 +9,41 @@ import java.util.List;
 public class Notification {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "id_org", nullable = false)
     private Organization organization;
 
-    @Column(name = "notification_type")
-    @JoinColumn(name = "id_notification_status")
+    @Column(name = "notification_type", length = 150)
     private String notificationType;
 
     @OneToOne
+    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
     private NotificationStatus status;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date_received")
+    @Column(name = "date_received", nullable = false)
     private Date dateRecieved;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date_response")
+    @Column(name = "date_response", nullable = false)
     private Date dateResponse;
 
-    @Column(name = "letter_number")
+    @Column(name = "letter_number", length = 12)
     private String letterNumber;
 
     @OneToOne
+    @JoinColumn(name = "id_user_curator_gos", referencedColumnName = "id", nullable = false)
     private User userCuratorGos;
 
     @OneToOne
+    @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userImplementor;
 
-    @OneToMany
+    @OneToMany(mappedBy = "notification")
     private List<Action> actions;
 
     public Notification() {

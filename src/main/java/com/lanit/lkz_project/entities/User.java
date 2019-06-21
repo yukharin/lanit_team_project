@@ -1,5 +1,6 @@
 package com.lanit.lkz_project.entities;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -7,22 +8,21 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_org", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_org", referencedColumnName = "id", nullable = false)
     private Organization organization;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    public User()
-    {
+    public User() {
 
     }
 

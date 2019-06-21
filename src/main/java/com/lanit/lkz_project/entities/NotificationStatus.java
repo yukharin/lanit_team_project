@@ -3,21 +3,21 @@ package com.lanit.lkz_project.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name="notification_statuses")
+@Table(name = "notification_statuses")
 public class NotificationStatus {
 
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private enum Status {
-        AWAITING_PROCESSING, THE_RESPONSE_IS_NOT_RECIEVED, RESPONSE_SENT, PROCESSED;
+    public enum Status {
+        NEW, AWAITING_PROCESSING, THE_RESPONSE_IS_NOT_RECIEVED, RESPONSE_SENT, PROCESSED
     }
 
     public NotificationStatus() {

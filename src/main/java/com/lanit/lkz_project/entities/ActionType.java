@@ -7,15 +7,16 @@ import javax.persistence.*;
 public class ActionType {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "name", length = 45, nullable = false)
     private Type type;
 
-    private enum Type {
-        DIRECTING_RESPONSE, CONFORM_RESPONSE, REJECT_RESPONSE;
+    public enum Type {
+        DIRECTING_RESPONSE, CONFORM_RESPONSE, REJECT_RESPONSE
     }
 
     public ActionType() {

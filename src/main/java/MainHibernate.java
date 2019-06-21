@@ -1,3 +1,4 @@
+import com.lanit.lkz_project.entities.Organization;
 import com.lanit.lkz_project.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -53,9 +54,10 @@ public class MainHibernate {
         try {
             Session session = factory.getCurrentSession();
             session.beginTransaction();
-            User user = session.get(User.class, 2);
-            user.setFirstName("Brian");
-            user.setLastName("Robson");
+            Organization organization = new Organization("amazon", true, null, null, null);
+            session.persist(organization);
+            User user = new User(organization, "Vlad", "Mihalcea");
+            session.persist(user);
             session.getTransaction().commit();
             session.close();
         } finally {

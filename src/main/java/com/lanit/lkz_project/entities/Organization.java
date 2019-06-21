@@ -8,24 +8,24 @@ import java.util.List;
 public class Organization {
 
     @Id
-    @Column(name = "id", insertable = false, updatable = false, nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 200)
     private String name;
 
-    @Column(name = "org_type")
+    @Column(name = "org_type", nullable = false)
     private boolean orgType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "id_gos_org", referencedColumnName = "id")
     private Organization govOrganization;
 
-    @OneToMany
+    @OneToMany(mappedBy = "organization")
     private List<Notification> notifications;
 
-    @OneToMany
+    @OneToMany(mappedBy = "organization")
     private List<User> users;
 
 

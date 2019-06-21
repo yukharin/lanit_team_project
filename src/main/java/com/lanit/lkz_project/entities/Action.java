@@ -9,28 +9,31 @@ import java.util.Date;
 public class Action {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "id_notification", referencedColumnName = "id", nullable = false)
     private Notification notification;
 
     @OneToOne
-    @JoinColumn(name = "id_action_type")
+    @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
     private ActionType actionType;
 
-    @Column
+    @Column(length = 300)
     private String content;
 
     @Temporal(TemporalType.DATE)
-    @Column
+    @Column(nullable = false)
     private Date date;
 
     @OneToOne
+    @JoinColumn(name = "id_implementor", referencedColumnName = "id", nullable = false)
     private User implementor;
 
     @OneToOne
+    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
     private NotificationStatus status;
 
     public Action() {
