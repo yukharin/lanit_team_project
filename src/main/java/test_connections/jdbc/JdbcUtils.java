@@ -1,4 +1,4 @@
-package jdbc;
+package test_connections.jdbc;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +22,7 @@ public class JdbcUtils {
             System.out.println(properties.getProperty("user"));
             System.out.println(properties.getProperty("password"));
 
-            //Class.forName("com.mysql.jdbc.Driver"); ///?useSSL=false
+            //Class.forName("com.mysql.test_connections.jdbc.Driver"); ///?useSSL=false
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
                     properties.getProperty("url"),

@@ -1,4 +1,4 @@
-package jdbc;
+package test_connections.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

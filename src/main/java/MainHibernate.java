@@ -43,7 +43,7 @@ public class MainHibernate {
 //    }
 
     private static final String usr = "vlad_yukharin";
-    private static final String url = "jdbc:mysql://127.0.0.1:3306/lanit?useSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC";
+    private static final String url = "test_connections.jdbc:mysql://127.0.0.1:3306/lanit?useSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC";
     private static final String passwrd = "password7788";
 
     public static void main(String[] args) {

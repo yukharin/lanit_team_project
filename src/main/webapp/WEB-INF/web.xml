@@ -6,11 +6,12 @@
          version="4.0">
 
     <display-name>A Simple App</display-name>
+
     <!--
     <description>Simple Servlet API App</description>
     <servlet>
         <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>servlet.HelloServlet</servlet-class>
+        <servlet-class>test_connections.servlet.HelloServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -21,14 +22,14 @@
      SPRING MVC-->
     <!--Spring Config-->
     <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
     </context-param>
-
+    
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
+    
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -38,6 +39,5 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-
+    
 </web-app>
