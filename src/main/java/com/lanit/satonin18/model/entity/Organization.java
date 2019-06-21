@@ -14,6 +14,7 @@ public class Organization { //Serializable
     @Column(name = "name")
     private String name;
 
+    //TODO in MySQL type = TINYINT(1)
     @Column(name = "org_type")
     private boolean orgType;
 

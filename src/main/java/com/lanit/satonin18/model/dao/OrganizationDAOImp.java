@@ -12,6 +12,7 @@ import java.util.List;
 @Repository("OrganizationDAO")
 public class OrganizationDAOImp implements OrganizationDAO {
 
+    //TODO @Resource(name="sessionFactory")
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -35,7 +36,7 @@ public class OrganizationDAOImp implements OrganizationDAO {
         // only search by name if theSearchName is not empty
         if (theSearchName != null && theSearchName.trim().length() > 0) {
             // search for firstName or lastName ... case insensitive
-            theQuery = currentSession.createQuery("from Organization where firstName like :theName or lastName like :theName", Organization.class);
+            theQuery = currentSession.createQuery("from Organization where name like :theName", Organization.class);
             theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
         }
         else {
@@ -65,7 +66,7 @@ public class OrganizationDAOImp implements OrganizationDAO {
     @Override
     public List<Organization> organizations() {
         Session session = sessionFactory.getCurrentSession();
-        List<Organization> organizations = session.createQuery("from Organization order by lastName", Organization.class).list();
+        List<Organization> organizations = session.createQuery("from Organization order by name", Organization.class).list();
         return organizations;
     }
 }
