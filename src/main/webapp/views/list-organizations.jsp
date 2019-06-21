@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -42,11 +42,8 @@
 
         <table>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Date</th>
-                <th>Action</th>
+                <th>Name</th>
+                <th>OrgType</th>
             </tr>
 
             <c:forEach var="tempOrganization" items="${listOfOrganizations}">
@@ -60,10 +57,8 @@
                 </c:url>
 
                 <tr>
-                    <td>${tempOrganization.firstName}</td>
-                    <td>${tempOrganization.lastName}</td>
-                    <td>${tempOrganization.email}</td>
-                    <td>${tempOrganization.date}</td>
+                    <td>${tempOrganization.name}</td>
+                    <td>${tempOrganization.orgType}</td>
                     <td>
                         <a href="${updateLink}">Update</a>
                         |

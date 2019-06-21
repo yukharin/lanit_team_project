@@ -12,7 +12,7 @@ public interface OrganizationService {
 
     public void updateOrganization(Organization organization) ;
 
-    public List<Organization> searchOrganizations(String theSearchName) ;
+ //   public List<Organization> searchOrganizations(String theSearchName) ;
 
     public void removeOrganization(int id) ;
 

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 //import org.apache.log4j.Logger;
 import com.lanit.satonin18.model.dao.OrganizationDAO;
+import com.lanit.satonin18.model.dao.OrganizationDAOImp;
 import com.lanit.satonin18.model.entity.Organization;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class OrganizationServiceImp  implements OrganizationService {
 
-    @Autowired
-    private OrganizationDAO organizationDAO;
+    // TODO @Autowired
+    private OrganizationDAO organizationDAO = new OrganizationDAOImp();
 
     @Override
     @Transactional
@@ -37,13 +38,13 @@ public class OrganizationServiceImp  implements OrganizationService {
     public void updateOrganization(Organization organization) {
         organizationDAO.updateOrganization(organization);
     }
-
+/*
     @Override
     @Transactional
     public List<Organization> searchOrganizations(String theSearchName) {
         return organizationDAO.searchOrganizations(theSearchName);
     }
-
+*/
     @Override
     @Transactional
     public void removeOrganization(int id) {

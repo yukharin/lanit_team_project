@@ -18,6 +18,7 @@ public class Organization { //Serializable
     @Column(name = "org_type")
     private boolean orgType;
 
+
     public Organization(){
     }
 

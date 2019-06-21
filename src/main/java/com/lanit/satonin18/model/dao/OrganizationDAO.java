@@ -13,7 +13,7 @@ public interface OrganizationDAO {
 
     public void updateOrganization(Organization organization) ;
 
-    public List<Organization> searchOrganizations(String theSearchName);
+//    public List<Organization> searchOrganizations(String theSearchName);
 
     public void removeOrganization(int id) ;
 
