@@ -7,13 +7,14 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Repository("OrganizationDAO")
 public class OrganizationDAOImp implements OrganizationDAO {
 
-    //TODO @Resource(name="sessionFactory")
-    @Autowired
+    @Resource(name="sessionFactory")
+    //TODO @@Autowired
     private SessionFactory sessionFactory;
 
     @Override
