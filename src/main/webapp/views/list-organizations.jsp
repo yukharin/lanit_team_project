@@ -16,7 +16,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Organization CRUD Application</title>
 
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+    <!--link type="text/css" rel="stylesheet" href="//{pageContext.request.contextPath}/resources/css/style.css" /-->
 </head>
 <body>
 <div id="wrapper">

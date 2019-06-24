@@ -20,10 +20,9 @@ import java.util.List;
 public class OrganizationController {
 
     //@Resource(name="organizationService")
+    //@Autowired
     //private OrganizationService organizationService;
-/*
-    @Autowired
-    private OrganizationService organizationService;
+    private OrganizationService organizationService = new OrganizationServiceImp();
 
     @GetMapping("/list")
     public String listOrganizations(Model model) {
@@ -31,7 +30,7 @@ public class OrganizationController {
         model.addAttribute("listOfOrganizations", organizations);
         return "list-organizations";
     }
-*/
+
 
 /*
     @RequestMapping(value = "/list", method = RequestMethod.GET)
