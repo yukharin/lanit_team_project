@@ -42,8 +42,11 @@
 
         <table>
             <tr>
+                <th>Id</th>
                 <th>Name</th>
-                <th>OrgType</th>
+                <th>government</th>
+                <th>government_org</th>
+                <th>users</th>
             </tr>
 
             <c:forEach var="tempOrganization" items="${listOfOrganizations}">
@@ -57,8 +60,11 @@
                 </c:url>
 
                 <tr>
+                    <td>${tempOrganization.id}</td>
                     <td>${tempOrganization.name}</td>
-                    <td>${tempOrganization.orgType}</td>
+                    <td>${tempOrganization.government}</td>
+                    <td>${tempOrganization.government_org}</td>
+                    <!--td>@{tempOrganization.users}</td-->
                     <td>
                         <a href="${updateLink}">Update</a>
                         |

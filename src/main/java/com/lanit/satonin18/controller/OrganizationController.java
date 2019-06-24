@@ -50,7 +50,7 @@ public class OrganizationController {
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView main() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("organizationJSP", new Organization("orgName", true));
+        modelAndView.addObject("organizationJSP", new Organization());
         modelAndView.setViewName("index");
         return modelAndView;
     }

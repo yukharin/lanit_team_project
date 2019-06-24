@@ -6,7 +6,7 @@
 <body>
     Введенное имя: ${organizationJSP.name};
     <br/>
-    Введенный orgType: ${organizationJSP.orgType};
+    Введенный orgType: ${organizationJSP.government};
     <br/>
 </body>
 </html>
