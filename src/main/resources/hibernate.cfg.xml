@@ -17,6 +17,8 @@
         <property name="current_session_context_class">thread</property>
 
         <mapping class="com.lanit.satonin18.model.entity.Organization"/>
-
+        <!--
+        <mapping resource="com/lanit/satonin18/model/entity/other_approach/use_xml_lombok/Organization.hbm.xml"/>
+         -->
     </session-factory>
 </hibernate-configuration>

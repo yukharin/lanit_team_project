@@ -12,35 +12,38 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.util.List;
 
+//can 9 LOMBOK
 @Repository("OrganizationDAO")
 public class OrganizationDAOImp implements OrganizationDAO {
 
     //TODO @Resource(name="sessionFactory")
     //TODO @@Autowired
     private SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+    //@Resource(name="sessionFactory")
+    //private SessionFactory sessionFactory;
 
     @Override
-    public void addOrganization(Organization organization) {
+    public void addOrganization(Organization organization) {  //TODO need add @NotNull final IN ARG //throws Exc
         //Session session = sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction tx1 = session.beginTransaction();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
 
-        session.saveOrUpdate(organization);
+            session.saveOrUpdate(organization);
 
-        tx1.commit();
-        session.close();
+            tx1.commit();
+        }
     }
 
     @Override
     public void updateOrganization(Organization organization) {
         //Session session = sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction tx1 = session.beginTransaction();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
 
-        session.update(organization);
+            session.update(organization);
 
-        tx1.commit();
-        session.close();
+            tx1.commit();
+        }
     }
 /*
     @Override
@@ -65,41 +68,42 @@ public class OrganizationDAOImp implements OrganizationDAO {
     @Override
     public void removeOrganization(int id) {
         //Session session = sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction tx1 = session.beginTransaction();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
 
-        Organization organization = session.load(Organization.class, id);
+            Organization organization = session.load(Organization.class, id);
 
-        if(organization != null)
-            session.delete(organization);
+            if(organization != null)
+                session.delete(organization);
 
-        tx1.commit();
-        session.close();
+            tx1.commit();
+        }
     }
 
     @Override
     public Organization getOrganizationById(int id) {
         //Session session = sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction tx1 = session.beginTransaction();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
 
-        Organization organization = session.get(Organization.class, id);
+            Organization organization = session.get(Organization.class, id);
 
-        tx1.commit();
-        session.close();
-        return organization;
+            tx1.commit();
+            session.close();
+            return organization;
+        }
     }
 
     @Override
     public List<Organization> organizations() {
         //Session session = sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction tx1 = session.beginTransaction();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
 
-        List<Organization> organizations = session.createQuery("from Organization order by name", Organization.class).list();
+            List<Organization> organizations = session.createQuery("from Organization order by name", Organization.class).list();
 
-        tx1.commit();
-        session.close();
-        return organizations;
+            tx1.commit();
+            return organizations;
+        }
     }
 }

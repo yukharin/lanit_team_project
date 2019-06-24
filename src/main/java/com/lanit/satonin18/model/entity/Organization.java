@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-@Component //TODO CHECK SpringMVC without Hibernate
+//@Component //TODO CHECK SpringMVC without Hibernate
 @Entity
 @Table(name = "organizations")
 public class Organization { //Serializable
@@ -18,6 +18,7 @@ public class Organization { //Serializable
     private String name;
 
     //TODO in MySQL type = TINYINT(1)
+    //TODO @Converter
     @Column(name = "org_type")
     private boolean orgType;
 
