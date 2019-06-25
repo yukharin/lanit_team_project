@@ -1,25 +1,25 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">admin</property>
-        <property name="connection.url">
-            jdbc:mysql://localhost:3306/lanit?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
-        </property>
-        <property name="connection.autocommit">false</property>
-        <property name="connection.pool_size">1</property>
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="show_sql">true</property>
-        <property name="current_session_context_class">thread</property>
+	<session-factory>
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">admin</property>
+		<property name="connection.url">
+			jdbc:mysql://localhost:3306/lanit?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
+		</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.archive.autodetection">class,hbm</property>
 
-        <mapping class="com.lanit.satonin18.model.entity.Organization"/>
-        <mapping class="com.lanit.satonin18.model.entity.User"/>
-        <!--
-        <mapping resource="com/lanit/satonin18/model/entity/other_approach/use_xml_lombok/Organization.hbm.xml"/>
-         -->
-    </session-factory>
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.acquire_increment">2</property>
+		<property name="hibernate.c3p0.acquire_increment">1800</property>
+		<property name="hibernate.c3p0.max_statements">150</property>
+	</session-factory>
 </hibernate-configuration>
