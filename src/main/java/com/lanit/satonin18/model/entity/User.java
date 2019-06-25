@@ -5,7 +5,9 @@ import javax.persistence.*;
 
 //@Component //for CHECK SpringMVC without Hibernate
 @Entity
+//@Embeddable
 @Table(name = "users")
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
 //@Data //get and set
 //@ToString
@@ -21,9 +23,9 @@ public class User { //Serializable
     private String first_name;
     private String last_name;
 
-    @ManyToOne
-    @JoinColumn(name = "id_org", referencedColumnName = "id", nullable = false)
-    private Organization organization;
+    @ManyToOne(fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
+    protected Organization organization;
 
     //-------------------------
 
@@ -74,7 +76,7 @@ public class User { //Serializable
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", organization=" + organization +
+    //todo loop            ", organization=" + organization +
                 '}';
     }
 }

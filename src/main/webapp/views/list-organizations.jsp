@@ -64,11 +64,11 @@
                     <td>${tempOrganization.name}</td>
                     <td>${tempOrganization.government}</td>
                     <td>${tempOrganization.government_org}</td>
-                    <!--td>@{tempOrganization.users}</td-->
+                    <td>${tempOrganization.users}</td>
                     <td>
                         <a href="${updateLink}">Update</a>
-                        |
                         <a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>
+                        |
                     </td>
                 </tr>
             </c:forEach>

@@ -3,7 +3,10 @@ package com.lanit.satonin18.model.entity;
 import lombok.*;
 import org.springframework.stereotype.Component;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //@Component //for CHECK SpringMVC without Hibernate
 @Entity
@@ -32,25 +35,26 @@ public class Organization { //Serializable
 
     //@Access(AccessType.PROPERTY)
     //@Column
-    //@ElementCollection(targetClass=User.class)
+//    @ElementCollection(targetClass=User.class)
+//    @CollectionTable(
+//            name="users",
+//            joinColumns=@JoinColumn(name="id_org")
+//    )
+    @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
+    protected List<User> users = new ArrayList<User>();// = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "organization")
-//    private List<User> users ;
-
-    //@OneToMany(mappedBy = "organization")
-    //private List<Notification> notifications = new ArrayList<>();
 
     //-----------------------------------------
 
     public Organization() {
     }
 
-//    public Organization(String name, boolean government, Organization government_org, List<User> users) {
-//        this.name = name;
-//        this.government = government;
-//        this.government_org = government_org;
-//        this.users = users;
-//    }
+    public Organization(String name, boolean government, Organization government_org, List<User> users) {
+        this.name = name;
+        this.government = government;
+        this.government_org = government_org;
+        this.users = users;
+    }
 
     public int getId() {
         return id;
@@ -85,13 +89,13 @@ public class Organization { //Serializable
     }
 
 
-//    public List<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(List<User> users) {
-//        this.users = users;
-//    }
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     @Override
     public String toString() {
@@ -100,6 +104,7 @@ public class Organization { //Serializable
                 ", name='" + name + '\'' +
                 ", government=" + government +
                 ", government_org=" + government_org +
+                ", users=" + users +
                 '}';
     }
 }
