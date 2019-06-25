@@ -12,12 +12,12 @@ import java.util.Set;
 @Entity
 @Table(name = "organizations")
 
-//@Data //get and set
-//@ToString
-//@EqualsAndHashCode
-//@NoArgsConstructor
-//@AllArgsConstructor
-public class Organization { //Serializable
+@Data //get and set
+//@ToString //can be loop
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class Organization {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,60 +43,6 @@ public class Organization { //Serializable
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
     protected List<User> users = new ArrayList<User>();// = new ArrayList<>();
 
-
-    //-----------------------------------------
-
-    public Organization() {
-    }
-
-    public Organization(String name, boolean government, Organization government_org, List<User> users) {
-        this.name = name;
-        this.government = government;
-        this.government_org = government_org;
-        this.users = users;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isGovernment() {
-        return government;
-    }
-
-    public void setGovernment(boolean government) {
-        this.government = government;
-    }
-
-    public Organization getGovernment_org() {
-        return government_org;
-    }
-
-    public void setGovernment_org(Organization government_org) {
-        this.government_org = government_org;
-    }
-
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
     @Override
     public String toString() {
         return "Organization{" +
@@ -104,7 +50,8 @@ public class Organization { //Serializable
                 ", name='" + name + '\'' +
                 ", government=" + government +
                 ", government_org=" + government_org +
-                ", users=" + users +
+//todo loop         ", users=" + users +
                 '}';
     }
+
 }

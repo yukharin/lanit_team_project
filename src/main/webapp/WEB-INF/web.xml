@@ -7,6 +7,11 @@
 
     <display-name>A Simple App</display-name>
 
+    <!--welcome-file-list>
+        <welcome-file>list-organizations.jsp</welcome-file>
+        <welcome-file>list-organizations.html</welcome-file>
+    </welcome-file-list-->
+
     <!--
     <description>Simple Servlet API App</description>
     <servlet>
@@ -25,7 +30,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
     </context-param>
-    
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

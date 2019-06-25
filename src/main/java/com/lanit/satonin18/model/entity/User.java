@@ -9,12 +9,12 @@ import javax.persistence.*;
 @Table(name = "users")
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
-//@Data //get and set
-//@ToString
-//@EqualsAndHashCode
-//@NoArgsConstructor
-//@AllArgsConstructor
-public class User { //Serializable
+@Data //get and set
+//@ToString //can be loop
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,56 +27,13 @@ public class User { //Serializable
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
     protected Organization organization;
 
-    //-------------------------
-
-    public User() {
-    }
-
-    public User(String first_name, String last_name, Organization organization) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.organization = organization;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-    //todo loop            ", organization=" + organization +
+                 ", organization=" + organization +
                 '}';
     }
 }

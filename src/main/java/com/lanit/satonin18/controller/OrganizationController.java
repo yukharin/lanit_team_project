@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Controller
+@Controller("organizationController")
 @RequestMapping("/organization")
 public class OrganizationController {
 
