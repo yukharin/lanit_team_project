@@ -17,15 +17,17 @@
 	   http://www.springframework.org/schema/jdbc
        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-
-    <mvc:annotation-driven />
+    <!-- ??? -->
     <context:annotation-config />
+    <!-- Add support for conversion, formatting and validation support -->
+    <mvc:annotation-driven />
+    <!-- Add support for component scanning -->
     <context:component-scan base-package="com.lanit.satonin18" />
 
+    <!-- Define Spring MVC view resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/Views/" />
         <property name="suffix" value=".jsp" />
     </bean>
-
 
 </beans>

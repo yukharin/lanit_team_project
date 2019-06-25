@@ -4,6 +4,7 @@ import com.lanit.satonin18.model.entity.Organization;
 import com.lanit.satonin18.model.service.OrganizationService;
 import com.lanit.satonin18.model.service.OrganizationServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +17,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Controller("organizationController")
+//@Scope("session")
 @RequestMapping("/organization")
 public class OrganizationController {
 
-    //@Resource(name="organizationService")
-    //@Autowired
-    //private OrganizationService organizationService;
-    private OrganizationService organizationService = new OrganizationServiceImp();
+    @Autowired
+    private OrganizationService organizationService;
+    //private OrganizationService organizationService = new OrganizationServiceImp();
 
     @GetMapping("/list")
     public String listOrganizations(Model model) {
@@ -30,17 +31,6 @@ public class OrganizationController {
         model.addAttribute("listOfOrganizations", organizations);
         return "list-organizations";
     }
-
-
-/*
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView list() {
-        ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.addObject("organizationJSP", new Organization());
-        modelAndView.setViewName("listOfOrganizations");
-        return modelAndView;
-    }
-*/
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String viewHome(){

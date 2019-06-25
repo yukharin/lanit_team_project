@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//@Component //for CHECK SpringMVC without Hibernate
 @Entity
 @Table(name = "organizations")
 
@@ -33,13 +32,6 @@ public class Organization {
     @JoinColumn(name = "id_gos_org")
     private Organization government_org;
 
-    //@Access(AccessType.PROPERTY)
-    //@Column
-//    @ElementCollection(targetClass=User.class)
-//    @CollectionTable(
-//            name="users",
-//            joinColumns=@JoinColumn(name="id_org")
-//    )
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
     protected List<User> users = new ArrayList<User>();// = new ArrayList<>();
 
@@ -50,7 +42,7 @@ public class Organization {
                 ", name='" + name + '\'' +
                 ", government=" + government +
                 ", government_org=" + government_org +
-//todo loop         ", users=" + users +
+// loop         ", users=" + users +
                 '}';
     }
 

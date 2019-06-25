@@ -8,19 +8,21 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.annotation.Resource;
 import java.util.List;
 
-//can 9 LOMBOK
-@Repository("OrganizationDAO")
+@Repository("organizationDAO")
 public class OrganizationDAOImp implements OrganizationDAO {
 
-    //TODO @Resource(name="sessionFactory")
-    //TODO @@Autowired
-    private SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+    //@Component
+    //@Inject
     //@Resource(name="sessionFactory")
+    //@Qualifier("sessionFactory")
+    //@Named("sessionFactory")
+    //add bean with info hibernate
+    //@Autowired
     //private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
 
     @Override
     public void addOrganization(Organization organization) {  //TODO need add @NotNull final IN ARG //throws Exc

@@ -20,8 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class OrganizationServiceImp  implements OrganizationService {
 
-    // TODO @Autowired
-    private OrganizationDAO organizationDAO = new OrganizationDAOImp();
+    @Autowired
+    private OrganizationDAO organizationDAO;
+    //private OrganizationDAO organizationDAO = new OrganizationDAOImp();
 
     @Override
     @Transactional
