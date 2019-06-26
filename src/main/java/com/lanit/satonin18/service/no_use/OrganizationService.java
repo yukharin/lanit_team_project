@@ -1,5 +1,4 @@
-package com.lanit.satonin18.service;
-
+package com.lanit.satonin18.service.no_use;
 
 import com.lanit.satonin18.model.Organization;
 

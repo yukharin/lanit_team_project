@@ -23,7 +23,7 @@
 	<div id="content">
 
 		<input type="button" value="Add Customer"
-			   onclick="window.location.href='showFormForAdd'; return false;"
+			   onclick="window.location.href='add'; return false;"
 			   class="add-button"
 		/>
 
@@ -38,8 +38,9 @@
 			<tr>
 				<th>Id</th>
 				<th>organization</th>
-				<th>first_name</th>
-				<th>last_name</th>
+				<th>firstName</th>
+				<th>lastName</th>
+				<th>f(x)</th>
 			</tr>
 
 			<c:forEach var="tempUser" items="${list}">
@@ -55,8 +56,8 @@
 				<tr>
 					<td>${tempUser.id}</td>
 					<td>${tempUser.organization}</td>
-					<td>${tempUser.first_name}</td>
-					<td>${tempUser.last_name}</td>
+					<td>${tempUser.firstName}</td>
+					<td>${tempUser.lastName}</td>
 					<td>
 						<a href="${updateLink}">Update</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

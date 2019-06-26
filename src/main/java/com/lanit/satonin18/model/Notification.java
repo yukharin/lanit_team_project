@@ -6,8 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
-import java.util.Objects;
+import java.util.Collection;
 
 @Entity
 @Table(name = "notifications")
@@ -17,9 +18,10 @@ import java.util.Objects;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notification {
+public class Notification implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Basic
@@ -38,6 +40,25 @@ public class Notification {
     @Column(name = "letter_number", nullable = true, length = 12)
     private String letterNumber;
 
+//    @OneToMany(mappedBy = "notificationByIdNotification")
+//    private Collection<Action> actions;
+
+    @ManyToOne
+    @JoinColumn(name = "id_org", referencedColumnName = "id", nullable = false)
+    private Organization organization;
+
+//    @ManyToOne
+//    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+//    private NotificationStatus notificationStatusByIdNotificationStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user_curator_gos", referencedColumnName = "id", nullable = false)
+    private User userByIdUserCuratorGos;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
+    private User userByIdUserImplementor;
+
     @Override
     public String toString() {
         return "Notification{" +
@@ -46,6 +67,11 @@ public class Notification {
                 ", dateReceived=" + dateReceived +
                 ", dateResponse=" + dateResponse +
                 ", letterNumber='" + letterNumber + '\'' +
+//                ", actionsById=" + actions +
+                ", organization=" + organization +
+//                ", notificationStatusByIdNotificationStatus=" + notificationStatusByIdNotificationStatus +
+//                ", userByIdUserCuratorGos=" + userByIdUserCuratorGos +
+//                ", userByIdUserImplementor=" + userByIdUserImplementor +
                 '}';
     }
 }

@@ -3,8 +3,10 @@ package com.lanit.satonin18.service;
 
 //import org.apache.log4j.Logger;
 
-import com.lanit.satonin18.dao.OrganizationDAO;
+import com.lanit.satonin18.dao.CrudDAO;
+import com.lanit.satonin18.dao.no_use.OrganizationDAO;
 import com.lanit.satonin18.model.Organization;
+import com.lanit.satonin18.service.no_use.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,10 @@ import java.util.List;
 
 @Service("organizationService")
 @Transactional
-public class OrganizationServiceImp  implements OrganizationService {
+public class OrganizationServiceImp  implements CrudService<Organization> {
 
     @Autowired
-    private OrganizationDAO organizationDAO;
-    //private OrganizationDAO organizationDAO = new OrganizationDAOImp();
+    private CrudDAO<Organization> organizationDAO;
 
     @Override
     @Transactional

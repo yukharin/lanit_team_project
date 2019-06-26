@@ -3,6 +3,8 @@ package com.lanit.satonin18.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 //@Component //for CHECK SpringMVC without Hibernate
 @Entity
@@ -15,27 +17,31 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
     protected Organization organization;
 
-    private String first_name;
-    private String last_name;
+    @Basic
+    @Column(name = "first_name", nullable = false, length = 45)
+    private String firstName;
 
+    @Basic
+    @Column(name = "last_name", nullable = false, length = 45)
+    private String lastName;
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                 ", organization=" + organization +
+                ", first_name='" + firstName + '\'' +
+                ", last_name='" + lastName + '\'' +
+                ", organization=" + organization +
                 '}';
     }
 }

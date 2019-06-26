@@ -41,6 +41,7 @@
                 <th>government</th>
                 <th>government_org</th>
                 <th>users</th>
+                <th>f(x)</th>
             </tr>
 
             <c:forEach var="tempOrganization" items="${list}">

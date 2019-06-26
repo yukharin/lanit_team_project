@@ -1,8 +1,6 @@
 package com.lanit.satonin18.config;
 
-import com.lanit.satonin18.model.Notification;
-import com.lanit.satonin18.model.Organization;
-import com.lanit.satonin18.model.User;
+import com.lanit.satonin18.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +23,16 @@ public class HibernateConfig {
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-		factoryBean.setAnnotatedClasses(Organization.class, User.class, Notification.class);
+		factoryBean.setAnnotatedClasses(
+				//can be add packet with all anotation's classes
+//				Action.class,
+//				ActionPK.class,
+//				ActionType.class,
+//				Notification.class,
+//				NotificationStatus.class,
+				Organization.class,
+				User.class
+		);
 		return factoryBean;
 	}
 

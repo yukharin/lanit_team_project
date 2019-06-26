@@ -7,17 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
-@Repository("userDAO")
-public class UserDAOImp implements UserDAO {
 
-   //private SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
-   //@Component
-   //@Inject
-   //@Resource(name="sessionFactory")
-   //@Qualifier("sessionFactory")
-   //@Named("sessionFactory")
+@Repository("userDAO")
+public class UserDAOImp implements CrudDAO<User> {
+
    @Autowired
    private SessionFactory sessionFactory;
 

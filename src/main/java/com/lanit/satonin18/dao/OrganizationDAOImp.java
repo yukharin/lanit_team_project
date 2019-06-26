@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository("organizationDAO")
-public class OrganizationDAOImp implements OrganizationDAO {
+public class OrganizationDAOImp implements CrudDAO<Organization> {
 
     //private SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
     //@Component
