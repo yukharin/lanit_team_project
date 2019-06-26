@@ -1,9 +1,7 @@
 package com.lanit.satonin18.controller.crud;
 
-
 import com.lanit.satonin18.model.Organization;
 import com.lanit.satonin18.service.CrudService;
-import com.lanit.satonin18.service.no_use.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,20 +29,20 @@ public class OrganizationController {
 
 
 /*
-    @ModelAttribute("organization")
+    @ModelAttribute("userOrg")
     public Organization formBackingObject() {
         return new Organization();
     }
 
     @PostMapping("/saveOrUpdate")
-    public String saveOrganization(@ModelAttribute("organization") @Valid Organization organization, BindingResult result, Model model) {
+    public String saveOrganization(@ModelAttribute("userOrg") @Valid Organization userOrg, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             model.addAttribute("list", organizationService.list());
             return "editOrganizations";
         }
 
-        organizationService.update(organization);
+        organizationService.update(userOrg);
         return "redirect:/";
     }
 */

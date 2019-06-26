@@ -37,7 +37,7 @@
                 <td><label>Organization: </label></td>
                 <td>
                     <%--<pre>--%>
-                        <%--<form:select path="organization" >--%>
+                        <%--<form:select path="userOrg" >--%>
                             <%--<c:forEach items="${listOrg}" var="org">--%>
                                 <%--<form:option value ="${org}" label="${org.toString()}"></form:option>--%>
                             <%--</c:forEach>--%>

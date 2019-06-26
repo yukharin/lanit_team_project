@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 //@Component //for CHECK SpringMVC without Hibernate
 @Entity
@@ -25,7 +24,7 @@ public class User implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
-    protected Organization organization;
+    protected Organization userOrg;
 
     @Basic
     @Column(name = "first_name", nullable = false, length = 45)
@@ -41,7 +40,7 @@ public class User implements Serializable {
                 "id=" + id +
                 ", first_name='" + firstName + '\'' +
                 ", last_name='" + lastName + '\'' +
-                ", organization=" + organization +
+                ", userOrg=" + userOrg +
                 '}';
     }
 }

@@ -3,13 +3,11 @@ package com.lanit.satonin18.controller.crud;
 import com.lanit.satonin18.model.Organization;
 import com.lanit.satonin18.model.User;
 import com.lanit.satonin18.service.CrudService;
-import com.lanit.satonin18.service.no_use.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.lanit.satonin18.service.no_use.UserService;
 
 @Controller("userController")
 //@Scope("session")

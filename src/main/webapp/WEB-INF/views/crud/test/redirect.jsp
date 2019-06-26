@@ -1,1 +1,1 @@
-<% response.sendRedirect("organization/list"); %>
+<% response.sendRedirect("userOrg/list"); %>

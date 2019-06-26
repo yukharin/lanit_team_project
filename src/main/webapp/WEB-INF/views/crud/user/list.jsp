@@ -37,7 +37,7 @@
 		<table>
 			<tr>
 				<th>Id</th>
-				<th>organization</th>
+				<th>userOrg</th>
 				<th>firstName</th>
 				<th>lastName</th>
 				<th>f(x)</th>
@@ -55,7 +55,7 @@
 
 				<tr>
 					<td>${tempUser.id}</td>
-					<td>${tempUser.organization}</td>
+					<td>${tempUser.userOrg}</td>
 					<td>${tempUser.firstName}</td>
 					<td>${tempUser.lastName}</td>
 					<td>

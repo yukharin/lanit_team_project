@@ -28,8 +28,10 @@ public class HibernateConfig {
 //				Action.class,
 //				ActionPK.class,
 //				ActionType.class,
-//				Notification.class,
 //				NotificationStatus.class,
+
+				Notification.class,
+
 				Organization.class,
 				User.class
 		);

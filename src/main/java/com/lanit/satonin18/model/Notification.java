@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Collection;
 
 @Entity
 @Table(name = "notifications")
@@ -23,6 +22,10 @@ public class Notification implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
+    protected Organization notificOrg;
 
     @Basic
     @Column(name = "notification_type", nullable = true, length = 150)
@@ -43,9 +46,7 @@ public class Notification implements Serializable {
 //    @OneToMany(mappedBy = "notificationByIdNotification")
 //    private Collection<Action> actions;
 
-    @ManyToOne
-    @JoinColumn(name = "id_org", referencedColumnName = "id", nullable = false)
-    private Organization organization;
+
 
 //    @ManyToOne
 //    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
@@ -68,7 +69,7 @@ public class Notification implements Serializable {
                 ", dateResponse=" + dateResponse +
                 ", letterNumber='" + letterNumber + '\'' +
 //                ", actionsById=" + actions +
-                ", organization=" + organization +
+                ", userOrg=" + notificOrg +
 //                ", notificationStatusByIdNotificationStatus=" + notificationStatusByIdNotificationStatus +
 //                ", userByIdUserCuratorGos=" + userByIdUserCuratorGos +
 //                ", userByIdUserImplementor=" + userByIdUserImplementor +
