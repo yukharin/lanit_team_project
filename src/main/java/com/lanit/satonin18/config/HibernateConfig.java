@@ -25,10 +25,11 @@ public class HibernateConfig {
 		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
 		factoryBean.setAnnotatedClasses(
 				//can be add packet with all anotation's classes
-//				Action.class,
 //				ActionPK.class,
 //				ActionType.class,
 //				NotificationStatus.class,
+
+//				Action.class,
 
 				Notification.class,
 

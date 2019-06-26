@@ -5,9 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-//@Component //for CHECK SpringMVC without Hibernate
 @Entity
-//@Embeddable
 @Table(name = "users")
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
@@ -22,9 +20,9 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
-    protected Organization userOrg;
+    private/*protected*/ Organization userOrg;
 
     @Basic
     @Column(name = "first_name", nullable = false, length = 45)

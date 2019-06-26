@@ -37,11 +37,11 @@ public class Organization implements Serializable {
     private Organization government_org;
 
 
-    @OneToMany(mappedBy = "userOrg", fetch = FetchType.EAGER)//, cascade = CascadeType.ALL))
-    protected List<User> users = new ArrayList<User>();
-    //not work
-//    @OneToMany(mappedBy = "notificOrg", fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)//FetchType.LAZY)//
-//    protected List<Notification> notifications = new ArrayList<Notification>();
+    @OneToMany(mappedBy = "userOrg")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL))
+    private/*protected*/ List<User> users;// = new ArrayList<User>();
+    //TODO: not work
+    @OneToMany(mappedBy = "notificOrg")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)//FetchType.LAZY)//
+    private/*protected*/ List<Notification> notifications;// = new ArrayList<Notification>();
 
     @Override
     public String toString() {

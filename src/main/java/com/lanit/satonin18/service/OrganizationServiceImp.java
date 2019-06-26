@@ -17,37 +17,31 @@ public class OrganizationServiceImp  implements CrudService<Organization> {
     private CrudDAO<Organization> organizationDAO;
 
     @Override
-    @Transactional
     public void saveOrUpdate(Organization organization) {
         organizationDAO.saveOrUpdate(organization);
     }
 
     @Override
-    @Transactional
     public void update(Organization organization) {
         organizationDAO.update(organization);
     }
 /*
     @Override
-    @Transactional
     public List<Organization> searchOrganizations(String theSearchName) {
         return organizationDAO.searchOrganizations(theSearchName);
     }
 */
     @Override
-    @Transactional
     public void delete(int id) {
         organizationDAO.delete(id);
     }
 
     @Override
-    @Transactional
     public Organization getById(int id) {
         return organizationDAO.getById(id);
     }
 
     @Override
-    @Transactional
     public List<Organization> list() {
         return organizationDAO.list();
     }

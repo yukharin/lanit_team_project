@@ -34,19 +34,19 @@ public class Action {
 
     @ManyToOne
     @JoinColumn(name = "id_notification", referencedColumnName = "id", nullable = false)
-    private Notification notificationByIdNotification;
+    private Notification notification;
 
-    @ManyToOne
-    @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
-    private ActionType actionType;
+//    @ManyToOne
+//    @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
+//    private ActionType actionType;
 
     @ManyToOne
     @JoinColumn(name = "id_implementor", referencedColumnName = "id", nullable = false)
     private User userByIdImplementor;
 
-    @ManyToOne
-    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
-    private NotificationStatus notificationStatusAfterProcessing;
+//    @ManyToOne
+//    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+//    private NotificationStatus notificationStatusAfterProcessing;
 
     @Override
     public String toString() {
@@ -54,10 +54,10 @@ public class Action {
                 "id=" + id +
                 ", content='" + content + '\'' +
                 ", date=" + date +
-//                ", notificationByIdNotification=" + notificationByIdNotification +
-                ", actionTypByIdActionType=" + actionType +
+                ", notification=" + notification +
+//                ", actionType=" + actionType +
                 ", userByIdImplementor=" + userByIdImplementor +
-                ", notificationStatusAfterProcessing=" + notificationStatusAfterProcessing +
+//                ", notificationStatusAfterProcessing=" + notificationStatusAfterProcessing +
                 '}';
     }
 }
