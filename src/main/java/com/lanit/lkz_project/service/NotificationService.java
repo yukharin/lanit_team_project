@@ -30,12 +30,12 @@ public class NotificationService {
     }
 
     @Transactional
-    public void removeNotification(int id) {
+    public void removeNotification(long id) {
         notificationDAO.removeNotification(id);
     }
 
     @Transactional
-    public Notification getNotification(int id) {
+    public Notification getNotification(long id) {
         return notificationDAO.getNotification(id);
     }
 

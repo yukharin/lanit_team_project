@@ -30,12 +30,12 @@ public class OrganizationService {
     }
 
     @Transactional
-    public void removeOrganization(int id) {
+    public void removeOrganization(long id) {
         organizationDAO.removeOrganization(id);
     }
 
     @Transactional
-    public Organization getOrganization(int id) {
+    public Organization getOrganization(long id) {
         return organizationDAO.getOrganization(id);
     }
 

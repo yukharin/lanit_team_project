@@ -12,7 +12,7 @@ public class ActionType {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "name", length = 45, nullable = false)

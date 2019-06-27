@@ -31,12 +31,12 @@ public class ActionService {
     }
 
     @Transactional
-    public void removeAction(int id) {
+    public void removeAction(long id) {
         actionDAO.removeAction(id);
     }
 
     @Transactional
-    public Action getAction(int id) {
+    public Action getAction(long id) {
         return actionDAO.getAction(id);
     }
 

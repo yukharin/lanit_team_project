@@ -30,7 +30,7 @@ public class ActionTypeDAO {
         session.delete(actionType);
     }
 
-    public ActionType getActionType(int id) {
+    public ActionType getActionType(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.load(ActionType.class, id);
     }

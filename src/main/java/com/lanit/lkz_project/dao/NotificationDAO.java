@@ -30,7 +30,7 @@ public class NotificationDAO {
         session.delete(notification);
     }
 
-    public void removeNotification(int id) {
+    public void removeNotification(long id) {
         Session session = sessionFactory.getCurrentSession();
         Notification notification = session.load(Notification.class, id);
         if (notification != null) {
@@ -38,7 +38,7 @@ public class NotificationDAO {
         }
     }
 
-    public Notification getNotification(int id) {
+    public Notification getNotification(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.load(Notification.class, id);
     }

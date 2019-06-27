@@ -31,7 +31,7 @@ public class UserDAO {
         session.delete(user);
     }
 
-    public void removeUser(int id) {
+    public void removeUser(long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.load(User.class, id);
         if (user != null)
@@ -39,7 +39,7 @@ public class UserDAO {
     }
 
 
-    public User getUserById(int id) {
+    public User getUserById(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(User.class, id);
     }

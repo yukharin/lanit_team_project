@@ -29,7 +29,7 @@ public class NotificationStatusDAO {
         session.delete(status);
     }
 
-    public NotificationStatus getNotificationStatus(int id) {
+    public NotificationStatus getNotificationStatus(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.load(NotificationStatus.class, id);
     }

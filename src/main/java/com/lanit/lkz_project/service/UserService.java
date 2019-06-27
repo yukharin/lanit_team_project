@@ -31,12 +31,12 @@ public class UserService {
     }
 
     @Transactional
-    public void removeUser(int id) {
+    public void removeUser(long id) {
         userDAO.removeUser(id);
     }
 
     @Transactional
-    public User getUser(int id) {
+    public User getUser(long id) {
         return userDAO.getUserById(id);
     }
 

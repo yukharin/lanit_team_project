@@ -29,7 +29,7 @@ public class OrganizationDAO {
         session.delete(organization);
     }
 
-    public void removeOrganization(int id) {
+    public void removeOrganization(long id) {
         Session session = sessionFactory.getCurrentSession();
         Organization organization = session.load(Organization.class, id);
         if (organization != null) {
@@ -37,7 +37,7 @@ public class OrganizationDAO {
         }
     }
 
-    public Organization getOrganization(int id) {
+    public Organization getOrganization(long id) {
         Session session = sessionFactory.getCurrentSession();
         Organization organization = session.get(Organization.class, id);
         return organization;

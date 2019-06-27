@@ -13,7 +13,7 @@ public class NotificationStatus {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
