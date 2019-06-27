@@ -16,7 +16,6 @@ public class ActionController {
     @Autowired
     private ActionService service;
 
-
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<Action> actions() {

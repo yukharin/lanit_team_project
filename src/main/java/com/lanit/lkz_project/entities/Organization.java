@@ -28,11 +28,11 @@ public class Organization {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "organization")
-    private List<Notification> notifications;
+    private transient List<Notification> notifications;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "organization")
-    private List<User> users;
+    private transient List<User> users;
 
 
     public Organization() {
@@ -47,12 +47,13 @@ public class Organization {
         this.users = users;
     }
 
-
     @Override
     public String toString() {
         return "Organization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", orgType=" + orgType;
+                ", orgType=" + orgType +
+                ", govOrganization=" + govOrganization +
+                '}';
     }
 }

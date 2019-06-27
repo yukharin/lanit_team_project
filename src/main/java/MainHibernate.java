@@ -1,9 +1,11 @@
+import com.google.gson.Gson;
 import com.lanit.lkz_project.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.io.File;
+import java.util.List;
 
 public class MainHibernate {
 
@@ -65,7 +67,10 @@ public class MainHibernate {
 
     private static void code(Session session) {
 
-        User user = session.load(User.class, 4);
-        session.delete(user);
+        List<User> users = session.createQuery("FROM User ").list();
+        Gson gson = new Gson();
+        StringBuilder sb = new StringBuilder();
+        String str = gson.toJson(users);
+        System.out.println(str);
     }
 }
