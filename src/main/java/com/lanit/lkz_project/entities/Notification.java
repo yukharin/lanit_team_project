@@ -52,21 +52,6 @@ public class Notification {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Action> actions;
 
-    public Notification() {
-    }
-
-    public Notification(Organization organization, String notificationType, NotificationStatus status, Date dateRecieved, Date dateResponse,
-                        String letterNumber, User userCuratorGos, User userImplementor, List<Action> actions) {
-        this.organization = organization;
-        this.notificationType = notificationType;
-        this.status = status;
-        this.dateRecieved = dateRecieved;
-        this.dateResponse = dateResponse;
-        this.letterNumber = letterNumber;
-        this.userCuratorGos = userCuratorGos;
-        this.userImplementor = userImplementor;
-        this.actions = actions;
-    }
 
     @Override
     public String toString() {

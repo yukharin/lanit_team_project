@@ -1,12 +1,16 @@
 package com.lanit.lkz_project.entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "actions")
 public class Action {
@@ -38,18 +42,6 @@ public class Action {
     @OneToOne
     @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
     private NotificationStatus status;
-
-    public Action() {
-    }
-
-    public Action(Notification notification, ActionType actionType, String content, Date date, User implementor, NotificationStatus status) {
-        this.notification = notification;
-        this.actionType = actionType;
-        this.content = content;
-        this.date = date;
-        this.implementor = implementor;
-        this.status = status;
-    }
 
 
     @Override

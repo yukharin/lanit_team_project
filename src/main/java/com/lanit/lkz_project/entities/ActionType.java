@@ -1,10 +1,14 @@
 package com.lanit.lkz_project.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "action_types")
 public class ActionType {
@@ -22,12 +26,6 @@ public class ActionType {
         DIRECTING_RESPONSE, CONFORM_RESPONSE, REJECT_RESPONSE
     }
 
-    public ActionType() {
-    }
-
-    public ActionType(Type type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {

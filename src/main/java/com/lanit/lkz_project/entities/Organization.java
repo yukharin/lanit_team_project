@@ -1,11 +1,17 @@
 package com.lanit.lkz_project.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "organizations")
 public class Organization {
@@ -34,18 +40,6 @@ public class Organization {
     @OneToMany(mappedBy = "organization")
     private transient List<User> users;
 
-
-    public Organization() {
-
-    }
-
-    public Organization(String name, boolean orgType, Organization govOrganization, List<Notification> notifications, List<User> users) {
-        this.name = name;
-        this.orgType = orgType;
-        this.govOrganization = govOrganization;
-        this.notifications = notifications;
-        this.users = users;
-    }
 
     @Override
     public String toString() {

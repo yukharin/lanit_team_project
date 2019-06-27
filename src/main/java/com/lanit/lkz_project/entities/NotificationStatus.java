@@ -1,10 +1,14 @@
 package com.lanit.lkz_project.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "notification_statuses")
 public class NotificationStatus {
@@ -23,12 +27,7 @@ public class NotificationStatus {
         NEW, AWAITING_PROCESSING, THE_RESPONSE_IS_NOT_RECIEVED, RESPONSE_SENT, PROCESSED
     }
 
-    public NotificationStatus() {
-    }
 
-    public NotificationStatus(Status status) {
-        this.status = status;
-    }
 
 
     @Override
