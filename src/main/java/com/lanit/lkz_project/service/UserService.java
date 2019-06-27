@@ -14,7 +14,6 @@ public class UserService {
     @Autowired
     private UserDAO userDAO;
 
-
     @Transactional
     public void addUser(User user) {
         userDAO.addUser(user);
