@@ -41,6 +41,7 @@
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
         <prop key="hibernate.connection.autocommit">true</prop>
         <prop key="hibernate.connection.pool_size">1</prop>
+        <prop key="hibernate.show_sql">true</prop>
     </util:properties>
 
 
