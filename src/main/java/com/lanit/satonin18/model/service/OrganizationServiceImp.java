@@ -1,27 +1,17 @@
 package com.lanit.satonin18.model.service;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-//import org.apache.log4j.Logger;
 import com.lanit.satonin18.model.dao.OrganizationDAO;
 import com.lanit.satonin18.model.entity.Organization;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+
 @Service("organizationService")
 @Transactional
-public class OrganizationServiceImp  implements OrganizationService {
+public class OrganizationServiceImp implements OrganizationService {
 
     @Autowired
     private OrganizationDAO organizationDAO;

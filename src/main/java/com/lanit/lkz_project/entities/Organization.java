@@ -1,11 +1,15 @@
 package com.lanit.lkz_project.entities;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "organizations")
 public class Organization {
+
 
     @Id
     @Column(name = "id", nullable = false)
@@ -22,15 +26,16 @@ public class Organization {
     @JoinColumn(name = "id_gos_org", referencedColumnName = "id")
     private Organization govOrganization;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "organization")
     private List<Notification> notifications;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "organization")
     private List<User> users;
 
 
-    public Organization()
-    {
+    public Organization() {
 
     }
 

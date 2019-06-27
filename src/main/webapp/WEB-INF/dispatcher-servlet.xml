@@ -2,25 +2,46 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-<mvc:annotation-driven />
-<context:component-scan base-package="com.lanit.satonin18.controller" />
+    <mvc:annotation-driven/>
+    <tx:annotation-driven/>
+    <context:component-scan base-package="com.lanit.lkz_project"/>
 
-<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix" value="/Views/" />
-    <property name="suffix" value=".jsp" />
-</bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/Views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${driverClassName}"
+          p:url="${url}" p:username="${user}"
+          p:password="${password}"/>
+    <context:property-placeholder location="classpath:DaoProperties.properties"/>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"/>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:packagesToScan="com.lanit.lkz_project"
+          p:hibernateProperties-ref="hibernateProperties"/>
+
+    <util:properties id="hibernateProperties">
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+        <prop key="hibernate.connection.autocommit">true</prop>
+        <prop key="hibernate.connection.pool_size">1</prop>
+    </util:properties>
 
 
 </beans>

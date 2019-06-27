@@ -4,9 +4,11 @@ import com.lanit.lkz_project.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class UserDAO {
 
     @Autowired
@@ -24,6 +26,10 @@ public class UserDAO {
         session.merge(user);
     }
 
+    public void removeUser(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(user);
+    }
 
     public void removeUser(int id) {
         Session session = sessionFactory.getCurrentSession();
@@ -41,6 +47,6 @@ public class UserDAO {
 
     public List<User> users() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from User", User.class).list();
+        return session.createQuery("FROM User", User.class).list();
     }
 }

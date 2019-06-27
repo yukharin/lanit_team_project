@@ -8,7 +8,7 @@
         <property name="connection.password">password7788</property>
         <property name="connection.username">vlad_yukharin</property>
         <property name="connection.url">
-            jdbc:mysql://127.0.0.1:3306/lanit?useSSL=false&amp;useLegacyDatetimeCode=false&amp;amp&amp;serverTimezone=UTC
+            jdbc:mysql://127.0.0.1:3306/lanit?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
         </property>
         <property name="connection.autocommit">false</property>
         <property name="connection.pool_size">1</property>
