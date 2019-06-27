@@ -1,7 +1,10 @@
 package com.lanit.lkz_project.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "notification_statuses")
 public class NotificationStatus {
@@ -27,21 +30,6 @@ public class NotificationStatus {
         this.status = status;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {

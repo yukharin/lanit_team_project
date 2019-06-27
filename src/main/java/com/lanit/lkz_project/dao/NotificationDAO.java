@@ -25,7 +25,12 @@ public class NotificationDAO {
         session.merge(notification);
     }
 
-    public void deleteNotification(int id) {
+    public void removeNotification(Notification notification) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(notification);
+    }
+
+    public void removeNotification(int id) {
         Session session = sessionFactory.getCurrentSession();
         Notification notification = session.load(Notification.class, id);
         if (notification != null) {

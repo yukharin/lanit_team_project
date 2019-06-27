@@ -1,7 +1,10 @@
 package com.lanit.lkz_project.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "action_types")
 public class ActionType {

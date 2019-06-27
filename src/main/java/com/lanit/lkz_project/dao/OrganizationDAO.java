@@ -18,17 +18,23 @@ public class OrganizationDAO {
         session.persist(organization);
     }
 
-    public void deleteOrganization(int id) {
+
+    public void updateOrganization(Organization organization) {
+        Session session = sessionFactory.getCurrentSession();
+        session.merge(organization);
+    }
+
+    public void removeOrganization(Organization organization) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(organization);
+    }
+
+    public void removeOrganization(int id) {
         Session session = sessionFactory.getCurrentSession();
         Organization organization = session.load(Organization.class, id);
         if (organization != null) {
             session.delete(organization);
         }
-    }
-
-    public void updateOrganization(Organization organization) {
-        Session session = sessionFactory.getCurrentSession();
-        session.merge(organization);
     }
 
     public Organization getOrganization(int id) {

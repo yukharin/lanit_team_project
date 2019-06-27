@@ -47,53 +47,6 @@ public class Organization {
         this.users = users;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isOrgType() {
-        return orgType;
-    }
-
-    public void setOrgType(boolean orgType) {
-        this.orgType = orgType;
-    }
-
-    public Organization getGovOrganization() {
-        return govOrganization;
-    }
-
-    public void setGovOrganization(Organization govOrganization) {
-        this.govOrganization = govOrganization;
-    }
-
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 
     @Override
     public String toString() {

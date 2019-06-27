@@ -1,9 +1,14 @@
 package com.lanit.lkz_project.entities;
 
+import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "notifications")
 public class Notification {
@@ -44,6 +49,7 @@ public class Notification {
     private User userImplementor;
 
     @OneToMany(mappedBy = "notification")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Action> actions;
 
     public Notification() {
@@ -59,86 +65,6 @@ public class Notification {
         this.letterNumber = letterNumber;
         this.userCuratorGos = userCuratorGos;
         this.userImplementor = userImplementor;
-        this.actions = actions;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
-    public String getNotificationType() {
-        return notificationType;
-    }
-
-    public void setNotificationType(String notificationType) {
-        this.notificationType = notificationType;
-    }
-
-    public NotificationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(NotificationStatus status) {
-        this.status = status;
-    }
-
-    public Date getDateRecieved() {
-        return dateRecieved;
-    }
-
-    public void setDateRecieved(Date dateRecieved) {
-        this.dateRecieved = dateRecieved;
-    }
-
-    public Date getDateResponse() {
-        return dateResponse;
-    }
-
-    public void setDateResponse(Date dateResponse) {
-        this.dateResponse = dateResponse;
-    }
-
-    public String getLetterNumber() {
-        return letterNumber;
-    }
-
-    public void setLetterNumber(String letterNumber) {
-        this.letterNumber = letterNumber;
-    }
-
-    public User getUserCuratorGos() {
-        return userCuratorGos;
-    }
-
-    public void setUserCuratorGos(User userCuratorGos) {
-        this.userCuratorGos = userCuratorGos;
-    }
-
-    public User getUserImplementor() {
-        return userImplementor;
-    }
-
-    public void setUserImplementor(User userImplementor) {
-        this.userImplementor = userImplementor;
-    }
-
-    public List<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<Action> actions) {
         this.actions = actions;
     }
 

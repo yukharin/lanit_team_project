@@ -24,7 +24,7 @@ public class ActionDAO {
         session.merge(action);
     }
 
-    public void deleteAction(int id) {
+    public void removeAction(int id) {
         Session session = sessionFactory.getCurrentSession();
         Action action = session.load(Action.class, id);
         if (action != null) {
@@ -32,7 +32,7 @@ public class ActionDAO {
         }
     }
 
-    public void deleteAction(Action action) {
+    public void removeAction(Action action) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(action);
     }
