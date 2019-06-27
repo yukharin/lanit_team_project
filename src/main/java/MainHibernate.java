@@ -18,14 +18,11 @@ public class MainHibernate {
         session.beginTransaction();
         code(session);
         session.getTransaction().commit();
-
     }
 
     private static void code(Session session) {
-
         List<User> users = session.createQuery("FROM User ").list();
         Gson gson = new Gson();
-        StringBuilder sb = new StringBuilder();
         String str = gson.toJson(users);
         System.out.println(str);
     }
