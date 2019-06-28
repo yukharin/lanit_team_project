@@ -2,7 +2,7 @@ package com.lanit.satonin18.service;
 
 import java.util.List;
 
-import com.lanit.satonin18.dao.CrudDAO;
+import com.lanit.satonin18.dao.UserDAO;
 import com.lanit.satonin18.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("userService")
 @Transactional
-public class UserServiceImp implements CrudService<User>  {
+public class UserServiceImp implements UserService  {
 
    @Autowired
-   private CrudDAO<User> userDAO;
+   private UserDAO userDAO;
+
+   @Override
+   public List<User> searchUserByLastName(String theSearchName) {
+      return userDAO.searchUserByLastName(theSearchName);
+   }
 
    @Override
    public void saveOrUpdate(User user) {
@@ -24,13 +29,7 @@ public class UserServiceImp implements CrudService<User>  {
    public void update(User user) {
       userDAO.update(user);
    }
-   /*
-       @Override
-       @Transactional
-       public List<User> searchUsers(String theSearchName) {
-           return userDAO.searchUsers(theSearchName);
-       }
-   */
+
    @Override
    public void delete(int id) {
       userDAO.delete(id);

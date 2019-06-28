@@ -3,6 +3,7 @@ package com.lanit.satonin18.controller.crud;
 import com.lanit.satonin18.model.Organization;
 import com.lanit.satonin18.model.User;
 import com.lanit.satonin18.service.CrudService;
+import com.lanit.satonin18.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.util.List;
 public class UserController {
 
 	@Autowired
-	private CrudService<User> userService;
+	private UserService userService;
 
 	//todo need in jsf connected in organizationService
 	@Autowired
@@ -68,17 +69,17 @@ public class UserController {
 		System.out.println(user);
 		return "redirect:list";
 	}
-//	@PostMapping("/search")
-//	public String searchUsers(@RequestParam("theSearchName") String theSearchName,
-//							  Model theModel) {
-//		System.out.println(theSearchName);
-//		List<User> theUsers = userService.searchByName(theSearchName);
-//		for(User user : theUsers) {
-//			System.out.println(user);
-//		}
-//		theModel.addAttribute("listOfUsers", theUsers);
-//		return "redirect:crud/user/list";
-//	}
+	@PostMapping("/search")
+	public String searchUsers(@RequestParam("theSearchName") String theSearchName,
+							  Model theModel) {
+		System.out.println(theSearchName);
+		List<User> theUsers = userService.searchUserByLastName(theSearchName);
+		for(User user : theUsers) {
+			System.out.println(user);
+		}
+		theModel.addAttribute("list", theUsers);
+		return "crud/user/list";
+	}
 /*
 	@ModelAttribute("user")
     public User formBackingObject() {

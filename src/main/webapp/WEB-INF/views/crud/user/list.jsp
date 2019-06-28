@@ -22,14 +22,14 @@
 <div id="container">
 	<div id="content">
 
-		<input type="button" value="Add Customer"
+		<input type="button" value="Add User"
 			   onclick="window.location.href='add'; return false;"
 			   class="add-button"
 		/>
 
 		<!--  saveOrUpdate a search box -->
 		<form:form action="search" method="POST">
-			Search user: <input type="text" name="theSearchName" />
+			searchUserByLastName: <input type="text" name="theSearchName" />
 
 			<input type="submit" value="Search" class="add-button" />
 		</form:form>

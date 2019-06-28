@@ -7,13 +7,33 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.hibernate.query.Query;
 import java.util.List;
 
 @Repository("userDAO")
-public class UserDAOImp implements CrudDAO<User> {
+public class UserDAOImp implements UserDAO{
 
    @Autowired
    private SessionFactory sessionFactory;
+
+   @Override
+   public List<User> searchUserByLastName(String theSearchName) {
+      Session currentSession = sessionFactory.getCurrentSession();
+
+      Query theQuery = null;
+      // only search by name if theSearchName is not empty
+      if (theSearchName != null && theSearchName.trim().length() > 0) {
+         // search for firstName or lastName ... case insensitive
+         theQuery = currentSession.createQuery("from User where lastName like :theName", User.class);
+         theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
+      }
+      else {
+         // theSearchName is empty ... so just get all customers
+         theQuery = currentSession.createQuery("from User", User.class);
+      }
+      List<User> list = theQuery.getResultList();
+      return list;
+   }
 
    @Override
    public void saveOrUpdate(User user) {  //TODO need saveOrUpdate @NotNull final IN ARG //throws Exc
@@ -38,26 +58,7 @@ public class UserDAOImp implements CrudDAO<User> {
          tx1.commit();
       }
    }
-   /*
-       @Override
-       public List<User> searchUsers(String theSearchName) {
-           Session currentSession = sessionFactory.getCurrentSession();
-   
-           Query theQuery = null;
-           // only search by name if theSearchName is not empty
-           if (theSearchName != null && theSearchName.trim().length() > 0) {
-               // search for firstName or lastName ... case insensitive
-               theQuery = currentSession.createQuery("from User where name like :theName", User.class);
-               theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
-           }
-           else {
-               // theSearchName is empty ... so just get all customers
-               theQuery = currentSession.createQuery("from User", User.class);
-           }
-           List<User> list = theQuery.getResultList();
-           return list;
-       }
-   */
+
    @Override
    public void delete(int id) {
       //Session session = sessionFactory.getCurrentSession();
