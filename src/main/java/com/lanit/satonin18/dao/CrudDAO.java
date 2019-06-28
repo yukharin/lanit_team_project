@@ -1,11 +1,8 @@
 package com.lanit.satonin18.dao;
 
-import com.lanit.satonin18.model.User;
-
 import java.util.List;
 
-//TODO can be ADD ABSTRACT CrudDAO<T> for all
-
+//CRUD - Create Read_by _id Update Delete
 public interface CrudDAO<T> {
    void saveOrUpdate(T entity);
 

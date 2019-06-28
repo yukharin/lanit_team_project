@@ -37,15 +37,15 @@
 		<table>
 			<tr>
 				<th>Id</th>
-				<th>userOrg</th>
 				<th>firstName</th>
 				<th>lastName</th>
+				<th>userOrg.name</th>
 				<th>f(x)</th>
 			</tr>
 
 			<c:forEach var="tempUser" items="${list}">
 
-				<c:url var="updateLink" value="showFormForUpdate">
+				<c:url var="updateLink" value="update">
 					<c:param name="userId" value="${tempUser.id}"/>
 				</c:url>
 
@@ -55,9 +55,9 @@
 
 				<tr>
 					<td>${tempUser.id}</td>
-					<td>${tempUser.userOrg}</td>
 					<td>${tempUser.firstName}</td>
 					<td>${tempUser.lastName}</td>
+					<td>${tempUser.userOrg.name}</td>
 					<td>
 						<a href="${updateLink}">Update</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

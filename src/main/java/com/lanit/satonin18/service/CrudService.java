@@ -2,7 +2,7 @@ package com.lanit.satonin18.service;
 
 import java.util.List;
 
-//CrUD - CREATE UPDATE DELETE
+//CRUD - Create Read_by _id Update Delete
 public interface CrudService<T> {
     public void saveOrUpdate(T organization) ;
 

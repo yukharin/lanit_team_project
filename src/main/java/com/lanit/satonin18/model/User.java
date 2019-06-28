@@ -20,10 +20,6 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne//(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
-    private/*protected*/ Organization userOrg;
-
     @Basic
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
@@ -32,13 +28,17 @@ public class User implements Serializable {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
+    @ManyToOne//(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
+    private/*protected*/ Organization userOrg;
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", first_name='" + firstName + '\'' +
-                ", last_name='" + lastName + '\'' +
-                ", userOrg=" + userOrg +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+//                ", userOrg=" + userOrg +
                 '}';
     }
 }

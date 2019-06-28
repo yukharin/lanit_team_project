@@ -36,13 +36,15 @@
         <table>
             <tr>
                 <th>Id</th>
-                <th>notificOrg</th>
+                <th>notificOrg.NAME</th>
                 <th>notificationType</th>
                 <th>dateReceived</th>
                 <th>dateResponse</th>
                 <th>letterNumber</th>
                 <th>userByIdUserCuratorGos</th>
                 <th>userByIdUserImplementor</th>
+                <th>notificationStatus</th>
+                <th>Actions</th>
                 <th>f(x)</th>
             </tr>
 
@@ -58,13 +60,15 @@
 
                 <tr>
                     <td>${tempNotification.id}</td>
-                    <td>${tempNotification.notificOrg}</td>
+                    <td>${tempNotification.notificOrg.name}</td>
                     <td>${tempNotification.notificationType}</td>
                     <td>${tempNotification.dateReceived.toString()}</td>
                     <td>${tempNotification.dateResponse.toString()}</td>
                     <td>${tempNotification.letterNumber}</td>
                     <td>${tempNotification.userByIdUserCuratorGos}</td>
                     <td>${tempNotification.userByIdUserImplementor}</td>
+                    <td>${tempNotification.notificationStatus}</td>
+                    <td>${tempNotification.actions}</td>
                     <td>
                         <a href="${updateLink}">Update</a>
                         <a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

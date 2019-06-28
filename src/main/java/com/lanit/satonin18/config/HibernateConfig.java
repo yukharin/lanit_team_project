@@ -11,6 +11,9 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+//TODO REPLACE HARDCODE(frpm package @config@) such as "com.lanit.satonin18" and "com.lanit.satonin18.model" IN PROPERTY
+
+
 @Configuration
 @EnableTransactionManagement
 @ComponentScans(value = { @ComponentScan("com.lanit.satonin18")})
@@ -23,19 +26,17 @@ public class HibernateConfig {
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-		factoryBean.setAnnotatedClasses(
-				//can be add packet with all anotation's classes
-//				ActionPK.class,
+		factoryBean.setPackagesToScan("com.lanit.satonin18.model");
+//		factoryBean.setAnnotatedClasses(
 //				ActionType.class,
 //				NotificationStatus.class,
-
+//
 //				Action.class,
-
-				Notification.class,
-
-				Organization.class,
-				User.class
-		);
+//				Notification.class,
+//
+//				Organization.class,
+//				User.class
+//		);
 		return factoryBean;
 	}
 

@@ -1,6 +1,5 @@
 package com.lanit.satonin18.model;
 
-import com.lanit.satonin18.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,14 +10,15 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "actions")
+@Table(name = "TRY THROW ERROR")
+//@IdClass(ActionPK.class)
 
 @Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Action implements Serializable {
+public class TRY_CALL_ERROR implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

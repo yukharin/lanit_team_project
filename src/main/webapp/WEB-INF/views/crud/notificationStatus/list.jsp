@@ -8,28 +8,28 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Action CRUD Application</title>
+	<title>NotificationStatus CRUD Application</title>
 
 	<!--link type="text/css" rel="stylesheet" href="//{pageContext.request.contextPath}/resources/css/style.css" /-->
 </head>
 <body>
 <div id="wrapper">
 	<div id="header">
-		<h2>Action CRUD Application</h2>
+		<h2>NotificationStatus CRUD Application</h2>
 	</div>
 </div>
 
 <div id="container">
 	<div id="content">
 
-		<input type="button" value="Add Customer"
+		<input type="button" value="Add NotificationStatus"
 			   onclick="window.location.href='add'; return false;"
 			   class="add-button"
 		/>
 
 		<!--  saveOrUpdate a search box -->
 		<form:form action="search" method="POST">
-			Search action: <input type="text" name="theSearchName" />
+			Search notificationStatus: <input type="text" name="theSearchName" />
 
 			<input type="submit" value="Search" class="add-button" />
 		</form:form>
@@ -37,31 +37,23 @@
 		<table>
 			<tr>
 				<th>Id</th>
-				<th>content</th>
-				<th>date</th>
-				<th>userByIdImplementor</th>
-				<th>actionType</th>
-				<th>notificationStatusAfterProcessing</th>
+				<th>name</th>
 				<th>f(x)</th>
 			</tr>
 
-			<c:forEach var="tempAction" items="${list}">
+			<c:forEach var="tempNotificationStatus" items="${list}">
 
 				<c:url var="updateLink" value="showFormForUpdate">
-					<c:param name="actionId" value="${tempAction.id}"/>
+					<c:param name="notificationStatusId" value="${tempNotificationStatus.id}"/>
 				</c:url>
 
 				<c:url var="deleteLink" value="delete">
-					<c:param name="actionId" value="${tempAction.id}"/>
+					<c:param name="notificationStatusId" value="${tempNotificationStatus.id}"/>
 				</c:url>
 
 				<tr>
-					<td>${tempAction.id}</td>
-					<td>${tempAction.content}</td>
-					<td>${tempAction.date.toString()}</td>
-					<td>${tempAction.userByIdImplementor}</td>
-					<td>${tempAction.actionType}</td>
-					<td>${tempAction.notificationStatusAfterProcessing}</td>
+					<td>${tempNotificationStatus.id}</td>
+					<td>${tempNotificationStatus.name}</td>
 					<td>
 						<a href="${updateLink}">Update</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

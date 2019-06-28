@@ -8,14 +8,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Action CRUD Application</title>
+	<title>ActionType CRUD Application</title>
 
 	<!--link type="text/css" rel="stylesheet" href="//{pageContext.request.contextPath}/resources/css/style.css" /-->
 </head>
 <body>
 <div id="wrapper">
 	<div id="header">
-		<h2>Action CRUD Application</h2>
+		<h2>ActionType CRUD Application</h2>
 	</div>
 </div>
 
@@ -29,7 +29,7 @@
 
 		<!--  saveOrUpdate a search box -->
 		<form:form action="search" method="POST">
-			Search action: <input type="text" name="theSearchName" />
+			Search actionType: <input type="text" name="theSearchName" />
 
 			<input type="submit" value="Search" class="add-button" />
 		</form:form>
@@ -37,31 +37,23 @@
 		<table>
 			<tr>
 				<th>Id</th>
-				<th>content</th>
-				<th>date</th>
-				<th>userByIdImplementor</th>
-				<th>actionType</th>
-				<th>notificationStatusAfterProcessing</th>
+				<th>name</th>
 				<th>f(x)</th>
 			</tr>
 
-			<c:forEach var="tempAction" items="${list}">
+			<c:forEach var="tempActionType" items="${list}">
 
 				<c:url var="updateLink" value="showFormForUpdate">
-					<c:param name="actionId" value="${tempAction.id}"/>
+					<c:param name="actionTypeId" value="${tempActionType.id}"/>
 				</c:url>
 
 				<c:url var="deleteLink" value="delete">
-					<c:param name="actionId" value="${tempAction.id}"/>
+					<c:param name="actionTypeId" value="${tempActionType.id}"/>
 				</c:url>
 
 				<tr>
-					<td>${tempAction.id}</td>
-					<td>${tempAction.content}</td>
-					<td>${tempAction.date.toString()}</td>
-					<td>${tempAction.userByIdImplementor}</td>
-					<td>${tempAction.actionType}</td>
-					<td>${tempAction.notificationStatusAfterProcessing}</td>
+					<td>${tempActionType.id}</td>
+					<td>${tempActionType.name}</td>
 					<td>
 						<a href="${updateLink}">Update</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

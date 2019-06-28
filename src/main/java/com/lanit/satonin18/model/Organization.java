@@ -1,6 +1,8 @@
 package com.lanit.satonin18.model;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,10 +38,11 @@ public class Organization implements Serializable {
     @JoinColumn(name = "id_gos_org", referencedColumnName = "id")
     private Organization government_org;
 
-
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "userOrg")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL))
     private/*protected*/ List<User> users;// = new ArrayList<User>();
-    //TODO: not work
+
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "notificOrg")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)//FetchType.LAZY)//
     private/*protected*/ List<Notification> notifications;// = new ArrayList<Notification>();
 
@@ -48,10 +51,10 @@ public class Organization implements Serializable {
         return "Organization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", government=" + government +
-                ", government_org=" + government_org +
-//                ", users=" + users +
-//                ", notifications=" + notifications +
+                ", IS_government?=" + government +
+                ", government_org = " + government_org +
+                ", users=" + users +
+                ", notifications=" + notifications +
                 '}';
     }
 }

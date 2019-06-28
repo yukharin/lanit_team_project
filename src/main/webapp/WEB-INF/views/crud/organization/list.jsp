@@ -38,9 +38,10 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>government</th>
+                <th>IS_government</th>
                 <th>government_org</th>
                 <th>users</th>
+                <th>notifications</th>
                 <th>f(x)</th>
             </tr>
 
@@ -60,6 +61,7 @@
                     <td>${tempOrganization.government}</td>
                     <td>${tempOrganization.government_org}</td>
                     <td>${tempOrganization.users}</td>
+                    <td>${tempOrganization.notifications}</td>
                     <td>
                         <a href="${updateLink}">Update</a>
                         <a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

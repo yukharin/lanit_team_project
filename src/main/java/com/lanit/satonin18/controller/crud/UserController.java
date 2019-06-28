@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller("userController")
 //@Scope("session")
@@ -31,20 +33,52 @@ public class UserController {
 		model.addAttribute("list", userService.list());
 		return "crud/user/list";
 	}
-
-	//@RequestMapping(value = "/showFormForAdd", method = RequestMethod.GET)
+	@RequestMapping("delete")
+	public String removeUser(@RequestParam("userId") int id){
+		userService.delete(id);
+		return "redirect:list";
+	}
 	@GetMapping("/add")
 	public String add(Model model){
 		model.addAttribute("user", new User());
 		model.addAttribute("listOrg", organizationService.list());
-		return "crud/user/add";
+		return "crud/user/form";
 	}
+	@GetMapping("update")
+	public String update(@RequestParam("userId") int id, Model model){
+		model.addAttribute("user", userService.getById(id));
+		model.addAttribute("listOrg", organizationService.list());
+		return "crud/user/form";
+	}
+	//TODO NOT WORKING POST SUBMIT INNER OBJECT(FROM SELECTED)
+	@PostMapping("/saveOrUpdate")
+	public String saveOrUpdate(
+//			@RequestParam("id")  int id,
+//			@RequestParam("firstName")  String  firstName,
+//			@RequestParam("lastName")  String  lastName,
+//			@RequestParam("userOrg")  int id_userOrg,
+//			Model model,
 
-	@PostMapping("/add")
-	public String addUser(@ModelAttribute("user") User user){
+			@ModelAttribute("user") User user
+	){
+// TODO VERY BAD!!!
+//		user.setUserOrg(organizationService.getById(id_userOrg));
+
 		userService.saveOrUpdate(user);
-		return "redirect:crud/user/list";
+		System.out.println(user);
+		return "redirect:list";
 	}
+//	@PostMapping("/search")
+//	public String searchUsers(@RequestParam("theSearchName") String theSearchName,
+//							  Model theModel) {
+//		System.out.println(theSearchName);
+//		List<User> theUsers = userService.searchByName(theSearchName);
+//		for(User user : theUsers) {
+//			System.out.println(user);
+//		}
+//		theModel.addAttribute("listOfUsers", theUsers);
+//		return "redirect:crud/user/list";
+//	}
 /*
 	@ModelAttribute("user")
     public User formBackingObject() {

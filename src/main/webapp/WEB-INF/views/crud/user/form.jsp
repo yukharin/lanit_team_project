@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>Add New User</title>
+    <title>saveOrUpdate User</title>
     <!--link type="text/css" rel="stylesheet" href="@{pageContext.request.contextPath}/resources/css/style.css" />
     <link type="text/css" rel="stylesheet" href="@{pageContext.request.contextPath}/resources/css/form-add-style.css" /-->
 </head>
@@ -18,9 +18,9 @@
 </div>
 
 <div id="container">
-    <h2>Add User</h2>
+    <h2>SaveOrUpdate User</h2>
 
-    <form:form action="add" modelAttribute="user" method="post">
+    <form:form action="saveOrUpdate" modelAttribute="user" method="post">
 
         <form:hidden path="id" />
 
@@ -37,11 +37,12 @@
                 <td><label>Organization: </label></td>
                 <td>
                     <%--<pre>--%>
-                        <%--<form:select path="userOrg" >--%>
+                        <form:select  path="userOrg" ><%--multiple="true"--%>
+                            <form:options items="${listOrg}"  itemLabel="name" itemValue="id" />
                             <%--<c:forEach items="${listOrg}" var="org">--%>
-                                <%--<form:option value ="${org}" label="${org.toString()}"></form:option>--%>
+                                <%--<form:option value ="${org.id}" label="${org.toString()}"></form:option>--%>
                             <%--</c:forEach>--%>
-                        <%--</form:select>--%>
+                        </form:select>
                     <%--</pre>--%>
 
                 </td>
