@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.controllers;
+package com.lanit.lkz_project.controllers.rest_controllers;
 
 import com.lanit.lkz_project.entities.Organization;
 import com.lanit.lkz_project.service.OrganizationService;
