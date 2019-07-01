@@ -46,7 +46,7 @@ public class ActionTypeController {
 	@PostMapping("/add")
 	public String addActionType(@ModelAttribute("actionType") ActionType actionType){
 		actionTypeService.saveOrUpdate(actionType);
-		return "redirect:crud/actionType/list";
+		return "redirect:crud/actionType/notific_list";
 	}
 /*
 	@ModelAttribute("actionType")
@@ -58,7 +58,7 @@ public class ActionTypeController {
 	public String saveActionType(@ModelAttribute("actionType") @Valid ActionType actionType, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("actionTypes", actionTypeService.list());
+			model.addAttribute("actionTypes", actionTypeService.notific_list());
 			return "crud/editActionTypes";
 		}
 

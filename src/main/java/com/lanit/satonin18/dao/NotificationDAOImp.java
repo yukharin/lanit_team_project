@@ -53,8 +53,8 @@ public class NotificationDAOImp implements CrudDAO<Notification> {
                 // theSearchName is empty ... so just get all customers
                 theQuery = currentSession.createQuery("from Notification", Notification.class);
             }
-            List<Notification> list = theQuery.getResultList();
-            return list;
+            List<Notification> notific_list = theQuery.getResultList();
+            return notific_list;
         }
     */
     @Override

@@ -46,7 +46,7 @@ public class ActionController {
 	@PostMapping("/add")
 	public String addAction(@ModelAttribute("action") Action action){
 		actionService.saveOrUpdate(action);
-		return "redirect:crud/action/list";
+		return "redirect:crud/action/notific_list";
 	}
 /*
 	@ModelAttribute("action")
@@ -58,7 +58,7 @@ public class ActionController {
 	public String saveAction(@ModelAttribute("action") @Valid Action action, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("actions", actionService.list());
+			model.addAttribute("actions", actionService.notific_list());
 			return "crud/editActions";
 		}
 

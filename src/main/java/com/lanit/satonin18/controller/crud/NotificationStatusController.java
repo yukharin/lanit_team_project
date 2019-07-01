@@ -47,7 +47,7 @@ public class NotificationStatusController {
 	@PostMapping("/add")
 	public String addNotificationStatus(@ModelAttribute("notificationStatus") NotificationStatus notificationStatus){
 		notificationStatusService.saveOrUpdate(notificationStatus);
-		return "redirect:crud/notificationStatus/list";
+		return "redirect:crud/notificationStatus/notific_list";
 	}
 /*
 	@ModelAttribute("notificationStatus")
@@ -59,7 +59,7 @@ public class NotificationStatusController {
 	public String saveNotificationStatus(@ModelAttribute("notificationStatus") @Valid NotificationStatus notificationStatus, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("notificationStatuss", notificationStatusService.list());
+			model.addAttribute("notificationStatuss", notificationStatusService.notific_list());
 			return "crud/editNotificationStatuss";
 		}
 

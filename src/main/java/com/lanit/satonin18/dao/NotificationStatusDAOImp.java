@@ -55,8 +55,8 @@ public class NotificationStatusDAOImp implements CrudDAO<NotificationStatus> {
                // theSearchName is empty ... so just get all customers
                theQuery = currentSession.createQuery("from NotificationStatus", NotificationStatus.class);
            }
-           List<NotificationStatus> list = theQuery.getResultList();
-           return list;
+           List<NotificationStatus> notific_list = theQuery.getResultList();
+           return notific_list;
        }
    */
    @Override

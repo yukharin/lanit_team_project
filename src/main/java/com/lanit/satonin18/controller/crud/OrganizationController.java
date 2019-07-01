@@ -38,7 +38,7 @@ public class OrganizationController {
     public String saveOrganization(@ModelAttribute("userOrg") @Valid Organization userOrg, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute("list", organizationService.list());
+            model.addAttribute("notific_list", organizationService.notific_list());
             return "editOrganizations";
         }
 

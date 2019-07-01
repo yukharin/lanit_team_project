@@ -60,8 +60,8 @@ public class OrganizationDAOImp implements CrudDAO<Organization> {
             // theSearchName is empty ... so just get all customers
             theQuery = currentSession.createQuery("from Organization", Organization.class);
         }
-        List<Organization> list = theQuery.getResultList();
-        return list;
+        List<Organization> notific_list = theQuery.getResultList();
+        return notific_list;
     }
 */
     @Override

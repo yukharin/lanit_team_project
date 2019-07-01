@@ -54,8 +54,8 @@ public class ActionDAOImp implements CrudDAO<Action> {
                // theSearchName is empty ... so just get all customers
                theQuery = currentSession.createQuery("from Action", Action.class);
            }
-           List<Action> list = theQuery.getResultList();
-           return list;
+           List<Action> notific_list = theQuery.getResultList();
+           return notific_list;
        }
    */
    @Override

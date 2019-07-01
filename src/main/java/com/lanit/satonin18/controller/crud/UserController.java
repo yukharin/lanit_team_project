@@ -37,7 +37,7 @@ public class UserController {
 	@RequestMapping("delete")
 	public String removeUser(@RequestParam("userId") int id){
 		userService.delete(id);
-		return "redirect:list";
+		return "redirect:notific_list";
 	}
 	@GetMapping("/add")
 	public String add(Model model){
@@ -67,7 +67,7 @@ public class UserController {
 
 		userService.saveOrUpdate(user);
 		System.out.println(user);
-		return "redirect:list";
+		return "redirect:notific_list";
 	}
 	@PostMapping("/search")
 	public String searchUsers(@RequestParam("theSearchName") String theSearchName,
@@ -90,7 +90,7 @@ public class UserController {
 	public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("users", userService.list());
+			model.addAttribute("users", userService.notific_list());
 			return "crud/editUsers";
 		}
 
