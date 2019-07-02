@@ -28,8 +28,8 @@
 		/>
 
 		<!--  saveOrUpdate a search box -->
-		<form:form action="search" method="POST">
-			searchUserByLastName: <input type="text" name="theSearchName" />
+		<form:form action="search" method="post">
+			searchUserByLastName: <input type="text" name="theSearchName" value="${valueSearch}"/>
 
 			<input type="submit" value="Search" class="add-button" />
 		</form:form>
@@ -39,7 +39,7 @@
 				<th>Id</th>
 				<th>firstName</th>
 				<th>lastName</th>
-				<th>userOrg.name</th>
+				<th>organization.name</th>
 				<th>f(x)</th>
 			</tr>
 
@@ -57,7 +57,7 @@
 					<td>${tempUser.id}</td>
 					<td>${tempUser.firstName}</td>
 					<td>${tempUser.lastName}</td>
-					<td>${tempUser.userOrg.name}</td>
+					<td>${tempUser.organization.name}</td>
 					<td>
 						<a href="${updateLink}">Update</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

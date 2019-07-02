@@ -6,13 +6,25 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.hibernate.query.Query;
 import java.util.List;
 
 @Repository("notificationDAO")
-public class NotificationDAOImp implements CrudDAO<Notification> {
+public class NotificationDAOImp implements NotificationDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+//    @Override
+//    public List<Notification> getNotificationsByIdOrg(int theOrgId){
+//        Session currentSession = sessionFactory.getCurrentSession();
+//
+//        Query theQuery = null;
+//        theQuery = currentSession.createQuery("from Notification where id_org = :theOrgId", Notification.class);
+//        theQuery.setParameter("theOrgId", theOrgId);
+//        List<Notification> list = theQuery.getResultList();
+//        return list;
+//    }
 
     @Override
     public void saveOrUpdate(Notification notification) {  //TODO need saveOrUpdate @NotNull final IN ARG //throws Exc
@@ -37,26 +49,7 @@ public class NotificationDAOImp implements CrudDAO<Notification> {
             tx1.commit();
         }
     }
-    /*
-        @Override
-        public List<Notification> searchNotifications(String theSearchName) {
-            Session currentSession = sessionFactory.getCurrentSession();
-    
-            Query theQuery = null;
-            // only search by name if theSearchName is not empty
-            if (theSearchName != null && theSearchName.trim().length() > 0) {
-                // search for firstName or lastName ... case insensitive
-                theQuery = currentSession.createQuery("from Notification where name like :theName", Notification.class);
-                theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
-            }
-            else {
-                // theSearchName is empty ... so just get all customers
-                theQuery = currentSession.createQuery("from Notification", Notification.class);
-            }
-            List<Notification> notific_list = theQuery.getResultList();
-            return notific_list;
-        }
-    */
+
     @Override
     public void delete(int id) {
         //Session session = sessionFactory.getCurrentSession();

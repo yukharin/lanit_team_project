@@ -2,6 +2,7 @@ package com.lanit.satonin18.service;
 
 import java.util.List;
 import com.lanit.satonin18.dao.CrudDAO;
+import com.lanit.satonin18.dao.NotificationDAO;
 import com.lanit.satonin18.model.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("notificationService")
 @Transactional
-public class NotificationServiceImp implements CrudService<Notification>  {
-
+public class NotificationServiceImp implements NotificationService  {
     @Autowired
-    private CrudDAO<Notification> notificationDAO;
+    private NotificationDAO notificationDAO;
+
+//    @Override
+//    public List<Notification> getNotificationsByIdOrg(int theOrgId){
+//        notificationDAO.getNotificationsByIdOrg(theOrgId);
+//        return null;
+//    }
 
     @Override
     public void saveOrUpdate(Notification notification) {
@@ -23,13 +29,7 @@ public class NotificationServiceImp implements CrudService<Notification>  {
     public void update(Notification notification) {
         notificationDAO.update(notification);
     }
-    /*
-        @Override
-        @Transactional
-        public List<Notification> searchNotifications(String theSearchName) {
-            return notificationDAO.searchNotifications(theSearchName);
-        }
-    */
+
     @Override
     public void delete(int id) {
         notificationDAO.delete(id);

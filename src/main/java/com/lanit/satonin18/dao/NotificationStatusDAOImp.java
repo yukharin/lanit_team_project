@@ -39,26 +39,7 @@ public class NotificationStatusDAOImp implements CrudDAO<NotificationStatus> {
          tx1.commit();
       }
    }
-   /*
-       @Override
-       public List<NotificationStatus> searchNotificationStatuss(String theSearchName) {
-           Session currentSession = sessionFactory.getCurrentSession();
-   
-           Query theQuery = null;
-           // only search by name if theSearchName is not empty
-           if (theSearchName != null && theSearchName.trim().length() > 0) {
-               // search for firstName or lastName ... case insensitive
-               theQuery = currentSession.createQuery("from NotificationStatus where name like :theName", NotificationStatus.class);
-               theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
-           }
-           else {
-               // theSearchName is empty ... so just get all customers
-               theQuery = currentSession.createQuery("from NotificationStatus", NotificationStatus.class);
-           }
-           List<NotificationStatus> notific_list = theQuery.getResultList();
-           return notific_list;
-       }
-   */
+
    @Override
    public void delete(int id) {
       //Session session = sessionFactory.getCurrentSession();

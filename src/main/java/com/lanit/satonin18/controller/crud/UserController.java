@@ -34,41 +34,58 @@ public class UserController {
 		model.addAttribute("list", userService.list());
 		return "crud/user/list";
 	}
-	@RequestMapping("delete")
+	@GetMapping("/delete")
 	public String removeUser(@RequestParam("userId") int id){
 		userService.delete(id);
-		return "redirect:notific_list";
+		return "redirect:list";
 	}
 	@GetMapping("/add")
 	public String add(Model model){
 		model.addAttribute("user", new User());
 		model.addAttribute("listOrg", organizationService.list());
-		return "crud/user/form";
+		return "crud/user/form_add";
 	}
-	@GetMapping("update")
-	public String update(@RequestParam("userId") int id, Model model){
-		model.addAttribute("user", userService.getById(id));
-		model.addAttribute("listOrg", organizationService.list());
-		return "crud/user/form";
-	}
-	//TODO NOT WORKING POST SUBMIT INNER OBJECT(FROM SELECTED)
-	@PostMapping("/saveOrUpdate")
-	public String saveOrUpdate(
+	@PostMapping("/add")
+	public String save(
 //			@RequestParam("id")  int id,
-//			@RequestParam("firstName")  String  firstName,
-//			@RequestParam("lastName")  String  lastName,
-//			@RequestParam("userOrg")  int id_userOrg,
-//			Model model,
-
-			@ModelAttribute("user") User user
+			@RequestParam("firstName")  String  firstName,
+			@RequestParam("lastName")  String  lastName,
+			@RequestParam("idOrg")  int idOrg
+//			@ModelAttribute("user") User user
 	){
-// TODO VERY BAD!!!
-//		user.setUserOrg(organizationService.getById(id_userOrg));
+		User user = new User();
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setOrganization(organizationService.getById(idOrg));
 
 		userService.saveOrUpdate(user);
 		System.out.println(user);
-		return "redirect:notific_list";
+		return "redirect:list";
 	}
+	@GetMapping("/update")
+	public String update(@RequestParam("userId") int id, Model model){
+		model.addAttribute("user", userService.getById(id));
+		model.addAttribute("listOrg", organizationService.list());
+		return "crud/user/form_update";
+	}
+	@PostMapping("/update")
+	public String edit(
+			@RequestParam("id")  int id,
+			@RequestParam("firstName")  String  firstName,
+			@RequestParam("lastName")  String  lastName,
+			@RequestParam("idOrg")  int idOrg
+//			@ModelAttribute("user") User user
+	){
+		User user = userService.getById(id);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setOrganization(organizationService.getById(idOrg));
+
+		userService.saveOrUpdate(user);
+		System.out.println(user);
+		return "redirect:list";
+	}
+
 	@PostMapping("/search")
 	public String searchUsers(@RequestParam("theSearchName") String theSearchName,
 							  Model theModel) {
@@ -78,24 +95,7 @@ public class UserController {
 			System.out.println(user);
 		}
 		theModel.addAttribute("list", theUsers);
+		theModel.addAttribute("valueSearch", theSearchName);
 		return "crud/user/list";
 	}
-/*
-	@ModelAttribute("user")
-    public User formBackingObject() {
-        return new User();
-    }
-
-	@PostMapping("/addUser")
-	public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult result, Model model) {
-
-		if (result.hasErrors()) {
-			model.addAttribute("users", userService.notific_list());
-			return "crud/editUsers";
-		}
-
-		userService.save(user);
-		return "redirect:/";
-	}
-	*/
 }

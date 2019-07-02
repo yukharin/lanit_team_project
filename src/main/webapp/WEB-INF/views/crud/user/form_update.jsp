@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%--<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>--%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
 
 <html>
 <head>
@@ -20,29 +20,31 @@
 <div id="container">
     <h2>SaveOrUpdate User</h2>
 
-    <form:form action="saveOrUpdate" modelAttribute="user" method="post">
+    <form action="update" method="post"><%--modelAttribute="user"--%>
 
-        <form:hidden path="id" />
+        <%--<form:hidden path="id" />--%>
+        <input type="hidden" name="id" value="${user.id}">
 
         <table>
             <tr>
                 <td><label>First name: </label></td>
-                <td><form:input path="firstName"></form:input></td>
+                <td><input type="text" name="firstName" value="${user.firstName}"></input></td>
             </tr>
             <tr>
                 <td><label>Last name: </label></td>
-                <td><form:input path="lastName"></form:input></td>
+                <td><input type="text" name="lastName" value="${user.lastName}"></input></td>
             </tr>
             <tr>
                 <td><label>Organization: </label></td>
                 <td>
                     <%--<pre>--%>
-                        <form:select  path="userOrg" ><%--multiple="true"--%>
-                            <form:options items="${listOrg}"  itemLabel="name" itemValue="id" />
-                            <%--<c:forEach items="${listOrg}" var="org">--%>
-                                <%--<form:option value ="${org.id}" label="${org.toString()}"></form:option>--%>
-                            <%--</c:forEach>--%>
-                        </form:select>
+                        <select  type="text" name="idOrg" ><%--multiple="true"--%>
+                            <option selected value ="${user.organization.id}">(заданное)${user.organization.name}</option>
+                            <%--<form:options items="${listOrg}"  itemLabel="name" itemValue="id" />--%>
+                            <c:forEach items="${listOrg}" var="org">
+                                <option value ="${org.id}">${org.name}</option>
+                            </c:forEach>
+                        </select>
                     <%--</pre>--%>
 
                 </td>
@@ -53,7 +55,7 @@
                 <td><input type="submit" value="Save" class="save" /></td>
             </tr>
         </table>
-    </form:form>
+    </form>
 
 
 

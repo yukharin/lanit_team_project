@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "organizations")
 
-@Data //get and set
+//@Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -39,11 +39,11 @@ public class Organization implements Serializable {
     private Organization government_org;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "userOrg")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL))
+    @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL))
     private/*protected*/ List<User> users;// = new ArrayList<User>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "notificOrg")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)//FetchType.LAZY)//
+    @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)//FetchType.LAZY)//
     private/*protected*/ List<Notification> notifications;// = new ArrayList<Notification>();
 
     @Override
@@ -56,5 +56,53 @@ public class Organization implements Serializable {
                 ", users=" + users +
                 ", notifications=" + notifications +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isGovernment() {
+        return government;
+    }
+
+    public void setGovernment(boolean government) {
+        this.government = government;
+    }
+
+    public Organization getGovernment_org() {
+        return government_org;
+    }
+
+    public void setGovernment_org(Organization government_org) {
+        this.government_org = government_org;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 }

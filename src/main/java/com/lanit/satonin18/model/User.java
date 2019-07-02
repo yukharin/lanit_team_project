@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Table(name = "users")
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
-@Data //get and set
+//@Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -30,7 +30,7 @@ public class User implements Serializable {
 
     @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
-    private/*protected*/ Organization userOrg;
+    private/*protected*/ Organization organization;
 
     @Override
     public String toString() {
@@ -38,7 +38,39 @@ public class User implements Serializable {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-//                ", userOrg=" + userOrg +
+//                ", organization=" + organization +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

@@ -27,24 +27,4 @@ public class OrganizationController {
         return "crud/organization/list";
     }
 
-
-/*
-    @ModelAttribute("userOrg")
-    public Organization formBackingObject() {
-        return new Organization();
-    }
-
-    @PostMapping("/saveOrUpdate")
-    public String saveOrganization(@ModelAttribute("userOrg") @Valid Organization userOrg, BindingResult result, Model model) {
-
-        if (result.hasErrors()) {
-            model.addAttribute("notific_list", organizationService.notific_list());
-            return "editOrganizations";
-        }
-
-        organizationService.update(userOrg);
-        return "redirect:/";
-    }
-*/
-
 }

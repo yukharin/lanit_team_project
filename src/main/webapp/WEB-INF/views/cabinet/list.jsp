@@ -15,19 +15,28 @@
 <div id="wrapper">
     <div id="header">
         <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>
-        <h5>пользователь пока админ</h5>
+        <h5>Пользователь:${user.firstName} ${user.lastName}</h5>
+        <form action="selectUser" method="GET"><%--modelAttribute="user"--%>
+            <select type="text" name="idSelectUser" ><%--multiple="true"--%>
+                <option selected value ="${user.id}">(заданный)${user.firstName} ${user.lastName}</option>
+                <%--<form:options items="${user_list}"  itemLabel="name" itemValue="id" />--%>
+                <c:forEach items="${user_list}" var="tempUser">
+                    <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
+                </c:forEach>
+            </select>
+            <input type="submit" value="Save" class="save" />
+        </form>
         <h5>(кнопки настроек профиля пользователя)</h5>
-        <h5>название 1-ой организация пользователя(пока его нет)</h5>
-            <br/>
+        <h5>Oрганизация: ${org.name}</h5>
         <p>фильтры по словарю notificationStatus</p>
         <p>фильтры архивности (gj прошедшим датам, или уже статус уведомления=выполненый)</p>
         <p>фильтры по дате "dateResponse" относительного текущего времени и заданого</p>
-            <br/>
+        <br/>
         <p>Пагинация таблицы (общее кол-во найденных записей, + ссылки на другие страницы, + выбор по скольку записей за раз показывать)</p>
         <p>Регулируемая сортирвка над каждым полем</p>
         <p>Возможность отметить "галкой" записи (зачем не знаю)</p>
         <p>обычный столбец нумерации</p>
-            <br/>
+        <br/>
         <p>обычный Notification(с ограничениями выше)</p>
         <p>подсветка красным если "dateResponse" близка к текущей дате</p>
         <p>каким нибудь образом возможность нажать на уведомление чтоб можно было перейти на форму с её действиями(Action c выборкой по Notific_ID)(скорей всего двойной клик)</p>
@@ -53,7 +62,7 @@
         <table>
             <tr>
                 <th>Id</th>
-                <th>notificOrg.NAME</th>
+                <th>organization.NAME</th>
                 <th>notificationType</th>
                 <th>dateReceived</th>
                 <th>dateResponse</th>
@@ -61,7 +70,6 @@
                 <th>userByIdUserCuratorGos</th>
                 <th>userByIdUserImplementor</th>
                 <th>notificationStatus</th>
-                <th>Actions</th>
                 <th>f(x)</th>
             </tr>
 
@@ -77,7 +85,7 @@
 
                 <tr>
                     <td>${tempNotification.id}</td>
-                    <td>${tempNotification.notificOrg.name}</td>
+                    <td>${tempNotification.organization.name}</td>
                     <td>${tempNotification.notificationType}</td>
                     <td>${tempNotification.dateReceived.toString()}</td>
                     <td>${tempNotification.dateResponse.toString()}</td>
@@ -85,11 +93,10 @@
                     <td>${tempNotification.userByIdUserCuratorGos}</td>
                     <td>${tempNotification.userByIdUserImplementor}</td>
                     <td>${tempNotification.notificationStatus}</td>
-                    <td>${tempNotification.actions}</td>
                     <td>
                         <a href="${updateLink}">Update</a>
                         <a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>
-                        |
+                        (сылка-Юперейти к содержимому действий)
                     </td>
                 </tr>
             </c:forEach>

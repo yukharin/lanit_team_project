@@ -44,26 +44,7 @@ public class OrganizationDAOImp implements CrudDAO<Organization> {
             tx1.commit();
         }
     }
-/*
-    @Override
-    public List<Organization> searchOrganizations(String theSearchName) {
-        Session currentSession = sessionFactory.getCurrentSession();
 
-        Query theQuery = null;
-        // only search by name if theSearchName is not empty
-        if (theSearchName != null && theSearchName.trim().length() > 0) {
-            // search for firstName or lastName ... case insensitive
-            theQuery = currentSession.createQuery("from Organization where name like :theName", Organization.class);
-            theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
-        }
-        else {
-            // theSearchName is empty ... so just get all customers
-            theQuery = currentSession.createQuery("from Organization", Organization.class);
-        }
-        List<Organization> notific_list = theQuery.getResultList();
-        return notific_list;
-    }
-*/
     @Override
     public void delete(int id) {
         //Session session = sessionFactory.getCurrentSession();

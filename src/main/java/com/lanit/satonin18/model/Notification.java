@@ -44,7 +44,7 @@ public class Notification implements Serializable {
 
     @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
-    private/*protected*/ Organization notificOrg;
+    private/*protected*/ Organization organization;
 
     @ManyToOne
     @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
@@ -70,7 +70,7 @@ public class Notification implements Serializable {
                 ", dateReceived=" + dateReceived +
                 ", dateResponse=" + dateResponse +
                 ", letterNumber='" + letterNumber + '\'' +
-//                ", notificOrg=" + notificOrg +
+//                ", organization=" + organization +
                 ", notificationStatus=" + notificationStatus +
                 ", userByIdUserCuratorGos=" + userByIdUserCuratorGos +
                 ", userByIdUserImplementor=" + userByIdUserImplementor +

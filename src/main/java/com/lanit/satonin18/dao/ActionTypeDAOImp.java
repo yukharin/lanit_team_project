@@ -39,26 +39,6 @@ public class ActionTypeDAOImp implements CrudDAO<ActionType> {
          tx1.commit();
       }
    }
-   /*
-       @Override
-       public List<ActionType> searchActionTypes(String theSearchName) {
-           Session currentSession = sessionFactory.getCurrentSession();
-   
-           Query theQuery = null;
-           // only search by name if theSearchName is not empty
-           if (theSearchName != null && theSearchName.trim().length() > 0) {
-               // search for firstName or lastName ... case insensitive
-               theQuery = currentSession.createQuery("from ActionType where name like :theName", ActionType.class);
-               theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
-           }
-           else {
-               // theSearchName is empty ... so just get all customers
-               theQuery = currentSession.createQuery("from ActionType", ActionType.class);
-           }
-           List<ActionType> notific_list = theQuery.getResultList();
-           return notific_list;
-       }
-   */
    @Override
    public void delete(int id) {
       //Session session = sessionFactory.getCurrentSession();

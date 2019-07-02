@@ -36,7 +36,7 @@
         <table>
             <tr>
                 <th>Id</th>
-                <th>notificOrg.NAME</th>
+                <th>organization.NAME</th>
                 <th>notificationType</th>
                 <th>dateReceived</th>
                 <th>dateResponse</th>
@@ -60,7 +60,7 @@
 
                 <tr>
                     <td>${tempNotification.id}</td>
-                    <td>${tempNotification.notificOrg.name}</td>
+                    <td>${tempNotification.organization.name}</td>
                     <td>${tempNotification.notificationType}</td>
                     <td>${tempNotification.dateReceived.toString()}</td>
                     <td>${tempNotification.dateResponse.toString()}</td>

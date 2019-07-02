@@ -38,26 +38,7 @@ public class ActionDAOImp implements CrudDAO<Action> {
          tx1.commit();
       }
    }
-   /*
-       @Override
-       public List<Action> searchActions(String theSearchName) {
-           Session currentSession = sessionFactory.getCurrentSession();
-   
-           Query theQuery = null;
-           // only search by name if theSearchName is not empty
-           if (theSearchName != null && theSearchName.trim().length() > 0) {
-               // search for firstName or lastName ... case insensitive
-               theQuery = currentSession.createQuery("from Action where name like :theName", Action.class);
-               theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
-           }
-           else {
-               // theSearchName is empty ... so just get all customers
-               theQuery = currentSession.createQuery("from Action", Action.class);
-           }
-           List<Action> notific_list = theQuery.getResultList();
-           return notific_list;
-       }
-   */
+
    @Override
    public void delete(int id) {
       //Session session = sessionFactory.getCurrentSession();
