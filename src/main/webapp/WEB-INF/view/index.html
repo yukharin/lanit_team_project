@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="./cascade.css" media="all" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<h3>Starting page</h3>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Вид уведомления</th>
+        <th>Заказчик</th>
+        <th>Статус обработки уведомления</th>
+        <th>Дата получения уведомления</th>
+        <th>Срок предоставления ответа</th>
+        <th>Номер письма</th>
+    </tr>
+    <tr th:each="notification : ${notifications}">
+        <td th:text="${notification.id}">id</td>
+        <td th:text="${notification.notificationType}">notification_type</td>
+        <td th:text="${notification.organization.name}">org_name</td>
+        <td th:text="${notification.status.name}">notification_status</td>
+        <td th:text="${#dates.format(notification.dateRecieved, 'dd-MMM-yyyy')}"></td>
+        <td th:text="${#dates.format(notification.dateResponse, 'dd-MMM-yyyy')}"></td>
+        <td th:text="${notification.letterNumber}">letter_number</td>
+    </tr>
+</table>
+</body>
+</html>
