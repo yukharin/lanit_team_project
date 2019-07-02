@@ -33,6 +33,9 @@
         <prop key="hibernate.connection.autocommit">true</prop>
         <prop key="hibernate.connection.pool_size">1</prop>
         <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.connection.CharSet">utf8</prop>
+        <prop key="hibernate.connection.characterEncoding">utf8</prop>
+        <prop key="hibernate.connection.useUnicode">true</prop>
     </util:properties>
 
     <!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
