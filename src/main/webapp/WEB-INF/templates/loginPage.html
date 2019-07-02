@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>Login page</h1>
-<div th:if="${param.error}">Invalid username or password</div>
-<form class="form-horizontal" method="post" th:action="@{/doLogin}">
+<form class="form-horizontal" method="post" th:action="@{/account}">
     <div>
         <label class="control-label"> User Name: <input name="username" type="text"/>
         </label>
