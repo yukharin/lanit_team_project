@@ -18,21 +18,26 @@ public class UserDAOImp implements UserDAO{
 
    @Override
    public List<User> searchUserByLastName(String theSearchName) {
-      Session currentSession = sessionFactory.getCurrentSession();
+      //Session session = sessionFactory.getCurrentSession();
+      try(final Session session = sessionFactory.openSession();){
+         Transaction tx1 = session.beginTransaction();
 
-      Query theQuery = null;
-      // only search by name if theSearchName is not empty
-      if (theSearchName != null && theSearchName.trim().length() > 0) {
-         // search for firstName or lastName ... case insensitive
-         theQuery = currentSession.createQuery("from User where lastName like :theName", User.class);
-         theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
+         Query theQuery = null;
+         // only search by name if theSearchName is not empty
+         if (theSearchName != null && theSearchName.trim().length() > 0) {
+            // search for firstName or lastName ... case insensitive
+            theQuery = session.createQuery("from User where lastName like :theName", User.class);
+            theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
+         }
+         else {
+            // theSearchName is empty ... so just get all customers
+            theQuery = session.createQuery("from User", User.class);
+         }
+         List<User> list = theQuery.getResultList();
+
+         tx1.commit();
+         return list;
       }
-      else {
-         // theSearchName is empty ... so just get all customers
-         theQuery = currentSession.createQuery("from User", User.class);
-      }
-      List<User> list = theQuery.getResultList();
-      return list;
    }
 
    @Override
@@ -83,7 +88,6 @@ public class UserDAOImp implements UserDAO{
          User user = session.get(User.class, id);
 
          tx1.commit();
-         session.close();
          return user;
       }
    }

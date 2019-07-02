@@ -1,13 +1,17 @@
 package com.lanit.satonin18.dao;
 
 import com.lanit.satonin18.model.Notification;
+import com.lanit.satonin18.model.NotificationStatus;
+import com.lanit.satonin18.model.Organization;
 
 import java.util.List;
 
 //CRUD - Create Read_by _id Update Delete
 public interface NotificationDAO extends CrudDAO<Notification> {
 
-//   public List<Notification> getNotificationsByIdOrg(int theOrgId);
+   List<Notification> filterOrgAndNotificStatuses(Organization organization, List<NotificationStatus> listNotificStatus);
+
+   List<Notification> filterCurrentsAndNotificStatuses(List<Notification> currentNotifications, /*String[] ids*/ List<NotificationStatus> listNotificStatus);
 
    @Override
    void saveOrUpdate(Notification entity);
@@ -24,4 +28,6 @@ public interface NotificationDAO extends CrudDAO<Notification> {
 
    @Override
    List<Notification> list() ;
+
+
 }

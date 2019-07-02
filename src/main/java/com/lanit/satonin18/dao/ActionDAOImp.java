@@ -63,7 +63,6 @@ public class ActionDAOImp implements CrudDAO<Action> {
          Action action = session.get(Action.class, id);
 
          tx1.commit();
-         session.close();
          return action;
       }
    }

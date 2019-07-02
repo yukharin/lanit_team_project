@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@Scope("session")
+//@SessionAttributes(value = "user")
 
 @Controller("userController")
-//@Scope("session")
 @RequestMapping("/user")
 public class UserController {
 

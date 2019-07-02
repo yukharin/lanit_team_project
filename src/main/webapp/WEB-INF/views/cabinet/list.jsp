@@ -15,8 +15,19 @@
 <div id="wrapper">
     <div id="header">
         <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>
-        <h5>Пользователь:${user.firstName} ${user.lastName}</h5>
-        <form action="selectUser" method="GET"><%--modelAttribute="user"--%>
+        <h5>Пользователь:
+            <c:choose>
+                <c:when test="${user != null}">
+                    ${user.firstName} ${user.lastName} (+ кнопки настроек профиля пользователя)
+                </c:when>
+                <c:otherwise>
+                    <dl style="color: red">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ)</dl>
+                </c:otherwise>
+            </c:choose>
+        </h5>
+        ${user.firstName} ${user.lastName} (кнопки настроек профиля пользователя)</h5>
+
+        <form action="selectUser" method="POST"><%--modelAttribute="user"--%>
             <select type="text" name="idSelectUser" ><%--multiple="true"--%>
                 <option selected value ="${user.id}">(заданный)${user.firstName} ${user.lastName}</option>
                 <%--<form:options items="${user_list}"  itemLabel="name" itemValue="id" />--%>
@@ -24,12 +35,47 @@
                     <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
                 </c:forEach>
             </select>
-            <input type="submit" value="Save" class="save" />
+            <input type="submit" value="Войти на страницу" class="save" />
         </form>
-        <h5>(кнопки настроек профиля пользователя)</h5>
-        <h5>Oрганизация: ${org.name}</h5>
-        <p>фильтры по словарю notificationStatus</p>
-        <p>фильтры архивности (gj прошедшим датам, или уже статус уведомления=выполненый)</p>
+
+        <h5>Oрганизация: ${user.organization.name}</h5>
+        <form action="filterByNotificStatus"  method="post">
+            Фильтры по словарю notificationStatus<Br>
+            <c:forEach items="${notificStatus_list}" var="tempStatus">
+                <c:choose>
+                    <c:when test="${checked_list.contains(tempStatus)}">
+                        <input type="checkbox" name="id" class= "checkbox" value="${tempStatus.id}" checked >${tempStatus.name}</input><Br>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="checkbox" name="id" class= "checkbox" value="${tempStatus.id}">${tempStatus.name}</input><Br>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <button type="submit">Применить фильтр</button>
+            <button type="submit" onclick="onCheck()">Отменить фильтр</button>
+            <script>
+                function onCheck() {
+                    var mas = document.getElementsByClassName("checkbox");
+                    for (var i=0;i<mas.length;i++){
+                        mas[i].checked = true;//.setAttribute('checked', 'checked');
+                    }
+                }
+            </script>
+        </form>
+
+        <form action="filterArchive" method="GET"><%--modelAttribute="user"--%>
+            <Br>Показать архивные(эти уведомления наверн отмечается другим цветом) (checkbox) (я считаю что это:IF (статус=3,4,5,7 AND СрокПредоставленияОтвета=прошел) )<Br>
+            <c:choose>
+                <c:when test="${flagArchive}">
+                    <input type="checkbox" name="flagArchive" value="true" checked >Показывать архивные</input><Br>
+                </c:when>
+                <c:otherwise>
+                    <input type="checkbox" name="flagArchive" value="false">Показывать архивные</input><Br>
+                </c:otherwise>
+            </c:choose>
+            <input type="submit" value="mock" class="save" />
+        </form>
+
         <p>фильтры по дате "dateResponse" относительного текущего времени и заданого</p>
         <br/>
         <p>Пагинация таблицы (общее кол-во найденных записей, + ссылки на другие страницы, + выбор по скольку записей за раз показывать)</p>
@@ -92,7 +138,7 @@
                     <td>${tempNotification.letterNumber}</td>
                     <td>${tempNotification.userByIdUserCuratorGos}</td>
                     <td>${tempNotification.userByIdUserImplementor}</td>
-                    <td>${tempNotification.notificationStatus}</td>
+                    <td>${tempNotification.notificationStatus.name}</td>
                     <td>
                         <a href="${updateLink}">Update</a>
                         <a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

@@ -7,20 +7,20 @@ import java.util.List;
 //CRUD - Create Read_by _id Update Delete
 public interface UserService extends CrudService<User> {
 
-    public List<User> searchUserByLastName(String theSearchName) ;
+    List<User> searchUserByLastName(String theSearchName) ;
 
     @Override
-    public void saveOrUpdate(User organization) ;
+    void saveOrUpdate(User organization) ;
 
     @Override
-    public void update(User organization) ;
+    void update(User organization) ;
 
     @Override
-    public void delete(int id) ;
+    void delete(int id) ;
 
     @Override
-    public User getById(int id) ;
+    User getById(int id) ;
 
     @Override
-    public List<User> list() ;
+    List<User> list() ;
 }

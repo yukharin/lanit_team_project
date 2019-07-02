@@ -69,7 +69,6 @@ public class OrganizationDAOImp implements CrudDAO<Organization> {
             Organization organization = session.get(Organization.class, id);
 
             tx1.commit();
-            session.close();
             return organization;
         }
     }
