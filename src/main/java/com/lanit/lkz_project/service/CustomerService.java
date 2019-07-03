@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    final private List<Customer> books = BookUtils.build(200);
+    final private List<Customer> books = BookUtils.build(2000);
 
     public Page<Customer> findPaginated(Pageable pageable) {
         int pageSize = pageable.getPageSize();
