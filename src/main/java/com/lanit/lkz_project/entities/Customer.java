@@ -5,13 +5,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Book {
+public class Customer {
 
     private int id;
     private String name;
+    private String address;
 
-    public Book(int id, String name) {
+    public Customer(int id, String name, String address) {
         this.id = id;
         this.name = name;
+        this.address = address;
     }
+
+
 }

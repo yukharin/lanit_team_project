@@ -1,7 +1,7 @@
 package com.lanit.lkz_project.service;
 
-import com.lanit.lkz_project.entities.Book;
 import com.lanit.lkz_project.entities.BookUtils;
+import com.lanit.lkz_project.entities.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -12,15 +12,15 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class BookService {
+public class CustomerService {
 
-    final private List<Book> books = BookUtils.build(200);
+    final private List<Customer> books = BookUtils.build(200);
 
-    public Page<Book> findPaginated(Pageable pageable) {
+    public Page<Customer> findPaginated(Pageable pageable) {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
-        List<Book> list;
+        List<Customer> list;
 
         if (books.size() < startItem) {
             list = Collections.emptyList();
@@ -29,7 +29,7 @@ public class BookService {
             list = books.subList(startItem, toIndex);
         }
 
-        Page<Book> bookPage
+        Page<Customer> bookPage
                 = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
 
         return bookPage;
