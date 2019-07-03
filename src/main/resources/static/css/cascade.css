@@ -7,7 +7,8 @@ table, th, td {
 }
 
 .pagination {
-    display: inline-block;
+    display:inline;
+
 }
 
 .pagination a {

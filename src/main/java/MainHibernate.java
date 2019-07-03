@@ -24,6 +24,6 @@ public class MainHibernate {
         List<User> users = session.createQuery("FROM User ").list();
         Gson gson = new Gson();
         String str = gson.toJson(users);
-        System.out.println(str);
+        System.out.println("IMPORTANT!!!: "+str);
     }
 }
