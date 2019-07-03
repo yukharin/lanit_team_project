@@ -13,9 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:alt-title="${iStat.even}? 'even' : 'odd'"
-        th:each="book, iStat : ${bookPage.content}"
-        th:style="${iStat.odd}? 'font-weight: bold;'">
+    <tr th:each="book : ${bookPage.content}">
         <td th:text="${book.id}"/>
         <td th:text="${book.name}"/>
     </tr>
