@@ -17,6 +17,7 @@
         <th>Дата получения уведомления</th>
         <th>Срок предоставления ответа</th>
         <th>Номер письма</th>
+        <th>Журнал действий</th>
     </tr>
     <tr th:each="notification : ${notifications}">
         <td th:text="${notification.id}">id</td>
@@ -26,6 +27,7 @@
         <td th:text="${#dates.format(notification.dateRecieved, 'dd-MMM-yyyy')}"></td>
         <td th:text="${#dates.format(notification.dateResponse, 'dd-MMM-yyyy')}"></td>
         <td th:text="${notification.letterNumber}">letter_number</td>
+        <td><a th:href="@{/actions}"/>actions_history</td>
     </tr>
 </table>
 </body>

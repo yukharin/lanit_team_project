@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th th:text="#{msg.id}"/>
+        <th th:text="#{msg.name}"/>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:alt-title="${iStat.even}? 'even' : 'odd'"
+        th:each="book, iStat : ${bookPage.content}"
+        th:style="${iStat.odd}? 'font-weight: bold;'">
+        <td th:text="${book.id}"/>
+        <td th:text="${book.name}"/>
+    </tr>
+    </tbody>
+</table>
+<div class="pagination" th:each="pageNumber : ${pageNumbers}"
+     th:if="${bookPage.totalPages > 0}">
+    <a th:class="${pageNumber==bookPage.number + 1} ? active"
+       th:href="@{/listBooks(size=${bookPage.size}, page=${pageNumber})}"
+       th:text=${pageNumber}></a>
+</div>
+</body>
+</html>
