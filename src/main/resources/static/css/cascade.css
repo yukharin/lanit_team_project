@@ -7,5 +7,14 @@ table, th, td {
 }
 
 .pagination {
-
+    display: inline-block;
 }
+
+.pagination a {
+    border: 1px solid #ddd; /* Gray */
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
