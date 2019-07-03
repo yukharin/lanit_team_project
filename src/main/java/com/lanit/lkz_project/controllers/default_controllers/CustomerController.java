@@ -16,7 +16,7 @@ public class CustomerController {
     @Autowired
     private CustomerService service;
 
-    @RequestMapping(value = "/listBooks", method = RequestMethod.GET)
+    @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public String customersPage(HttpServletRequest request, Model model) {
 
         int page = 0; //default page number is 0 (yes it is weird)
@@ -30,6 +30,6 @@ public class CustomerController {
             size = Integer.parseInt(request.getParameter("size"));
         }
         model.addAttribute("customers", service.findPaginated(PageRequest.of(page, size)));
-        return "listBooks";
+        return "customers";
     }
 }
