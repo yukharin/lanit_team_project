@@ -43,7 +43,7 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/account/delete")
-    public String deleteNotification(HttpServletRequest request, Model model) {
+    public String deleteNotification(HttpServletRequest request) {
         Long notificationId = Long.valueOf(request.getParameter("id"));
         notificationService.removeNotification(notificationId);
         return "redirect:/account";
