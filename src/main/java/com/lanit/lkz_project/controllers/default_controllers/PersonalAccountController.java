@@ -26,7 +26,7 @@ public class PersonalAccountController {
         return "redirect:account/";
     }
 
-    @GetMapping("account/")
+    @GetMapping("/account/")
     public String getAllNotifications(Model model) {
         List<Notification> notifications = notificationService.notifications();
         model.addAttribute("notifications", notifications);
@@ -34,10 +34,9 @@ public class PersonalAccountController {
     }
 
 
-    @GetMapping("account/actions")
+    @GetMapping("/account/actions")
     public String getNotificationActions(HttpServletRequest request, Model model) {
         Long notificationId = Long.valueOf(request.getParameter("id"));
-        System.out.println("ID: " + notificationId);
         List<Action> actions = actionService.actionOfNotification(notificationId);
         model.addAttribute("actions", actions);
         return "notificationActions";
