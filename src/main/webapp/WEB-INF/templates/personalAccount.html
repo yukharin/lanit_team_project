@@ -29,17 +29,24 @@
         <td th:text="${notification.letterNumber}">letter_number</td>
         <td>
             <form method="get" th:action="@{actions}">
-                <input name="id" th:value="${notification.id}" type="hidden">
-                <input type="submit" value="view">
+                <input name="id" th:value="${notification.id}" type="hidden"/>
+                <label for="view_form"/>
+                <input id="view_form" type="submit" value="view"/>
             </form>
         </td>
         <td>
             <form method="post" th:action="@{delete}">
                 <input name="id" th:value="${notification.id}" type="hidden">
-                <input type="submit" value="delete">
+                <label for="delete_form"/>
+                <input id="delete_form" type="submit" value="delete"/>
             </form>
         </td>
     </tr>
 </table>
+<div class="link">
+    <form method="post" th:action="@{add}">
+        <button type="submit">Добавить пользователя</button>
+    </form>
+</div>
 </body>
 </html>
