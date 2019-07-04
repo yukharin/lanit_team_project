@@ -18,7 +18,6 @@
     </label>
     <label for="selectOrg">
         <select class="form-control" form="addNotification" id="selectOrg" name="orgId">
-            =
             <option th:each="organization : ${organizations}"
                     th:text="${organization.name}"
                     th:value="${organization.id}"></option>
