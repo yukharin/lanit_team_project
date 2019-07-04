@@ -4,7 +4,6 @@
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
-
 </head>
 <body>
 <h3>Starting page</h3>
@@ -27,7 +26,12 @@
         <td th:text="${#dates.format(notification.dateRecieved, 'dd-MMM-yyyy')}"></td>
         <td th:text="${#dates.format(notification.dateResponse, 'dd-MMM-yyyy')}"></td>
         <td th:text="${notification.letterNumber}">letter_number</td>
-        <td><a th:href="@{/actions}"/>actions_history</td>
+        <td>
+            <form action="/account/actions" method="get">
+                <input th:name="id" th:type="hidden" value="${notification.id}">
+                <input th:type="submit" value="view">
+            </form>
+        </td>
     </tr>
 </table>
 </body>

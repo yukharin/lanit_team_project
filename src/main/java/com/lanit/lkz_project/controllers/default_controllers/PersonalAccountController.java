@@ -1,27 +1,46 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
+import com.lanit.lkz_project.entities.Action;
 import com.lanit.lkz_project.entities.Notification;
+import com.lanit.lkz_project.service.ActionService;
 import com.lanit.lkz_project.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@RequestMapping("/")
+
 @Controller
 public class PersonalAccountController {
 
     @Autowired
-    private NotificationService service;
+    ActionService actionService;
+    @Autowired
+    private NotificationService notificationService;
 
-    @GetMapping
+    @GetMapping("/")
+    public String toPersonalAccount() {
+        return "redirect:account/";
+    }
+
+    @GetMapping("account/")
     public String getAllNotifications(Model model) {
-        List<Notification> notifications = service.notifications();
+        List<Notification> notifications = notificationService.notifications();
         model.addAttribute("notifications", notifications);
         return "personalAccount";
+    }
+
+
+    @GetMapping("account/actions/")
+    public String getNotificationActions(HttpServletRequest request, Model model) {
+        Long notificationId = Long.valueOf(request.getParameter("id"));
+        System.out.println("ID: " + notificationId);
+        List<Action> actions = actionService.actionOfNotification(notificationId);
+        model.addAttribute("actions", actions);
+        return "notificationActions";
     }
 
 }

@@ -3,6 +3,7 @@ package com.lanit.lkz_project.dao;
 import com.lanit.lkz_project.entities.Action;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -45,5 +46,15 @@ public class ActionDAO {
     public List<Action> actions() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("FROM Action ").list();
+    }
+
+    public List<Action> actionsOfNotification(long notificationId) {
+        // SQL Query
+        // SELECT * FROM actions WHERE notificationId = notificationId;
+        Session session = sessionFactory.getCurrentSession();
+        String hqlQuery = "FROM Action WHERE id = :notificationId";
+        Query query = session.createQuery(hqlQuery);
+        query.setParameter("notificationId", notificationId);
+        return query.list();
     }
 }
