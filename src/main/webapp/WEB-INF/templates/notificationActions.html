@@ -6,6 +6,24 @@
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
 </head>
 <body>
-Hello world
+<h2>Actions history</h2>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Дата, время</th>
+        <th>Комментарий</th>
+        <th>Пользователь</th>
+        <th>Подразделение</th>
+        <th>Статус после изменения</th>
+    </tr>
+    <tr th:each="action : ${actions}">
+        <td th:text="${action.id}">id</td>
+        <td th:text="${#dates.format(action.date)}">date</td>
+        <td th:text="${action.content}">content</td>
+        <td th:text="${action.implementor.firstName}">implementor</td>
+        <td th:text="${action.implementor.organization.orgType}">organization</td>
+        <td th:text="${action.status.name}">status</td>
+    </tr>
+</table>
 </body>
 </html>

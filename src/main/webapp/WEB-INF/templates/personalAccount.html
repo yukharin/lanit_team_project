@@ -17,6 +17,7 @@
         <th>Срок предоставления ответа</th>
         <th>Номер письма</th>
         <th>Журнал действий</th>
+        <th>Удалить</th>
     </tr>
     <tr th:each="notification : ${notifications}">
         <td th:text="${notification.id}">id</td>
@@ -30,6 +31,12 @@
             <form method="get" th:action="@{actions}">
                 <input name="id" th:value="${notification.id}" type="hidden">
                 <input type="submit" value="view">
+            </form>
+        </td>
+        <td>
+            <form method="post" th:action="@{delete}">
+                <input name="id" th:value="${notification.id}" type="hidden">
+                <input type="submit" value="delete">
             </form>
         </td>
     </tr>
