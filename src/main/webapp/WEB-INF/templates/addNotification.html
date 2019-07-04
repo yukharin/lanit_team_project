@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
+</head>
+<body>
+
+<h2><strong>Добавить уведомление</strong></h2>
+<div></div>
+<form action="addNotification" id="addNotification" method="post">
+    <label for="notificationType">
+        <input id="notificationType" name="notificationType" type="text"/>
+    </label>
+    <label for="dateResponse">
+        <input id="dateResponse" name="dateResponse" type="date"/>
+    </label>
+    <label for="selectOrg">
+        <select class="form-control" form="addNotification" id="selectOrg" name="orgId">
+            =
+            <option th:each="organization : ${organizations}"
+                    th:text="${organization.name}"
+                    th:value="${organization.id}"></option>
+        </select>
+    </label>
+    <input type="submit" value="Отправить"/>
+</form>
+</body>
+</html>

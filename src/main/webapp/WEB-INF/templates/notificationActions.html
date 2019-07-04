@@ -21,7 +21,7 @@
         <td th:text="${#dates.format(action.date)}">date</td>
         <td th:text="${action.content}">content</td>
         <td th:text="${action.implementor.firstName}">implementor</td>
-        <td th:text="${action.implementor.organization.orgType}">organization</td>
+        <td th:text="${action.implementor.organization.name}">organization</td>
         <td th:text="${action.status.name}">status</td>
     </tr>
 </table>
