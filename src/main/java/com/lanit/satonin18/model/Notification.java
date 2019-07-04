@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "notifications")
 
-@Data //get and set
+//@Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -77,5 +77,86 @@ public class Notification implements Serializable {
                 ", actions.size()=" + actions.size() +
                 ", actions" + actions +
                 '}';
+    }
+    //-------------------------------------
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
+    }
+
+    public Date getDateReceived() {
+        return dateReceived;
+    }
+
+    public void setDateReceived(Date dateReceived) {
+        this.dateReceived = dateReceived;
+    }
+
+    public Date getDateResponse() {
+        return dateResponse;
+    }
+
+    public void setDateResponse(Date dateResponse) {
+        this.dateResponse = dateResponse;
+    }
+
+    public String getLetterNumber() {
+        return letterNumber;
+    }
+
+    public void setLetterNumber(String letterNumber) {
+        this.letterNumber = letterNumber;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public NotificationStatus getNotificationStatus() {
+        return notificationStatus;
+    }
+
+    public void setNotificationStatus(NotificationStatus notificationStatus) {
+        this.notificationStatus = notificationStatus;
+    }
+
+    public User getUserByIdUserCuratorGos() {
+        return userByIdUserCuratorGos;
+    }
+
+    public void setUserByIdUserCuratorGos(User userByIdUserCuratorGos) {
+        this.userByIdUserCuratorGos = userByIdUserCuratorGos;
+    }
+
+    public User getUserByIdUserImplementor() {
+        return userByIdUserImplementor;
+    }
+
+    public void setUserByIdUserImplementor(User userByIdUserImplementor) {
+        this.userByIdUserImplementor = userByIdUserImplementor;
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
     }
 }

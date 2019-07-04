@@ -9,7 +9,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Notification CRUD Application</title>
-    <!--link type="text/css" rel="stylesheet" href="//{pageContext.request.contextPath}/resources/css/style.css" /-->
 </head>
 <body>
 <div id="wrapper">
@@ -24,12 +23,10 @@
                     <dl style="color: red">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ)</dl>
                 </c:otherwise>
             </c:choose>
-        </h5>
-        ${user.firstName} ${user.lastName} (кнопки настроек профиля пользователя)</h5>
 
         <form action="selectUser" method="POST"><%--modelAttribute="user"--%>
             <select type="text" name="idSelectUser" ><%--multiple="true"--%>
-                <option selected value ="${user.id}">(заданный)${user.firstName} ${user.lastName}</option>
+                <%--<option selected value ="${user.id}">(заданный)${user.firstName} ${user.lastName}</option>--%>
                 <%--<form:options items="${user_list}"  itemLabel="name" itemValue="id" />--%>
                 <c:forEach items="${user_list}" var="tempUser">
                     <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
@@ -39,7 +36,8 @@
         </form>
 
         <h5>Oрганизация: ${user.organization.name}</h5>
-        <form action="filterByNotificStatus"  method="post">
+
+        <form action="filterByNotificStatus"  method="get">
             Фильтры по словарю notificationStatus<Br>
             <c:forEach items="${notificStatus_list}" var="tempStatus">
                 <c:choose>
@@ -51,6 +49,42 @@
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
+
+            <Br>Показать ещё и архивные(я считаю что это 2-ой по приоритету фильтр)(эти уведомления отмечается другим цветом) (checkbox))<Br>
+            <c:choose>
+                <c:when test="${flagArchive}">
+                    <input type="checkbox" name="flagArchive" class= "checkbox" value="checked" checked>Показывать архивные уведомления</input><Br>
+                    <%--<input type="hidden" name="flagArchive" value="${!flagArchive}" checked></input>--%>
+                    <%--<button id="Archive" type="submit" style="background: green">Архив</button><Br>--%>
+                </c:when>
+                <c:otherwise>
+                    <input type="checkbox" name="flagArchive" class= "checkbox" value="checked">Показывать архивные уведомления</input><Br>
+                    <%--<input type="hidden" name="flagArchive" value="${!flagArchive}"></input>--%>
+                    <%--<button id="Archive" type="submit" style="background: red">Архив</button><Br>--%>
+                </c:otherwise>
+            </c:choose>
+
+            <%--<Br>Временой фильтр(я считаю что это 1-ой по приоритету фильтр)(эти уведомления отмечается красным цветом) (checkbox + select(Time) ) )<Br>--%>
+            <%--<c:choose>--%>
+                <%--<c:when test="${flagTimeFilter}">--%>
+                    <%--<input type="checkbox" name="flagTimeFilter" class= "checkbox" value="checked" checked>use TimeFilter</input><Br>--%>
+                    <%--&lt;%&ndash;<input type="hidden" name="flagArchive" value="${!flagArchive}" checked></input>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<button id="Archive" type="submit" style="background: green">Архив</button><Br>&ndash;%&gt;--%>
+                <%--</c:when>--%>
+                <%--<c:otherwise>--%>
+                    <%--<input type="checkbox" name="flagTimeFilter" class= "checkbox" value="checked">use TimeFilter</input><Br>--%>
+                    <%--&lt;%&ndash;<input type="hidden" name="flagArchive" value="${!flagArchive}"></input>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<button id="Archive" type="submit" style="background: red">Архив</button><Br>&ndash;%&gt;--%>
+                <%--</c:otherwise>--%>
+            <%--</c:choose>--%>
+            <%--<select type="text" name="idSelectUser" >&lt;%&ndash;multiple="true"&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<option selected value ="${user.id}">(заданный)${user.firstName} ${user.lastName}</option>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<form:options items="${user_list}"  itemLabel="name" itemValue="id" />&ndash;%&gt;--%>
+                <%--<c:forEach items="${user_list}" var="tempUser">--%>
+                    <%--<option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>--%>
+                <%--</c:forEach>--%>
+            <%--</select>--%>
+
             <button type="submit">Применить фильтр</button>
             <button type="submit" onclick="onCheck()">Отменить фильтр</button>
             <script>
@@ -61,19 +95,7 @@
                     }
                 }
             </script>
-        </form>
 
-        <form action="filterArchive" method="GET"><%--modelAttribute="user"--%>
-            <Br>Показать архивные(эти уведомления наверн отмечается другим цветом) (checkbox) (я считаю что это:IF (статус=3,4,5,7 AND СрокПредоставленияОтвета=прошел) )<Br>
-            <c:choose>
-                <c:when test="${flagArchive}">
-                    <input type="checkbox" name="flagArchive" value="true" checked >Показывать архивные</input><Br>
-                </c:when>
-                <c:otherwise>
-                    <input type="checkbox" name="flagArchive" value="false">Показывать архивные</input><Br>
-                </c:otherwise>
-            </c:choose>
-            <input type="submit" value="mock" class="save" />
         </form>
 
         <p>фильтры по дате "dateResponse" относительного текущего времени и заданого</p>

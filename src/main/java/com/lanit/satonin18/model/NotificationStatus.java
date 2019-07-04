@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "notification_statuses")
 
-@Data //get and set
+//@Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -33,5 +33,22 @@ public class NotificationStatus  implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+    //-----------------------------
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

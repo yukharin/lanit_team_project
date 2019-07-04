@@ -20,6 +20,89 @@ public class NotificationDAOImp implements NotificationDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    public void saveOrUpdate(Notification notification) {  //TODO need saveOrUpdate @NotNull final IN ARG //throws Exc
+        //Session session = sessionFactory.getCurrentSession();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
+
+            session.saveOrUpdate(notification);
+
+            tx1.commit();
+        }
+    }
+
+    @Override
+    public void update(Notification notification) {
+        //Session session = sessionFactory.getCurrentSession();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
+
+            session.update(notification);
+
+            tx1.commit();
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        //Session session = sessionFactory.getCurrentSession();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
+
+            Notification notification = session.load(Notification.class, id);
+
+            if(notification != null)
+                session.delete(notification);
+
+            tx1.commit();
+        }
+    }
+
+    @Override
+    public Notification getById(int id) {
+        //Session session = sessionFactory.getCurrentSession();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
+
+            Notification notification = session.get(Notification.class, id);
+
+            tx1.commit();
+            return notification;
+        }
+    }
+
+    @Override
+    public List<Notification> list() {
+        //Session session = sessionFactory.getCurrentSession();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
+
+            List<Notification> notifications = session.createQuery("from Notification", Notification.class).list();
+
+            tx1.commit();
+            return notifications;
+        }
+    }
+    @Override
+    public List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<NotificationStatus> sendedStatuses){
+        //Session session = sessionFactory.getCurrentSession();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
+
+            Query theQuery = null;
+            theQuery = session.createQuery(
+                    "FROM Notification as n WHERE n.notificationStatus IN(:sendedStatuses)",
+                    Notification.class);
+//            theQuery.setParameterList("currentNotifications", currentNotifications);
+            theQuery.setParameterList("sendedStatuses", sendedStatuses);
+
+            List<Notification> list = theQuery.getResultList();
+            tx1.commit();
+            return list;
+        }
+    }
+
+    @Override
     public List<Notification> filterOrgAndNotificStatuses(Organization organization, List<NotificationStatus> listNotificStatus){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
@@ -103,67 +186,20 @@ public class NotificationDAOImp implements NotificationDAO {
     }
 
     @Override
-    public void saveOrUpdate(Notification notification) {  //TODO need saveOrUpdate @NotNull final IN ARG //throws Exc
+    public List<Notification> filterOrg(Organization organization){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
             Transaction tx1 = session.beginTransaction();
 
-            session.saveOrUpdate(notification);
+            Query theQuery = null;
+            theQuery = session.createQuery(
+                    "FROM Notification n WHERE n.organization = :organization",
+                    Notification.class);
+            theQuery.setParameter("organization", organization);
 
+            List<Notification> list = theQuery.getResultList();
             tx1.commit();
-        }
-    }
-
-    @Override
-    public void update(Notification notification) {
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
-
-            session.update(notification);
-
-            tx1.commit();
-        }
-    }
-
-    @Override
-    public void delete(int id) {
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
-
-            Notification notification = session.load(Notification.class, id);
-
-            if(notification != null)
-                session.delete(notification);
-
-            tx1.commit();
-        }
-    }
-
-    @Override
-    public Notification getById(int id) {
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
-
-            Notification notification = session.get(Notification.class, id);
-
-            tx1.commit();
-            return notification;
-        }
-    }
-
-    @Override
-    public List<Notification> list() {
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
-
-            List<Notification> notifications = session.createQuery("from Notification", Notification.class).list();
-
-            tx1.commit();
-            return notifications;
+            return list;
         }
     }
 }

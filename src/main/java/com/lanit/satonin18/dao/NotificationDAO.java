@@ -8,6 +8,7 @@ import java.util.List;
 
 //CRUD - Create Read_by _id Update Delete
 public interface NotificationDAO extends CrudDAO<Notification> {
+   List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<NotificationStatus> sendedStatuses);
 
    List<Notification> filterOrgAndNotificStatuses(Organization organization, List<NotificationStatus> listNotificStatus);
 
@@ -29,5 +30,6 @@ public interface NotificationDAO extends CrudDAO<Notification> {
    @Override
    List<Notification> list() ;
 
-
+//----------------------------------------------
+   List<Notification> filterOrg(Organization organization);
 }

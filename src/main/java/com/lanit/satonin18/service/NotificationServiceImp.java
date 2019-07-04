@@ -17,6 +17,10 @@ public class NotificationServiceImp implements NotificationService  {
     private NotificationDAO notificationDAO;
 
     @Override
+    public List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<NotificationStatus> sendedStatuses){
+        return notificationDAO.filterDataAndNoArchiveNotifications(currentNotifications, sendedStatuses);
+    }
+    @Override
     public List<Notification> filterOrgAndNotificStatuses(Organization organization, List<NotificationStatus> listNotificStatus){
         return notificationDAO.filterOrgAndNotificStatuses(organization, listNotificStatus);
     }
@@ -49,5 +53,12 @@ public class NotificationServiceImp implements NotificationService  {
     @Override
     public List<Notification> list() {
         return notificationDAO.list();
+    }
+
+    //---------------------------------------------------------
+
+    @Override
+    public List<Notification> filterOrg(Organization organization){
+        return notificationDAO.filterOrg(organization);
     }
 }
