@@ -30,7 +30,7 @@ public class Organization {
     @Column(name = "org_type", nullable = false)
     private boolean orgType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_gos_org", referencedColumnName = "id")
     private Organization govOrganization;
 
