@@ -27,9 +27,9 @@
         <td th:text="${#dates.format(notification.dateResponse, 'dd-MMM-yyyy')}"></td>
         <td th:text="${notification.letterNumber}">letter_number</td>
         <td>
-            <form action="/account/actions/" method="get">
-                <input th:name="id" th:type="hidden" value="${notification.id}">
-                <input th:type="submit" value="view">
+            <form method="get" th:action="@{actions}">
+                <input name="id" th:value="${notification.id}" type="hidden">
+                <input type="submit" value="view">
             </form>
         </td>
     </tr>

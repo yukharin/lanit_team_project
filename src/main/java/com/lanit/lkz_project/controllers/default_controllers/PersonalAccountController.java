@@ -34,7 +34,7 @@ public class PersonalAccountController {
     }
 
 
-    @GetMapping("account/actions/")
+    @GetMapping("account/actions")
     public String getNotificationActions(HttpServletRequest request, Model model) {
         Long notificationId = Long.valueOf(request.getParameter("id"));
         System.out.println("ID: " + notificationId);
