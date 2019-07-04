@@ -46,15 +46,15 @@ public class Notification {
     @Column(name = "letter_number", length = 12)
     private String letterNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user_curator_gos", referencedColumnName = "id", nullable = false)
     private User userCuratorGos;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userImplementor;
 
-    @OneToMany(mappedBy = "notification", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "notification", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Action> actions;
 

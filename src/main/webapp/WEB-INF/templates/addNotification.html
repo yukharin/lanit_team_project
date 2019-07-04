@@ -10,19 +10,14 @@
 <h2><strong>Добавить уведомление</strong></h2>
 <div></div>
 <form action="addNotification" id="addNotification" method="post">
-    <label for="notificationType">
         <input id="notificationType" name="notificationType" type="text"/>
-    </label>
-    <label for="dateResponse">
         <input id="dateResponse" name="dateResponse" type="date"/>
-    </label>
-    <label for="selectOrg">
-        <select class="form-control" form="addNotification" id="selectOrg" name="orgId">
-            <option th:each="organization : ${organizations}"
-                    th:text="${organization.name}"
-                    th:value="${organization.id}"></option>
-        </select>
-    </label>
+    <select name="orgId">
+        <option th:each="organization : ${organizations}"
+                th:text="${organization.name}"
+                th:value="${organization.id}">Wireframe
+        </option>
+    </select>
     <input type="submit" value="Отправить"/>
 </form>
 </body>

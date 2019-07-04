@@ -31,6 +31,11 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
+    public User(Organization organization, String firstName, String lastName) {
+        this.organization = organization;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     @Override
     public String toString() {
