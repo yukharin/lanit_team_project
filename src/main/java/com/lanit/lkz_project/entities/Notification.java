@@ -54,7 +54,7 @@ public class Notification {
     @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userImplementor;
 
-    @OneToMany(mappedBy = "notification")
+    @OneToMany(mappedBy = "notification", cascade = CascadeType.REMOVE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Action> actions;
 
@@ -64,14 +64,6 @@ public class Notification {
         return "Notification{" +
                 "id=" + id +
                 ", organization=" + organization +
-                ", notificationType='" + notificationType + '\'' +
-                ", status=" + status +
-                ", dateRecieved=" + dateRecieved +
-                ", dateResponse=" + dateResponse +
-                ", letterNumber='" + letterNumber + '\'' +
-                ", userCuratorGos=" + userCuratorGos +
-                ", userImplementor=" + userImplementor +
-                ", actions=" + actions +
-                '}';
+                ", notificationType='" + notificationType;
     }
 }

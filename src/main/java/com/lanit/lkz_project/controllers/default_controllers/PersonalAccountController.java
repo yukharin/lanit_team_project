@@ -46,9 +46,7 @@ public class PersonalAccountController {
     public String deleteNotification(HttpServletRequest request, Model model) {
         Long notificationId = Long.valueOf(request.getParameter("id"));
         notificationService.removeNotification(notificationId);
-        List<Notification> notifications = notificationService.notifications();
-        model.addAttribute("notifications", notifications);
-        return "redirect:personalAccount";
+        return "redirect:/account";
     }
 
 }
