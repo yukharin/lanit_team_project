@@ -6,19 +6,20 @@
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
 </head>
 <body>
-
-<h2><strong>Добавить уведомление</strong></h2>
-<div></div>
-<form action="addNotification" id="addNotification" method="post">
-        <input id="notificationType" name="notificationType" type="text"/>
-        <input id="dateResponse" name="dateResponse" type="date"/>
+<h3>Registration page</h3>
+<form , action="/registerUser/" method="post">
+    <input name="firstName" type="text"/>
+    <input name="lastName" type="text"/>
+    <input name="login" type="text"/>
+    <input name="password" type="text"/>
     <select name="orgId">
         <option th:each="organization : ${organizations}"
                 th:text="${organization.name}"
                 th:value="${organization.id}">
         </option>
     </select>
-    <input type="submit" value="Отправить"/>
+    <input type="submit" value="Отправить">
 </form>
+
 </body>
 </html>

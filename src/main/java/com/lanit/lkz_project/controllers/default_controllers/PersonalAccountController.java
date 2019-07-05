@@ -33,11 +33,6 @@ public class PersonalAccountController {
     @Autowired
     private NotificationStatusService notificationStatusService;
 
-    @GetMapping("/")
-    public String toPersonalAccount() {
-        return "redirect:account/";
-    }
-
     @GetMapping("/account")
     public String getAllNotifications(Model model) {
         List<Notification> notifications = notificationService.notifications();

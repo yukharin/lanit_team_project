@@ -43,6 +43,7 @@ public class User {
     private Date registrationDate;
 
     @ManyToOne
+    @JoinColumn(name = "id_role")
     private Role role;
 
 
