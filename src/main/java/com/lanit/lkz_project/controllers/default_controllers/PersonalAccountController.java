@@ -3,7 +3,6 @@ package com.lanit.lkz_project.controllers.default_controllers;
 import com.lanit.lkz_project.entities.Action;
 import com.lanit.lkz_project.entities.Notification;
 import com.lanit.lkz_project.entities.Organization;
-import com.lanit.lkz_project.entities.User;
 import com.lanit.lkz_project.service.ActionService;
 import com.lanit.lkz_project.service.NotificationService;
 import com.lanit.lkz_project.service.NotificationStatusService;
@@ -74,8 +73,6 @@ public class PersonalAccountController {
         notification.setDateRecieved(new Date());
         notification.setOrganization(organizationService.getOrganization(orgId));
         notification.setStatus(notificationStatusService.getNotificationStatus(1));
-        notification.setUserCuratorGos(new User(organizationService.getOrganization(orgId), "Vlad", "Yukharin"));
-        notification.setUserImplementor(new User(organizationService.getOrganization(orgId), "Kevin", "Pitt"));
         notificationService.addNotification(notification);
         return "redirect:/account";
     }
