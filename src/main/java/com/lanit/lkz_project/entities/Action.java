@@ -26,7 +26,7 @@ public class Action {
     @JoinColumn(name = "id_notification", referencedColumnName = "id", nullable = false)
     private Notification notification;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
     private ActionType actionType;
 

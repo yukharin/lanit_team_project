@@ -31,7 +31,7 @@ public class Notification {
     @Column(name = "notification_type", length = 150)
     private String notificationType;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
     private NotificationStatus status;
 
@@ -46,15 +46,15 @@ public class Notification {
     @Column(name = "letter_number", length = 12)
     private String letterNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_user_curator_gos", referencedColumnName = "id", nullable = false)
     private User userCuratorGos;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userImplementor;
 
-    @OneToMany(mappedBy = "notification", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "notification", cascade = CascadeType.REMOVE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Action> actions;
 
