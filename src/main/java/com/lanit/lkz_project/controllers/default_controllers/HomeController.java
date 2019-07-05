@@ -11,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -42,12 +42,12 @@ public class HomeController {
     }
 
     @PostMapping("registration/registerUser/")
-    public String registerUser(HttpServletRequest request) {
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        Organization organization = organizationService.getOrganization(Long.valueOf(request.getParameter("orgId")));
+    public String registerUser(@RequestParam(name = "firstName") String firstName,
+                               @RequestParam(name = "lastName") String lastName,
+                               @RequestParam(name = "login") String login,
+                               @RequestParam(name = "password") String password,
+                               @RequestParam(name = "orgId") String orgId) {
+        Organization organization = organizationService.getOrganization(Long.valueOf(orgId));
         Date registrationDate = new Date();
         User user = new User();
         user.setFirstName(firstName);

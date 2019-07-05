@@ -47,12 +47,6 @@ public class User {
     private Role role;
 
 
-    public User(Organization organization, String firstName, String lastName) {
-        this.organization = organization;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
     @Override
     public String toString() {
         return "User{" +
