@@ -3,6 +3,7 @@ package com.lanit.lkz_project.controllers.default_controllers;
 import com.lanit.lkz_project.entities.Organization;
 import com.lanit.lkz_project.entities.User;
 import com.lanit.lkz_project.service.OrganizationService;
+import com.lanit.lkz_project.service.RoleService;
 import com.lanit.lkz_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,10 @@ public class HomeController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    RoleService roleService;
+
+
     @RequestMapping("/")
     public String toLoginPage() {
         return "loginPage";
@@ -36,10 +41,10 @@ public class HomeController {
         return "userRegistrationPage";
     }
 
-    @PostMapping("registerUser/")
+    @PostMapping("registration/registerUser/")
     public String registerUser(HttpServletRequest request) {
         String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastNAme");
+        String lastName = request.getParameter("lastName");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         Organization organization = organizationService.getOrganization(Long.valueOf(request.getParameter("orgId")));
@@ -51,6 +56,7 @@ public class HomeController {
         user.setPassword(password);
         user.setOrganization(organization);
         user.setRegistrationDate(registrationDate);
+        user.setRole(roleService.getRole(1L));
         userService.addUser(user);
         return "loginPage";
     }

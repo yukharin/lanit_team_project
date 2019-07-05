@@ -7,17 +7,17 @@
 </head>
 <body>
 <h3>Registration page</h3>
-<form , action="/registerUser/" method="post">
-    <input name="firstName" type="text"/>
-    <input name="lastName" type="text"/>
-    <input name="login" type="text"/>
-    <input name="password" type="text"/>
-    <select name="orgId">
-        <option th:each="organization : ${organizations}"
-                th:text="${organization.name}"
-                th:value="${organization.id}">
-        </option>
-    </select>
+<form action="registerUser/" method="post">
+    First name<input name="firstName" type="text"/>
+    Last name<input name="lastName" type="text"/>
+    Login<input name="login" type="text"/>
+    Password<input name="password" type="text"/>
+    Your organization<select name="orgId">
+    <option th:each="organization : ${organizations}"
+            th:text="${organization.name}"
+            th:value="${organization.id}">
+    </option>
+</select>
     <input type="submit" value="Отправить">
 </form>
 
