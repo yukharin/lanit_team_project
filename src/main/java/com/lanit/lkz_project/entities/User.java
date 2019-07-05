@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @EqualsAndHashCode(exclude = "id")
@@ -30,6 +31,20 @@ public class User {
 
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
+
+    @Column(name = "login", nullable = false, length = 45)
+    private String login;
+
+    @Column(name = "password", nullable = false, length = 45)
+    private String password;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "registration_date", nullable = false)
+    private Date registrationDate;
+
+    @ManyToOne
+    private Role role;
+
 
     public User(Organization organization, String firstName, String lastName) {
         this.organization = organization;

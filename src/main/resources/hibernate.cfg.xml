@@ -21,5 +21,6 @@
         <mapping class="com.lanit.lkz_project.entities.Notification"/>
         <mapping class="com.lanit.lkz_project.entities.ActionType"/>
         <mapping class="com.lanit.lkz_project.entities.Action"/>
+        <mapping class="com.lanit.lkz_project.entities.Role"/>
     </session-factory>
 </hibernate-configuration>

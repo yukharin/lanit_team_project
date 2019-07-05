@@ -46,11 +46,11 @@ public class Notification {
     @Column(name = "letter_number", length = 12)
     private String letterNumber;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user_curator_gos", referencedColumnName = "id", nullable = false)
     private User userCuratorGos;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userImplementor;
 

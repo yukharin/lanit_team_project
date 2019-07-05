@@ -80,6 +80,7 @@ public class PersonalAccountController {
         notification.setOrganization(organizationService.getOrganization(orgId));
         notification.setStatus(notificationStatusService.getNotificationStatus(1));
         notification.setUserCuratorGos(new User(organizationService.getOrganization(orgId), "Vlad", "Yukharin"));
+        notification.setUserImplementor(new User(organizationService.getOrganization(orgId), "Kevin", "Pitt"));
         notificationService.addNotification(notification);
         return "redirect:/account";
     }
