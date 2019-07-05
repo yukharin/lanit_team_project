@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service("organizationService")
 @Transactional
-public class OrganizationServiceImp  implements CrudService<Organization> {
+public class OrganizationServiceImp  implements OrganizationService {
 
     @Autowired
     private CrudDAO<Organization> organizationDAO;
@@ -25,12 +25,7 @@ public class OrganizationServiceImp  implements CrudService<Organization> {
     public void update(Organization organization) {
         organizationDAO.update(organization);
     }
-/*
-    @Override
-    public List<Organization> searchOrganizations(String theSearchName) {
-        return organizationDAO.searchOrganizations(theSearchName);
-    }
-*/
+
     @Override
     public void delete(int id) {
         organizationDAO.delete(id);

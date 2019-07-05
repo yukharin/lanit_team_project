@@ -1,5 +1,6 @@
 package com.lanit.satonin18.dao;
 
+import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.model.Notification;
 import com.lanit.satonin18.model.NotificationStatus;
 import com.lanit.satonin18.model.Organization;
@@ -29,6 +30,8 @@ public interface NotificationDAO extends CrudDAO<Notification> {
 
    @Override
    List<Notification> list() ;
+
+   Pagination<Notification> listByFilterOrg_Order_Pagination(Organization organization, String orderFieldName, boolean desc, Pagination<Notification> pagination);
 
 //----------------------------------------------
    List<Notification> filterOrg(Organization organization);

@@ -1,5 +1,6 @@
 package com.lanit.satonin18.dao;
 
+import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.model.Notification;
 import com.lanit.satonin18.model.NotificationStatus;
 import com.lanit.satonin18.model.Organization;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository("notificationDAO")
@@ -83,6 +83,27 @@ public class NotificationDAOImp implements NotificationDAO {
             return notifications;
         }
     }
+    @Override
+    public Pagination<Notification> listByFilterOrg_Order_Pagination(Organization organization, String orderFieldName, boolean desc, Pagination<Notification> pagination){
+        //Session session = sessionFactory.getCurrentSession();
+        try(final Session session = sessionFactory.openSession();){
+            Transaction tx1 = session.beginTransaction();
+
+//            List<Notification> notifications = session.createQuery("from Notification", Notification.class).listByFilterOrg_Order_Pagination();
+            StringBuilder sql = new StringBuilder("FROM Notification n WHERE n.organization = :organization ORDER BY n."+orderFieldName);
+            if(desc) sql.append(" DESC");
+            Query<Notification> query = session.createQuery(sql.toString()
+                    , Notification.class);
+            query.setParameter("organization", organization);
+//            query.setParameter("orderFieldName", orderFieldName);
+
+            Pagination<Notification> result = pagination.initQuery(query);
+
+            tx1.commit();
+            return result;
+        }
+    }
+
     @Override
     public List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<NotificationStatus> sendedStatuses){
         //Session session = sessionFactory.getCurrentSession();

@@ -2,6 +2,7 @@ package com.lanit.satonin18.service;
 
 import java.util.List;
 
+import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.dao.NotificationDAO;
 import com.lanit.satonin18.model.Notification;
 import com.lanit.satonin18.model.NotificationStatus;
@@ -55,6 +56,10 @@ public class NotificationServiceImp implements NotificationService  {
         return notificationDAO.list();
     }
 
+    @Override
+    public Pagination<Notification> listByFilterOrg_Order_Pagination(Organization organization, String orderFieldName, boolean desc, Pagination<Notification> pagination){
+        return notificationDAO.listByFilterOrg_Order_Pagination(organization, orderFieldName, desc, pagination);
+    }
     //---------------------------------------------------------
 
     @Override

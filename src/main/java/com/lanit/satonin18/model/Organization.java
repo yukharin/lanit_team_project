@@ -42,6 +42,7 @@ public class Organization implements Serializable {
     @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL))
     private/*protected*/ List<User> users;// = new ArrayList<User>();
 
+    //TODO: CAN BE ADDED AUTO TRUE SORT @ORDER BY DATA_RESPONSE@ or comporator in other level abstract ???
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)//FetchType.LAZY)//
     private/*protected*/ List<Notification> notifications;// = new ArrayList<Notification>();
