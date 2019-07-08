@@ -20,7 +20,7 @@
         <th>Журнал действий</th>
         <th>Удалить</th>
     </tr>
-    <tr th:each="notification : ${session.organization.notifications}">
+    <tr th:each="notification : ${session.notifications}">
         <td th:text="${notification.id}">id</td>
         <td th:text="${notification.notificationType}">notification_type</td>
         <td th:text="${notification.organization.name}">org_name</td>

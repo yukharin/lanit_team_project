@@ -63,8 +63,7 @@ public class PersonalAccountController {
     @PostMapping("/account/addNotification/add")
     public String addNotification(@NotNull @RequestParam(name = "notificationType") String notificationType,
                                   @NotNull @RequestParam(name = "dateResponse") String dateResponse,
-                                  @NotNull @RequestParam(name = "orgId") String orgId, HttpSession session) {
-        try {
+                                  @NotNull @RequestParam(name = "orgId") String orgId, HttpSession session) throws ParseException {
             @NonNull User user = (User) session.getAttribute("user");
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             Date dateOfResponse = format.parse(dateResponse);
@@ -73,14 +72,9 @@ public class PersonalAccountController {
             notification.setOrganization(organization);
             notification.setNotificationType(notificationType);
             notification.setDateResponse(dateOfResponse);
-            notification.setDateRecieved(new Date());
-            notification.setStatus(notificationStatusService.getNotificationStatus(1));
+        notification.setDateReceived(new Date());
+        notification.setNotificationStatus(notificationStatusService.getNotificationStatus(1));
             notificationService.addNotification(notification);
-            System.err.println("!!!!!" + organization.getNotifications().size());
-        } catch (ParseException e
-        ) {
-            e.printStackTrace();
-        }
         return "personalAccount";
     }
 

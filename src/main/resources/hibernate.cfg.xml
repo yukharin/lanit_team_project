@@ -10,7 +10,7 @@
         <property name="connection.url">
             jdbc:mysql://127.0.0.1:3306/lanit?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
         </property>
-        <property name="connection.autocommit">false</property>
+        <property name="connection.autocommit">true</property>
         <property name="connection.pool_size">1</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>

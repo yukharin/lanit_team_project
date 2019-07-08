@@ -1,65 +1,142 @@
 package com.lanit.lkz_project.entities;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Data
-@EqualsAndHashCode(exclude = "id")
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "notifications")
-public class Notification {
 
+//@Data //get and set
+//@ToString //can be loop
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class Notification implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_org", nullable = false)
-    private Organization organization;
-
-    @Column(name = "notification_type", length = 150)
+    @Basic
+    @Column(name = "notification_type", nullable = true, length = 150)
     private String notificationType;
 
-    @ManyToOne
-    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
-    private NotificationStatus status;
-
-    @Temporal(TemporalType.DATE)
+    @Basic
     @Column(name = "date_received", nullable = false)
-    private Date dateRecieved;
+    private Date dateReceived;
 
-    @Temporal(TemporalType.DATE)
+    @Basic
     @Column(name = "date_response", nullable = false)
     private Date dateResponse;
 
-    @Column(name = "letter_number", length = 12)
+    @Basic
+    @Column(name = "letter_number", nullable = true, length = 12)
     private String letterNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne//(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
+    private/*protected*/ Organization organization;
+
+    @ManyToOne
+    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+    private NotificationStatus notificationStatus;
+
+
+    @ManyToOne
     @JoinColumn(name = "id_user_notification_author", referencedColumnName = "id", nullable = false)
-    private User userImplementor;
+    private User userByIdUserImplementor;
 
-    @OneToMany(mappedBy = "notification", cascade = CascadeType.REMOVE)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "notification")
     private List<Action> actions;
-
 
     @Override
     public String toString() {
         return "Notification{" +
                 "id=" + id +
-                ", organization=" + organization +
                 ", notificationType='" + notificationType;
+    }
+    //-------------------------------------
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
+    }
+
+    public Date getDateReceived() {
+        return dateReceived;
+    }
+
+    public void setDateReceived(Date dateReceived) {
+        this.dateReceived = dateReceived;
+    }
+
+    public Date getDateResponse() {
+        return dateResponse;
+    }
+
+    public void setDateResponse(Date dateResponse) {
+        this.dateResponse = dateResponse;
+    }
+
+    public String getLetterNumber() {
+        return letterNumber;
+    }
+
+    public void setLetterNumber(String letterNumber) {
+        this.letterNumber = letterNumber;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public NotificationStatus getNotificationStatus() {
+        return notificationStatus;
+    }
+
+    public void setNotificationStatus(NotificationStatus notificationStatus) {
+        this.notificationStatus = notificationStatus;
+    }
+
+
+    public User getUserByIdUserImplementor() {
+        return userByIdUserImplementor;
+    }
+
+    public void setUserByIdUserImplementor(User userByIdUserImplementor) {
+        this.userByIdUserImplementor = userByIdUserImplementor;
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
     }
 }
