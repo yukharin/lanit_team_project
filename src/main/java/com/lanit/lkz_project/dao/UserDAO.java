@@ -34,8 +34,9 @@ public class UserDAO {
     public void removeUser(long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.load(User.class, id);
-        if (user != null)
+        if (user != null) {
             session.delete(user);
+        }
     }
 
 

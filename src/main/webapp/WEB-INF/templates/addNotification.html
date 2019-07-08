@@ -9,7 +9,7 @@
 
 <h2><strong>Добавить уведомление</strong></h2>
 <div></div>
-<form action="addNotification" id="addNotification" method="post">
+<form id="addNotification" method="post" th:action="@{/account/addNotification/add}">
         <input id="notificationType" name="notificationType" type="text"/>
         <input id="dateResponse" name="dateResponse" type="date"/>
     <select name="orgId">

@@ -7,6 +7,7 @@
 </head>
 <body>
 <h3>Starting page</h3>
+<p th:text="${session.user.organization.name}">
 <table>
     <tr>
         <th>№</th>
@@ -19,7 +20,7 @@
         <th>Журнал действий</th>
         <th>Удалить</th>
     </tr>
-    <tr th:each="notification : ${notifications}">
+    <tr th:each="notification : ${session.organization.notifications}">
         <td th:text="${notification.id}">id</td>
         <td th:text="${notification.notificationType}">notification_type</td>
         <td th:text="${notification.organization.name}">org_name</td>
@@ -28,14 +29,14 @@
         <td th:text="${#dates.format(notification.dateResponse, 'dd-MMM-yyyy')}"></td>
         <td th:text="${notification.letterNumber}">letter_number</td>
         <td>
-            <form method="get" th:action="@{actions}">
+            <form method="get" th:action="@{/account/actions/}">
                 <input name="id" th:value="${notification.id}" type="hidden"/>
                 <label for="view_form"/>
                 <input id="view_form" type="submit" value="view"/>
             </form>
         </td>
         <td>
-            <form method="post" th:action="@{delete}">
+            <form method="post" th:action="@{/account/delete/}">
                 <input name="id" th:value="${notification.id}" type="hidden">
                 <label for="delete_form"/>
                 <input id="delete_form" type="submit" value="delete"/>
@@ -44,7 +45,7 @@
     </tr>
 </table>
 <div class="link">
-    <form action="getAddingPage" method="get">
+    <form method="get" th:action="@{/account/addNotification/}">
         <button type="submit">Новое уведомление</button>
     </form>
 </div>

@@ -35,8 +35,8 @@ public class Organization {
     private Organization govOrganization;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "organization")
-    private transient List<Notification> notifications;
+    @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Notification> notifications;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "organization")
@@ -45,11 +45,11 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", orgType=" + orgType +
-                ", govOrganization=" + govOrganization +
-                '}';
+        return "Organization{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", orgType=" + orgType
+                + ", govOrganization="
+                + govOrganization + '}';
     }
 }

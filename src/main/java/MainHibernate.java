@@ -1,5 +1,5 @@
-import com.google.gson.Gson;
-import com.lanit.lkz_project.entities.User;
+import com.lanit.lkz_project.entities.Notification;
+import com.lanit.lkz_project.entities.Organization;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,9 +21,12 @@ public class MainHibernate {
     }
 
     private static void code(Session session) {
-        List<User> users = session.createQuery("FROM User ").list();
-        Gson gson = new Gson();
-        String str = gson.toJson(users);
-        System.out.println("IMPORTANT!!!: "+str);
+        List<Organization> organizations = session.createQuery("FROM Organization ", Organization.class).list();
+        for (Organization organization : organizations) {
+            System.err.println(organization);
+            for (Notification notification : organization.getNotifications()) {
+                System.err.println(notification);
+            }
+        }
     }
 }

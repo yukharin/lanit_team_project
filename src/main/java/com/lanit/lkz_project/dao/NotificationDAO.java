@@ -17,7 +17,7 @@ public class NotificationDAO {
 
     public void addNotification(Notification notification) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(notification);
+        session.saveOrUpdate(notification);
     }
 
     public void updateNotification(Notification notification) {
