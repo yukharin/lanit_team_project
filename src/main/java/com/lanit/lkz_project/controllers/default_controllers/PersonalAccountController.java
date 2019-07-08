@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -32,7 +29,7 @@ public class PersonalAccountController {
     @Autowired
     private NotificationStatusService notificationStatusService;
 
-    @GetMapping("/account")
+    @GetMapping("/account/")
     public String getAllNotifications(Model model) {
         List<Notification> notifications = notificationService.notifications();
         model.addAttribute("notifications", notifications);
@@ -61,20 +58,5 @@ public class PersonalAccountController {
         return "addNotification";
     }
 
-
-    @PostMapping("/account/addNotification")
-    public String addNotification(HttpServletRequest request) throws ParseException {
-        String notificationType = request.getParameter("notificationType");
-        Date dateResponse = new SimpleDateFormat("dd-mm-yyyy").parse(request.getParameter("dateResponse"));
-        Long orgId = Long.valueOf(request.getParameter("orgId"));
-        Notification notification = new Notification();
-        notification.setNotificationType(notificationType);
-        notification.setDateResponse(dateResponse);
-        notification.setDateRecieved(new Date());
-        notification.setOrganization(organizationService.getOrganization(orgId));
-        notification.setStatus(notificationStatusService.getNotificationStatus(1));
-        notificationService.addNotification(notification);
-        return "redirect:/account";
-    }
 
 }

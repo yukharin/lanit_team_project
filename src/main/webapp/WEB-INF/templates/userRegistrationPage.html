@@ -8,16 +8,18 @@
 <body>
 <h3>Registration page</h3>
 <form action="registerUser/" method="post">
-    First name<input name="firstName" type="text"/>
-    Last name<input name="lastName" type="text"/>
-    Login<input name="login" type="text"/>
-    Password<input name="password" type="text"/>
-    Your organization<select name="orgId">
+    First name<br><input name="firstName" type="text"/><br>
+    Last name<br><input name="lastName" type="text"/><br>
+    Login<br><input name="login" type="text"/><br>
+    Password<br><input name="password" type="text"/><br>
+    Your organization<br>
+    <select name="orgId">
     <option th:each="organization : ${organizations}"
             th:text="${organization.name}"
             th:value="${organization.id}">
     </option>
 </select>
+    <br>
     <input type="submit" value="Отправить">
 </form>
 

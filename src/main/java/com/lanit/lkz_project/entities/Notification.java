@@ -47,11 +47,7 @@ public class Notification {
     private String letterNumber;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user_curator_gos", referencedColumnName = "id", nullable = false)
-    private User userCuratorGos;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_user_notification_author", referencedColumnName = "id", nullable = false)
     private User userImplementor;
 
     @OneToMany(mappedBy = "notification", cascade = CascadeType.REMOVE)

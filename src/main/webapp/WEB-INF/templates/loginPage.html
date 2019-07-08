@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Login page</h1>
-<form class="form-horizontal" method="post" th:action="@{/account}">
+<form class="form-horizontal" method="post" th:action="@{/account/}">
     <div>
         <label class="control-label"> User Name: <input name="username" type="text"/>
         </label>
@@ -16,11 +16,11 @@
         </label>
     </div>
     <div>
-        <input class="btn btn-primary" type="submit" value="Sign In"/>
+        <input class="btn btn-primary" type="submit" value="Логин"/>
     </div>
 </form>
 <div class="link">
-    <form action="registration/" method="get">
+    <form method="get" th:action="@{/registration/}">
         <button type="submit">Регистрация</button>
     </form>
 </div>
