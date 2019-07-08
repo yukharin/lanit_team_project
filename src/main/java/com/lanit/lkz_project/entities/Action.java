@@ -20,11 +20,11 @@ public class Action {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_notification", referencedColumnName = "id", nullable = false)
     private Notification notification;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
     private ActionType actionType;
 

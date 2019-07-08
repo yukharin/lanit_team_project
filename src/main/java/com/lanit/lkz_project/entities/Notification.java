@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
 @Table(name = "notifications")
 
@@ -56,7 +57,7 @@ public class Notification implements Serializable {
     private User userByIdUserImplementor;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "notification")
+    @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER)
     private List<Action> actions;
 
     @Override
