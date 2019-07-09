@@ -1,13 +1,13 @@
 package com.lanit.lkz_project.entities;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 
-@EqualsAndHashCode(exclude = "id")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -22,21 +22,12 @@ public class Role {
     @Column(name = "role")
     private String role;
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
 

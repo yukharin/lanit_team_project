@@ -1,14 +1,12 @@
 package com.lanit.lkz_project.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(exclude = "id")
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "notification_statuses")
 public class NotificationStatus {
@@ -22,14 +20,6 @@ public class NotificationStatus {
     @Basic
     @Column(name = "name", nullable = false, length = 45)
     private String name;
-
-    @Override
-    public String toString() {
-        return "NotificationStatus{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
     public long getId() {
         return id;
@@ -45,5 +35,13 @@ public class NotificationStatus {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "NotificationStatus{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -1,16 +1,15 @@
 package com.lanit.lkz_project.entities;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
+@Data
 @Entity
 @Table(name = "notifications")
-@Getter
-@Setter
 @NoArgsConstructor
 public class Notification {
 
@@ -45,5 +44,20 @@ public class Notification {
     @JoinColumn(name = "id_user_notification_author")
     private User user;
 
+    @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER)
+    private List<Action> actions;
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id=" + id +
+                ", notificationType='" + notificationType + '\'' +
+                ", status=" + status +
+                ", dateReceived=" + dateReceived +
+                ", dateResponse=" + dateResponse +
+                ", letterNumber='" + letterNumber + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }
 

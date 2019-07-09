@@ -5,7 +5,6 @@ import com.lanit.lkz_project.entities.Action;
 import com.lanit.lkz_project.entities.Notification;
 import com.lanit.lkz_project.entities.Organization;
 import com.lanit.lkz_project.entities.User;
-import com.lanit.lkz_project.service.ActionService;
 import com.lanit.lkz_project.service.NotificationService;
 import com.lanit.lkz_project.service.NotificationStatusService;
 import com.lanit.lkz_project.service.OrganizationService;
@@ -26,8 +25,6 @@ import java.util.List;
 public class PersonalAccountController {
 
     @Autowired
-    private ActionService actionService;
-    @Autowired
     private NotificationService notificationService;
     @Autowired
     private OrganizationService organizationService;
@@ -45,7 +42,7 @@ public class PersonalAccountController {
 
     @GetMapping("/account/actions/")
     public String getNotificationActions(@NotNull @RequestParam String id, Model model) {
-        List<Action> actions = actionService.actionOfNotification(Long.valueOf(id));
+        List<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
         model.addAttribute("actions", actions);
         return "notificationActions";
     }

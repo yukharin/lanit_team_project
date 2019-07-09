@@ -46,9 +46,5 @@ public class ActionService {
         return actionDAO.actions();
     }
 
-    @Transactional
-    public List<Action> actionOfNotification(long notificationId) {
-        return actionDAO.actionsOfNotification(notificationId);
-    }
 
 }

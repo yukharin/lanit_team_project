@@ -2,17 +2,15 @@ package com.lanit.lkz_project.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
+@Data
 @Entity
 @Table(name = "organizations")
-@Data
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Organization implements Serializable {
@@ -33,17 +31,19 @@ public class Organization implements Serializable {
     @JoinColumn(name = "id_gos_org", referencedColumnName = "id")
     private Organization government_org;
 
-    @OneToMany(mappedBy = "org")
-    private Set<User> users;
+    @OneToMany(mappedBy = "organization")
+    private List<User> users;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
-    private Set<Notification> notifications;
+    private List<Notification> notifications;
 
     @Override
     public String toString() {
         return "Organization{" +
-                "id=" + id;
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", government=" + government +
+                ", government_org=" + government_org +
+                '}';
     }
-
-
 }
