@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
+</head>
+<body>
+<h3>Добавить действие</h3>
+<div>
+    <form method="post" th:action="@{/account/addAction/}">
+        <p>Действие</p>
+        <select name="idActionType">
+            <option th:each="actionType : ${actionTypes}"
+                    th:text="${actionType.name}"
+                    th:value="${actionType.id}">
+            </option>
+            <input name="comment" type="text"/>
+            <input name="idNotification" th:value="${notification.id}" type="hidden"/>
+            <input type="submit"/>
+    </form>
+</div>
+</body>
+</html>

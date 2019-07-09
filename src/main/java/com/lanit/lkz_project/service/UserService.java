@@ -16,7 +16,7 @@ public class UserService {
     private UserDAO userDAO;
 
     @Transactional
-    public void addUser(User user) {
+    public void addUser(@NotNull User user) {
         userDAO.addUser(user);
     }
 
