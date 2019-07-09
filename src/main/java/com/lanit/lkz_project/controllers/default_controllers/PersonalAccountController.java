@@ -1,13 +1,8 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
 import com.lanit.lkz_project.authorization.UserServiceAuthorization;
-import com.lanit.lkz_project.entities.Action;
-import com.lanit.lkz_project.entities.Notification;
-import com.lanit.lkz_project.entities.Organization;
-import com.lanit.lkz_project.entities.User;
-import com.lanit.lkz_project.service.NotificationService;
-import com.lanit.lkz_project.service.NotificationStatusService;
-import com.lanit.lkz_project.service.OrganizationService;
+import com.lanit.lkz_project.entities.*;
+import com.lanit.lkz_project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +27,10 @@ public class PersonalAccountController {
     private NotificationStatusService notificationStatusService;
     @Autowired
     private UserServiceAuthorization authorization;
+    @Autowired
+    private ActionService actionService;
+    @Autowired
+    private ActionTypeService actionTypeService;
 
     @RequestMapping("/account/")
     public String toAccount(@NotNull @SessionAttribute String login, @NotNull @SessionAttribute String password, Model model) {
@@ -40,9 +39,10 @@ public class PersonalAccountController {
         return "personalAccount";
     }
 
-    @GetMapping("/account/actions/")
+    @GetMapping("/account/actions_history/")
     public String getNotificationActions(@NotNull @RequestParam String id, Model model) {
         List<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
+        System.err.println(actions.size());
         model.addAttribute("actions", actions);
         return "notificationActions";
     }
@@ -58,6 +58,35 @@ public class PersonalAccountController {
         List<Organization> organizations = organizationService.organizations();
         model.addAttribute("organizations", organizations);
         return "addNotification";
+    }
+
+    @GetMapping("/account/perform_action/")
+    public String getAddActionPage(@NotNull @RequestParam String id, Model model) {
+        Notification notification = notificationService.getNotification(Long.valueOf(id));
+        List<ActionType> actionTypes = actionTypeService.actionTypes();
+        model.addAttribute("notification", notification);
+        model.addAttribute("actionTypes", actionTypes);
+        return "addAction";
+    }
+
+    @PostMapping("/account/addAction/")
+    public String addAction(@NotNull @RequestParam String idActionType,
+                            @NotNull @RequestParam String idNotification,
+                            @NotNull @RequestParam String comment,
+                            @NotNull @SessionAttribute String login,
+                            @NotNull @SessionAttribute String password) {
+        User user = authorization.authorize(login, password);
+        ActionType actionType = actionTypeService.getActionType(Long.valueOf(idActionType));
+        Notification notification = notificationService.getNotification(Long.valueOf(idNotification));
+        Action action = new Action();
+        action.setActionType(actionType);
+        action.setNotification(notification);
+        action.setContent(comment);
+        action.setDate(new Date());
+        action.setImplementor(user);
+        action.setStatus(notificationStatusService.getNotificationStatus(2));
+        actionService.addAction(action);
+        return "redirect:/account/";
     }
 
     @PostMapping("/account/addNotification/add/")

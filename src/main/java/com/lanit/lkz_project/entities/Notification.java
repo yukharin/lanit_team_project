@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -58,6 +59,27 @@ public class Notification {
                 ", letterNumber='" + letterNumber + '\'' +
                 ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Notification that = (Notification) o;
+        return id == that.id &&
+                Objects.equals(organization, that.organization) &&
+                Objects.equals(notificationType, that.notificationType) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(dateReceived, that.dateReceived) &&
+                Objects.equals(dateResponse, that.dateResponse) &&
+                Objects.equals(letterNumber, that.letterNumber) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(actions, that.actions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, organization, notificationType, status, dateReceived, dateResponse, letterNumber, user, actions);
     }
 }
 

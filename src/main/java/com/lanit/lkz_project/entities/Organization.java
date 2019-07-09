@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -45,5 +46,23 @@ public class Organization implements Serializable {
                 ", government=" + government +
                 ", government_org=" + government_org +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Organization that = (Organization) o;
+        return id == that.id &&
+                government == that.government &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(government_org, that.government_org) &&
+                Objects.equals(users, that.users) &&
+                Objects.equals(notifications, that.notifications);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, government, government_org, users, notifications);
     }
 }

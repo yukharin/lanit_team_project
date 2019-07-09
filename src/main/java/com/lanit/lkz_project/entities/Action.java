@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -57,4 +58,23 @@ public class Action {
                 '}';
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Action action = (Action) o;
+        return id == action.id &&
+                Objects.equals(notification, action.notification) &&
+                Objects.equals(actionType, action.actionType) &&
+                Objects.equals(content, action.content) &&
+                Objects.equals(date, action.date) &&
+                Objects.equals(implementor, action.implementor) &&
+                Objects.equals(status, action.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, notification, actionType, content, date, implementor, status);
+    }
 }

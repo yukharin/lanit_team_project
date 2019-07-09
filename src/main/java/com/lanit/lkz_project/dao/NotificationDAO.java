@@ -48,7 +48,6 @@ public class NotificationDAO {
 
     public List<Notification> notifications() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Notification").list();
-
+        return session.createQuery("FROM  Notification", Notification.class).list();
     }
 }

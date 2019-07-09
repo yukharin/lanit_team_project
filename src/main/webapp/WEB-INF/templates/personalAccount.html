@@ -16,6 +16,7 @@
         <th>Дата получения уведомления</th>
         <th>Срок предоставления ответа</th>
         <th>Номер письма</th>
+        <th>Совершить действие</th>
         <th>Журнал действий</th>
         <th>Удалить</th>
     </tr>
@@ -28,7 +29,14 @@
         <td th:text="${#dates.format(notification.dateResponse, 'yyyy-MM-dd')}"></td>
         <td th:text="${notification.letterNumber}">letter_number</td>
         <td>
-            <form method="get" th:action="@{/account/actions/}">
+            <form method="get" th:action="@{/account/perform_action/}">
+                <input name="id" th:value="${notification.id}" type="hidden"/>
+                <label for="actions_form"/>
+                <input id="actions_form" type="submit" value="Работа с уведомлением"/>
+            </form>
+        </td>
+        <td>
+            <form method="get" th:action="@{/account/actions_history/}">
                 <input name="id" th:value="${notification.id}" type="hidden"/>
                 <label for="view_form"/>
                 <input id="view_form" type="submit" value="view"/>
