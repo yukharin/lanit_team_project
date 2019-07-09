@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -37,15 +38,17 @@ public class PersonalAccountController {
     private UserServiceAuthorization authorization;
 
     @RequestMapping("/account/")
-    public String toAccount(@NotNull @SessionAttribute String login, @NotNull @SessionAttribute String password, Model model) {
+    public String toAccount(@NotNull @SessionAttribute String login,
+                            @NotNull @SessionAttribute String password, Model model) {
         User user = authorization.authorize(login, password);
         model.addAttribute("notifications", user.getOrganization().getNotifications());
         return "personalAccount";
     }
 
     @GetMapping("/account/actions/")
-    public String getNotificationActions(@NotNull @RequestParam String id, Model model) {
-        List<Action> actions = actionService.actionOfNotification(Long.valueOf(id));
+    public String getNotificationActions(@NotNull @RequestParam String id,
+                                         Model model) {
+        Set<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
         model.addAttribute("actions", actions);
         return "notificationActions";
     }

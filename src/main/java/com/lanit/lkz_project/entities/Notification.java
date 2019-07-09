@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "notifications")
@@ -44,6 +45,9 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "id_user_notification_author")
     private User user;
+
+    @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER)
+    private Set<Action> actions;
 
 }
 

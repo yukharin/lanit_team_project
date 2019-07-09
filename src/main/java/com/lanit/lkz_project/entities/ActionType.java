@@ -1,16 +1,14 @@
 package com.lanit.lkz_project.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
-@EqualsAndHashCode(exclude = "id")
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "action_types")
 public class ActionType {
