@@ -7,7 +7,6 @@
 </head>
 <body>
 <h3>Starting page</h3>
-<p th:text="${session.user.organization.name}">
 <table>
     <tr>
         <th>№</th>
@@ -20,13 +19,13 @@
         <th>Журнал действий</th>
         <th>Удалить</th>
     </tr>
-    <tr th:each="notification : ${session.notifications}">
+    <tr th:each="notification : ${notifications}">
         <td th:text="${notification.id}">id</td>
         <td th:text="${notification.notificationType}">notification_type</td>
         <td th:text="${notification.organization.name}">org_name</td>
         <td th:text="${notification.status.name}">notification_status</td>
-        <td th:text="${#dates.format(notification.dateRecieved, 'dd-MMM-yyyy')}"></td>
-        <td th:text="${#dates.format(notification.dateResponse, 'dd-MMM-yyyy')}"></td>
+        <td th:text="${#dates.format(notification.dateReceived, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#dates.format(notification.dateResponse, 'yyyy-MM-dd')}"></td>
         <td th:text="${notification.letterNumber}">letter_number</td>
         <td>
             <form method="get" th:action="@{/account/actions/}">

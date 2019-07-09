@@ -8,16 +8,18 @@
 <body>
 
 <h2><strong>Добавить уведомление</strong></h2>
-<div></div>
-<form id="addNotification" method="post" th:action="@{/account/addNotification/add}">
-        <input id="notificationType" name="notificationType" type="text"/>
-        <input id="dateResponse" name="dateResponse" type="date"/>
+<form id="addNotification" method="post" th:action="@{/account/addNotification/add/}">
+    <p>Введите тип уведомления</p>
+    <input id="notificationType" name="notificationType" type="text"/><br>
+    <p>Введите дату, до которой нужно отправить ответ</p>
+    <input id="dateResponse" name="dateResponse" type="date"/><br>
+    <p>Выберите организацию, которой вы хотите предоставить уведомление</p>
     <select name="orgId">
         <option th:each="organization : ${organizations}"
                 th:text="${organization.name}"
                 th:value="${organization.id}">
         </option>
-    </select>
+    </select><br>
     <input type="submit" value="Отправить"/>
 </form>
 </body>

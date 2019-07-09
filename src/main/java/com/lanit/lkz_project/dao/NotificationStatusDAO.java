@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
@@ -14,17 +15,17 @@ public class NotificationStatusDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addNotificationStatus(NotificationStatus status) {
+    public void addNotificationStatus(@NotNull NotificationStatus status) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(status);
     }
 
-    public void updateNotificationStatus(NotificationStatus status) {
+    public void updateNotificationStatus(@NotNull NotificationStatus status) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(status);
     }
 
-    public void deleteNotificationStatus(NotificationStatus status) {
+    public void deleteNotificationStatus(@NotNull NotificationStatus status) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(status);
     }

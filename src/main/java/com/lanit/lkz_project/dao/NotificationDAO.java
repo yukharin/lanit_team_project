@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
@@ -15,17 +16,18 @@ public class NotificationDAO {
     private SessionFactory sessionFactory;
 
 
-    public void addNotification(Notification notification) {
+    public void addNotification(@NotNull Notification notification) {
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(notification);
+        session.persist(notification);
     }
 
-    public void updateNotification(Notification notification) {
+
+    public void updateNotification(@NotNull Notification notification) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(notification);
     }
 
-    public void removeNotification(Notification notification) {
+    public void removeNotification(@NotNull Notification notification) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(notification);
     }
@@ -40,11 +42,13 @@ public class NotificationDAO {
 
     public Notification getNotification(long id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.load(Notification.class, id);
+        Notification notification = session.get(Notification.class, id);
+        return notification;
     }
 
     public List<Notification> notifications() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Notification ").list();
+        return session.createQuery("FROM Notification").list();
+
     }
 }

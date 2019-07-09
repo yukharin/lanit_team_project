@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -15,17 +16,17 @@ public class NotificationService {
     private NotificationDAO notificationDAO;
 
     @Transactional
-    public void addNotification(Notification notification) {
+    public void addNotification(@NotNull Notification notification) {
         notificationDAO.addNotification(notification);
     }
 
     @Transactional
-    public void updateNotification(Notification notification) {
+    public void updateNotification(@NotNull Notification notification) {
         notificationDAO.updateNotification(notification);
     }
 
     @Transactional
-    public void removeNotification(Notification notification) {
+    public void removeNotification(@NotNull Notification notification) {
         notificationDAO.removeNotification(notification);
     }
 

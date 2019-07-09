@@ -26,11 +26,11 @@ public class RegistrationPageController {
     RoleService roleService;
 
     @PostMapping("registration/registerUser/")
-    public String registerUser(@RequestParam(name = "firstName") String firstName,
-                               @RequestParam(name = "lastName") String lastName,
-                               @RequestParam(name = "login") String login,
-                               @RequestParam(name = "password") String password,
-                               @RequestParam(name = "orgId") String orgId) {
+    public String registerUser(@RequestParam String firstName,
+                               @RequestParam String lastName,
+                               @RequestParam String login,
+                               @RequestParam String password,
+                               @RequestParam String orgId) {
         Organization organization = organizationService.getOrganization(Long.valueOf(orgId));
         Date registrationDate = new Date();
         User user = new User();

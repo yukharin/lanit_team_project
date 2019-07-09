@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
@@ -15,12 +16,12 @@ public class ActionDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addAction(Action action) {
+    public void addAction(@NotNull Action action) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(action);
     }
 
-    public void updateAction(Action action) {
+    public void updateAction(@NotNull Action action) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(action);
     }
@@ -33,7 +34,7 @@ public class ActionDAO {
         }
     }
 
-    public void removeAction(Action action) {
+    public void removeAction(@NotNull Action action) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(action);
     }

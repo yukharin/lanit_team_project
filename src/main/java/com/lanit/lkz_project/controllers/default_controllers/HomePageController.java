@@ -48,10 +48,9 @@ public class HomePageController {
                         @NotNull @RequestParam(name = "password") String password,
                         HttpSession session) {
         @NonNull User user = userServiceAuthorization.authorize(login, password);
-        session.setAttribute("user", user);
-        session.setAttribute("organization", user.getOrganization());
-        session.setAttribute("notifications", notificationService.notifications());
-        return "personalAccount";
+        session.setAttribute("login", login);
+        session.setAttribute("password", password);
+        return "redirect:/account/";
     }
 
 

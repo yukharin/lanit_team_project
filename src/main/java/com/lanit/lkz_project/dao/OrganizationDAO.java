@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
@@ -13,18 +14,18 @@ public class OrganizationDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addOrganization(Organization organization) {
+    public void addOrganization(@NotNull Organization organization) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(organization);
     }
 
 
-    public void updateOrganization(Organization organization) {
+    public void updateOrganization(@NotNull Organization organization) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(organization);
     }
 
-    public void removeOrganization(Organization organization) {
+    public void removeOrganization(@NotNull Organization organization) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(organization);
     }

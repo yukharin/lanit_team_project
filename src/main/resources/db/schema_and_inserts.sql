@@ -177,8 +177,8 @@ CREATE TABLE IF NOT EXISTS `lanit`.`actions`
     CONSTRAINT `id_notification`
         FOREIGN KEY (`id_notification`)
             REFERENCES `lanit`.`notifications` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
+            ON DELETE CASCADE
+            ON UPDATE RESTRICT,
     CONSTRAINT `id_action_type`
         FOREIGN KEY (`id_action_type`)
             REFERENCES `lanit`.`action_types` (`id`)
@@ -284,6 +284,24 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `lanit`.`notifications`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `lanit`;
+INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
+                                     `date_response`, `letter_number`, `id_user_notification_author`)
+VALUES (1, 1, 'Уведомление о получении денег', 1, '2019-07-21', '2019-08-11', NULL, NULL);
+INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
+                                     `date_response`, `letter_number`, `id_user_notification_author`)
+VALUES (2, 1, 'Уведомление о получении кредита', 1, '2019-07-24', '2019-08-14', NULL, NULL);
+INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
+                                     `date_response`, `letter_number`, `id_user_notification_author`)
+VALUES (3, 1, 'Уведомление о завершении тендера', 1, '2019-07-27', '2019-08-21', NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `lanit`.`action_types`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -292,6 +310,18 @@ INSERT INTO `lanit`.`action_types` (`id`, `name`)
 VALUES (1, 'Отправить в обработку');
 INSERT INTO `lanit`.`action_types` (`id`, `name`)
 VALUES (2, 'Обработать');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `lanit`.`actions`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `lanit`;
+INSERT INTO `lanit`.`actions` (`id`, `id_notification`, `id_action_type`, `content`, `date`, `id_implementor`,
+                               `id_notification_status`)
+VALUES (1, 1, 1, 'тест', '2019-07-09', 1, 1);
 
 COMMIT;
 

@@ -1,14 +1,17 @@
+import com.lanit.lkz_project.dao.NotificationDAO;
 import com.lanit.lkz_project.entities.Notification;
-import com.lanit.lkz_project.entities.Organization;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.util.List;
 
 public class MainHibernate {
+
+    @Autowired
+    static NotificationDAO notificationDAO;
 
     public static void main(String[] args) {
         File file = new File("classpath: hibernate.cfg.xml");
@@ -21,12 +24,8 @@ public class MainHibernate {
     }
 
     private static void code(Session session) {
-        List<Organization> organizations = session.createQuery("FROM Organization ", Organization.class).list();
-        for (Organization organization : organizations) {
-            System.err.println(organization);
-            for (Notification notification : organization.getNotifications()) {
-                System.err.println(notification);
-            }
-        }
+
+        Notification notification = session.get(Notification.class, 1);
+        System.err.println(notification);
     }
 }

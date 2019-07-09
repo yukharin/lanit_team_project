@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -20,12 +21,12 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(User user) {
+    public void updateUser(@NotNull User user) {
         userDAO.updateUser(user);
     }
 
     @Transactional
-    public void removeUser(User user) {
+    public void removeUser(@NotNull User user) {
         userDAO.removeUser(user);
     }
 
