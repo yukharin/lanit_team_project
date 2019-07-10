@@ -81,6 +81,7 @@ public class PersonalAccountController {
         User user = authorization.authorize(login, password);
         ActionType actionType = actionTypeService.getActionType(Long.valueOf(idActionType));
         Notification notification = notificationService.getNotification(Long.valueOf(idNotification));
+        NotificationStatus status = notification.getStatus();
         Action action = new Action();
         action.setActionType(actionType);
         action.setNotification(notification);

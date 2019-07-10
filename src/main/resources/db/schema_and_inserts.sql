@@ -233,7 +233,7 @@ USE `lanit`;
 INSERT INTO `lanit`.`roles` (`id`, `role`)
 VALUES (1, 'Чиновник');
 INSERT INTO `lanit`.`roles` (`id`, `role`)
-VALUES (2, 'Работник огранизации');
+VALUES (2, 'Работник_огранизации');
 
 COMMIT;
 
@@ -276,7 +276,7 @@ USE `lanit`;
 INSERT INTO `lanit`.`notification_statuses` (`id`, `name`)
 VALUES (1, 'Новое');
 INSERT INTO `lanit`.`notification_statuses` (`id`, `name`)
-VALUES (2, 'Отправлено в обработку');
+VALUES (2, 'Отправлено_в_обработку');
 INSERT INTO `lanit`.`notification_statuses` (`id`, `name`)
 VALUES (3, 'Обработано');
 
@@ -307,7 +307,7 @@ COMMIT;
 START TRANSACTION;
 USE `lanit`;
 INSERT INTO `lanit`.`action_types` (`id`, `name`)
-VALUES (1, 'Отправить в обработку');
+VALUES (1, 'Отправить_в_обработку');
 INSERT INTO `lanit`.`action_types` (`id`, `name`)
 VALUES (2, 'Обработать');
 

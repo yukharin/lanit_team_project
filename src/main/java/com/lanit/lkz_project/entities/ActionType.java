@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(exclude = "id")
-@ToString
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "action_types")
 public class ActionType {
@@ -20,8 +20,12 @@ public class ActionType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Basic
     @Column(name = "name", nullable = false, length = 45)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private TypeOfAction name;
+
+    public enum TypeOfAction {
+        Обработать, Отправить_в_обработку
+    }
 
 }
