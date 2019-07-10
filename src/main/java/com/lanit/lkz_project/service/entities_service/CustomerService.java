@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.service;
+package com.lanit.lkz_project.service.entities_service;
 
 import com.lanit.lkz_project.entities.BookUtils;
 import com.lanit.lkz_project.entities.Customer;

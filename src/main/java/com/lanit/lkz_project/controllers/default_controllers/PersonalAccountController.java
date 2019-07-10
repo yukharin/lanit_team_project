@@ -2,7 +2,7 @@ package com.lanit.lkz_project.controllers.default_controllers;
 
 import com.lanit.lkz_project.authorization.UserServiceAuthorization;
 import com.lanit.lkz_project.entities.*;
-import com.lanit.lkz_project.service.*;
+import com.lanit.lkz_project.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,21 +27,24 @@ public class PersonalAccountController {
     @Autowired
     private NotificationStatusService notificationStatusService;
     @Autowired
-    private UserServiceAuthorization authorization;
-    @Autowired
     private ActionService actionService;
     @Autowired
     private ActionTypeService actionTypeService;
+    @Autowired
+    private UserServiceAuthorization authorization;
+
 
     @RequestMapping("/account/")
-    public String toAccount(@NotNull @SessionAttribute String login, @NotNull @SessionAttribute String password, Model model) {
+    public String toAccount(@NotNull @SessionAttribute String login,
+                            @NotNull @SessionAttribute String password, Model model) {
         User user = authorization.authorize(login, password);
         model.addAttribute("notifications", user.getOrganization().getNotifications());
         return "personalAccount";
     }
 
     @GetMapping("/account/actions_history/")
-    public String getNotificationActions(@NotNull @RequestParam String id, Model model) {
+    public String getNotificationActions(@NotNull @RequestParam String id,
+                                         Model model) {
         Set<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
         model.addAttribute("actions", actions);
         return "notificationActions";

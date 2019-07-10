@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
-import com.lanit.lkz_project.service.CustomerService;
+import com.lanit.lkz_project.service.entities_service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;

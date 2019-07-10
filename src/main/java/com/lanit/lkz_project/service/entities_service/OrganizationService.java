@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.service;
+package com.lanit.lkz_project.service.entities_service;
 
 import com.lanit.lkz_project.dao.OrganizationDAO;
 import com.lanit.lkz_project.entities.Organization;
