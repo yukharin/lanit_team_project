@@ -1,19 +1,20 @@
 package com.lanit.lkz_project.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @Entity
 @Table(name = "organizations")
+@EqualsAndHashCode(exclude = {"id", "users", "notifications"})
+@ToString(exclude = {"users", "notifications"})
 @NoArgsConstructor
-@AllArgsConstructor
 public class Organization implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
@@ -38,31 +39,4 @@ public class Organization implements Serializable {
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
     private List<Notification> notifications;
 
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", government=" + government +
-                ", government_org=" + government_org +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Organization that = (Organization) o;
-        return id == that.id &&
-                government == that.government &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(government_org, that.government_org) &&
-                Objects.equals(users, that.users) &&
-                Objects.equals(notifications, that.notifications);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, government, government_org, users, notifications);
-    }
 }

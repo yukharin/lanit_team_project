@@ -1,17 +1,20 @@
 package com.lanit.lkz_project.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"id", "organization", "actions"})
+@ToString(exclude = {"organization", "actions"})
 @Entity
 @Table(name = "notifications")
-@NoArgsConstructor
 public class Notification {
 
     @Id
@@ -43,43 +46,10 @@ public class Notification {
 
     @ManyToOne
     @JoinColumn(name = "id_user_notification_author")
-    private User user;
+    private User userNotificationAuthor;
 
     @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER)
-    private List<Action> actions;
+    private Set<Action> actions;
 
-    @Override
-    public String toString() {
-        return "Notification{" +
-                "id=" + id +
-                ", notificationType='" + notificationType + '\'' +
-                ", status=" + status +
-                ", dateReceived=" + dateReceived +
-                ", dateResponse=" + dateResponse +
-                ", letterNumber='" + letterNumber + '\'' +
-                ", user=" + user +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Notification that = (Notification) o;
-        return id == that.id &&
-                Objects.equals(organization, that.organization) &&
-                Objects.equals(notificationType, that.notificationType) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(dateReceived, that.dateReceived) &&
-                Objects.equals(dateResponse, that.dateResponse) &&
-                Objects.equals(letterNumber, that.letterNumber) &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(actions, that.actions);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, organization, notificationType, status, dateReceived, dateResponse, letterNumber, user, actions);
-    }
 }
 

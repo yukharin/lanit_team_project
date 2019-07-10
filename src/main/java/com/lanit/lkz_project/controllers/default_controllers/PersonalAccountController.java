@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -41,8 +42,7 @@ public class PersonalAccountController {
 
     @GetMapping("/account/actions_history/")
     public String getNotificationActions(@NotNull @RequestParam String id, Model model) {
-        List<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
-        System.err.println(actions.size());
+        Set<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
         model.addAttribute("actions", actions);
         return "notificationActions";
     }

@@ -1,17 +1,18 @@
 package com.lanit.lkz_project.entities;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"id", "notification", "implementor"})
+@ToString(exclude = {"notification", "implementor"})
 @Entity
 @Table(name = "actions")
 public class Action {
@@ -45,36 +46,4 @@ public class Action {
     private NotificationStatus status;
 
 
-    @Override
-    public String toString() {
-        return "Action{" +
-                "id=" + id +
-                ", notification=" + notification +
-                ", actionType=" + actionType +
-                ", content='" + content + '\'' +
-                ", date=" + date +
-                ", implementor=" + implementor +
-                ", status=" + status +
-                '}';
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Action action = (Action) o;
-        return id == action.id &&
-                Objects.equals(notification, action.notification) &&
-                Objects.equals(actionType, action.actionType) &&
-                Objects.equals(content, action.content) &&
-                Objects.equals(date, action.date) &&
-                Objects.equals(implementor, action.implementor) &&
-                Objects.equals(status, action.status);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, notification, actionType, content, date, implementor, status);
-    }
 }

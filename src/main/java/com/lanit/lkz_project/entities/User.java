@@ -1,17 +1,18 @@
 package com.lanit.lkz_project.entities;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"id", "organization"})
+@ToString(exclude = "organization")
 @Entity
 @Table(name = "users")
 public class User {
@@ -45,34 +46,4 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role role;
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", organization=" + organization +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(organization, user.organization) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(registrationDate, user.registrationDate) &&
-                Objects.equals(role, user.role);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, organization, firstName, lastName, login, password, registrationDate, role);
-    }
 }
