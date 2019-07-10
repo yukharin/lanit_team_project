@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service("actionService")
@@ -45,4 +46,10 @@ public class ActionServiceImp implements CrudService<Action>  {
    public List<Action> list() {
       return actionDAO.list();
    }
+
+   @PostConstruct
+   private void p() {
+      System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+   }
+
 }

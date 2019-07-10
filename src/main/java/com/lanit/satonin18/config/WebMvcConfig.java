@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.lanit.satonin18"})
+//TODO: can be add in @Annotation: sign for remove this package from ComponentScan
 public class WebMvcConfig implements WebMvcConfigurer {
 
    @Bean
