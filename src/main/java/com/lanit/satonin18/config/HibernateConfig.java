@@ -1,12 +1,9 @@
 package com.lanit.satonin18.config;
 
-import com.lanit.satonin18.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -14,12 +11,8 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-//TODO REPLACE HARDCODE(frpm package @config@) such as "com.lanit.satonin18" and "com.lanit.satonin18.model" IN PROPERTY
-
-
 @Configuration
 @EnableTransactionManagement
-//@ComponentScans(value = { @ComponentScan("com.lanit.satonin18")})
 public class HibernateConfig {
 
 	@Autowired
@@ -29,7 +22,7 @@ public class HibernateConfig {
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-		factoryBean.setPackagesToScan("com.lanit.satonin18.model");
+		factoryBean.setPackagesToScan("com.lanit.satonin18.mvc.entity");
 //		factoryBean.setAnnotatedClasses(
 //				ActionType.class,
 //				NotificationStatus.class,
