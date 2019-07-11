@@ -35,4 +35,14 @@ public interface NotificationDAO extends CrudDAO<Notification> {
 
 //----------------------------------------------
    List<Notification> filterOrg(Organization organization);
+
+    List<Notification> filter_Org_NotificStatuses_Archive(Organization organization, List<NotificationStatus> listNotificStatus, List<NotificationStatus> listArchiveStatus);
+
+   Pagination<Notification>  filter_Org_NotificStatuses_Archive_Order_Pagination(
+           Organization organization,
+           List<NotificationStatus> listNotificStatus,
+           boolean showArchive, List<NotificationStatus> listArchiveStatus,
+           String orderFieldName, boolean desc,
+           Pagination<Notification> pagination
+   );
 }

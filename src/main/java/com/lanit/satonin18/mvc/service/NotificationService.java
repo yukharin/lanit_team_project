@@ -16,10 +16,10 @@ public interface NotificationService extends CrudService<Notification> {
     List<Notification> filterCurrentsAndNotificStatuses(/*String[] ids*/ List<Notification> currentNotifications, List<NotificationStatus> listNotificStatus);
 
     @Override
-    void saveOrUpdate(Notification organization) ;
+    void saveOrUpdate(Notification notification) ;
 
     @Override
-    void update(Notification organization) ;
+    void update(Notification notification) ;
 
     @Override
     void delete(int id) ;
@@ -33,4 +33,8 @@ public interface NotificationService extends CrudService<Notification> {
     List<Notification> filterOrg(Organization organization);
 
     Pagination<Notification> listByFilterOrg_Order_Pagination(Organization organization, String orderFieldName, boolean desc, Pagination<Notification> pagination);
+
+    List<Notification> filter_Org_NotificStatuses_Archive(Organization organization, List<NotificationStatus> checkedStatusList, List<NotificationStatus> listArchiveStatus);
+
+    Pagination<Notification> filter_Org_NotificStatuses_Archive_Order_Pagination(Organization organization, List<NotificationStatus> checkedStatusList, boolean showArchive, List<NotificationStatus> listArchiveStatus, String orderFieldName, boolean desc, Pagination<Notification> notificationPagination);
 }

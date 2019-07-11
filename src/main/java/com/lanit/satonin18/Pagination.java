@@ -9,18 +9,32 @@ import org.hibernate.query.Query;
 
 public class Pagination<E> {
 
-    private int totalRecords;
-    private int currentPage;
-    private List<E> list;
-    private int maxResult;
-    private int totalPages;
-    private int maxNavigationPage;
+    protected int totalRecords;
+    protected int currentPage;
+    protected List<E> list;
+    protected int maxResult;
+    protected int totalPages;
+    protected int maxNavigationPage;
 
-    private int temp_page;
-    private int temp_maxResult;
-    private int temp_maxNavigationPage;
+    protected int temp_page;
+    protected int temp_maxResult;
+    protected int temp_maxNavigationPage;
 
-    private List<Integer> navigationPages;
+    protected List<Integer> navigationPages;
+
+    public static final class EmptyPagination<E> extends Pagination<E>{
+        public EmptyPagination(Pagination pagination) {
+            super(1, pagination.temp_maxResult, pagination.temp_maxNavigationPage);
+
+            totalRecords = 0;
+            currentPage = 1;
+            list = new ArrayList();
+            maxResult = temp_maxResult;
+            totalPages = 1;
+            maxNavigationPage = temp_maxNavigationPage;
+            navigationPages = new ArrayList();
+        }
+    };
 
     public Pagination(int temp_page, int temp_maxResult, int temp_maxNavigationPage) {
         this.temp_page = temp_page;
@@ -126,4 +140,8 @@ public class Pagination<E> {
         return navigationPages;
     }
 
+    public int getMaxNavigationPage() {
+        return maxNavigationPage;
+    }
 }
+

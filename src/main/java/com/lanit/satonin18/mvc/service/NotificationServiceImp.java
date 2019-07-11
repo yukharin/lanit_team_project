@@ -66,4 +66,26 @@ public class NotificationServiceImp implements NotificationService  {
     public List<Notification> filterOrg(Organization organization){
         return notificationDAO.filterOrg(organization);
     }
+
+    @Override
+    public List<Notification> filter_Org_NotificStatuses_Archive(Organization organization, List<NotificationStatus> checkedStatusList, List<NotificationStatus> listArchiveStatus){
+        return notificationDAO.filter_Org_NotificStatuses_Archive(organization, checkedStatusList, listArchiveStatus);
+    }
+
+    @Override
+    public Pagination<Notification>  filter_Org_NotificStatuses_Archive_Order_Pagination(
+            Organization organization,
+            List<NotificationStatus> listNotificStatus,
+            boolean showArchive, List<NotificationStatus> listArchiveStatus,
+            String orderFieldName, boolean desc,
+            Pagination<Notification> pagination
+    ){
+        return notificationDAO.filter_Org_NotificStatuses_Archive_Order_Pagination(
+                organization,
+                listNotificStatus,
+                showArchive, listArchiveStatus,
+                orderFieldName,  desc,
+                pagination
+        );
+    }
 }

@@ -1,16 +1,18 @@
 package com.lanit.satonin18.mvc.dao;
 
 import com.lanit.satonin18.mvc.entity.Action;
+import com.lanit.satonin18.mvc.entity.Notification;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository("actionDAO")
-public class ActionDAOImp implements CrudDAO<Action> {
+public class ActionDAOImp implements ActionDAO {
 
    @Autowired
    private SessionFactory sessionFactory;
@@ -74,6 +76,22 @@ public class ActionDAOImp implements CrudDAO<Action> {
          Transaction tx1 = session.beginTransaction();
 
          List<Action> actions = session.createQuery("from Action", Action.class).list();
+
+         tx1.commit();
+         return actions;
+      }
+   }
+
+   public List<Action> listByIdNotification(Notification notification) {
+      //Session session = sessionFactory.getCurrentSession();
+      try(final Session session = sessionFactory.openSession();){
+         Transaction tx1 = session.beginTransaction();
+
+         Query<Action> query = session.createQuery("FROM Action AS a WHERE a.notification = :notification", Action.class);
+
+         query.setParameter("notification", notification);
+
+         List<Action> actions = query.list();
 
          tx1.commit();
          return actions;
