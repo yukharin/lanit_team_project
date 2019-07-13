@@ -1,7 +1,6 @@
 package com.lanit.satonin18.mvc.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,7 +8,7 @@ import java.io.Serializable;
 @Table(name = "users")
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
-//@Data //get and set
+@Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -40,37 +39,5 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
 //                ", organization=" + organization +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
     }
 }

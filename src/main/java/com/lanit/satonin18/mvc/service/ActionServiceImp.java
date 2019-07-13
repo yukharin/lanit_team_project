@@ -1,5 +1,6 @@
 package com.lanit.satonin18.mvc.service;
 
+import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.mvc.dao.ActionDAO;
 import com.lanit.satonin18.mvc.dao.CrudDAO;
 import com.lanit.satonin18.mvc.entity.Action;
@@ -43,6 +44,9 @@ public class ActionServiceImp implements ActionService {
       return actionDAO.list();
    }
 
+    @Override
+    public void save(Action action) {  actionDAO.save(action); }
+
    @PostConstruct
    private void p() {
       System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -50,6 +54,10 @@ public class ActionServiceImp implements ActionService {
 
    public List<Action> listByIdNotification(Notification notification) {
       return actionDAO.listByIdNotification(notification);
+   }
+
+   public Pagination<Action> filter_Notific_Order_Pagination(Notification notification, String orderFieldName, boolean desc, Pagination<Action> actionPagination){
+      return actionDAO.filter_Notific_Order_Pagination(notification, orderFieldName, desc, actionPagination);
    }
 
 }

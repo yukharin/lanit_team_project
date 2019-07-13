@@ -1,13 +1,10 @@
 package com.lanit.satonin18.mvc.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "actions")

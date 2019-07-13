@@ -73,6 +73,12 @@
             <version>${hibernate.validator}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
         <!-- JSTL Dependency -->
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>

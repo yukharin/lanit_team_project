@@ -110,7 +110,7 @@
 
     <div id="common_info_about_notification">
         <h5 style="text-transform: uppercase;"> <%--onclick=""--%>
-            ${currentNotification.notificationType}</h5>
+        ${currentNotification.notificationType}</h5>
         <div class="controlled_visibility">
             Номер уведомления: <input type="text" name="id" value="${currentNotification.id}"
                                       disabled>
@@ -160,13 +160,26 @@
                        disabled>
                 <Br>
                 <%--Дата назначения куратора:--%>
-                <%--Ответственный исполнитель заказчика:--%>
-                <%--<input type="text" name="userByIdUserImplementor"--%>
-                       <%--value="${currentNotification.userByIdUserImplementor.firstName}--%>
-                              <%--${currentNotification.userByIdUserImplementor.lastName}"--%>
-                       <%--disabled>--%>
-                <%--<Br>--%>
+
+                Ответственный исполнитель заказчика:
+                <input type="text" name="userByIdUserImplementor"
+                       value="${currentNotification.userByIdUserImplementor.firstName}
+                              ${currentNotification.userByIdUserImplementor.lastName}"
+                       disabled>
+                <Br>
                 <%--Дата назначения ответственного исполнителя:(Mock)((???)вроде это нигде не храниться)--%>
+            </div>
+
+            <div id="answer_preparation4newAction">
+                <p>FROM newAction</p>
+                <Br>
+                Ответственный исполнитель заказчика:
+                <input type="text" name="userByIdUserImplementor"
+                       value="${currentNotification.userByIdUserImplementor.firstName}
+                              ${currentNotification.userByIdUserImplementor.lastName}"
+                       disabled>
+                <%--Дата назначения ответственного исполнителя:(Mock)((???)вроде это нигде не храниться)--%>
+                <Br>
             </div>
         </div>
     </div>
@@ -177,54 +190,7 @@
             <div id="add_action">
 
                 <form action="addAction"  method="get">
-                    <input type="hidden" name="notificationId" value="${currentNotification.id}"></input>
-                    <%--ON Server<input type="hidden" name="date" value="${new Timestamp(System.currentTimeMillis())}"></input>--%>
-                    Ответственный исполнитель заказчика:
-                    <select type="text" name="idUserImplementor" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
-                        <c:forEach items="${currentNotification.organization.users}" var="tempUser">
-                            <c:choose>
-                                <c:when test="${user.id.equals(tempUser.id)}">
-                                    <option selected
-                                            value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </select>
-                    <Br>
-                    Действие:
-                    <select type="text" name="idActionType" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
-                        <c:forEach items="${listActionType}" var="tempActionType">
-                            <option value ="${tempActionType.id}">${tempActionType.name}</option>
-                        </c:forEach>
-                    </select>
-                    <%--<input type="text" name="userByIdUserImplementor"--%>
-                    <%--value="${currentNotification.userByIdUserImplementor.firstName}--%>
-                    <%--${currentNotification.userByIdUserImplementor.lastName}"--%>
-                    <%--disabled>--%>
-                    <%--Дата назначения ответственного исполнителя:(Mock)((???)вроде это нигде не храниться)--%>
-                    <Br>
-                    Статус:
-                    <select type="text" name="idNotificationStatus" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
-                        <c:forEach items="${listStatus}" var="tempStatus">
-                            <c:choose>
-                                <c:when test="${currentNotification.notificationStatus.id.equals(tempStatus.id)}">
-                                    <option selected
-                                            value ="${tempStatus.id}">${tempStatus.name}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value ="${tempStatus.id}">${tempStatus.name}</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </select>
-                    <Br>
-                    Комментарий:
-                    <input type="text" name="content"
-                           value="">
-                    <Br>
+                    <input type="hidden" name="notificationId" value="${currentNotification.id}"></input>--%>
                     <button type="form.submit" <%--class="green_button"--%> style="background-color: #4CAF50; color: white; display: inline-block;">
                         Добавить действие</button>
                 </form>
@@ -337,17 +303,17 @@
                         </th>
                         <th>Подразделение<%--Id--%>
                             <Br><a class="href-nav-item" id="orderFieldName=userByIdImplementor.organization.name&desc=true"
-                                   href="orderDescAction?orderFieldName=userByIdImplementor.organization.name&desc=true"> /\ </a>
+                            href="orderDescAction?orderFieldName=userByIdImplementor.organization.name&desc=true"> /\ </a>
                             <Br><a class="href-nav-item" id="orderFieldName=userByIdImplementor.organization.name&desc=false"
-                                   href="orderDescAction?orderFieldName=userByIdImplementor.organization.name&desc=false"> \/ </a>
+                            href="orderDescAction?orderFieldName=userByIdImplementor.organization.name&desc=false"> \/ </a>
                         </th>
                         <th>Статус после изменения<%--Id--%>
                             <Br>
                             <a class="href-nav-item" id="orderFieldName=userByIdImplementor.actionType.name&desc=true"
-                               href="orderDescAction?orderFieldName=userByIdImplementor.actionType.name&desc=true"> /\ </a>
+                                   href="orderDescAction?orderFieldName=userByIdImplementor.actionType.name&desc=true"> /\ </a>
                             <Br>
                             <a class="href-nav-item" id="orderFieldName=userByIdImplementor.actionType.name&desc=false"
-                               href="orderDescAction?orderFieldName=userByIdImplementor.actionType.name&desc=false"> \/ </a>
+                                   href="orderDescAction?orderFieldName=userByIdImplementor.actionType.name&desc=false"> \/ </a>
                     </tr>
                     <c:forEach var="tempAction" items="${listAction}" varStatus="actionLoopCount" >
                         <tr>

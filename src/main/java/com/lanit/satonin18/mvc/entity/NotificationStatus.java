@@ -1,16 +1,13 @@
 package com.lanit.satonin18.mvc.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "notification_statuses")
 
-//@Data //get and set
+@Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -31,22 +28,5 @@ public class NotificationStatus  implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
-    }
-    //-----------------------------
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

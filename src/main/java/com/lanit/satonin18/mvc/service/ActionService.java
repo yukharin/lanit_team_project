@@ -1,5 +1,6 @@
 package com.lanit.satonin18.mvc.service;
 
+import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.mvc.entity.Action;
 import com.lanit.satonin18.mvc.entity.Notification;
 
@@ -23,5 +24,9 @@ public interface ActionService extends CrudService<Action> {
     @Override
     List<Action> list() ;
 
+    void save(Action action);
+
     List<Action> listByIdNotification(Notification notification) ;
+
+    Pagination<Action> filter_Notific_Order_Pagination(Notification notification, String orderFieldName, boolean desc, Pagination<Action> actionPagination);
 }

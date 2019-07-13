@@ -68,5 +68,10 @@
 		</table>
 	</div>
 </div>
+
+<div id="return">
+	<a href="${pageContext.request.contextPath}/cabinet/list"> Back to list </a>
+</div>
+
 </body>
 </html>

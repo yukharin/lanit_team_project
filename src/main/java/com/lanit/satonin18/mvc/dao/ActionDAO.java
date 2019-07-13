@@ -1,5 +1,6 @@
 package com.lanit.satonin18.mvc.dao;
 
+import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.mvc.entity.Action;
 import com.lanit.satonin18.mvc.entity.Notification;
 
@@ -12,18 +13,21 @@ public interface ActionDAO extends CrudDAO<Action> {
    void saveOrUpdate(Action entity);
 
    @Override
-   void update(Action entity) ;
+   void update(Action entity);
 
 
    @Override
-   void delete(int id) ;
+   void delete(int id);
 
    @Override
-   Action getById(int id) ;
+   Action getById(int id);
 
    @Override
-   List<Action> list() ;
+   List<Action> list();
 
-   List<Action> listByIdNotification(Notification notification) ;
+   void save(Action action) ;
 
+   List<Action> listByIdNotification(Notification notification);
+
+   Pagination<Action> filter_Notific_Order_Pagination(Notification notification, String orderFieldName, boolean desc, Pagination<Action> actionPagination);
 }

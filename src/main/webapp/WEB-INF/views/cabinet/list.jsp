@@ -51,6 +51,12 @@
             padding: .2em .2em; /*отступы внутри*/
             text-decoration: none; /*убрать подчеркивание ссылки*/
         }
+
+        .green_button{
+            background-color: #4CAF50;
+            color: white;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -65,14 +71,14 @@
             <h5>Oрганизация: ${user.organization.name} </h5>
         </th>
         <th style="text-align: right;">
-            <p id="attention_in_header_table">
+            <span id="attention_in_header_table">
                 <c:if test="${user == null}">
                     (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)
                 </c:if>
                 <c:if test="${user.organization.government}">
                     Cотрудник органа власти
                 </c:if>
-            </p>
+            </span>
 
             <form action="selectUser" method="POST">
                 Текущий Пользователь:
@@ -90,6 +96,11 @@
                     </c:forEach>
                 </select>
                 <%--<input type="submit" value="Войти на страницу" class="save" />--%>
+
+                <Br><Br>
+                <a class="href-nav-item"
+                   href="${pageContext.request.contextPath}/user/list"> Настройка пользователей </a>
+                <Br>
             </form>
         </th>
     </table>
@@ -148,7 +159,7 @@
                     (Mock)Кнопка «Показать дополнительные фильтры»
                 </td>
             </table>
-            <button type="form.submit" style="background-color: #4CAF50; color: white; display: inline-block;">Применить фильтр</button>
+            <button type="form.submit" <%--class="green_button"--%> style="background-color: #4CAF50; color: white; display: inline-block;">Применить фильтр</button>
             <button type="form.submit" style="background-color: #666666; color: white; display: inline-block;"
                     onclick="setChecked()" >Отменить фильтр</button>
             <script>
@@ -187,8 +198,8 @@
                                 <c:when test="${page != -1 }">
                                     <c:if test="${page == pagination.currentPage}">
                                         <a <%--class="href-nav-item"--%>
-                                           class="href-nav-item-current"
-                                           href="productList?maxResult=${pagination.maxResult}&page=${page}">${page}</a>
+                                                class="href-nav-item-current"
+                                                href="productList?maxResult=${pagination.maxResult}&page=${page}">${page}</a>
                                     </c:if>
                                     <c:if test="${page != pagination.currentPage}">
                                         <a class="href-nav-item"
@@ -214,7 +225,6 @@
             <td style="text-align: right">
                 <div id="selectMaxResult">
                     <form action="productList" method="get">
-                        <input type="hidden" name="page" value="1"></input>
                         Показывать по :
                         <select type="text" name="maxResult" onchange="this.form.submit()" ><%--multiple="true"--%>
                             <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">
@@ -229,6 +239,7 @@
                                 </c:choose>
                             </c:forEach>
                         </select>
+                        <input type="hidden" name="page" value="1"></input>
                         <%--<input type="submit" value="Войти на страницу" class="save" />--%>
                     </form>
                 </div>
@@ -243,6 +254,12 @@
                     <Br><input type="checkbox"></th>
                 <th>№</th>
                 <th>Вид уведомления<%--notificationType--%>
+                    <%--TODO REPLACE href--%>
+                    <%--<c:url var="moreLink" value="orderDescAction">--%>
+                    <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
+                    <%--</c:url>--%>
+                    <%--<a href="${moreLink}">More</a>--%>
+
                     <Br><a class="href-nav-item" id="orderFieldName=notificationType&desc=true"
                            href="orderDesc?orderFieldName=notificationType&desc=true" > /\ </a>
                     <Br><a class="href-nav-item" id="orderFieldName=notificationType&desc=false"
@@ -284,7 +301,7 @@
                     <Br><a class="href-nav-item" id="orderFieldName=letterNumber&desc=false"
                            href="orderDesc?orderFieldName=letterNumber&desc=false"> \/ </a>
                 </th>
-                <th>f(x)</th>
+                <th>Действия</th>
 
                 <%--<th>userByIdUserCuratorGos--%>
                 <%--<Br><a href="orderDesc?orderFieldName=userByIdUserCuratorGos.lastName&desc=true" class="href-nav-item"> /\ </a>--%>
@@ -298,8 +315,7 @@
             <c:forEach var="tempNotification" items="${notific_list}" varStatus="notificLoopCount" >
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td><%--(TODO: add calculated field "Count()" in sql-request, in block select)--%>
-                            ${notificLoopCount.count + (pagination.currentPage-1)*pagination.maxResult}
+                    <td>${notificLoopCount.count + (pagination.currentPage-1)*pagination.maxResult}
                     </td>
                     <td>${tempNotification.notificationType}</td>
                     <td>${tempNotification.organization.name}</td>
@@ -309,7 +325,7 @@
                             <c:when test="${user.organization.government}">
                                 <form action="editStatus" method="get">
                                     <input type="hidden" name="idNotification" value="${tempNotification.id}"></input>
-                                    <select type="text" name="idStatus" onchange="this.form.submit()"> <%--multiple="true"--%>
+                                    <select type="text" name="idStatus" <%--onchange="this.form.submit()"--%> >
                                         <c:forEach items="${statuses4select}" var="status">
                                             <c:choose>
                                                 <c:when test="${tempNotification.notificationStatus.id.equals(status.id)}">
@@ -322,7 +338,7 @@
                                             </c:choose>
                                         </c:forEach>
                                     </select>
-                                        <%--<input type="submit" value="Войти на страницу" class="save" />--%>
+                                    <input type="submit" value="Применить изменения" class="save" />
                                 </form>
                             </c:when>
                             <c:otherwise>
@@ -334,10 +350,12 @@
                     <td>${tempNotification.dateReceived.toString()}</td>
                     <td>${tempNotification.letterNumber}</td>
                     <td>
-                        <c:url var="moreLink" value="more">
+                        Кол-во: ${tempNotification.actions.size()}
+                        <Br>
+                        <c:url var="addLink" value="more">
                             <c:param name="notificationId" value="${tempNotification.id}"/>
                         </c:url>
-                        <a href="${moreLink}">More</a>
+                        <a href="${addLink}">More</a>
 
                             <%--<c:url var="updateLink" value="showFormForUpdate">--%>
                             <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
@@ -361,6 +379,5 @@
 <script>
     document.getElementById("orderFieldName=${orderFieldName}&desc=${desc}").classList.add('href-nav-item-current');
 </script>
-
 </body>
 </html>

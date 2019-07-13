@@ -22,6 +22,7 @@ public class Pagination<E> {
 
     protected List<Integer> navigationPages;
 
+    //static //can be object
     public static final class EmptyPagination<E> extends Pagination<E>{
         public EmptyPagination(Pagination pagination) {
             super(1, pagination.temp_maxResult, pagination.temp_maxNavigationPage);

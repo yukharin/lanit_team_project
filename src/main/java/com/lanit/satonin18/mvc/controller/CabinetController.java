@@ -1,9 +1,8 @@
 package com.lanit.satonin18.mvc.controller;
 
 import com.lanit.satonin18.Pagination;
-import com.lanit.satonin18.mvc.entity.Notification;
-import com.lanit.satonin18.mvc.entity.NotificationStatus;
-import com.lanit.satonin18.mvc.entity.User;
+import com.lanit.satonin18.mvc.dao.CrudDAO;
+import com.lanit.satonin18.mvc.entity.*;
 import com.lanit.satonin18.mvc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.util.*;
 
 //@Scope("session")
@@ -98,6 +98,8 @@ public class CabinetController {
     @Autowired
     private ActionService actionService;
     @Autowired
+    private CrudDAO<ActionType> actionTypeService;
+    @Autowired
     private NotificationStatusService statusService;
     @Autowired
     private OrganizationService organizationService;
@@ -113,11 +115,15 @@ public class CabinetController {
     private List<NotificationStatus> listArchiveStatus;
     private List<Notification> showListNotifications;
     private List<Integer> selectShowListMaxResult;
-
     private String orderFieldName;
     private boolean desc;
-
     private Pagination<Notification> pagination;
+//---------------------------------------------
+    private Pagination<Action> paginationAction;
+    private List<Action> listAction;
+    private Notification currentNotification;
+    private String orderFieldNameAction;
+    private boolean descAction;
 
     private void initVars() {
         currentUser = userService.getById(1);//for my test
@@ -187,7 +193,6 @@ public class CabinetController {
 
         model.addAttribute("orderFieldName", orderFieldName);
         model.addAttribute("desc",desc);
-
         model.addAttribute("pagination",pagination);
 
         model.addAttribute("notific_list", notifications);
@@ -230,8 +235,9 @@ public class CabinetController {
     }
 
     @GetMapping("/productList")
-    public String list(@RequestParam("page") int page,
+    public String list(
                        @RequestParam("maxResult") int maxResult,
+                       @RequestParam("page") int page,
                        Model model) {
         pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
                 currentUser.getOrganization(),
@@ -253,7 +259,7 @@ public class CabinetController {
         this.orderFieldName = orderFieldName;
         this.desc = desc;
 
-        return "redirect:/cabinet/productList?page=1&maxResult="+pagination.getMaxResult();
+        return "redirect:/cabinet/productList?maxResult="+pagination.getMaxResult()+"&page=1";
     }
 
     @GetMapping("/filterByNotificStatus")
@@ -321,42 +327,158 @@ public class CabinetController {
         return "cabinet/list";
     }
 
+    //TODO move in other controler
     @GetMapping("/more")
     public String getMore(@RequestParam("notificationId") int notificationId,
-                       Model model){
-
-        Notification notification = notificationService.getById(notificationId);
-
-        model.addAttribute("notificationMore", notification);
-        model.addAttribute("actionList", actionService.listByIdNotification(notification));
-
+                       Model model) {
         //save model for bask2list
         addAttributes_NotificationAndOther(model, showListNotifications);
 
+        currentNotification = notificationService.getById(notificationId);
+
+        orderFieldNameAction = "date";
+        descAction = true;
+
+        int maxResultAction = 10;
+        int navigationPagesAction = 10;
+
+        paginationAction = actionService.filter_Notific_Order_Pagination(
+                currentNotification,
+                orderFieldNameAction, descAction,
+                new Pagination<Action>(1, maxResultAction, navigationPagesAction)
+        );
+        listAction = paginationAction.getList();
+
+        model.addAttribute("currentNotification", currentNotification);
+        model.addAttribute("listAction", listAction);
+        model.addAttribute("orderFieldNameAction", orderFieldNameAction);
+        model.addAttribute("descAction",descAction);
+        model.addAttribute("paginationAction",paginationAction);
+
+//        model.addAttribute("listUser", userService.list());
+        model.addAttribute("listActionType", actionTypeService.list());
+        model.addAttribute("listStatus", statusService.list());
+
         return "cabinet/form_more";
     }
-    @PostMapping("/more")
-    public String postMore(
-            @RequestParam("id")  int idNotification,
-//			@ModelAttribute("user") User user,
-			Model model){
+//    @PostMapping("/more")
+//    public String postMore(
+//            @RequestParam("id")  int idNotification,
+////			@ModelAttribute("user") User user,
+//			Model model){
+//
+////        Notification notification = notificationService.getById(idNotification);
+//////        NotificationStatus status = statusService.getById(idStatus);
+//////        notification.setNotificationStatus(status);
+////
+////        notificationService.update(notification);
+////
+////        pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
+////                currentUser.getOrganization(),
+////                checkedMainListNotificStatuses,
+////                showArchive, listArchiveStatus,
+////                orderFieldName, desc,
+////                new Pagination<Notification>(pagination.getCurrentPage(), pagination.getMaxResult(), pagination.getMaxNavigationPage())
+////        );
+////        showListNotifications = pagination.getList();
+////
+////        addAttributes_NotificationAndOther(model, showListNotifications);
+//        return "cabinet/list";
+//    }
 
-        Notification notification = notificationService.getById(idNotification);
-//        NotificationStatus status = statusService.getById(idStatus);
-//        notification.setNotificationStatus(status);
 
-        notificationService.update(notification);
-
-        pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
-                currentUser.getOrganization(),
-                checkedMainListNotificStatuses,
-                showArchive, listArchiveStatus,
-                orderFieldName, desc,
-                new Pagination<Notification>(pagination.getCurrentPage(), pagination.getMaxResult(), pagination.getMaxNavigationPage())
-        );
-        showListNotifications = pagination.getList();
-
+    @GetMapping("productListAction")
+    public String listAction(
+                       @RequestParam("maxResult") int maxResultAction,
+                       @RequestParam("page") int pageAction,
+                       Model model) {
+        //save model for bask2list
         addAttributes_NotificationAndOther(model, showListNotifications);
-        return "cabinet/list";
+
+        Pagination<Action> actionPagination = new Pagination<>(pageAction, maxResultAction, paginationAction.getMaxNavigationPage());
+
+        paginationAction = actionService.filter_Notific_Order_Pagination(
+                currentNotification,
+                orderFieldNameAction, descAction,
+                actionPagination
+        );
+        listAction = paginationAction.getList();
+
+        model.addAttribute("currentNotification", currentNotification);
+        model.addAttribute("listAction", listAction);
+        model.addAttribute("orderFieldNameAction", orderFieldNameAction);
+        model.addAttribute("descAction",descAction);
+        model.addAttribute("paginationAction",paginationAction);
+
+//        model.addAttribute("listUser", userService.list());
+        model.addAttribute("listActionType", actionTypeService.list());
+        model.addAttribute("listStatus", statusService.list());
+
+        return "cabinet/form_more";
     }
+
+    @GetMapping("orderDescAction")
+    public String orderDescAction(
+            @RequestParam("orderFieldName") String orderFieldName,
+            @RequestParam("desc") boolean desc,
+            Model model) {
+        this.orderFieldNameAction = orderFieldName;
+        this.descAction = desc;
+
+        return "redirect:/cabinet/productListAction?maxResult="+paginationAction.getMaxResult()+"&page=1";
+    }
+
+
+    @GetMapping("/addAction")
+    public String GetAddActionEditNotificSatus(
+            @RequestParam("notificationId") int notificationId,
+            @RequestParam("idActionType") int idActionType,
+            @RequestParam("content") String content,
+            @RequestParam("idUserImplementor") int idUserImplementor,
+            @RequestParam("idNotificationStatus") int idNotificationStatus,
+                          Model model) {
+        Notification notification = notificationService.getById(notificationId);
+        ActionType actionType = actionTypeService.getById(idActionType);
+        User userImplementor = userService.getById(idUserImplementor);
+        NotificationStatus status = statusService.getById(idNotificationStatus);
+
+        Action actionNew = new Action();
+//        Action actionNew = new Action(
+//                content,
+//                new Timestamp(System.currentTimeMillis()),
+//                notification,
+//                actionType,
+//                userImplementor,
+//                status
+//        );
+
+      //  actionNew.setId(999);
+        actionNew.setNotification(notification);
+        actionNew.setActionType(actionType);
+        actionNew.setUserByIdImplementor(userImplementor);
+        actionNew.setNotificationStatusAfterProcessing(status);
+        actionNew.setDate(notification.getActions().get(0).getDate());
+        actionNew.setContent(content);
+
+        //notification.getActions().add(actionNew);
+        //notificationService.saveOrUpdate(notification);
+
+        //        actionService.saveOrUpdate(actionNew);
+        actionService.save(actionNew);
+
+        //notification.setNotificationStatus(actionNew.getNotificationStatusAfterProcessing());
+
+        return "redirect:/cabinet/productListAction?maxResult="+paginationAction.getMaxResult()+"&page="+paginationAction.getCurrentPage();
+    }
+//    @PostMapping("/addAction")
+//    public String PostAddAction(
+//            @RequestParam("notificationId") int notificationId,
+//                          Model model) {
+//        //save model for bask2list
+//        addAttributes_NotificationAndOther(model, showListNotifications);
+//
+//        model.addAttribute("listUser", userService.list());
+//        model.addAttribute("listActionType", actionTypeService.list());
+//        return "cabinet/form_add_action";
+//    }
 }

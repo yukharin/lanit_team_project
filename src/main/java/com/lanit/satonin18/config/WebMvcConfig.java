@@ -3,6 +3,7 @@ package com.lanit.satonin18.config;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
@@ -15,7 +16,15 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.lanit.satonin18.mvc"})
+@ComponentScans( value = {
+        @ComponentScan(
+                basePackages = { "com.lanit.satonin18.mvc"}
+        )
+//        ,
+//        @ComponentScan(
+//                basePackages = { "com.lanit.satonin18.config"}
+//        )
+})
 public class WebMvcConfig implements WebMvcConfigurer {
 
    @Bean
