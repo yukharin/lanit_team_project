@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,15 +34,15 @@ public class PersonalAccountController {
 
 
     @RequestMapping("/account/")
-    public String toAccount(@NotNull @SessionAttribute String login,
-                            @NotNull @SessionAttribute String password, Model model) {
+    public String toAccount(@SessionAttribute String login,
+                            @SessionAttribute String password, Model model) {
         User user = authorization.authorize(login, password);
         model.addAttribute("notifications", user.getOrganization().getNotifications());
         return "personalAccount";
     }
 
     @GetMapping("/account/actions_history/")
-    public String getNotificationActions(@NotNull @RequestParam String id,
+    public String getNotificationActions(@RequestParam String id,
                                          Model model) {
         Set<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
         model.addAttribute("actions", actions);
@@ -51,7 +50,7 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/account/delete/")
-    public String deleteNotification(@NotNull @RequestParam String id) {
+    public String deleteNotification(@RequestParam String id) {
         notificationService.removeNotification(Long.valueOf(id));
         return "redirect:/account/";
     }
@@ -64,7 +63,7 @@ public class PersonalAccountController {
     }
 
     @GetMapping("/account/perform_action/")
-    public String getAddActionPage(@NotNull @RequestParam String id, Model model) {
+    public String getAddActionPage(@RequestParam String id, Model model) {
         Notification notification = notificationService.getNotification(Long.valueOf(id));
         List<ActionType> actionTypes = actionTypeService.actionTypes();
         model.addAttribute("notification", notification);
@@ -73,11 +72,11 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/account/addAction/")
-    public String addAction(@NotNull @RequestParam String idActionType,
-                            @NotNull @RequestParam String idNotification,
-                            @NotNull @RequestParam String comment,
-                            @NotNull @SessionAttribute String login,
-                            @NotNull @SessionAttribute String password) {
+    public String addAction(@RequestParam String idActionType,
+                            @RequestParam String idNotification,
+                            @RequestParam String comment,
+                            @SessionAttribute String login,
+                            @SessionAttribute String password) {
         User user = authorization.authorize(login, password);
         ActionType actionType = actionTypeService.getActionType(Long.valueOf(idActionType));
         Notification notification = notificationService.getNotification(Long.valueOf(idNotification));
@@ -94,9 +93,9 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/account/addNotification/add/")
-    public String addNotification(@NotNull @RequestParam String notificationType,
-                                  @NotNull @RequestParam String dateResponse,
-                                  @NotNull @RequestParam String orgId) throws ParseException {
+    public String addNotification(@RequestParam String notificationType,
+                                  @RequestParam String dateResponse,
+                                  @RequestParam String orgId) throws ParseException {
         System.err.println(notificationType);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfResponse = format.parse(dateResponse);

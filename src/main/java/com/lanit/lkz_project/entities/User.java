@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,9 +27,11 @@ public class User {
     @JoinColumn(name = "id_org", referencedColumnName = "id", nullable = false)
     private Organization organization;
 
+    @NotEmpty
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
+    @NotEmpty
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
