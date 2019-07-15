@@ -276,7 +276,7 @@ USE `lanit`;
 INSERT INTO `lanit`.`notification_statuses` (`id`, `name`)
 VALUES (1, 'Новое');
 INSERT INTO `lanit`.`notification_statuses` (`id`, `name`)
-VALUES (2, 'Отправлено в обработку');
+VALUES (2, 'Отправлено_в_обработку');
 INSERT INTO `lanit`.`notification_statuses` (`id`, `name`)
 VALUES (3, 'Обработано');
 
@@ -296,43 +296,43 @@ INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_no
 VALUES (2, 1, 'Уведомление о получении кредита', 1, '2019-07-24', '2019-08-14', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (3, 1, 'Уведомление о завершении тендера', 1, '2019-07-29', '2019-08-21', NULL, NULL);
+VALUES (3, 1, 'Уведомление о завершении тендера', 1, '2019-07-27', '2019-08-21', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (4, 1, 'Уведомление о закрытии счета', 1, '2019-08-01', '2019-08-12', NULL, NULL);
+VALUES (4, 1, 'Уведомление о премии', 1, '2019-07-29', '2019-08-03', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (5, 1, 'Уведомление об увольнении', 1, '2019-08-05', '2019-08-15', NULL, NULL);
+VALUES (5, 1, 'Уведомление об увольнении с работы', 1, '2019-08-01', '2019-08-07', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (6, 1, 'Уведомление о завершении работ', 1, '2019-08-09', '2019-08-21', NULL, NULL);
+VALUES (6, 1, 'Уведомление о выигрыше тендера', 1, '2019-08-04', '2019-08-11', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (7, 1, 'Уведомление о завершении деятельности', 1, '2019-08-13', '2019-08-20', NULL, NULL);
+VALUES (7, 1, 'Уведомление о закрытии счета', 1, '2019-08-06', '2019-08-14', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (8, 1, 'Уведомление о получении средств', 1, '2019-08-18', '2019-08-24', NULL, NULL);
+VALUES (8, 1, 'Уведомление о завершении работы', 1, '2019-08-09', '2019-08-17', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (9, 1, 'Уведомление о закрытии организации', 1, '2019-08-21', '2019-08-27', NULL, NULL);
+VALUES (9, 1, 'Уведомление о перечислении денег', 1, '2019-08-14', '2019-08-21', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (10, 1, 'Уведомление о завершении релиза', 1, '2019-08-27', '2019-09-01', NULL, NULL);
+VALUES (10, 1, 'Уведомление о получении премии', 1, '2019-08-19', '2019-08-24', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (11, 1, 'Уведомление о закрытии проекта', 1, '2019-08-29', '2019-09-05', NULL, NULL);
+VALUES (11, 1, 'Уведомление о начислении бонусов', 1, '2019-08-23', '2019-08-27', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (12, 1, 'Уведомление о закрытии офиса', 1, '2019-09-02', '2019-09-09', NULL, NULL);
+VALUES (12, 1, 'Уведомление о начислении средств', 1, '2019-08-27', '2019-09-02', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (13, 1, 'Уведомление о расторжении договора', 1, '2019-09-03', '2019-09-12', NULL, NULL);
+VALUES (13, 1, 'Уведомление о получении прибыли', 1, '2019-09-03', '2019-09-07', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (14, 1, 'Уведомление о завершении тендера', 1, '2019-09-06', '2019-09-15', NULL, NULL);
+VALUES (14, 1, 'Уведомление о получении повышения', 1, '2019-09-12', '2019-09-15', NULL, NULL);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (15, 1, 'Уведомление о выполнении обязательств', 1, '2019-09-16', '2019-09-17', NULL, NULL);
+VALUES (15, 1, 'Уведомление о выигрыше конкурса', 1, '2019-09-15', '2019-09-17', NULL, NULL);
 
 COMMIT;
 
@@ -343,7 +343,7 @@ COMMIT;
 START TRANSACTION;
 USE `lanit`;
 INSERT INTO `lanit`.`action_types` (`id`, `name`)
-VALUES (1, 'Отправить в обработку');
+VALUES (1, 'Отправить_в_обработку');
 INSERT INTO `lanit`.`action_types` (`id`, `name`)
 VALUES (2, 'Обработать');
 
