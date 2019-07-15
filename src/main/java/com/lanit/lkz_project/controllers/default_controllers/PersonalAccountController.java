@@ -2,12 +2,16 @@ package com.lanit.lkz_project.controllers.default_controllers;
 
 import com.lanit.lkz_project.authorization.UserServiceAuthorization;
 import com.lanit.lkz_project.entities.*;
+import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +22,10 @@ import java.util.Set;
 @Controller
 @SessionAttributes({"login", "password"})
 public class PersonalAccountController {
+
+    private static final int PAGE = 0;
+    private static final int SIZE = 10;
+
 
     @Autowired
     private NotificationService notificationService;
@@ -31,13 +39,25 @@ public class PersonalAccountController {
     private ActionTypeService actionTypeService;
     @Autowired
     private UserServiceAuthorization authorization;
-
+    @Autowired
+    private PersonalAccountService personalAccountService;
 
     @RequestMapping("/account/")
     public String toAccount(@SessionAttribute String login,
-                            @SessionAttribute String password, Model model) {
+                            @SessionAttribute String password, Model model, HttpServletRequest request) {
+        int page = 0; //default page number is 0 (yes it is weird)
+        int size = 10; //default page size is 10
+
+        if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+            page = Integer.parseInt(request.getParameter("page")) - 1;
+        }
+
+        if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+            size = Integer.parseInt(request.getParameter("size"));
+        }
         User user = authorization.authorize(login, password);
-        model.addAttribute("notifications", user.getOrganization().getNotifications());
+        Page<Notification> customers = personalAccountService.getPaginatedNotifications(PageRequest.of(page, size), user);
+        model.addAttribute("customers", customers);
         return "personalAccount";
     }
 
