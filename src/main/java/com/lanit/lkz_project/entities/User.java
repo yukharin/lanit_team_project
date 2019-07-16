@@ -45,8 +45,7 @@ public class User {
     @Column(name = "registration_date", nullable = false)
     private Date registrationDate;
 
-    @ManyToOne
-    @JoinColumn(name = "id_role")
+    @Column(name = "role")
     private Role role;
 
 }

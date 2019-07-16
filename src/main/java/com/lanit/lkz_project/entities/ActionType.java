@@ -1,31 +1,15 @@
 package com.lanit.lkz_project.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.persistence.*;
+import java.util.EnumSet;
+import java.util.Set;
 
-@Data
-@EqualsAndHashCode(exclude = "id")
-@NoArgsConstructor
-@ToString
-@Entity
-@Table(name = "action_types")
-public class ActionType {
+public enum ActionType {
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    SEND_TO_PROCESSING, APPROVE, REJECT;
 
-    @Column(name = "name", nullable = false, length = 45)
-    @Enumerated(EnumType.STRING)
-    private TypeOfAction name;
-
-    public enum TypeOfAction {
-        Обработать, Отправить_в_обработку
+    public static Set<ActionType> types() {
+        return EnumSet.allOf(ActionType.class);
     }
-
 }
+

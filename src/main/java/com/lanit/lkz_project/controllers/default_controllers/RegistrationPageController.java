@@ -1,9 +1,9 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
 import com.lanit.lkz_project.entities.Organization;
+import com.lanit.lkz_project.entities.Role;
 import com.lanit.lkz_project.entities.User;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
-import com.lanit.lkz_project.service.entities_service.RoleService;
 import com.lanit.lkz_project.service.entities_service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +22,6 @@ public class RegistrationPageController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    RoleService roleService;
 
     @PostMapping("registration/registerUser/")
     public String registerUser(@RequestParam String firstName,
@@ -40,7 +38,7 @@ public class RegistrationPageController {
         user.setPassword(password);
         user.setOrganization(organization);
         user.setRegistrationDate(registrationDate);
-        user.setRole(roleService.getRole(1L));
+        user.setRole(Role.ЧИНОВНИК);
         userService.addUser(user);
         return "loginPage";
     }

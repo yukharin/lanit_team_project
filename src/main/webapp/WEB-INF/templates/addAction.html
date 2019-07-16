@@ -8,12 +8,12 @@
 <body>
 <h3>Пожалуйста выберите, какое действие вы хотите совершить над уведомлением</h3>
 <div>
-    <form method="post" th:action="@{/account/addAction/}">
+    <form method="post" th:action="@{/account/commit_action/commit}">
         <p>Действие</p>
-        <select name="idActionType">
+        <select name="actionTypeParam">
             <option th:each="actionType : ${actionTypes}"
-                    th:text="${actionType.name}"
-                    th:value="${actionType.id}">
+                    th:text="${actionType}"
+                    th:value="${actionType}">
             </option>
             <input name="comment" type="text"/>
             <input name="idNotification" th:value="${notification.id}" type="hidden"/>

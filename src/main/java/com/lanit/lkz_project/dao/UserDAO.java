@@ -49,6 +49,6 @@ public class UserDAO {
 
     public List<User> users() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM User", User.class).list();
+        return session.createQuery("FROM User ORDER BY id", User.class).list();
     }
 }

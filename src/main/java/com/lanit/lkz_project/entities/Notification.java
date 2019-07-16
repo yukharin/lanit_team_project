@@ -29,8 +29,8 @@ public class Notification {
     @Column(name = "notification_type")
     private String notificationType;
 
-    @ManyToOne
-    @JoinColumn(name = "id_notification_status")
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "notification_status")
     private NotificationStatus status;
 
     @Temporal(TemporalType.DATE)

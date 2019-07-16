@@ -48,6 +48,6 @@ public class NotificationDAO {
 
     public List<Notification> notifications() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM  Notification", Notification.class).list();
+        return session.createQuery("FROM  Notification ORDER BY id", Notification.class).list();
     }
 }

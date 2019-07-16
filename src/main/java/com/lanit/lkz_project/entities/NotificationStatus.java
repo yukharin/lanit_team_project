@@ -1,31 +1,17 @@
 package com.lanit.lkz_project.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import java.util.EnumSet;
+import java.util.Set;
 
-import javax.persistence.*;
+public enum NotificationStatus {
 
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(exclude = "id")
-@ToString
-@Entity
-@Table(name = "notification_statuses")
-public class NotificationStatus {
+    НОВОЕ, В_РАБОТЕ, ОТКЛОНЕНО, ОДОБРЕНО;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "name", nullable = false, length = 45)
-    @Enumerated(EnumType.STRING)
-    private StatusOfNotification name;
-
-    public enum StatusOfNotification {
-        Новое, Обработано, Отправлено_в_обработку
+    public static Set<NotificationStatus> types() {
+        return EnumSet.allOf(NotificationStatus.class);
     }
+
+
+
 
 }

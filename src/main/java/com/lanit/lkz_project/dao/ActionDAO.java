@@ -45,7 +45,7 @@ public class ActionDAO {
 
     public List<Action> actions() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Action ").list();
+        return session.createQuery("FROM Action ORDER BY id ASC ").list();
     }
 
 }
