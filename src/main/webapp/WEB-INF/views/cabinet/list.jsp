@@ -254,12 +254,6 @@
                     <Br><input type="checkbox"></th>
                 <th>№</th>
                 <th>Вид уведомления<%--notificationType--%>
-                    <%--TODO REPLACE href--%>
-                    <%--<c:url var="moreLink" value="orderDescAction">--%>
-                    <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
-                    <%--</c:url>--%>
-                    <%--<a href="${moreLink}">More</a>--%>
-
                     <Br><a class="href-nav-item" id="orderFieldName=notificationType&desc=true"
                            href="orderDesc?orderFieldName=notificationType&desc=true" > /\ </a>
                     <Br><a class="href-nav-item" id="orderFieldName=notificationType&desc=false"
@@ -302,15 +296,6 @@
                            href="orderDesc?orderFieldName=letterNumber&desc=false"> \/ </a>
                 </th>
                 <th>Действия</th>
-
-                <%--<th>userByIdUserCuratorGos--%>
-                <%--<Br><a href="orderDesc?orderFieldName=userByIdUserCuratorGos.lastName&desc=true" class="href-nav-item"> /\ </a>--%>
-                <%--<Br><a href="orderDesc?orderFieldName=userByIdUserCuratorGos.lastName&desc=false" class="href-nav-item"> \/ </a>--%>
-                <%--</th>--%>
-                <%--<th>userByIdUserImplementor--%>
-                <%--<Br><a href="orderDesc?orderFieldName=userByIdUserImplementor.lastName&desc=true" class="href-nav-item"> /\ </a>--%>
-                <%--<Br><a href="orderDesc?orderFieldName=userByIdUserImplementor.lastName&desc=false" class="href-nav-item"> \/ </a>--%>
-                <%--</th>--%>
             </tr>
             <c:forEach var="tempNotification" items="${notific_list}" varStatus="notificLoopCount" >
                 <tr>
@@ -352,24 +337,11 @@
                     <td>
                         Кол-во: ${tempNotification.actions.size()}
                         <Br>
-                        <c:url var="addLink" value="more">
+                        <c:url var="addLink" value="moreInit">
                             <c:param name="notificationId" value="${tempNotification.id}"/>
                         </c:url>
                         <a href="${addLink}">More</a>
-
-                            <%--<c:url var="updateLink" value="showFormForUpdate">--%>
-                            <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
-                            <%--</c:url>--%>
-                            <%--<a href="${updateLink}">Update</a>--%>
-
-                            <%--<c:url var="deleteLink" value="delete">--%>
-                            <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
-                            <%--</c:url>--%>
-                            <%--<a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>--%>
-
                     </td>
-                        <%--<td>${tempNotification.userByIdUserCuratorGos}</td>--%>
-                        <%--<td>${tempNotification.userByIdUserImplementor}</td>--%>
                 </tr>
             </c:forEach>
         </table>

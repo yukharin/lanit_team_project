@@ -159,14 +159,6 @@
                               ${currentNotification.userByIdUserCuratorGos.lastName}"
                        disabled>
                 <Br>
-                <%--Дата назначения куратора:--%>
-                <%--Ответственный исполнитель заказчика:--%>
-                <%--<input type="text" name="userByIdUserImplementor"--%>
-                       <%--value="${currentNotification.userByIdUserImplementor.firstName}--%>
-                              <%--${currentNotification.userByIdUserImplementor.lastName}"--%>
-                       <%--disabled>--%>
-                <%--<Br>--%>
-                <%--Дата назначения ответственного исполнителя:(Mock)((???)вроде это нигде не храниться)--%>
             </div>
         </div>
     </div>
@@ -200,11 +192,7 @@
                             <option value ="${tempActionType.id}">${tempActionType.name}</option>
                         </c:forEach>
                     </select>
-                    <%--<input type="text" name="userByIdUserImplementor"--%>
-                    <%--value="${currentNotification.userByIdUserImplementor.firstName}--%>
-                    <%--${currentNotification.userByIdUserImplementor.lastName}"--%>
-                    <%--disabled>--%>
-                    <%--Дата назначения ответственного исполнителя:(Mock)((???)вроде это нигде не храниться)--%>
+
                     <Br>
                     Статус:
                     <select type="text" name="idNotificationStatus" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
@@ -306,12 +294,6 @@
                             <Br><input type="checkbox"></th>
                         <th>№</th>
                         <th>Тип действия<%--tempAction.actionType.name--%>
-                            <%--TODO REPLACE href--%>
-                            <%--<c:url var="moreLink" value="orderDescAction">--%>
-                            <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
-                            <%--</c:url>--%>
-                            <%--<a href="${moreLink}">More</a>--%>
-
                             <Br><a class="href-nav-item" id="orderFieldName=actionType&desc=true"
                                    href="orderDescAction?orderFieldName=actionType&desc=true" > /\ </a>
                             <Br><a class="href-nav-item" id="orderFieldName=actionType&desc=false"
