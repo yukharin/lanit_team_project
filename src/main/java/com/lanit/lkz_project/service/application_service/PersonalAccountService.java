@@ -4,7 +4,6 @@ import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.entities_service.ActionService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,16 +13,14 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PersonalAccountService {
 
     private static final int DEFAULT_PAGE_NUMBER = 0;
     private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final int BOUND_TO_GENERATE_NUMBER = 10;
 
     @Autowired
     private OrganizationService organizationService;
@@ -76,9 +73,10 @@ public class PersonalAccountService {
     }
 
 
-    public void addNotification(@NotBlank String notificationType,
-                                @NotBlank String dateResponse,
-                                @NotBlank String orgId) throws ParseException {
+    public void addNotification(User user,
+                                String notificationType,
+                                String dateResponse,
+                                String orgId) throws ParseException {
         Notification notification = new Notification();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfResponse = format.parse(dateResponse);
@@ -88,6 +86,8 @@ public class PersonalAccountService {
         notification.setDateResponse(dateOfResponse);
         notification.setDateReceived(new Date());
         notification.setStatus(NotificationStatus.NEW);
+        notification.setLetterNumber(generateLetterNumber());
+        notification.setUserNotificationAuthor(user);
         notificationService.addNotification(notification);
     }
 
@@ -142,6 +142,26 @@ public class PersonalAccountService {
                 throw new IllegalStateException("There is no such status");
         }
         return types;
+    }
+
+    private String generateLetterNumber() {
+        // Не очень выглядит, но сделал так, чтоб была хоть какая то генерация.
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        sb.
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append("-").
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append("-").
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
+                append("/").
+                append(random.nextInt(BOUND_TO_GENERATE_NUMBER));
+        return sb.toString();
     }
 
 

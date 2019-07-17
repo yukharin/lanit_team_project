@@ -4,8 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,11 +23,11 @@ public class Organization implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Basic
+    @NotBlank
+    @Size(min = 3, max = 200)
     @Column(name = "name", nullable = false, length = 200)
     private String name;
 
-    @Basic
     @Column(name = "org_type", nullable = false)
     private boolean government;
 

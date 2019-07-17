@@ -69,10 +69,13 @@ public class PersonalAccountController {
 
     @PostMapping("/account/addNotification/add/")
     public String addNotification(
+            @SessionAttribute String login,
+            @SessionAttribute String password,
             @RequestParam String notificationType,
             @RequestParam String dateResponse,
             @RequestParam String orgId) throws ParseException {
-        personalAccountService.addNotification(notificationType, dateResponse, orgId);
+        User user = userAuthorization.authorize(login, password);
+        personalAccountService.addNotification(user, notificationType, dateResponse, orgId);
         return "redirect:/account/";
     }
 
