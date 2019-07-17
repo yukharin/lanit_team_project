@@ -4,7 +4,7 @@ import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.entities_service.ActionService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -76,9 +76,9 @@ public class PersonalAccountService {
     }
 
 
-    public void addNotification(@NotEmpty String notificationType,
-                                @NotEmpty String dateResponse,
-                                @NotEmpty String orgId) throws ParseException {
+    public void addNotification(@NotBlank String notificationType,
+                                @NotBlank String dateResponse,
+                                @NotBlank String orgId) throws ParseException {
         Notification notification = new Notification();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfResponse = format.parse(dateResponse);

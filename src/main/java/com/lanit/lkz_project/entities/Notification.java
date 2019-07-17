@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.util.Date;
 import java.util.Set;
 
@@ -37,6 +38,7 @@ public class Notification {
     @Column(name = "date_received")
     private Date dateReceived;
 
+    @Future
     @Temporal(TemporalType.DATE)
     @Column(name = "date_response")
     private Date dateResponse;
