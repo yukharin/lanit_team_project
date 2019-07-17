@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 
 @Service
@@ -60,9 +60,9 @@ public class PersonalAccountService {
     private List<Notification> defineUserNotifications(@NotNull User user) {
         Role role = user.getRole();
         switch (role) {
-            case ЧИНОВНИК:
+            case AUTHORITY:
                 return notificationService.notifications();
-            case РАБОТНИК_ОРГАНИЗАЦИИ:
+            case EMPLOYEE:
                 return user.getOrganization().getNotifications();
             default:
                 throw new IllegalStateException("Invalid user role");
@@ -70,7 +70,7 @@ public class PersonalAccountService {
     }
 
 
-    public List<ActionType> getAppropriateActions(Notification notification) {
+    public EnumSet<ActionType> getAppropriateActions(Notification notification) {
         NotificationStatus status = notification.getStatus();
         return defineActions(status);
     }
@@ -87,7 +87,7 @@ public class PersonalAccountService {
         notification.setNotificationType(notificationType);
         notification.setDateResponse(dateOfResponse);
         notification.setDateReceived(new Date());
-        notification.setStatus(NotificationStatus.НОВОЕ);
+        notification.setStatus(NotificationStatus.NEW);
         notificationService.addNotification(notification);
     }
 
@@ -111,13 +111,13 @@ public class PersonalAccountService {
         NotificationStatus status;
         switch (actionType) {
             case SEND_TO_PROCESSING:
-                status = NotificationStatus.В_РАБОТЕ;
+                status = NotificationStatus.IN_PROCESSING;
                 break;
             case APPROVE:
-                status = NotificationStatus.ОДОБРЕНО;
+                status = NotificationStatus.APPROVED;
                 break;
             case REJECT:
-                status = NotificationStatus.ОТКЛОНЕНО;
+                status = NotificationStatus.REJECTED;
                 break;
             default:
                 throw new IllegalStateException("Invalid action type");
@@ -125,17 +125,18 @@ public class PersonalAccountService {
         return status;
     }
 
-    private List<ActionType> defineActions(NotificationStatus status) {
-        List<ActionType> types = new ArrayList<>();
+    private EnumSet<ActionType> defineActions(NotificationStatus status) {
+        EnumSet<ActionType> types;
         switch (status) {
-            case НОВОЕ:
-                types.add(ActionType.SEND_TO_PROCESSING);
+            case NEW:
+                types = EnumSet.of(ActionType.SEND_TO_PROCESSING);
                 break;
-            case В_РАБОТЕ:
-                types.add(ActionType.APPROVE);
-                types.add(ActionType.REJECT);
-            case ОДОБРЕНО:
-            case ОТКЛОНЕНО:
+            case IN_PROCESSING:
+                types = EnumSet.of(ActionType.APPROVE, ActionType.REJECT);
+                break;
+            case APPROVED:
+            case REJECTED:
+                types = EnumSet.noneOf(ActionType.class);
                 break;
             default:
                 throw new IllegalStateException("There is no such status");

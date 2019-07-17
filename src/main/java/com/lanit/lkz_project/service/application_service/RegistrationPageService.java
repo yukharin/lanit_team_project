@@ -41,9 +41,9 @@ public class RegistrationPageService {
 
     private Role defineUserRole(Organization organization) {
         if (organization.isGovernment()) {
-            return Role.ЧИНОВНИК;
+            return Role.AUTHORITY;
         } else {
-            return Role.РАБОТНИК_ОРГАНИЗАЦИИ;
+            return Role.EMPLOYEE;
         }
     }
 }

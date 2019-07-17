@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -78,7 +79,7 @@ public class PersonalAccountController {
     @PostMapping("/account/commit_action/")
     public String getNotificationPage(@RequestParam String id, Model model) {
         Notification notification = notificationService.getNotification(Long.valueOf(id));
-        List<ActionType> types = personalAccountService.getAppropriateActions(notification);
+        EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
         model.addAttribute("notification", notification);
         model.addAttribute("actionTypes", types);
         return "addAction";

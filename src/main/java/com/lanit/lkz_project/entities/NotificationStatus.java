@@ -5,7 +5,7 @@ import java.util.Set;
 
 public enum NotificationStatus {
 
-    НОВОЕ, В_РАБОТЕ, ОТКЛОНЕНО, ОДОБРЕНО;
+    NEW, IN_PROCESSING, REJECTED, APPROVED;
 
     public static Set<NotificationStatus> types() {
         return EnumSet.allOf(NotificationStatus.class);
