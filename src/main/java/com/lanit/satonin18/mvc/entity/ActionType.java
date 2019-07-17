@@ -15,7 +15,20 @@ import java.io.Serializable;
 public class ActionType implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @org.hibernate.annotations.GenericGenerator(
+            name = "ID_GENERATOR",
+            strategy = "enhanced-sequence", /* Стратегия применения расширенной последовательности*/
+            parameters = {
+                    @org.hibernate.annotations.Parameter(
+                            name = "sequence_name", /* Имя последовательности*/
+                            value = "JPWH_SEQUENCE"
+                    ),
+                    @org.hibernate.annotations.Parameter(
+                            name = "initial_value", /* Начальное значение*/
+                            value = "1000"
+                    )
+            })
     private int id;
 
     @Basic

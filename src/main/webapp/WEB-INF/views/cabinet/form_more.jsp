@@ -18,16 +18,25 @@
             border-collapse: collapse; /* Убираем двойные линии между ячейками */
             width: 100%;/*  width: 300px; Ширина таблицы */
         }
+        TABLE.table4input_data {
+            width: auto/*  width: 300px; Ширина таблицы */
+        }
         TH, TD {
             border: 1px solid black; /* Параметры рамки */
             text-align: center; /* Выравнивание по центру */
             padding: 1px; /* Поля вокруг текста */
+        }
+        TABLE.table4input_data TH, TD {
+            text-align: left; /* Выравнивание по центру */
         }
         TH {
             background: #fc0; /* Цвет фона ячейки */
             height: 40px; /* Высота ячеек */
             /*vertical-align: bottom;  Выравнивание по нижнему краю */
             padding: 0; /* Убираем поля вокруг текста */
+        }
+        TABLE.table4input_data TH {
+            background: #a9ff78; /* Цвет фона ячейки */
         }
         #header_table th{
             background: #ffccff;
@@ -109,117 +118,206 @@
 <div id="content">
 
     <div id="common_info_about_notification">
-        <h5 style="text-transform: uppercase;"> <%--onclick=""--%>
-            ${currentNotification.notificationType}</h5>
-        <div class="controlled_visibility">
-            Номер уведомления: <input type="text" name="id" value="${currentNotification.id}"
-                                      disabled>
-            <Br>
-            Номер письма: <input type="text" name="letterNumber" value="${currentNotification.letterNumber}"
-                                 disabled>
-            <Br>
-            Заказчик: <input type="text" name="organization.name" value="${currentNotification.organization.name}"
-                             disabled>
+        <h5 style="text-transform: uppercase;">
+            ${currentNotification.notificationType}
+            <button onclick="changeVisibilityById('controlled_visibility-common_info_about_notification', 'button-common_info_about_notification')"
+                    id = "button-common_info_about_notification"
+                    class="href-nav-item"> \/ </button>
+        </h5>
+        <div class="controlled_visibility" id="controlled_visibility-common_info_about_notification">
+            <table class="table4input_data">
+                <tr>
+                    <th>
+                        Номер уведомления:
+                    </th>
+                    <td>
+                        <input type="text" name="id" value="${currentNotification.id}"
+                               disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Номер письма:
+                    </th>
+                    <td>
+                        <input type="text" name="letterNumber" value="${currentNotification.letterNumber}"
+                               disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Заказчик:
+                    </th>
+                    <td>
+                        <input type="text" name="organization.name" value="${currentNotification.organization.name}"
+                               disabled>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 
     <%--DIV id="contract"--%>
 
     <div id="answer_preparation">
-        <h5> <%--onclick=""--%>
-            ПОДГОТОВКА ОТВЕТА</h5>
-        <div class="controlled_visibility">
-            <div id="answer_preparation4currentNotification">
-                <p>FROM currentNotification</p>
-                Ответ направлен: (Mock)(disabled)((???)кнопка на отправление ответа)(я думаю + изменение статусаУведомления (у Действия и Уведомлния))
-                <Br>
-                Срок предоставления ответа:
-                <input type="text" name="dateResponse" value="${currentNotification.dateResponse.toString()}"
-                       disabled>
-                <Br>
-                Заказчик:
-                <input type="text" name="organization.name" value="${currentNotification.organization.name}"
-                       disabled>
-                <Br>
-                Дата последнего направления ответа:
-                <input type="text" name="dateLastDirAnswer" value="(Mock)(Todo: currentNotification.ORDER_DESC(notific.action->action.data).First.Select)"
-                       disabled>
-                <Br>
-                Дата получения уведомления:
-                <input type="text" name="dateReceived" value="${currentNotification.dateReceived.toString()}"
-                       disabled>
-                <Br>
-                Статус уведомления: (Mock)(по логике менем вручную)
-                <input type="text" name="notificationStatus.name" value="${currentNotification.notificationStatus.name}"
-                       disabled>
-                <Br>
-                Куратор:(Mock)[Поле для ввода и отправки]
-                <input type="text" name="userByIdUserCuratorGos"
-                       value="${currentNotification.userByIdUserCuratorGos.firstName}
-                              ${currentNotification.userByIdUserCuratorGos.lastName}"
-                       disabled>
-                <Br>
-            </div>
+        <h5 style="text-transform: uppercase;"> <%--onclick=""--%>
+            ПОДГОТОВКА ОТВЕТА
+            <button onclick="changeVisibilityById('controlled_visibility-answer_preparation', 'button-answer_preparation')"
+                    id = "button-answer_preparation"
+                    class="href-nav-item"> \/ </button>
+        </h5>
+        <div class="controlled_visibility" id="controlled_visibility-answer_preparation">
+            <table class="table4input_data">
+                <tr>
+                    <th>
+                        Ответ направлен:
+                    </th>
+                    <td>
+                        (не понятна бизнес логика)(Mock)(Индикатор состояния)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Срок предоставления ответа:
+                    </th>
+                    <td>
+                        <input type="text" name="dateResponse" value="${currentNotification.dateResponse.toString()}"
+                               disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Заказчик:
+                    </th>
+                    <td>
+                        <input type="text" name="organization.name" value="${currentNotification.organization.name}"
+                               disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Дата последнего направления ответа:
+                    </th>
+                    <td>
+                        <input type="text" name="MOCK_lastAction_Date" value="${lastAction.date}"
+                               disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Дата получения уведомления:
+                    </th>
+                    <td>
+                        <input type="text" name="dateReceived" value="${currentNotification.dateReceived.toString()}"
+                               disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Статус уведомления:
+                    </th>
+                    <td>
+                        <input type="text" name="notificationStatus.name" value="${currentNotification.notificationStatus.name}"
+                               disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Куратор:
+                    </th>
+                    <td>
+                        <input type="text" name="userByIdUserCuratorGos"
+                               value="${currentNotification.userByIdUserCuratorGos.firstName.trim()} ${currentNotification.userByIdUserCuratorGos.lastName.trim()}"
+                               disabled>
+                        (не понятна бизнес логика)(Mock)[Должно быть: Поле для ввода и отправки]
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 
     <div id="actions">
-        <h5>ДЕЙСТВИЯ</h5>
-        <div class="controlled_visibility">
+        <h5 style="text-transform: uppercase;">
+            ДЕЙСТВИЯ
+            <button onclick="changeVisibilityById('controlled_visibility-actions', 'button-actions')"
+                    id = "button-actions"
+                    class="href-nav-item"> \/ </button>
+        </h5>
+        <div class="controlled_visibility" id="controlled_visibility-actions">
             <div id="add_action">
 
                 <form action="addAction"  method="get">
-                    <input type="hidden" name="notificationId" value="${currentNotification.id}"></input>
-                    <%--ON Server<input type="hidden" name="date" value="${new Timestamp(System.currentTimeMillis())}"></input>--%>
-                    Ответственный исполнитель заказчика:
-                    <select type="text" name="idUserImplementor" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
-                        <c:forEach items="${currentNotification.organization.users}" var="tempUser">
-                            <c:choose>
-                                <c:when test="${user.id.equals(tempUser.id)}">
-                                    <option selected
-                                            value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </select>
-                    <Br>
-                    Действие:
-                    <select type="text" name="idActionType" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
-                        <c:forEach items="${listActionType}" var="tempActionType">
-                            <option value ="${tempActionType.id}">${tempActionType.name}</option>
-                        </c:forEach>
-                    </select>
-
-                    <Br>
-                    Статус:
-                    <select type="text" name="idNotificationStatus" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
-                        <c:forEach items="${listStatus}" var="tempStatus">
-                            <c:choose>
-                                <c:when test="${currentNotification.notificationStatus.id.equals(tempStatus.id)}">
-                                    <option selected
-                                            value ="${tempStatus.id}">${tempStatus.name}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value ="${tempStatus.id}">${tempStatus.name}</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </select>
-                    <Br>
-                    Комментарий:
-                    <input type="text" name="content"
-                           value="">
-                    <Br>
                     <button type="form.submit" <%--class="green_button"--%> style="background-color: #4CAF50; color: white; display: inline-block;">
                         Добавить действие</button>
+                    <%--<input type="hidden" name="notificationId" value="${currentNotification.id}"></input>--%>
+                    <table class="table4input_data">
+                        <tr>
+                            <th>
+                                Ответственный исполнитель заказчика:
+                            </th>
+                            <td>
+                                <select type="text" name="idUserImplementor" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
+                                    <c:forEach items="${currentNotification.organization.users}" var="tempUser">
+                                        <c:choose>
+                                            <c:when test="${user.id.equals(tempUser.id)}">
+                                                <option selected
+                                                        value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Действие:
+                            </th>
+                            <td>
+                                <select type="text" name="idActionType" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
+                                    <c:forEach items="${listActionType}" var="tempActionType">
+                                        <option value ="${tempActionType.id}">${tempActionType.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Статус:
+                            </th>
+                            <td>
+                                <select type="text" name="idNotificationStatus" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
+                                    <c:forEach items="${listStatus}" var="tempStatus">
+                                        <c:choose>
+                                            <c:when test="${currentNotification.notificationStatus.id.equals(tempStatus.id)}">
+                                                <option selected
+                                                        value ="${tempStatus.id}">${tempStatus.name}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value ="${tempStatus.id}">${tempStatus.name}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Комментарий:
+                            </th>
+                            <td>
+                                <textarea id="story" name="content" maxlength="300"
+                                          rows="4" cols="50"></textarea>
+                            </td>
+                        </tr>
+                    </table>
                 </form>
             </div>
 
             <div id="paginationAction">
-                <table>
+                <table >
                     <td style="text-align: left">
                         Найдено записей: ${paginationAction.totalRecords}<Br>
                     </td>
@@ -340,7 +438,7 @@
                             <td>${tempAction.date.toString()}</td>
                             <td>${tempAction.userByIdImplementor.firstName} ${tempAction.userByIdImplementor.lastName}</td>
                             <td>${tempAction.userByIdImplementor.organization.name}</td>
-                            <td>${tempAction.actionType.name}</td>
+                            <td>${tempAction.notificationStatusAfterProcessing.name}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -355,6 +453,16 @@
 
 <script>
     document.getElementById("orderFieldName=${orderFieldNameAction}&desc=${descAction}").classList.add('href-nav-item-current');
+
+    function changeVisibilityById(idDivVisibility, idButton) {
+        var divVisibility = document.getElementById(idDivVisibility);
+        var button = document.getElementById(idButton);
+
+        divVisibility.style.display = (divVisibility.style.display=='none')? '' : 'none'
+        button.innerHTML  = (button.innerHTML == "/\\") ? "\\/" : "/\\";
+
+        button.className = (button.className == "href-nav-item" ? "href-nav-item-current" : "href-nav-item");
+    }
 </script>
 </body>
 </html>

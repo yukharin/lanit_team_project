@@ -310,7 +310,7 @@
                             <c:when test="${user.organization.government}">
                                 <form action="editStatus" method="get">
                                     <input type="hidden" name="idNotification" value="${tempNotification.id}"></input>
-                                    <select type="text" name="idStatus" <%--onchange="this.form.submit()"--%> >
+                                    <select type="text" name="idStatus" onchange="this.form.submit()" >
                                         <c:forEach items="${statuses4select}" var="status">
                                             <c:choose>
                                                 <c:when test="${tempNotification.notificationStatus.id.equals(status.id)}">
@@ -323,7 +323,7 @@
                                             </c:choose>
                                         </c:forEach>
                                     </select>
-                                    <input type="submit" value="Применить изменения" class="save" />
+                                    <%--<input type="submit" value="Применить изменения" class="save" />--%>
                                 </form>
                             </c:when>
                             <c:otherwise>
@@ -337,7 +337,7 @@
                     <td>
                         Кол-во: ${tempNotification.actions.size()}
                         <Br>
-                        <c:url var="addLink" value="moreInit">
+                        <c:url var="addLink" value="more">
                             <c:param name="notificationId" value="${tempNotification.id}"/>
                         </c:url>
                         <a href="${addLink}">More</a>

@@ -1,9 +1,6 @@
 package com.lanit.satonin18.mvc.entity;
 
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -20,7 +17,20 @@ import java.util.List;
 public class Notification implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @org.hibernate.annotations.GenericGenerator(
+            name = "ID_GENERATOR",
+            strategy = "enhanced-sequence", /* Стратегия применения расширенной последовательности*/
+            parameters = {
+                    @org.hibernate.annotations.Parameter(
+                            name = "sequence_name", /* Имя последовательности*/
+                            value = "JPWH_SEQUENCE"
+                    ),
+                    @org.hibernate.annotations.Parameter(
+                            name = "initial_value", /* Начальное значение*/
+                            value = "1000"
+                    )
+            })
     private int id;
 
     @Basic
@@ -55,7 +65,9 @@ public class Notification implements Serializable {
     @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userByIdUserImplementor;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @org.hibernate.annotations.LazyCollection(
+            org.hibernate.annotations.LazyCollectionOption.FALSE
+    )
     @OneToMany(mappedBy = "notification")//, cascade = CascadeType.PERSIST)
     private List<Action> actions;
 

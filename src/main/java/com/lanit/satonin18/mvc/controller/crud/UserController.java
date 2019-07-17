@@ -38,7 +38,7 @@ public class UserController {
 	@GetMapping("/delete")
 	public String removeUser(@RequestParam("userId") int id){
 		userService.delete(id);
-		return "redirect:listByFilterOrg_Order_Pagination";
+		return "redirect:list";
 	}
 	@GetMapping("/add")
 	public String add(Model model){
@@ -61,7 +61,7 @@ public class UserController {
 
 		userService.saveOrUpdate(user);
 		System.out.println(user);
-		return "redirect:listByFilterOrg_Order_Pagination";
+		return "redirect:list";
 	}
 	@GetMapping("/update")
 	public String update(@RequestParam("userId") int id, Model model){
@@ -84,7 +84,7 @@ public class UserController {
 
 		userService.saveOrUpdate(user);
 		System.out.println(user);
-		return "redirect:listByFilterOrg_Order_Pagination";
+		return "redirect:list";
 	}
 
 	@PostMapping("/search")
