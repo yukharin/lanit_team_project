@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ import java.util.Set;
 @ToString(exclude = {"organization", "actions"})
 @Entity
 @Table(name = "notifications")
-public class Notification {
+public class Notification implements Serializable {
 
     @Id
     @Column(name = "id")

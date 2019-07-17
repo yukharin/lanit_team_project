@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
@@ -18,7 +19,7 @@ import java.util.Date;
 @ToString(exclude = {"notification", "implementor"})
 @Entity
 @Table(name = "actions")
-public class Action {
+public class Action implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
