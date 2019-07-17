@@ -1,12 +1,12 @@
 package com.lanit.lkz_project.dao;
 
 import com.lanit.lkz_project.entities.Notification;
+import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
@@ -16,18 +16,18 @@ public class NotificationDAO {
     private SessionFactory sessionFactory;
 
 
-    public void addNotification(@NotNull Notification notification) {
+    public void addNotification(@NonNull Notification notification) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(notification);
     }
 
 
-    public void updateNotification(@NotNull Notification notification) {
+    public void updateNotification(@NonNull Notification notification) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(notification);
     }
 
-    public void removeNotification(@NotNull Notification notification) {
+    public void removeNotification(@NonNull Notification notification) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(notification);
     }

@@ -1,12 +1,12 @@
 package com.lanit.lkz_project.dao;
 
 import com.lanit.lkz_project.entities.Organization;
+import lombok.NonNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Repository
@@ -14,18 +14,18 @@ public class OrganizationDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addOrganization(@NotNull Organization organization) {
+    public void addOrganization(@NonNull Organization organization) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(organization);
     }
 
 
-    public void updateOrganization(@NotNull Organization organization) {
+    public void updateOrganization(@NonNull Organization organization) {
         Session session = sessionFactory.getCurrentSession();
         session.merge(organization);
     }
 
-    public void removeOrganization(@NotNull Organization organization) {
+    public void removeOrganization(@NonNull Organization organization) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(organization);
     }
