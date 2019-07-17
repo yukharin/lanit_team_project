@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -17,17 +16,17 @@ public class OrganizationService {
     private OrganizationDAO organizationDAO;
 
     @Transactional
-    public void addOrganization(@NotNull Organization organization) {
+    public void addOrganization(Organization organization) {
         organizationDAO.addOrganization(organization);
     }
 
     @Transactional
-    public void updateOrganization(@NotNull Organization organization) {
+    public void updateOrganization(Organization organization) {
         organizationDAO.updateOrganization(organization);
     }
 
     @Transactional
-    public void removeOrganization(@NotNull Organization organization) {
+    public void removeOrganization(Organization organization) {
         organizationDAO.removeOrganization(organization);
     }
 

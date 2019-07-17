@@ -16,7 +16,7 @@ public class UserDaoAuthorization {
         Session session = sessionFactory.getCurrentSession();
         // Очень костыльно и плохо сделано , но пока так
         return (User) session.createQuery("FROM User WHERE login=:login and password=:password")
-                .setParameter("login", login).setParameter("password", password).list().get(0);
+                .setParameter("login", login).setParameter("password", password).uniqueResult();
     }
 
 }

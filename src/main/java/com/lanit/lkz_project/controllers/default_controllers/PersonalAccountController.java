@@ -3,14 +3,16 @@ package com.lanit.lkz_project.controllers.default_controllers;
 import com.lanit.lkz_project.authorization.UserServiceAuthorization;
 import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
-import com.lanit.lkz_project.service.entities_service.ActionService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.text.ParseException;
 import java.util.EnumSet;
@@ -27,13 +29,11 @@ public class PersonalAccountController {
     @Autowired
     private OrganizationService organizationService;
     @Autowired
-    private ActionService actionService;
-    @Autowired
     private PersonalAccountService personalAccountService;
     @Autowired
     private UserServiceAuthorization userAuthorization;
 
-    @RequestMapping("/account/")
+    @GetMapping("/account/")
     public String getPage(@SessionAttribute String login,
                           @SessionAttribute String password,
                           @RequestParam(required = false) String page,

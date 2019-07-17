@@ -29,7 +29,7 @@ public class PersonalAccountService {
     @Autowired
     private ActionService actionService;
 
-    public Page<Notification> getPage(@NotNull User user,
+    public Page<Notification> getPage(User user,
                                       String pageParam,
                                       String sizeParam) {
         int page = DEFAULT_PAGE_NUMBER;
