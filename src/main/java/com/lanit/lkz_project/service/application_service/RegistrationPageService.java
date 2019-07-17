@@ -5,7 +5,6 @@ import com.lanit.lkz_project.entities.Role;
 import com.lanit.lkz_project.entities.User;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import com.lanit.lkz_project.service.entities_service.UserService;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +19,11 @@ public class RegistrationPageService {
     @Autowired
     private UserService userService;
 
-    public User RegisterUser(@NotBlank String firstName,
-                             @NotBlank String lastName,
-                             @NotBlank String login,
-                             @NotBlank String password,
-                             @NotBlank String orgId) {
+    public User RegisterUser(String firstName,
+                             String lastName,
+                             String login,
+                             String password,
+                             String orgId) {
         Organization organization = organizationService.getOrganization(Long.valueOf(orgId));
         Date registrationDate = new Date();
         User user = new User();
