@@ -50,4 +50,9 @@ public class OrganizationDAO {
 
     }
 
+    public List<Organization> nonGovernmentOrganizations() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Organization WHERE government = false ORDER BY name ").list();
+    }
+
 }

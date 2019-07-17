@@ -46,6 +46,11 @@ public class OrganizationService {
         return organizationDAO.organizations();
     }
 
+    @Transactional
+    public List<Organization> nonGovernmentOrganizations() {
+        return organizationDAO.nonGovernmentOrganizations();
+    }
+
     @PostConstruct
     private void p() {
         System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

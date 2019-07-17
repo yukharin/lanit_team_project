@@ -62,7 +62,7 @@ public class PersonalAccountController {
 
     @GetMapping("/account/addNotification/")
     public String getAddNotificationPage(Model model) {
-        List<Organization> organizations = organizationService.organizations();
+        List<Organization> organizations = organizationService.nonGovernmentOrganizations();
         model.addAttribute("organizations", organizations);
         return "addNotification";
     }
