@@ -2,6 +2,7 @@ package com.lanit.lkz_project.service.entities_service;
 
 import com.lanit.lkz_project.dao.NotificationDAO;
 import com.lanit.lkz_project.entities.Notification;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,17 +16,17 @@ public class NotificationService {
     private NotificationDAO notificationDAO;
 
     @Transactional
-    public void addNotification(Notification notification) {
+    public void addNotification(@NonNull Notification notification) {
         notificationDAO.addNotification(notification);
     }
 
     @Transactional
-    public void updateNotification(Notification notification) {
+    public void updateNotification(@NonNull Notification notification) {
         notificationDAO.updateNotification(notification);
     }
 
     @Transactional
-    public void removeNotification(Notification notification) {
+    public void removeNotification(@NonNull Notification notification) {
         notificationDAO.removeNotification(notification);
     }
 

@@ -2,6 +2,7 @@ package com.lanit.lkz_project.service.entities_service;
 
 import com.lanit.lkz_project.dao.OrganizationDAO;
 import com.lanit.lkz_project.entities.Organization;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +17,17 @@ public class OrganizationService {
     private OrganizationDAO organizationDAO;
 
     @Transactional
-    public void addOrganization(Organization organization) {
+    public void addOrganization(@NonNull Organization organization) {
         organizationDAO.addOrganization(organization);
     }
 
     @Transactional
-    public void updateOrganization(Organization organization) {
+    public void updateOrganization(@NonNull Organization organization) {
         organizationDAO.updateOrganization(organization);
     }
 
     @Transactional
-    public void removeOrganization(Organization organization) {
+    public void removeOrganization(@NonNull Organization organization) {
         organizationDAO.removeOrganization(organization);
     }
 

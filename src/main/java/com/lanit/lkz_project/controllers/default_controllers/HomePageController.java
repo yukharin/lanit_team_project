@@ -40,8 +40,8 @@ public class HomePageController {
 
 
     @PostMapping("/login/")
-    public String login(@RequestParam String login,
-                        @RequestParam String password,
+    public String login(@NonNull @RequestParam String login,
+                        @NonNull @RequestParam String password,
                         HttpSession session) {
         @NonNull User user = userServiceAuthorization.authorize(login, password);
         session.setAttribute("login", login);

@@ -2,6 +2,7 @@ package com.lanit.lkz_project.service.entities_service;
 
 import com.lanit.lkz_project.dao.ActionDAO;
 import com.lanit.lkz_project.entities.Action;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +17,17 @@ public class ActionService {
 
 
     @Transactional
-    public void addAction(Action action) {
+    public void addAction(@NonNull Action action) {
         actionDAO.addAction(action);
     }
 
     @Transactional
-    public void updateAction(Action action) {
+    public void updateAction(@NonNull Action action) {
         actionDAO.updateAction(action);
     }
 
     @Transactional
-    public void removeAction(Action action) {
+    public void removeAction(@NonNull Action action) {
         actionDAO.removeAction(action);
     }
 

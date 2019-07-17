@@ -5,6 +5,7 @@ import com.lanit.lkz_project.entities.Role;
 import com.lanit.lkz_project.entities.User;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import com.lanit.lkz_project.service.entities_service.UserService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,11 @@ public class RegistrationPageService {
     @Autowired
     private UserService userService;
 
-    public User RegisterUser(String firstName,
-                             String lastName,
-                             String login,
-                             String password,
-                             String orgId) {
+    public User RegisterUser(@NonNull String firstName,
+                             @NonNull String lastName,
+                             @NonNull String login,
+                             @NonNull String password,
+                             @NonNull String orgId) {
         Organization organization = organizationService.getOrganization(Long.valueOf(orgId));
         Date registrationDate = new Date();
         User user = new User();
@@ -38,7 +39,7 @@ public class RegistrationPageService {
         return user;
     }
 
-    private Role defineUserRole(Organization organization) {
+    private Role defineUserRole(@NonNull Organization organization) {
         if (organization.isGovernment()) {
             return Role.AUTHORITY;
         } else {

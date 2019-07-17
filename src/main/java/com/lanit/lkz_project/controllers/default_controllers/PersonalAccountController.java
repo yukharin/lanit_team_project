@@ -5,6 +5,7 @@ import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -34,8 +35,8 @@ public class PersonalAccountController {
     private UserServiceAuthorization userAuthorization;
 
     @GetMapping("/account/")
-    public String getPage(@SessionAttribute String login,
-                          @SessionAttribute String password,
+    public String getPage(@NonNull @SessionAttribute String login,
+                          @NonNull @SessionAttribute String password,
                           @RequestParam(required = false) String page,
                           @RequestParam(required = false) String size,
                           Model model) {
@@ -47,7 +48,7 @@ public class PersonalAccountController {
     }
 
     @GetMapping("/account/actions_history/")
-    public String getNotificationActions(@RequestParam String id,
+    public String getNotificationActions(@NonNull @RequestParam String id,
                                          Model model) {
         Set<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
         model.addAttribute("actions", actions);
@@ -55,7 +56,7 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/account/delete/")
-    public String deleteNotification(@RequestParam String id) {
+    public String deleteNotification(@NonNull @RequestParam String id) {
         notificationService.removeNotification(Long.valueOf(id));
         return "redirect:/account/";
     }
@@ -69,18 +70,18 @@ public class PersonalAccountController {
 
     @PostMapping("/account/addNotification/add/")
     public String addNotification(
-            @SessionAttribute String login,
-            @SessionAttribute String password,
-            @RequestParam String notificationType,
-            @RequestParam String dateResponse,
-            @RequestParam String orgId) throws ParseException {
+            @NonNull @SessionAttribute String login,
+            @NonNull @SessionAttribute String password,
+            @NonNull @RequestParam String notificationType,
+            @NonNull @RequestParam String dateResponse,
+            @NonNull @RequestParam String orgId) throws ParseException {
         User user = userAuthorization.authorize(login, password);
         personalAccountService.addNotification(user, notificationType, dateResponse, orgId);
         return "redirect:/account/";
     }
 
     @PostMapping("/account/commit_action/")
-    public String getNotificationPage(@RequestParam String id, Model model) {
+    public String getNotificationPage(@NonNull @RequestParam String id, Model model) {
         Notification notification = notificationService.getNotification(Long.valueOf(id));
         EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
         model.addAttribute("notification", notification);
@@ -90,11 +91,11 @@ public class PersonalAccountController {
 
     @PostMapping("/account/commit_action/commit")
     public String addAction(
-            @SessionAttribute String login,
-            @SessionAttribute String password,
-            @RequestParam String actionTypeParam,
-            @RequestParam String idNotification,
-            @RequestParam String comment) {
+            @NonNull @SessionAttribute String login,
+            @NonNull @SessionAttribute String password,
+            @NonNull @RequestParam String actionTypeParam,
+            @NonNull @RequestParam String idNotification,
+            @NonNull @RequestParam String comment) {
         User userImplementor = userAuthorization.authorize(login, password);
         personalAccountService.addAction(userImplementor, actionTypeParam, idNotification, comment);
         return "redirect:/account/";

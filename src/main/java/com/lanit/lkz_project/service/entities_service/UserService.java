@@ -2,6 +2,7 @@ package com.lanit.lkz_project.service.entities_service;
 
 import com.lanit.lkz_project.dao.UserDAO;
 import com.lanit.lkz_project.entities.User;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,17 +16,17 @@ public class UserService {
     private UserDAO userDAO;
 
     @Transactional
-    public void addUser(User user) {
+    public void addUser(@NonNull User user) {
         userDAO.addUser(user);
     }
 
     @Transactional
-    public void updateUser(User user) {
+    public void updateUser(@NonNull User user) {
         userDAO.updateUser(user);
     }
 
     @Transactional
-    public void removeUser(User user) {
+    public void removeUser(@NonNull User user) {
         userDAO.removeUser(user);
     }
 

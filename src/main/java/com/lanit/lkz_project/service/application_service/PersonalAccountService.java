@@ -4,13 +4,13 @@ import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.entities_service.ActionService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,7 +29,7 @@ public class PersonalAccountService {
     @Autowired
     private ActionService actionService;
 
-    public Page<Notification> getPage(User user,
+    public Page<Notification> getPage(@NonNull User user,
                                       String pageParam,
                                       String sizeParam) {
         int page = DEFAULT_PAGE_NUMBER;
@@ -54,7 +54,7 @@ public class PersonalAccountService {
         return new PageImpl<>(resultList, PageRequest.of(page, size), notifications.size());
     }
 
-    private List<Notification> defineUserNotifications(@NotNull User user) {
+    private List<Notification> defineUserNotifications(@NonNull User user) {
         Role role = user.getRole();
         switch (role) {
             case AUTHORITY:
@@ -67,16 +67,16 @@ public class PersonalAccountService {
     }
 
 
-    public EnumSet<ActionType> getAppropriateActions(Notification notification) {
+    public EnumSet<ActionType> getAppropriateActions(@NonNull Notification notification) {
         NotificationStatus status = notification.getStatus();
         return defineActions(status);
     }
 
 
-    public void addNotification(User user,
-                                String notificationType,
-                                String dateResponse,
-                                String orgId) throws ParseException {
+    public void addNotification(@NonNull User user,
+                                @NonNull String notificationType,
+                                @NonNull String dateResponse,
+                                @NonNull String orgId) throws ParseException {
         Notification notification = new Notification();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfResponse = format.parse(dateResponse);
@@ -91,7 +91,10 @@ public class PersonalAccountService {
         notificationService.addNotification(notification);
     }
 
-    public void addAction(User userImplementor, String actionTypeParam, String idNotification, String comment) {
+    public void addAction(@NonNull User userImplementor,
+                          @NonNull String actionTypeParam,
+                          @NonNull String idNotification,
+                          @NonNull String comment) {
         ActionType actionType = Enum.valueOf(ActionType.class, actionTypeParam);
         Notification notification = notificationService.getNotification(Long.valueOf(idNotification));
         Action action = new Action();
@@ -107,7 +110,7 @@ public class PersonalAccountService {
         notificationService.updateNotification(notification);
     }
 
-    private NotificationStatus defineStatus(ActionType actionType) {
+    private NotificationStatus defineStatus(@NonNull ActionType actionType) {
         NotificationStatus status;
         switch (actionType) {
             case SEND_TO_PROCESSING:
@@ -125,7 +128,7 @@ public class PersonalAccountService {
         return status;
     }
 
-    private EnumSet<ActionType> defineActions(NotificationStatus status) {
+    private EnumSet<ActionType> defineActions(@NonNull NotificationStatus status) {
         EnumSet<ActionType> types;
         switch (status) {
             case NEW:
