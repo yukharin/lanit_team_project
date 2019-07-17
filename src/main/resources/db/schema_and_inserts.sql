@@ -243,15 +243,3 @@ VALUES (15, 1, 'Уведомление о выигрыше конкурса', 0,
 
 COMMIT;
 
-
--- -----------------------------------------------------
--- Data for table `lanit`.`actions`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `lanit`;
-INSERT INTO `lanit`.`actions` (`id`, `id_notification`, `action_type`, `content`, `date`, `id_implementor`,
-                               `notification_status`)
-VALUES (1, 1, 1, 'тест', '2019-07-09', 1, 1);
-
-COMMIT;
-
