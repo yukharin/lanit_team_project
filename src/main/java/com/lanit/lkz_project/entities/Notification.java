@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
@@ -43,12 +42,14 @@ public class Notification {
     @Column(name = "notification_status")
     private NotificationStatus status;
 
-    @Past
+
+    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "date_received")
     private Date dateReceived;
 
 
+    @NotNull
     @Future
     @Temporal(TemporalType.DATE)
     @Column(name = "date_response")
@@ -61,6 +62,7 @@ public class Notification {
     private String letterNumber;
 
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_user_notification_author")
     private User userNotificationAuthor;
