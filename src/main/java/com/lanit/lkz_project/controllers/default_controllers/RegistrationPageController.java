@@ -22,7 +22,6 @@ public class RegistrationPageController {
                                @NonNull @RequestParam String password,
                                @NonNull @RequestParam String orgId) {
         registrationPageService.RegisterUser(firstName, lastName, login, password, orgId);
-
         return "loginPage";
     }
 
