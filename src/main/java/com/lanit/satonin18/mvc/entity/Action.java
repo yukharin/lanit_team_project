@@ -12,8 +12,8 @@ import java.util.Objects;
 @Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class Action implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
@@ -57,6 +57,22 @@ public class Action implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
     private NotificationStatus notificationStatusAfterProcessing;
+
+    public Action() {
+        System.out.println("AAAAAAAAAAAAAAAAAAAAA");
+    }
+
+    public Action(int id, String content, Timestamp date, Notification notification, ActionType actionType, User userByIdImplementor, NotificationStatus notificationStatusAfterProcessing) {
+        super();
+
+        this.id = id;
+        this.content = content;
+        this.date = date;
+        this.notification = notification;
+        this.actionType = actionType;
+        this.userByIdImplementor = userByIdImplementor;
+        this.notificationStatusAfterProcessing = notificationStatusAfterProcessing;
+    }
 
     @Override
     public String toString() {
