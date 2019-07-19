@@ -18,6 +18,14 @@ import java.util.List;
 @ToString(exclude = {"users", "notifications"})
 @NoArgsConstructor
 public class Organization implements Serializable {
+
+    private static int counter = 0;
+
+    {
+        counter++;
+        System.err.println("Organizations: " + counter);
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

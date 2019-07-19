@@ -50,4 +50,14 @@ public class NotificationDAO {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("FROM  Notification ORDER BY id", Notification.class).list();
     }
+
+//    public List<Notification> testCriteria() {
+//        Session session = sessionFactory.getCurrentSession();
+//        CriteriaBuilder builder = session.getCriteriaBuilder();
+//        CriteriaQuery<Notification> query = builder.createQuery(Notification.class);
+//        Root<Notification> root = query.from( Notification.class );
+//        query.select(root);
+//        TypedQuery<Notification> finalQuery = session.createQuery(query);
+//        return finalQuery.getResultList();
+//    }
 }

@@ -48,4 +48,5 @@ public class ActionDAO {
         return session.createQuery("FROM Action ORDER BY id ASC ").list();
     }
 
+
 }

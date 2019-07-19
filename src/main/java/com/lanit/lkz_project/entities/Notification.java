@@ -22,6 +22,13 @@ import java.util.Set;
 @Table(name = "notifications")
 public class Notification implements Serializable {
 
+    private static int counter = 0;
+
+    {
+        counter++;
+        System.err.println("Notifications: " + counter);
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

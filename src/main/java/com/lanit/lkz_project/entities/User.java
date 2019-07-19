@@ -22,6 +22,13 @@ import java.util.Date;
 @Table(name = "users")
 public class User implements Serializable {
 
+    private static int counter = 0;
+
+    {
+        counter++;
+        System.err.println("Users: " + counter);
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

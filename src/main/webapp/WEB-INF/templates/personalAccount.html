@@ -53,21 +53,13 @@
                     </label>
                 </li>
                 <li>
-                    <label class="account-filter-form-label" for="checkbox5">
-                        Истекает срок предоставления ответа (3 дня)
-                        <input class="account-filter-form-checkbox" id="checkbox5" type="checkbox">
-                    </label>
-                </li>
-                <li>
-                    <label class="account-filter-form-label" for="checkbox6">
-                        Истекает срок предоставления ответа (10 дней)
-                        <input class="account-filter-form-checkbox" id="checkbox6" type="checkbox">
-                    </label>
-                </li>
-                <li>
-                    <label class="account-filter-form-label" for="checkbox7">
-                        Истекает срок предоставления ответа (1 месяц)
-                        <input class="account-filter-form-checkbox" id="checkbox7" type="checkbox">
+                    <label for="select1"> Истекает срок предоставления ответа
+                        <select id="select1" name="actionTypeParam">
+                            <option value="">Выбрать фильтр</option>
+                            <option value="response_time_filter_1">3 дня</option>
+                            <option value="response_time_filter_2">10 дней</option>
+                            <option value="response_time_filter_3">1 месяц</option>
+                        </select>
                     </label>
                 </li>
                 <li>
