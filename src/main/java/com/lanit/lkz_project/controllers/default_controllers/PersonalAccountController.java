@@ -47,10 +47,15 @@ public class PersonalAccountController {
         return "personalAccount";
     }
 
-    @GetMapping("/account/actions_history/")
-    public String getNotificationActions(@NonNull @RequestParam String id,
-                                         Model model) {
+    @PostMapping("/account/notification_actions_history/")
+    public String getNotificationActions(
+            @NonNull @SessionAttribute String login,
+            @NonNull @SessionAttribute String password,
+            @NonNull @RequestParam String id,
+            Model model) {
+        User user = userAuthorization.authorize(login, password);
         Set<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
+        model.addAttribute("user", user);
         model.addAttribute("actions", actions);
         return "notificationActions";
     }
@@ -62,7 +67,12 @@ public class PersonalAccountController {
     }
 
     @GetMapping("/account/addNotification/")
-    public String getAddNotificationPage(Model model) {
+    public String getAddNotificationPage(
+            @NonNull @SessionAttribute String login,
+            @NonNull @SessionAttribute String password,
+            Model model) {
+        User user = userAuthorization.authorize(login, password);
+        model.addAttribute("user", user);
         List<Organization> organizations = organizationService.nonGovernmentOrganizations();
         model.addAttribute("organizations", organizations);
         return "addNotification";
@@ -80,16 +90,22 @@ public class PersonalAccountController {
         return "redirect:/account/";
     }
 
-    @PostMapping("/account/commit_action/")
-    public String getNotificationPage(@NonNull @RequestParam String id, Model model) {
+    @PostMapping("/account/notification_info/")
+    public String getNotificationPage(
+            @NonNull @SessionAttribute String login,
+            @NonNull @SessionAttribute String password,
+            @NonNull @RequestParam String id,
+            Model model) {
+        User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(Long.valueOf(id));
         EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
+        model.addAttribute("user", user);
         model.addAttribute("notification", notification);
         model.addAttribute("actionTypes", types);
-        return "addAction";
+        return "notificationInfo";
     }
 
-    @PostMapping("/account/commit_action/commit")
+    @PostMapping("/account/notification_info/commit/")
     public String addAction(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,

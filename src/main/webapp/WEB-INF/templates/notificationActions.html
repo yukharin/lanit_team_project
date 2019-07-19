@@ -6,24 +6,46 @@
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
 </head>
 <body>
-<h2>Actions history</h2>
-<table>
-    <tr>
-        <th>№</th>
-        <th>Дата, время</th>
-        <th>Комментарий</th>
-        <th>Пользователь</th>
-        <th>Подразделение</th>
-        <th>Статус после изменения</th>
-    </tr>
-    <tr th:each="action : ${actions}">
-        <td th:text="${action.id}">id</td>
-        <td th:text="${#dates.format(action.date)}">date</td>
-        <td th:text="${action.content}">content</td>
-        <td th:text="${action.implementor.firstName}+' '+${action.implementor.lastName}">implementor</td>
-        <td th:text="${action.implementor.organization.name}">organization</td>
-        <td th:text="${action.statusAfterAction}">status</td>
-    </tr>
-</table>
+<header class="account-header">
+    <div>
+        <a th:href="@{/account/}"><h2>Личный кабинет</h2></a>
+    </div>
+    <div class="account-personal-data">
+        <div>
+            <p th:text="${user.firstName}+' '+${user.lastName}"></p>
+        </div>
+        <div>
+            <form method="get" th:action="@{/logout/}">
+                <button type="submit">Выйти</button>
+            </form>
+        </div>
+    </div>
+    <div class="account-organization-name">
+        <p th:text="${user.organization.name}"></p>
+    </div>
+</header>
+<main>
+    <div>
+        <h3>Журнал Действий</h3>
+    </div>
+    <table>
+        <tr>
+            <th>№</th>
+            <th>Дата, время</th>
+            <th>Комментарий</th>
+            <th>Пользователь</th>
+            <th>Подразделение</th>
+            <th>Статус после изменения</th>
+        </tr>
+        <tr th:each="action : ${actions}">
+            <td th:text="${action.id}">id</td>
+            <td th:text="${#dates.format(action.date)}">date</td>
+            <td th:text="${action.content}">content</td>
+            <td th:text="${action.implementor.firstName}+' '+${action.implementor.lastName}">implementor</td>
+            <td th:text="${action.implementor.organization.name}">organization</td>
+            <td th:text="${action.statusAfterAction}">status</td>
+        </tr>
+    </table>
+</main>
 </body>
 </html>

@@ -4,122 +4,180 @@
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
-    <style type="text/css">
-        header {
-            background: darkgoldenrod;
-            display: flex;
-            height: 120px;
-            min-width: 120px;
-            color: #fff;
-            text-shadow: #000 0 0 .2em;
-            opacity: 0.8;
-        }
-
-        .page-header h2 {
-            font: bold calc(1em + 2 * (100vw - 120px) / 100) 'Dancing Script', cursive,
-            fantasy;
-            margin: 2%;
-            text-decoration-color: black;
-        }
-
-        .page-header p {
-            float: right
-        }
-    </style>
 </head>
 <body>
-<header class="page-header">
-    <h2>Личный кабинет</h2>
-    <p th:text="${user.firstName}+' '+${user.lastName}"></p>
+<header class="account-header">
+    <div>
+        <a th:href="@{/account/}"><h2>Личный кабинет</h2></a>
+    </div>
+    <div class="account-personal-data">
+        <div>
+            <p th:text="${user.firstName}+' '+${user.lastName}"></p>
+        </div>
+        <div>
+            <form method="get" th:action="@{/logout/}">
+                <button type="submit">Выйти</button>
+            </form>
+        </div>
+    </div>
+    <div class="account-organization-name">
+        <p th:text="${user.organization.name}"></p>
+    </div>
 </header>
-<div id="notifications_data">
-    <table>
-    <tr>
-        <th>№</th>
-        <th>Вид уведомления</th>
-        <th>Заказчик</th>
-        <th>Статус обработки уведомления</th>
-        <th>Дата получения уведомления</th>
-        <th>Срок предоставления ответа</th>
-        <th>Номер письма</th>
-        <th>Совершить действие</th>
-        <th>Журнал действий</th>
-        <th>Удалить</th>
-    </tr>
-    <tr th:each="notification : ${notifications}">
-        <td th:text="${notification.id}">id</td>
-        <td th:text="${notification.notificationType}">notification_type</td>
-        <td th:text="${notification.organization.name}">org_name</td>
-        <td th:text="${notification.status}">notification_status</td>
-        <td th:text="${#dates.format(notification.dateReceived, 'yyyy-MM-dd')}"></td>
-        <td th:text="${#dates.format(notification.dateResponse, 'yyyy-MM-dd')}"></td>
-        <td th:text="${notification.letterNumber}">letter_number</td>
-        <td>
-            <form method="post" th:action="@{/account/commit_action/}">
-                <input name="id" th:value="${notification.id}" type="hidden"/>
-                <label for="actions_form"/>
-                <input id="actions_form" type="submit" value="Работа с уведомлением"/>
-            </form>
-        </td>
-        <td>
-            <form method="get" th:action="@{/account/actions_history/}">
-                <input name="id" th:value="${notification.id}" type="hidden"/>
-                <label for="view_form"/>
-                <input id="view_form" type="submit" value="view"/>
-            </form>
-        </td>
-        <td>
-            <form method="post" th:action="@{/account/delete/}">
-                <input name="id" th:value="${notification.id}" type="hidden">
-                <label for="delete_form"/>
-                <input id="delete_form" type="submit" value="delete"/>
-            </form>
-        </td>
-    </tr>
-</table>
-</div>
-<div class="pagination">
-    <nav aria-label="Pagination" th:if="${notifications.totalPages gt 0}">
-        <ul class="pagination justify-content-center font-weight-bold">
-            <li class="page-item" th:classappend="${notifications.number eq 0} ? 'disabled'">
-                <a aria-label="Previous"
-                   class="page-link"
-                   data-toggle="tooltip"
-                   th:href="@{/account/?page={id}(id=${notifications.number lt 2 ? 1 : notifications.number})}"
-                   title="Previous Page">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item" th:classappend="${i eq notifications.number + 1} ? 'active'"
-                th:each="i : ${#numbers.sequence( 1, notifications.totalPages, 1)}">
-                <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"
-                   th:text="${i}" th:title="${'Page '+ i}"></a>
-            </li>
-            <li class="page-item" th:classappend="${notifications.number + 1 eq notifications.totalPages} ? 'disabled'">
-                <a aria-label="Next"
-                   class="page-link"
-                   data-toggle="tooltip" th:href="@{/account/?page={id}(id=${notifications.number + 2})}"
-                   title="Next Page">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<br>
-<br>
-<div class="link">
-    <form method="get" th:action="@{/account/addNotification/}">
-        <button type="submit">Новое уведомление</button>
-    </form>
-</div>
-<br>
-<div>
-    <form method="get" th:action="@{/logout/}">
-        <button type="submit">Выйти</button>
-    </form>
-</div>
+<main class="account-main">
+    <section class="account-filter">
+        <form class="account-filter-form">
+            <ul>
+                <li>
+                    <label class="account-filter-form-label" for="checkbox1">
+                        Новое
+                        <input class="account-filter-form-checkbox" id="checkbox1" type="checkbox">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="checkbox2">
+                        В обработке
+                        <input class="account-filter-form-checkbox" id="checkbox2" type="checkbox">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="checkbox3">
+                        Отклонено
+                        <input class="account-filter-form-checkbox" id="checkbox3" type="checkbox">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="checkbox4">
+                        Одобрено
+                        <input class="account-filter-form-checkbox" id="checkbox4" type="checkbox">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="checkbox5">
+                        Истекает срок предоставления ответа (3 дня)
+                        <input class="account-filter-form-checkbox" id="checkbox5" type="checkbox">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="checkbox6">
+                        Истекает срок предоставления ответа (10 дней)
+                        <input class="account-filter-form-checkbox" id="checkbox6" type="checkbox">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="checkbox7">
+                        Истекает срок предоставления ответа (1 месяц)
+                        <input class="account-filter-form-checkbox" id="checkbox7" type="checkbox">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="submit1">
+                        Применить фильтр
+                        <input class="account-filter-form-submit" id="submit1" type="submit">
+                    </label>
+                </li>
+                <li>
+                    <label class="account-filter-form-label" for="submit2">
+                        Очистить фильтр
+                        <input class="account-filter-form-submit" id="submit2" type="submit">
+                    </label>
+                </li>
+            </ul>
+        </form>
+    </section>
+    <section class="account-main-notifications">
+        <table class="account-main-notifications-table">
+            <tr>
+                <th>№</th>
+                <th>Вид уведомления</th>
+                <th>Заказчик</th>
+                <th>Статус обработки уведомления</th>
+                <th>Дата получения уведомления</th>
+                <th>Срок предоставления ответа</th>
+                <th>Номер письма</th>
+                <th>Совершить действие</th>
+                <th>Журнал действий</th>
+                <th>Удалить</th>
+            </tr>
+            <tr th:each="notification : ${notifications}">
+                <td th:text="${notification.id}">id</td>
+                <td th:text="${notification.notificationType}">notification_type</td>
+                <td th:text="${notification.organization.name}">org_name</td>
+                <td th:text="${notification.status}">notification_status</td>
+                <td th:text="${#dates.format(notification.dateReceived, 'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(notification.dateResponse, 'yyyy-MM-dd')}"></td>
+                <td th:text="${notification.letterNumber}">letter_number</td>
+                <td>
+                    <form method="post" th:action="@{/account/notification_info/}">
+                        <label for="hidden1">
+                            <input id="hidden1" name="id" th:value="${notification.id}" type="hidden"/>
+                        </label>
+                        <label for="submit3">
+                            <input id="submit3" type="submit" value="Работа с уведомлением"/>
+                        </label>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" th:action="@{/account/notification_actions_history/}">
+                        <label for="hidden2">
+                            <input id="hidden2" name="id" th:value="${notification.id}" type="hidden"/>
+                        </label>
+                        <label for="submit4">
+                            <input id="submit4" type="submit" value="Журнал действий"/>
+                        </label>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" th:action="@{/account/delete/}">
+                        <label for="hidden3">
+                            <input id="hidden3" name="id" th:value="${notification.id}" type="hidden">
+                        </label>
+                        <label for="delete_form">
+                            <input id="delete_form" type="submit" value="Удалить"/>
+                        </label>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <section class="account-main-manager">
+            <div class="account-main-manager-total_elements">
+                <p>Найдено записей: <span th:text="${notifications.getTotalElements()}"></span></p>
+            </div>
+            <div>
+                <nav aria-label="Pagination" class="account-main-notifications-manager-pagination"
+                     th:if="${notifications.totalPages gt 0}">
+                    <ul class="pagination justify-content-center font-weight-bold">
+                        <li class="page-item" th:classappend="${notifications.number eq 0} ? 'disabled'">
+                            <a aria-label="Previous"
+                               class="page-link"
+                               data-toggle="tooltip"
+                               th:href="@{/account/?page={id}(id=${notifications.number lt 2 ? 1 : notifications.number})}"
+                               title="Previous Page">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:classappend="${i eq notifications.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( 1, notifications.totalPages, 1)}">
+                            <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"
+                               th:text="${i}" th:title="${'Page '+ i}"></a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${notifications.number + 1 eq notifications.totalPages} ? 'disabled'">
+                            <a aria-label="Next"
+                               class="page-link"
+                               data-toggle="tooltip" th:href="@{/account/?page={id}(id=${notifications.number + 2})}"
+                               title="Next Page">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="account-main-notifications-manager-add_notification">
+                <a th:href="@{/account/addNotification/}">Добавить уведомление</a>
+            </div>
+        </section>
+</main>
 <!--<script th:src="@{/js/personalAccount.js}">-->
-</script>
 </body>
-< /html>;;
+</html>

@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Notifications</title>
+    <title>Registration</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
 </head>
 <body>
-<h3>Registration page</h3>
-<form action="registerUser/" method="post">
-    First name<br><input name="firstName" type="text"/><br>
-    Last name<br><input name="lastName" type="text"/><br>
-    Login<br><input name="login" type="text"/><br>
-    Password<br><input name="password" type="text"/><br>
-    Your organization<br>
-    <select name="orgId">
-    <option th:each="organization : ${organizations}"
-            th:text="${organization.name}"
-            th:value="${organization.id}">
-    </option>
-</select>
-    <br>
-    <input type="submit" value="Отправить">
-</form>
+<main class="registration-main">
+    <h2 class="registration-header">Registration page</h2>
+    <form class="registration-form" method="post" th:action="@{/registerUser/}">
+        <ul class="registration-form-list">
+            <li class="registration-form-list-element">
+                <label for="inputFirstName">
+                    First name<input id="inputFirstName" name="firstName" type="text"/>
+                </label>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="inputLastName">
+                    Last name<input class="registration-form-input" id="inputLastName" name="lastName" type="text"/>
+                </label>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="inputLogin">
+                    Login<input id="inputLogin" name="login" type="text"/>
+                </label>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="inputPassword">
+                    Password<input id="inputPassword" name="password" type="text"/>
+                </label>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="selectOrganization">
+                    Your organization
+                    <select class="registration-form-select" id="selectOrganization" name="orgId">
+                        <option class="registration-form-select-option" th:each="organization : ${organizations}"
+                                th:text="${organization.name}"
+                                th:value="${organization.id}">
+                        </option>
+                    </select>
+                </label>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="submitRegistration">
+                    <input class="registration-form-submit" id="submitRegistration" type="submit" value="Отправить">
+                </label>
+            </li>
+        </ul>
+    </form>
+</main>
 </body>
 </html>

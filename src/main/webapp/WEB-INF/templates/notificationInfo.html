@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
+</head>
+<body>
+<header class="account-header">
+    <div>
+        <a th:href="@{/account/}"><h2>Личный кабинет</h2></a>
+    </div>
+    <div class="account-personal-data">
+        <div>
+            <p th:text="${user.firstName}+' '+${user.lastName}"></p>
+        </div>
+        <div>
+            <form method="get" th:action="@{/logout/}">
+                <button type="submit">Выйти</button>
+            </form>
+        </div>
+    </div>
+    <div class="account-organization-name">
+        <p th:text="${user.organization.name}"></p>
+    </div>
+</header>
+<nav>
+    <ul>
+        <li>
+            <form method="post" th:action="@{/account/notification_info/}">
+                <label for="hidden1">
+                    <input id="hidden1" name="id" th:value="${notification.id}" type="hidden"/>
+                </label>
+                <label for="submit1">
+                    <input id="submit1" type="submit" value="Работа с уведомлением"/>
+                </label>
+            </form>
+        </li>
+        <li>
+            <form method="post" th:action="@{/account/notification_actions_history/}">
+                <label for="hidden2">
+                    <input id="hidden2" name="id" th:value="${notification.id}" type="hidden"/>
+                </label>
+                <label for="submit2">
+                    <input id="submit2" type="submit" value="Журнал действий"/>
+                </label>
+            </form>
+        </li>
+    </ul>
+</nav>
+<main>
+    <div>
+        <h3>Добавить действие</h3>
+    </div>
+    <div>
+        <form method="post" th:action="@{/account/notification_info/commit/}">
+            <ul>
+                <li>
+                    <label for="select1"> Выберите действие
+                        <select id="select1" name="actionTypeParam">
+                            <option th:each="actionType : ${actionTypes}"
+                                    th:text="${actionType}"
+                                    th:value="${actionType}">
+                            </option>
+                        </select>
+                    </label>
+                </li>
+                <li>
+                    <label for="input1">Комментарий
+                        <input id="input1" name="comment" type="text"/>
+                    </label>
+                </li>
+                <li>
+                    <label for="input2">
+                        <input name="idNotification" th:value="${notification.id}" type="hidden"/>
+                        <input id="input2" type="submit" value="Сохранить"/>
+                    </label>
+                </li>
+            </ul>
+        </form>
+    </div>
+</main>
+</body>
+</html>

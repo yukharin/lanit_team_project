@@ -6,21 +6,62 @@
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
 </head>
 <body>
-
-<h2><strong>Добавить уведомление</strong></h2>
-<form id="addNotification" method="post" th:action="@{/account/addNotification/add/}">
-    <p>Введите тип уведомления</p>
-    <input id="notificationType" name="notificationType" type="text"/><br>
-    <p>Введите дату, до которой нужно отправить ответ</p>
-    <input id="dateResponse" name="dateResponse" type="date"/><br>
-    <p>Выберите организацию, которой вы хотите предоставить уведомление</p>
-    <select name="orgId">
-        <option th:each="organization : ${organizations}"
-                th:text="${organization.name}"
-                th:value="${organization.id}">
-        </option>
-    </select><br>
-    <input type="submit" value="Отправить"/>
-</form>
+<header class="account-header">
+    <div>
+        <div>
+            <a th:href="@{/acccount/}"><h2>Личный кабинет</h2></a>
+        </div>
+    </div>
+    <div class="account-personal-data">
+        <div>
+            <p th:text="${user.firstName}+' '+${user.lastName}"></p>
+        </div>
+        <div>
+            <form method="get" th:action="@{/logout/}">
+                <button type="submit">Выйти</button>
+            </form>
+        </div>
+    </div>
+    <div class="account-organization-name">
+        <p th:text="${user.organization.name}"></p>
+    </div>
+</header>
+<main>
+    <div>
+        <h3>Создать уведомление</h3>
+    </div>
+    <div>
+        <form id="addNotification" method="post" th:action="@{/account/addNotification/add/}">
+            <ul>
+                <li>
+                    <label for="input1">Введите тип уведомления
+                        <br><input id="input1" name="notificationType" type="text"/>
+                    </label>
+                </li>
+                <li>
+                    <label for="input2"> Введите дату, до которой нужно отправить ответ
+                        <br><input id="input2" name="dateResponse" type="date"/>
+                    </label>
+                </li>
+                <li>
+                    <label for="select1">
+                        Выберите организацию, которой вы хотите предоставить уведомление
+                        <br><select id="select1" name="orgId">
+                        <option th:each="organization : ${organizations}"
+                                th:text="${organization.name}"
+                                th:value="${organization.id}">
+                        </option>
+                    </select>
+                    </label>
+                </li>
+                <li>
+                    <label for="submit1">
+                        <input id="submit1" type="submit" value="Отправить"/>
+                    </label>
+                </li>
+            </ul>
+        </form>
+    </div>
+</main>
 </body>
 </html>

@@ -47,7 +47,6 @@ public class OrganizationDAO {
     public List<Organization> organizations() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("FROM Organization ORDER BY name").list();
-
     }
 
     public List<Organization> nonGovernmentOrganizations() {

@@ -5,28 +5,44 @@
     <title>Login page</title>
 </head>
 <body>
-<h1>Login page</h1>
-<form class="form-horizontal" method="post" th:action="@{/login/}">
-    <div>
-        <label class="control-label"> User Name: <input name="login" type="text"/>
-        </label>
-    </div>
-    <div>
-        <label class="control-label"> Password: <input name="password" type="password"/>
-        </label>
-    </div>
-    <div>
-        <input class="btn btn-primary" type="submit" value="Логин"/>
-    </div>
-</form>
-<div class="link">
-    <form method="get" th:action="@{/registration/}">
-        <button type="submit">Регистрация</button>
-    </form>
-</div>
-
-<button id="btn">Fetch Info for 3 new Animals</button>
-<div id="animal-info"></div>
+<main class="login-main">
+    <h2 class="login-header">Login</h2>
+    <ul class="login-list">
+        <li class="login-list-element">
+            <form class="login-form" method="post" th:action="@{/login/}">
+                <ul class="login-form-list">
+                    <li class="login-form-list-element">
+                        <label class="login-form-label" for="input-userName"> User Name: <input
+                                class="login-form-input"
+                                id="input-userName"
+                                name="login"
+                                type="text"/>
+                        </label>
+                    </li>
+                    <li class="login-form-list-element">
+                        <label class="login-form-label" for="input-password"> Password: <input
+                                class="login-form-input"
+                                id="input-password"
+                                name="password"
+                                type="password"/>
+                        </label>
+                    </li>
+                    <li class="login-form-list-element">
+                        <label class="login-form-label" for="submit-button">
+                            <button id="submit-button" type="submit">Логин</button>
+                        </label>
+                    </li>
+                </ul>
+            </form>
+        <li class="login-list-element">
+            <form class="registration-form" method="get" th:action="@{/registration/}">
+                <label class="login-form-label" for="submit-button2">
+                    <button id="submit-button2" type="submit">Регистрация</button>
+                </label>
+            </form>
+        </li>
+    </ul>
+</main>
 <!--<script th:src="@{/js/test.js}"></script>-->
 </body>
 </html>

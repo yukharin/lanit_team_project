@@ -15,7 +15,7 @@ public class RegistrationPageController {
     @Autowired
     RegistrationPageService registrationPageService;
 
-    @PostMapping("registration/registerUser/")
+    @PostMapping("/registerUser/")
     public String registerUser(@NonNull @RequestParam String firstName,
                                @NonNull @RequestParam String lastName,
                                @NonNull @RequestParam String login,
