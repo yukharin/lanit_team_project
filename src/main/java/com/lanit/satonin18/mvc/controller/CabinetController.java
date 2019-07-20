@@ -128,7 +128,7 @@ public class CabinetController {
     private boolean descAction;
 
     private void initVar4Cabinet() {
-        currentUser = userService.getById(1);//for my test
+        //currentUser = userService.getById(1);// MOCK for my test
 
         statuses4selectFilter = new ArrayList<>();
         statuses4selectFilter.add(
@@ -232,9 +232,36 @@ public class CabinetController {
         model.addAttribute("listStatus", statusService.list());
     }
 
+    //todo NEED REMOVE showING idUser (move post or inner redirect (without client) and better in inner session)
+    @GetMapping("/selectUser")
+    public String selectUser(
+            @RequestParam("idSelectUser") int idSelectUser,
+            Model model){
+        currentUser = userService.getById(idSelectUser);
+//        checkedMainListNotificStatuses = statuses4selectFilter;
+//        showArchive = false;
+//
+//        orderFieldName = "dateResponse";
+//        desc = true;
+//
+//        pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
+//                currentUser.getOrganization(),
+//                checkedMainListNotificStatuses,
+//                showArchive, listArchiveStatus,
+//                orderFieldName, desc,
+//                new Pagination<Notification>(1, pagination.getMaxResult(), pagination.getMaxNavigationPage())
+//        );
+//        showListNotifications = pagination.getList();
+        initVar4Cabinet();
+
+        addAttributes_Notification(model);
+        return "cabinet/list";
+    }
+
     @GetMapping("/list") //add  @GetMapping("/")
     public String list(Model model){
-        if(pagination==null) initVar4Cabinet();
+//        if(pagination==null) initVar4Cabinet();
+        if(currentUser==null) return "redirect:/";
 
         pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
                 currentUser.getOrganization(),
@@ -249,30 +276,7 @@ public class CabinetController {
         return "cabinet/list";
     }
 
-    @PostMapping("/selectUser")
-    public String selectUser(@RequestParam("idSelectUser") int idSelectUser,
-                             Model model) throws NoSuchFieldException {
-        currentUser = userService.getById(idSelectUser);
-        checkedMainListNotificStatuses = statuses4selectFilter;
-        showArchive = false;
-
-        orderFieldName = "dateResponse";
-        desc = true;
-
-        pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
-                currentUser.getOrganization(),
-                checkedMainListNotificStatuses,
-                showArchive, listArchiveStatus,
-                orderFieldName, desc,
-                new Pagination<Notification>(1, pagination.getMaxResult(), pagination.getMaxNavigationPage())
-        );
-        showListNotifications = pagination.getList();
-
-        addAttributes_Notification(model);
-        return "cabinet/list";
-    }
-
-    @GetMapping("/productList")
+    @GetMapping("/selectPagination")
     public String list(
                        @RequestParam("maxResult") int maxResult,
                        @RequestParam("page") int page,
@@ -297,7 +301,7 @@ public class CabinetController {
                        Model model) {
         this.orderFieldName = orderFieldName;
         this.desc = desc;
-        return "redirect:/cabinet/productList?maxResult="+pagination.getMaxResult()+"&page=1";
+        return "redirect:/cabinet/selectPagination?maxResult="+pagination.getMaxResult()+"&page=1";
     }
 
     @GetMapping("/filterByNotificStatus")
@@ -378,7 +382,7 @@ public class CabinetController {
     }
 
     //TODO move in other controler
-    @GetMapping("productListAction")
+    @GetMapping("selectPaginationAction")
     public String listAction(
                        @RequestParam("maxResult") int maxResultAction,
                        @RequestParam("page") int pageAction,
@@ -406,7 +410,7 @@ public class CabinetController {
         this.orderFieldNameAction = orderFieldName;
         this.descAction = desc;
 
-        return "redirect:/cabinet/productListAction?maxResult="+paginationAction.getMaxResult()+"&page=1";
+        return "redirect:/cabinet/selectPaginationAction?maxResult="+paginationAction.getMaxResult()+"&page=1";
     }
 
     //TODO move in other controler
@@ -440,6 +444,6 @@ public class CabinetController {
 
         notificationService.saveOrUpdate(currentNotification);
 
-        return "redirect:/cabinet/productListAction?maxResult="+paginationAction.getMaxResult()+"&page="+paginationAction.getCurrentPage();
+        return "redirect:/cabinet/selectPaginationAction?maxResult="+paginationAction.getMaxResult()+"&page="+paginationAction.getCurrentPage();
     }
 }

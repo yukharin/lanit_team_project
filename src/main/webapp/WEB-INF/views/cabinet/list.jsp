@@ -80,28 +80,32 @@
                 </c:if>
             </span>
 
-            <form action="selectUser" method="POST">
-                Текущий Пользователь:
-                <select type="text" name="idSelectUser" onchange="this.form.submit()" ><%--multiple="true"--%>
-                    <c:forEach items="${user_list}" var="tempUser">
-                        <c:choose>
-                            <c:when test="${user.id.equals(tempUser.id)}">
-                                <option selected
-                                        value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </select>
-                <%--<input type="submit" value="Войти на страницу" class="save" />--%>
+            <%--<form action="selectUser" method="POST">--%>
+            Текущий Пользователь: ${user.firstName} ${user.lastName}
+            <%--<select type="text" name="idSelectUser" onchange="this.form.submit()" >&lt;%&ndash;multiple="true"&ndash;%&gt;--%>
+            <%--<c:forEach items="${user_list}" var="tempUser">--%>
+            <%--<c:choose>--%>
+            <%--<c:when test="${user.id.equals(tempUser.id)}">--%>
+            <%--<option selected--%>
+            <%--value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>--%>
+            <%--</c:when>--%>
+            <%--<c:otherwise>--%>
+            <%--<option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>--%>
+            <%--</c:otherwise>--%>
+            <%--</c:choose>--%>
+            <%--</c:forEach>--%>
+            <%--</select>--%>
+            <%--<input type="submit" value="Войти на страницу" class="save" />--%>
 
-                <Br><Br>
-                <a class="href-nav-item"
-                   href="${pageContext.request.contextPath}/user/list"> Настройка пользователей </a>
-                <Br>
-            </form>
+            <%--<Br><Br>--%>
+            <%--<a class="href-nav-item"--%>
+            <%--href="${pageContext.request.contextPath}/user/list"> Настройка пользователей </a>--%>
+            <%--<Br>--%>
+            <Br><Br>
+            <a class="href-nav-item"
+               href="${pageContext.request.contextPath}/"> Выйти </a>
+            <Br>
+            <%--</form>--%>
         </th>
     </table>
 </div>
@@ -188,10 +192,10 @@
                     <c:if test="${pagination.totalPages > 1}">
 
                         <a class="href-nav-item"
-                           href="productList?maxResult=${pagination.maxResult}&page=1"> << </a>
+                           href="selectPagination?maxResult=${pagination.maxResult}&page=1"> << </a>
 
                         <a class="href-nav-item"
-                           href="productList?maxResult=${pagination.maxResult}&page=${(pagination.currentPage != 1) ? pagination.currentPage-1 : 1 }"> <- </a>
+                           href="selectPagination?maxResult=${pagination.maxResult}&page=${(pagination.currentPage != 1) ? pagination.currentPage-1 : 1 }"> <- </a>
 
                         <c:forEach items="${pagination.navigationPages}" var = "page">
                             <c:choose>
@@ -199,11 +203,11 @@
                                     <c:if test="${page == pagination.currentPage}">
                                         <a <%--class="href-nav-item"--%>
                                                 class="href-nav-item-current"
-                                                href="productList?maxResult=${pagination.maxResult}&page=${page}">${page}</a>
+                                                href="selectPagination?maxResult=${pagination.maxResult}&page=${page}">${page}</a>
                                     </c:if>
                                     <c:if test="${page != pagination.currentPage}">
                                         <a class="href-nav-item"
-                                           href="productList?maxResult=${pagination.maxResult}&page=${page}">${page}</a>
+                                           href="selectPagination?maxResult=${pagination.maxResult}&page=${page}">${page}</a>
                                     </c:if>
                                 </c:when>
                                 <c:otherwise>
@@ -214,17 +218,17 @@
                         </c:forEach>
 
                         <a class="href-nav-item"
-                           href="productList?maxResult=${pagination.maxResult}&page=${(pagination.currentPage != pagination.totalPages)? pagination.currentPage+1 : pagination.currentPage }"> -> </a>
+                           href="selectPagination?maxResult=${pagination.maxResult}&page=${(pagination.currentPage != pagination.totalPages)? pagination.currentPage+1 : pagination.currentPage }"> -> </a>
 
                         <a class="href-nav-item"
-                           href="productList?maxResult=${pagination.maxResult}&page=${pagination.totalPages}"> >> </a>
+                           href="selectPagination?maxResult=${pagination.maxResult}&page=${pagination.totalPages}"> >> </a>
 
                     </c:if>
                 </div>
             </td>
             <td style="text-align: right">
                 <div id="selectMaxResult">
-                    <form action="productList" method="get">
+                    <form action="selectPagination" method="get">
                         Показывать по :
                         <select type="text" name="maxResult" onchange="this.form.submit()" ><%--multiple="true"--%>
                             <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">
