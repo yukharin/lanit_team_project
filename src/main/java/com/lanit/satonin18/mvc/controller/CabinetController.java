@@ -275,6 +275,55 @@ public class CabinetController {
         addAttributes_Notification(model);
         return "cabinet/list";
     }
+    @GetMapping("/listNew") //add  @GetMapping("/")
+    public String listNew(
+            HttpServletRequest request, HttpServletResponse response,
+            Model model){
+//        if(currentUser==null) return "redirect:/"; //NEED TEST IN END TIME
+        String[] pageMas = request.getParameterValues("page");
+        int page = (pageMas != null) ? Integer.parseInt(pageMas[0]) : 1;
+
+        String[] maxResultMas = request.getParameterValues("maxResult");
+        int maxResult = (maxResultMas != null) ? Integer.parseInt(maxResultMas[0]) : pagination.getMaxResult();
+//-------------------------------------------------------------------------
+        showListNotifications = new ArrayList<>();
+        checkedMainListNotificStatuses = new ArrayList<>();
+        List<NotificationStatus> checkedStatusList = new ArrayList<>();
+        showArchive = false;
+        //pagination = null;
+
+        String[] ids = request.getParameterValues("idFilterStatus");
+        boolean haveIdCheckedStatusList = (ids != null);
+
+        String[] masshowArchive = request.getParameterValues("showArchive");
+        boolean hasCheckedStatusArhive = (masshowArchive != null);
+        showArchive = hasCheckedStatusArhive;
+
+        //MOCK
+        String[] selectFastFilter = request.getParameterValues("selectFastFilter");
+        boolean hasSelectedFastFilter = (masshowArchive != null);
+
+        if (haveIdCheckedStatusList) {
+            checkedMainListNotificStatuses = statusService.filterIds(ids);
+
+            pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
+                    currentUser.getOrganization(),
+                    checkedMainListNotificStatuses,
+                    showArchive, listArchiveStatus,
+                    orderFieldName, desc,
+//                    new Pagination<Notification>(1, pagination.getMaxResult(), pagination.getMaxNavigationPage())
+                    new Pagination<Notification>(page, maxResult/*1, pagination.getMaxResult()*/, pagination.getMaxNavigationPage())
+            );
+            showListNotifications = pagination.getList();
+        }else{
+            pagination = new Pagination.EmptyPagination<Notification>(pagination);
+        }
+
+
+        addAttributes_Notification(model);
+        return "cabinet/list";
+//-------------------------------------------------------------------------
+    }
 
     @GetMapping("/selectPagination")
     public String list(
@@ -315,7 +364,7 @@ public class CabinetController {
         showArchive = false;
         //pagination = null;
 
-        String[] ids = request.getParameterValues("id");
+        String[] ids = request.getParameterValues("idFilterStatus");
         boolean haveIdCheckedStatusList = (ids != null);
 
         String[] masshowArchive = request.getParameterValues("showArchive");

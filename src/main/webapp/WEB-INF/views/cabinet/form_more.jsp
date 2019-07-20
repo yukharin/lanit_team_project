@@ -427,11 +427,11 @@
                         </th>
                         <th>Статус после изменения<%--Id--%>
                             <Br>
-                            <a class="href-nav-item" id="orderFieldName=userByIdImplementor.actionType.name&desc=true"
-                               href="orderDescAction?orderFieldName=userByIdImplementor.actionType.name&desc=true"> /\ </a>
+                            <a class="href-nav-item" id="orderFieldName=actionType.name&desc=true"
+                               href="orderDescAction?orderFieldName=actionType.name&desc=true"> /\ </a>
                             <Br>
-                            <a class="href-nav-item" id="orderFieldName=userByIdImplementor.actionType.name&desc=false"
-                               href="orderDescAction?orderFieldName=userByIdImplementor.actionType.name&desc=false"> \/ </a>
+                            <a class="href-nav-item" id="orderFieldName=actionType.name&desc=false"
+                               href="orderDescAction?orderFieldName=actionType.name&desc=false"> \/ </a>
                     </tr>
                     <c:forEach var="tempAction" items="${listAction}" varStatus="actionLoopCount" >
                         <tr>
