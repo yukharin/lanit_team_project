@@ -16,27 +16,13 @@ import java.util.List;
 public class Organization implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.hibernate.annotations.GenericGenerator(
-            name = "ID_GENERATOR",
-            strategy = "enhanced-sequence", /* Стратегия применения расширенной последовательности*/
-            parameters = {
-                    @org.hibernate.annotations.Parameter(
-                            name = "sequence_name", /* Имя последовательности*/
-                            value = "JPWH_SEQUENCE"
-                    ),
-                    @org.hibernate.annotations.Parameter(
-                            name = "initial_value", /* Начальное значение*/
-                            value = "1000"
-                    )
-            })
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Basic
     @Column(name = "name", nullable = false, length = 200)
     private String name;
 
-    //can be trueER need added @Converter FROM(in MySQL type = TINYINT(1)) IN boolean
     @Basic
     @Column(name = "org_type", nullable = false)
     private boolean government;

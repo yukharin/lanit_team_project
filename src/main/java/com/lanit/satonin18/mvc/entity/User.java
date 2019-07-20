@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
 @Data //get and set
 //@ToString //can be loop
@@ -16,20 +15,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.hibernate.annotations.GenericGenerator(
-            name = "ID_GENERATOR",
-            strategy = "enhanced-sequence", /* Стратегия применения расширенной последовательности*/
-            parameters = {
-                    @org.hibernate.annotations.Parameter(
-                            name = "sequence_name", /* Имя последовательности*/
-                            value = "JPWH_SEQUENCE"
-                    ),
-                    @org.hibernate.annotations.Parameter(
-                            name = "initial_value", /* Начальное значение*/
-                            value = "1000"
-                    )
-            })
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Basic
@@ -42,7 +28,7 @@ public class User implements Serializable {
 
     @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
-    private/*protected*/ Organization organization;
+    private Organization organization;
 
     @Override
     public String toString() {
