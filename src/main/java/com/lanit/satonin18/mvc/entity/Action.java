@@ -38,7 +38,6 @@ public class Action implements Serializable {
     @Column(name = "content", nullable = true, length = 300)
     private String content;
 
-    @Id
     @Column(name = "date", nullable = false)
     private Timestamp date;
 
