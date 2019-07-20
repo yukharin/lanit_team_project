@@ -122,7 +122,7 @@ public class CabinetController {
     //for web-page Cabinet/MoreAction  -------------------------------
     private Pagination<Action> paginationAction;
     private List<Action> listAction;
-    private Action lastAction;
+    private Action latestAction;
     private Notification currentNotification;
     private String orderFieldNameAction;
     private boolean descAction;
@@ -194,13 +194,14 @@ public class CabinetController {
                 new Pagination<Action>(1, maxResultAction, navigationPagesAction)
         );
         listAction = paginationAction.getList();
-
-        lastAction = Collections.max(listAction, new Comparator<Action>() {
-            @Override
-            public int compare(Action o1, Action o2) {
-                return o1.getDate().compareTo(o2.getDate());
-            }
-        });
+        if( ! listAction.isEmpty()) {
+            latestAction = Collections.max(listAction, new Comparator<Action>() {
+                @Override
+                public int compare(Action o1, Action o2) {
+                    return o1.getDate().compareTo(o2.getDate());
+                }
+            });
+        }
     }
 
     private void addAttributes_Notification(Model model) {
@@ -222,7 +223,7 @@ public class CabinetController {
     private void addAttributes_Action(Model model) {
         model.addAttribute("currentNotification", currentNotification);
         model.addAttribute("listAction", listAction);
-        model.addAttribute("lastAction", lastAction);
+        model.addAttribute("lastAction", latestAction);
         model.addAttribute("orderFieldNameAction", orderFieldNameAction);
         model.addAttribute("descAction",descAction);
         model.addAttribute("paginationAction",paginationAction);
@@ -231,13 +232,14 @@ public class CabinetController {
         model.addAttribute("listStatus", statusService.list());
     }
 
+    // remove
     @GetMapping("/")
     public String redirect(Model model){
         if(pagination==null) initVar4Cabinet();
         return "redirect:/cabinet/list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list") //add  @GetMapping("/")
     public String list(Model model){
         if(pagination==null) initVar4Cabinet();
 
@@ -373,8 +375,9 @@ public class CabinetController {
     //TODO move in other controler
     @GetMapping("/more")
     public String more(@RequestParam("notificationId") int notificationId,
-                                 Model model) {
-        if(currentNotification==null) initVar4Action(notificationId);
+                       Model model) {
+//        if(currentNotification == null)
+        initVar4Action(notificationId);
 
         addAttributes_Notification(model); //save model for bask2list
         addAttributes_Action(model);
