@@ -232,13 +232,6 @@ public class CabinetController {
         model.addAttribute("listStatus", statusService.list());
     }
 
-    // remove
-    @GetMapping("/")
-    public String redirect(Model model){
-        if(pagination==null) initVar4Cabinet();
-        return "redirect:/cabinet/list";
-    }
-
     @GetMapping("/list") //add  @GetMapping("/")
     public String list(Model model){
         if(pagination==null) initVar4Cabinet();

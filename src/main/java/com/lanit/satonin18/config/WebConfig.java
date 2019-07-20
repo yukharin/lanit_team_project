@@ -20,12 +20,12 @@ import org.springframework.web.servlet.view.JstlView;
         @ComponentScan(
                 basePackages = { "com.lanit.satonin18.mvc"}
         )
-//        ,
-//        @ComponentScan(
-//                basePackages = { "com.lanit.satonin18.config"}
-//        )
+        ,
+        @ComponentScan(
+                basePackages = { "com.lanit.satonin18.config"}
+        )
 })
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
 
    @Bean
    public InternalResourceViewResolver resolver() {
@@ -34,19 +34,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
       resolver.setPrefix("/WEB-INF/views/");
       resolver.setSuffix(".jsp");
       return resolver;
-   }
-
-   @Bean
-   public MessageSource messageSource() {
-      ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-      source.setBasename("messages");
-      return source;
-   }
-
-   @Override
-   public Validator getValidator() {
-      LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-      validator.setValidationMessageSource(messageSource());
-      return validator;
    }
 }
