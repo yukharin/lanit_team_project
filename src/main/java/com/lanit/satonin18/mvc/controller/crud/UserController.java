@@ -46,8 +46,8 @@ public class UserController {
 		model.addAttribute("listOrg", organizationService.list());
 		return "crud/user/form_add";
 	}
-	@PostMapping("/add")
-	public String save(
+	@GetMapping("/apply_add")
+	public String apply_add(
 //			@RequestParam("id")  int id,
 			@RequestParam("firstName")  String  firstName,
 			@RequestParam("lastName")  String  lastName,
@@ -69,8 +69,8 @@ public class UserController {
 		model.addAttribute("listOrg", organizationService.list());
 		return "crud/user/form_update";
 	}
-	@PostMapping("/update")
-	public String edit(
+	@GetMapping("/apply_update")
+	public String apply_update(
 			@RequestParam("id")  int id,
 			@RequestParam("firstName")  String  firstName,
 			@RequestParam("lastName")  String  lastName,

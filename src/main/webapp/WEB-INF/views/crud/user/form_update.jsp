@@ -20,7 +20,7 @@
 <div id="container">
     <h2>SaveOrUpdate User</h2>
 
-    <form action="update" method="post"><%--modelAttribute="user"--%>
+    <form action="apply_update" method="get"><%--modelAttribute="user"--%>
 
         <%--<form:hidden path="id" />--%>
         <input type="hidden" name="id" value="${user.id}">
