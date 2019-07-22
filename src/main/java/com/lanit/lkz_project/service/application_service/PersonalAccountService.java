@@ -1,19 +1,24 @@
 package com.lanit.lkz_project.service.application_service;
 
+import com.lanit.lkz_project.dao.application_dao.PersonalAccountDao;
 import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.entities_service.ActionService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 
 @Service
 public class PersonalAccountService {
@@ -22,36 +27,68 @@ public class PersonalAccountService {
     private static final int DEFAULT_PAGE_SIZE = 10;
     private static final int BOUND_TO_GENERATE_NUMBER = 10;
 
+
     @Autowired
     private OrganizationService organizationService;
     @Autowired
     private NotificationService notificationService;
     @Autowired
     private ActionService actionService;
+    @Autowired
+    private PersonalAccountDao personalAccountDao;
 
-    public Page<Notification> getPage(@NonNull User user,
-                                      String pageParam,
-                                      String sizeParam) {
-        int page = DEFAULT_PAGE_NUMBER;
-        int size = DEFAULT_PAGE_SIZE;
+    @Transactional
+    public PageImpl<Notification> getPage(User user,
+                                          String pageParam,
+                                          String sizeParam,
+                                          String applyFilters,
+                                          String filterNew,
+                                          String filterInProcessing,
+                                          String filterApproved,
+                                          String filterRejected) {
+        PersonalAccountStateOfPage<Notification> pageState = createPageState(
+                applyFilters, filterNew, filterInProcessing, filterApproved, filterRejected);
 
+        Pageable pageable = createPageRequest(pageParam, sizeParam);
+        personalAccountDao.setPageState(pageState, pageable);
+        return new PageImpl<>(pageState.getPageData(), pageable, pageState.getTotal());
+    }
+
+    private PersonalAccountStateOfPage<Notification> createPageState(String applyFilters,
+                                                                     String filterNew,
+                                                                     String filterInProcessing,
+                                                                     String filterApproved,
+                                                                     String filterRejected) {
+        PersonalAccountStateOfPage<Notification> accountPage = new PersonalAccountStateOfPage<>();
+        if (applyFilters != null && applyFilters.equals("true")) {
+            accountPage.setFiltration(true);
+        }
+        if (filterApproved != null && filterApproved.equals("chosen")) {
+            accountPage.addFilters(NotificationStatus.APPROVED);
+        }
+        if (filterInProcessing != null && filterInProcessing.equals("chosen")) {
+            accountPage.addFilters(NotificationStatus.IN_PROCESSING);
+        }
+        if (filterNew != null && filterNew.equals("chosen")) {
+            accountPage.addFilters(NotificationStatus.NEW);
+        }
+        if (filterRejected != null && filterRejected.equals("chosen")) {
+            accountPage.addFilters(NotificationStatus.REJECTED);
+        }
+        return accountPage;
+    }
+
+    private Pageable createPageRequest(String pageParam, String sizeParam) {
+        int pageNumber = DEFAULT_PAGE_NUMBER;
+        int pageSize = DEFAULT_PAGE_SIZE;
         if (pageParam != null && !pageParam.isEmpty()) {
-            page = Integer.parseInt(pageParam) - 1;
+            pageNumber = Integer.parseInt(pageParam) - 1;
         }
 
         if (sizeParam != null && !sizeParam.isEmpty()) {
-            size = Integer.parseInt(sizeParam);
+            pageSize = Integer.parseInt(sizeParam);
         }
-        List<Notification> notifications = defineUserNotifications(user);
-        int startItem = page * size;
-        List<Notification> resultList;
-        if (notifications.size() < startItem) {
-            resultList = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + size, notifications.size());
-            resultList = notifications.subList(startItem, toIndex);
-        }
-        return new PageImpl<>(resultList, PageRequest.of(page, size), notifications.size());
+        return PageRequest.of(pageNumber, pageSize);
     }
 
     private List<Notification> defineUserNotifications(@NonNull User user) {
@@ -149,22 +186,22 @@ public class PersonalAccountService {
 
     private String generateLetterNumber() {
         // Не очень выглядит, но сделал так, чтоб была хоть какая то генерация.
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
-        sb.
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append("-").
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append("-").
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER)).
-                append("/").
-                append(random.nextInt(BOUND_TO_GENERATE_NUMBER));
-        return sb.toString();
+        stringBuilder
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append("-")
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append("-")
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER))
+                .append("/")
+                .append(random.nextInt(BOUND_TO_GENERATE_NUMBER));
+        return stringBuilder.toString();
     }
 
 

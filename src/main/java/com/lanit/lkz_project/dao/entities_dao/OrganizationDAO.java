@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.dao;
+package com.lanit.lkz_project.dao.entities_dao;
 
 import com.lanit.lkz_project.entities.Organization;
 import lombok.NonNull;

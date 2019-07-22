@@ -1,4 +1,4 @@
-import com.lanit.lkz_project.dao.NotificationDAO;
+import com.lanit.lkz_project.dao.entities_dao.NotificationDAO;
 import com.lanit.lkz_project.entities.Notification;
 import com.lanit.lkz_project.entities.NotificationStatus;
 import lombok.Cleanup;
@@ -13,6 +13,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -32,16 +35,25 @@ public class MainHibernate {
     }
 
     private static void code(Session session) {
-//        Notification notification = session.get(Notification.class, 1);
+        Date date = new GregorianCalendar(2019, Calendar.SEPTEMBER, 16).getTime();
+        System.err.println(date);
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Notification> query = builder.createQuery(Notification.class);
         Root<Notification> root = query.from(Notification.class);
-        Predicate predicate = builder.or(builder.equal(root.get("status"), NotificationStatus.NEW), builder.equal(root.get("status"), NotificationStatus.APPROVED));
+        Predicate predicate =
+                builder.and(builder.or(
+                        builder.equal(root.get("status"), NotificationStatus.NEW),
+                        builder.equal(root.get("status"), NotificationStatus.APPROVED),
+                        builder.equal(root.get("status"), NotificationStatus.REJECTED)),
+                        builder.greaterThan(root.get("dateResponse"), date));
+
         query.select(root).where(predicate);
+
         TypedQuery<Notification> finalQuery = session.createQuery(query);
         List<Notification> result = finalQuery.getResultList();
         for (Notification notification : result) {
             System.err.println(notification);
         }
+
     }
 }
