@@ -34,6 +34,7 @@ public class DbConfig {
 		props.put(USER, env.getProperty("mysql.user"));
 		props.put(PASS, env.getProperty("mysql.password"));
 		// Setting Hibernate properties
+		props.put(DIALECT, env.getProperty("hibernate.dialect"));
 		props.put(SHOW_SQL, env.getProperty("hibernate.show_sql"));
 		props.put(FORMAT_SQL, env.getProperty("hibernate.format_sql"));
 		props.put(HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
