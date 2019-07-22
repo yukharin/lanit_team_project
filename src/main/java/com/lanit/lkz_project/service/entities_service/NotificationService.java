@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.service.entities_service;
 
-import com.lanit.lkz_project.dao.entities_dao.NotificationDAO;
+import com.lanit.lkz_project.dao.entities_dao.NotificationRepository;
 import com.lanit.lkz_project.entities.Notification;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,36 +13,36 @@ import java.util.List;
 public class NotificationService {
 
     @Autowired
-    private NotificationDAO notificationDAO;
+    private NotificationRepository notificationRepository;
 
     @Transactional
     public void addNotification(@NonNull Notification notification) {
-        notificationDAO.addNotification(notification);
+        notificationRepository.save(notification);
     }
 
     @Transactional
     public void updateNotification(@NonNull Notification notification) {
-        notificationDAO.updateNotification(notification);
+        notificationRepository.save(notification);
     }
 
     @Transactional
     public void removeNotification(@NonNull Notification notification) {
-        notificationDAO.removeNotification(notification);
+        notificationRepository.delete(notification);
     }
 
     @Transactional
     public void removeNotification(long id) {
-        notificationDAO.removeNotification(id);
+        notificationRepository.deleteById(id);
     }
 
     @Transactional
     public Notification getNotification(long id) {
-        return notificationDAO.getNotification(id);
+        return notificationRepository.getOne(id);
     }
 
     @Transactional
     public List<Notification> notifications() {
-        return notificationDAO.notifications();
+        return notificationRepository.findAll();
     }
 
 

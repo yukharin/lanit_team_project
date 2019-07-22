@@ -1,11 +1,9 @@
-import com.lanit.lkz_project.dao.entities_dao.NotificationDAO;
 import com.lanit.lkz_project.entities.Notification;
 import com.lanit.lkz_project.entities.NotificationStatus;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,8 +19,6 @@ import java.util.List;
 
 public class MainHibernate {
 
-    @Autowired
-    static NotificationDAO notificationDAO;
 
     public static void main(String[] args) {
         File file = new File("classpath: hibernate.cfg.xml");

@@ -3,10 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <tx:annotation-driven/>
     <context:component-scan base-package="com.lanit.lkz_project"/>
+
 
 
     <bean id="dataSource"
@@ -16,15 +18,41 @@
           p:password="${password}"/>
     <context:property-placeholder location="classpath:DaoProperties.properties"/>
 
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager"
-          p:sessionFactory-ref="sessionFactory"/>
+    <!--    <bean id="transactionManager"-->
+    <!--          class="org.springframework.orm.hibernate5.HibernateTransactionManager"-->
+    <!--          p:sessionFactory-ref="sessionFactory"/>-->
 
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
-          p:dataSource-ref="dataSource"
-          p:packagesToScan="com.lanit.lkz_project"
-          p:hibernateProperties-ref="hibernateProperties"/>
+    <bean id="transactionManager" class=
+            "org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class=
+            "org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class=
+                          "org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="packagesToScan" value="com.lanit.lkz_project"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQLDialect
+                </prop>
+                <prop key="hibernate.max_fetch_depth">3</prop>
+                <prop key="hibernate.jdbc.fetch_size">50</prop>
+                <prop key="hibernate.jdbc.batch_size">10</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--    <bean id="sessionFactory"-->
+    <!--          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"-->
+    <!--          p:dataSource-ref="dataSource"-->
+    <!--          p:packagesToScan="com.lanit.lkz_project"-->
+    <!--          p:hibernateProperties-ref="hibernateProperties"/>-->
 
     <util:properties id="hibernateProperties">
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
@@ -39,4 +67,5 @@
         <prop key="hibernate.jdbc.fetch_size">50</prop>
     </util:properties>
 
+    <jpa:repositories base-package="com.lanit.lkz_project.dao" repository-impl-postfix="CustomImpl"/>
 </beans>

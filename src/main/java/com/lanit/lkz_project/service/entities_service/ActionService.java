@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.service.entities_service;
 
-import com.lanit.lkz_project.dao.entities_dao.ActionDAO;
+import com.lanit.lkz_project.dao.entities_dao.ActionRepository;
 import com.lanit.lkz_project.entities.Action;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,37 +13,37 @@ import java.util.List;
 public class ActionService {
 
     @Autowired
-    private ActionDAO actionDAO;
+    private ActionRepository actionRepository;
 
 
     @Transactional
     public void addAction(@NonNull Action action) {
-        actionDAO.addAction(action);
+        actionRepository.save(action);
     }
 
     @Transactional
     public void updateAction(@NonNull Action action) {
-        actionDAO.updateAction(action);
+        actionRepository.save(action);
     }
 
     @Transactional
     public void removeAction(@NonNull Action action) {
-        actionDAO.removeAction(action);
+        actionRepository.delete(action);
     }
 
     @Transactional
     public void removeAction(long id) {
-        actionDAO.removeAction(id);
+        actionRepository.deleteById(id);
     }
 
     @Transactional
     public Action getAction(long id) {
-        return actionDAO.getAction(id);
+        return actionRepository.getOne(id);
     }
 
     @Transactional
     public List<Action> actions() {
-        return actionDAO.actions();
+        return actionRepository.findAll();
     }
 
 
