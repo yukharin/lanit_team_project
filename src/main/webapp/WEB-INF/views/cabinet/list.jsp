@@ -58,6 +58,10 @@
             display: inline-block;
         }
 
+        .hidden_input{ /* HIDE RADIO */
+            visibility: hidden; /* Makes input not-clickable */
+            position: absolute; /* Remove input from document flow */
+        }
         span.radioDecorator > input{ /* HIDE RADIO */
             visibility: hidden; /* Makes input not-clickable */
             position: absolute; /* Remove input from document flow */
@@ -66,7 +70,7 @@
             cursor:pointer;
             border:2px solid transparent;
         }
-        span.radioDecorator> input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */
+        span.radioDecorator > input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */
             border:2px solid #f00;
         }
 
@@ -217,7 +221,7 @@
                     (Mock)Кнопка «Показать дополнительные фильтры»
                 </td>
             </table>
-            <button <%--type="form.submit"--%>
+            <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;"<%--class="green_button"--%>
                     onclick="
                     document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
@@ -225,7 +229,7 @@
             >
                 Применить фильтр
             </button>
-            <button <%--type="form.submit"--%> style="background-color: #666666; color: white; display: inline-block;"
+            <button type="button"<%--type="form.submit"--%> style="background-color: #666666; color: white; display: inline-block;"
                     onclick="
                     filterButtonUndoInDefault4setChecked();
                     document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
@@ -249,7 +253,7 @@
                                 <input id="radioPageFirst"
                                        type="radio"
                                        name="page" value="1">
-                                <button class="href-nav-item"
+                                <button type="button" class="href-nav-item"
                                         onclick="
                                         document.getElementById('radioPageFirst').setAttribute('checked', true);
                                         this.form.submit()" >
@@ -261,7 +265,7 @@
                                 <input id="radioPagePrev"
                                        type="radio"
                                        name="page" value="${(pagination.currentPage != 1) ? pagination.currentPage-1 : 1 }">
-                                <button class="href-nav-item"
+                                <button type="button" class="href-nav-item"
                                         onclick="
                                         document.getElementById('radioPagePrev').setAttribute('checked', true);
                                         this.form.submit()">
@@ -287,7 +291,7 @@
                                                 <input id="radioPageCount_${page}"
                                                        type="radio"
                                                        name="page" value="${page}">
-                                                <button class="href-nav-item-current"
+                                                <button type="button" class="href-nav-item-current"
                                                         onclick="
                                                                 document.getElementById('radioPageCount_${page}').setAttribute('checked', true);
                                                                 this.form.submit()">
@@ -309,7 +313,7 @@
                                                 <input id="radioPageCount_${page}"
                                                        type="radio"
                                                        name="page" value="${page}">
-                                                <button class="href-nav-item"
+                                                <button type="button" class="href-nav-item"
                                                         onclick="
                                                                 document.getElementById('radioPageCount_${page}').setAttribute('checked', true);
                                                                 this.form.submit()" >
@@ -337,7 +341,7 @@
                                 <input id="radioPageNext"
                                        type="radio"
                                        name="page" value="${(pagination.currentPage != pagination.totalPages)? pagination.currentPage+1 : pagination.currentPage }">
-                                <button class="href-nav-item"
+                                <button type="button" class="href-nav-item"
                                         onclick="
                                       document.getElementById('radioPageNext').setAttribute('checked', true);
                                       this.form.submit()" >
@@ -348,7 +352,7 @@
                                 <input id="radioPageLast"
                                        type="radio"
                                        name="page" value="${pagination.totalPages}">
-                                <button class="href-nav-item"
+                                <button type="button" class="href-nav-item"
                                         onclick="
                                       document.getElementById('radioPageLast').setAttribute('checked', true);
                                       this.form.submit()" >
@@ -404,7 +408,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=notificationType&desc=true"
                                    name="desc" value="true"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=notificationType&desc=true"
+                            <button type="button" class="href-nav-item" id="orderFieldName=notificationType&desc=true"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=notificationType&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=notificationType&desc=true').setAttribute('checked', true);
@@ -423,7 +427,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=notificationType&desc=false"
                                    name="desc" value="false"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=notificationType&desc=false"
+                            <button type="button" class="href-nav-item" id="orderFieldName=notificationType&desc=false"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=notificationType&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=notificationType&desc=false').setAttribute('checked', true);
@@ -444,7 +448,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=organization.name&desc=true"
                                    name="desc" value="true"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=organization.name&desc=true"
+                            <button type="button" class="href-nav-item" id="orderFieldName=organization.name&desc=true"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=organization.name&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=organization.name&desc=true').setAttribute('checked', true);
@@ -463,7 +467,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=organization.name&desc=false"
                                    name="desc" value="false"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=organization.name&desc=false"
+                            <button type="button" class="href-nav-item" id="orderFieldName=organization.name&desc=false"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=organization.name&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=organization.name&desc=false').setAttribute('checked', true);
@@ -484,7 +488,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=dateResponse&desc=true"
                                    name="desc" value="true"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=dateResponse&desc=true"
+                            <button type="button" class="href-nav-item" id="orderFieldName=dateResponse&desc=true"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateResponse&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateResponse&desc=true').setAttribute('checked', true);
@@ -503,7 +507,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=dateResponse&desc=false"
                                    name="desc" value="false"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=dateResponse&desc=false"
+                            <button type="button" class="href-nav-item" id="orderFieldName=dateResponse&desc=false"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateResponse&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateResponse&desc=false').setAttribute('checked', true);
@@ -524,7 +528,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=notificationStatus&desc=true"
                                    name="desc" value="true"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=notificationStatus&desc=true"
+                            <button type="button" class="href-nav-item" id="orderFieldName=notificationStatus&desc=true"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=notificationStatus&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=notificationStatus&desc=true').setAttribute('checked', true);
@@ -543,7 +547,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=notificationStatus&desc=false"
                                    name="desc" value="false"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=notificationStatus&desc=false"
+                            <button type="button" class="href-nav-item" id="orderFieldName=notificationStatus&desc=false"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=notificationStatus&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=notificationStatus&desc=false').setAttribute('checked', true);
@@ -564,7 +568,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=id&desc=true"
                                    name="desc" value="true"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=id&desc=true"
+                            <button type="button" class="href-nav-item" id="orderFieldName=id&desc=true"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=id&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=id&desc=true').setAttribute('checked', true);
@@ -583,7 +587,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=id&desc=false"
                                    name="desc" value="false"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=id&desc=false"
+                            <button type="button" class="href-nav-item" id="orderFieldName=id&desc=false"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=id&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=id&desc=false').setAttribute('checked', true);
@@ -604,7 +608,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=dateReceived&desc=true"
                                    name="desc" value="true"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=dateReceived&desc=true"
+                            <button type="button" class="href-nav-item" id="orderFieldName=dateReceived&desc=true"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateReceived&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateReceived&desc=true').setAttribute('checked', true);
@@ -623,7 +627,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=dateReceived&desc=false"
                                    name="desc" value="false"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=dateReceived&desc=false"
+                            <button type="button" class="href-nav-item" id="orderFieldName=dateReceived&desc=false"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateReceived&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateReceived&desc=false').setAttribute('checked', true);
@@ -644,7 +648,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=letterNumber&desc=true"
                                    name="desc" value="true"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=letterNumber&desc=true"
+                            <button type="button" class="href-nav-item" id="orderFieldName=letterNumber&desc=true"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=letterNumber&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=letterNumber&desc=true').setAttribute('checked', true);
@@ -663,7 +667,7 @@
                             <input type="radio" id="radio-desc-orderFieldName=letterNumber&desc=false"
                                    name="desc" value="false"
                             <%--onchange="this.form.submit()"--%> >
-                            <button class="href-nav-item" id="orderFieldName=letterNumber&desc=false"
+                            <button type="button" class="href-nav-item" id="orderFieldName=letterNumber&desc=false"
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=letterNumber&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=letterNumber&desc=false').setAttribute('checked', true);
@@ -686,9 +690,14 @@
                         <td>
                             <c:choose>
                                 <c:when test="${user.organization.government}">
-                                    <form action="editStatus" method="get">
-                                        <input type="hidden" name="idNotification" value="${tempNotification.id}"></input>
-                                        <select type="text" name="idStatus" onchange="this.form.submit()" >
+                                    <%--<form action="editStatus" method="get">--%>
+                                        <input type="checkbox" class="hidden_input"
+                                               id="idNotification4editStatus=${tempNotification.id}"
+                                               name="idNotification4editStatus" value="${tempNotification.id}"></input>
+                                        <select type="text" name="idStatus_With_idNotification=${tempNotification.id}"
+                                                onchange="
+                                                document.getElementById('idNotification4editStatus=${tempNotification.id}').setAttribute('checked', true)
+                                                this.form.submit()" >
                                             <c:forEach items="${statuses4select}" var="status">
                                                 <c:choose>
                                                     <c:when test="${tempNotification.notificationStatus.id.equals(status.id)}">
@@ -702,7 +711,7 @@
                                             </c:forEach>
                                         </select>
                                             <%--<input type="submit" value="Применить изменения" class="save" />--%>
-                                    </form>
+                                    <%--</form>--%>
                                 </c:when>
                                 <c:otherwise>
                                     ${tempNotification.notificationStatus.name}
@@ -720,12 +729,23 @@
                             <%--</c:url>--%>
                             <%--<a href="${addLink}">More</a>--%>
 
-                            <%--<c:url var="addLink" value="${pageContext.request.contextPath}/more">--%>
-                                <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
-                                <%--<c:param name="userId" value="${user.id}"/>--%>
-                            <%--</c:url>--%>
-                            <a class="href-nav-item"
-                               href="${pageContext.request.contextPath}/cabinet/aboutTheNotification/selectTheNotification?notificationId=${tempNotification.id}&userId=${user.id}"> Подробнее </a>
+                            <c:url var="moreLink" value="aboutTheNotification/selectTheNotification">
+                                <c:param name="notificationId" value="${tempNotification.id}"/>
+                                <c:param name="userId" value="${user.id}"/>
+                            </c:url>
+                            <button type="button"<%--type="form.submit"--%>
+                                    style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
+                                    onclick="
+                                            window.location.href='${moreLink}'
+                                            "
+                            >
+                                Подробнее
+                            </button>
+                            <%--<a style="background-color: #4CAF50; color: white; display: inline-block;" &lt;%&ndash;class="green_button"&ndash;%&gt;--%>
+                               <%--href="${pageContext.request.contextPath}/cabinet/aboutTheNotification/selectTheNotification?notificationId=${tempNotification.id}&userId=${user.id}"--%>
+                            <%--> Подробнее--%>
+                            <%--</a>--%>
+
                             <Br>
                         </td>
                     </tr>
@@ -756,7 +776,8 @@
     document.getElementById("radio-orderFieldName-orderFieldName=${orderFieldName}&desc=${desc}").setAttribute('checked', true);
     document.getElementById("radio-desc-orderFieldName=${orderFieldName}&desc=${desc}").setAttribute('checked', true);
 
-    document.getElementById("radioPageCount_${pagination.currentPage}").setAttribute('checked', true); //trows Excpetion if element=null//stupit JavaScript simple do not run next command line, becouse this last line
+    //todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last
+    document.getElementById("radioPageCount_${pagination.currentPage}").setAttribute('checked', true);
 </script>
 </body>
 </html>

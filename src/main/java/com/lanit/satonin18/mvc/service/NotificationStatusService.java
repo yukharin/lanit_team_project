@@ -23,4 +23,6 @@ public interface NotificationStatusService extends CrudService<NotificationStatu
 
     @Override
     List<NotificationStatus> list() ;
+
+    List<NotificationStatus> listByIds(List<Integer> ids);
 }

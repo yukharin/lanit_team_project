@@ -24,4 +24,6 @@ public interface NotificationStatusDAO extends CrudDAO<NotificationStatus> {
 
    @Override
    List<NotificationStatus> list() ;
+
+   List<NotificationStatus> listByIds(List<Integer> ids);
 }

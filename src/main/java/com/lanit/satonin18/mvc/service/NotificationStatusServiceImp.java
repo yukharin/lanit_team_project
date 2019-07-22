@@ -44,4 +44,8 @@ public class NotificationStatusServiceImp implements NotificationStatusService {
    public List<NotificationStatus> list() {
       return notificationStatusDAO.list();
    }
+
+   public List<NotificationStatus> listByIds(List<Integer> ids){
+      return notificationStatusDAO.listByIds(ids);
+   }
 }

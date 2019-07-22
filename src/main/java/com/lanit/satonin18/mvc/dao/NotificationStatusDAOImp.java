@@ -150,4 +150,22 @@ public class NotificationStatusDAOImp implements NotificationStatusDAO {
          return notificationStatuss;
       }
    }
+
+   public List<NotificationStatus> listByIds(List<Integer> ids) {
+      //Session session = sessionFactory.getCurrentSession();
+      try (final Session session = sessionFactory.openSession();) {
+         Transaction tx1 = session.beginTransaction();
+
+         Query theQuery = null;
+         theQuery = session.createQuery(
+                 "FROM NotificationStatus n WHERE n.id IN (:ids)",
+                 NotificationStatus.class);
+         theQuery.setParameterList("ids", ids);
+         //the
+
+         List<NotificationStatus> list = theQuery.getResultList();
+         tx1.commit();
+         return list;
+      }
+   }
 }

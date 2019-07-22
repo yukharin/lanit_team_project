@@ -1,4 +1,4 @@
-package com.lanit.satonin18.mvc.controller;
+package com.lanit.satonin18.mvc.controller.login;
 
 import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.mvc.entity.Notification;
@@ -25,10 +25,9 @@ public class InputController {
     }
 
     @PostMapping("/selectUser")
-    public String selectUser(@RequestParam("idSelectUser") int idSelectUser,
-
-                             Model model) throws NoSuchFieldException {
-        //currentUser = userService.getById(idSelectUser);
+    public String selectUser(
+            @RequestParam("idSelectUser") int idSelectUser,
+            Model model){
 
         return "redirect:/cabinet/selectUser?idSelectUser=" + idSelectUser;
     }
