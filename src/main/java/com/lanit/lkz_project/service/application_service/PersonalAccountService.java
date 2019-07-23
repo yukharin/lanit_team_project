@@ -41,29 +41,24 @@ public class PersonalAccountService {
     public PageImpl<Notification> getPage(User user,
                                           String pageParam,
                                           String sizeParam,
-                                          String applyFilters,
                                           String filterNew,
                                           String filterInProcessing,
                                           String filterApproved,
                                           String filterRejected,
                                           String timeFilter) {
         PersonalAccountStateOfPage<Notification> pageState = createPageState(
-                applyFilters, filterNew, filterInProcessing, filterApproved, filterRejected);
+                filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
 
         Pageable pageable = createPageRequest(pageParam, sizeParam);
         notificationRepository.setStateOfPage(pageState, pageable, user);
         return new PageImpl<>(pageState.getPageData(), pageable, pageState.getTotal());
     }
 
-    private PersonalAccountStateOfPage<Notification> createPageState(String applyFilters,
-                                                                     String filterNew,
+    private PersonalAccountStateOfPage<Notification> createPageState(String filterNew,
                                                                      String filterInProcessing,
                                                                      String filterApproved,
-                                                                     String filterRejected) {
+                                                                     String filterRejected, String timeFilter) {
         PersonalAccountStateOfPage<Notification> accountPage = new PersonalAccountStateOfPage<>();
-        if (applyFilters != null && applyFilters.equals("true")) {
-            accountPage.setFiltered(true);
-        }
         if (filterApproved != null && filterApproved.equals("chosen")) {
             accountPage.addFilters(NotificationStatus.APPROVED);
         }
@@ -75,6 +70,21 @@ public class PersonalAccountService {
         }
         if (filterRejected != null && filterRejected.equals("chosen")) {
             accountPage.addFilters(NotificationStatus.REJECTED);
+        }
+        if (timeFilter != null) {
+            switch (timeFilter) {
+                case "3_days":
+                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.First);
+                    break;
+                case "10_days":
+                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.Second);
+                    break;
+                case "30_days":
+                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.Third);
+                    break;
+                default:
+                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.Off);
+            }
         }
         return accountPage;
     }

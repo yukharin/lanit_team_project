@@ -48,7 +48,6 @@ public class PersonalAccountController {
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
         @NonNull PageImpl<Notification> accountPage = personalAccountService.getPage(user, page, size,
-                applyFilters,
                 filterNew,
                 filterInProcessing,
                 filterApproved,

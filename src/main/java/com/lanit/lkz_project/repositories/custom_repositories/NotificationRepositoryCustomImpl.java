@@ -9,9 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Repository
@@ -22,21 +20,21 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
 
     @Override
     public void setStateOfPage(PersonalAccountStateOfPage<Notification> page, Pageable pageable, User user) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
-        CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
-        Root<Notification> table = notificationsQuery.from(Notification.class);
-
+        final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
+        final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
+        final Root<Notification> table = notificationsQuery.from(Notification.class);
 
         // predicates initialization
         Predicate orgPredicate = builder.conjunction();
         Predicate statusPredicate = builder.conjunction();
+        Predicate datePredicate = builder.conjunction();
         Order byDate = builder.asc(table.get("dateReceived"));
 
         if (user.getRole() == Role.EMPLOYEE) {
             orgPredicate = builder.equal(table.get("organization"), user.getOrganization());
         }
-        if (page.isFiltered()) {
+        if (!page.getActiveFiltersByStatus().isEmpty()) {
             Path<NotificationStatus> status = table.get("status");
             List<Predicate> statusPredicates = new ArrayList<>();
             Set<NotificationStatus> set = page.getActiveFiltersByStatus();
@@ -46,18 +44,29 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
             statusPredicate = builder.or(statusPredicates.toArray(new Predicate[0]));
         }
 
-        Predicate resultingPredicate = builder.and(orgPredicate, statusPredicate);
-        notificationsQuery
-                .select(table)
-                .distinct(true)
+        PersonalAccountStateOfPage.TimeFilter timeFilter = page.getTimeFilter();
+        if (timeFilter != null && timeFilter != PersonalAccountStateOfPage.TimeFilter.Off) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            calendar.add(Calendar.DATE, timeFilter.days());
+            datePredicate = builder.lessThan(table.get("dateResponse"), calendar.getTime());
+        }
+
+        Predicate resultingPredicate = builder.and(orgPredicate, statusPredicate, datePredicate);
+        notificationsQuery.select(table).distinct(true)
                 .where(builder.and(resultingPredicate))
                 .orderBy(byDate);
-        TypedQuery<Notification> typedQuery = entityManager.createQuery(notificationsQuery);
-        totalNotifications.select(builder.count(totalNotifications.from(Notification.class))).where(builder.and(statusPredicate, orgPredicate));
-        long count = entityManager.createQuery(totalNotifications).getSingleResult();
-        typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        typedQuery.setMaxResults(pageable.getPageSize());
-        List<Notification> resultList = typedQuery.getResultList();
+        totalNotifications.select(builder.count(totalNotifications
+                .from(Notification.class)))
+                .where(resultingPredicate);
+
+
+        TypedQuery<Notification> notificationsTQ = entityManager.createQuery(notificationsQuery);
+        notificationsTQ.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        notificationsTQ.setMaxResults(pageable.getPageSize());
+        List<Notification> resultList = notificationsTQ.getResultList();
+
+        final long count = entityManager.createQuery(totalNotifications).getSingleResult();
         page.setPageData(resultList);
         page.setTotal(count);
     }
