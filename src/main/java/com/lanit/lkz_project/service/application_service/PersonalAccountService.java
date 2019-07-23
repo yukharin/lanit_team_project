@@ -7,7 +7,6 @@ import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,52 +36,52 @@ public class PersonalAccountService {
     private NotificationRepository notificationRepository;
 
     @Transactional
-    public PageImpl<Notification> getPage(User user,
-                                          String pageParam,
-                                          String sizeParam,
-                                          String filterNew,
-                                          String filterInProcessing,
-                                          String filterApproved,
-                                          String filterRejected,
-                                          String timeFilter) {
-        PersonalAccountStateOfPage<Notification> pageState = createPageState(
+    public PersonalAccountPage<Notification> getPage(User user,
+                                                     String pageParam,
+                                                     String sizeParam,
+                                                     String filterNew,
+                                                     String filterInProcessing,
+                                                     String filterApproved,
+                                                     String filterRejected,
+                                                     String timeFilter) {
+        PersonalAccountPage<Notification> pageState = createPageState(
                 filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
 
         Pageable pageable = createPageRequest(pageParam, sizeParam);
         notificationRepository.setStateOfPage(pageState, pageable, user);
-        return new PageImpl<>(pageState.getPageData(), pageable, pageState.getTotal());
+        return pageState;
     }
 
-    private PersonalAccountStateOfPage<Notification> createPageState(String filterNew,
-                                                                     String filterInProcessing,
-                                                                     String filterApproved,
-                                                                     String filterRejected, String timeFilter) {
-        PersonalAccountStateOfPage<Notification> accountPage = new PersonalAccountStateOfPage<>();
-        if (filterApproved != null && filterApproved.equals("chosen")) {
+    private PersonalAccountPage<Notification> createPageState(String filterNew,
+                                                              String filterInProcessing,
+                                                              String filterApproved,
+                                                              String filterRejected, String timeFilter) {
+        PersonalAccountPage<Notification> accountPage = new PersonalAccountPage<>();
+        if (filterApproved != null && filterApproved.equals("true")) {
             accountPage.addFilters(NotificationStatus.APPROVED);
         }
-        if (filterInProcessing != null && filterInProcessing.equals("chosen")) {
+        if (filterInProcessing != null && filterInProcessing.equals("true")) {
             accountPage.addFilters(NotificationStatus.IN_PROCESSING);
         }
-        if (filterNew != null && filterNew.equals("chosen")) {
+        if (filterNew != null && filterNew.equals("true")) {
             accountPage.addFilters(NotificationStatus.NEW);
         }
-        if (filterRejected != null && filterRejected.equals("chosen")) {
+        if (filterRejected != null && filterRejected.equals("true")) {
             accountPage.addFilters(NotificationStatus.REJECTED);
         }
         if (timeFilter != null) {
             switch (timeFilter) {
                 case "3_days":
-                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.First);
+                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.First);
                     break;
                 case "10_days":
-                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.Second);
+                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.Second);
                     break;
                 case "30_days":
-                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.Third);
+                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.Third);
                     break;
                 default:
-                    accountPage.setTimeFilter(PersonalAccountStateOfPage.TimeFilter.Off);
+                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.Off);
             }
         }
         return accountPage;

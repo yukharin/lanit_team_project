@@ -7,7 +7,6 @@ import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,19 +41,18 @@ public class PersonalAccountController {
                           @RequestParam(required = false) String filterInProcessing,
                           @RequestParam(required = false) String filterApproved,
                           @RequestParam(required = false) String filterRejected,
-                          @RequestParam(required = false) String applyFilters,
                           @RequestParam(required = false) String page,
                           @RequestParam(required = false) String size,
                           @RequestParam(required = false) String timeFilter,
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        @NonNull PageImpl<Notification> accountPage = personalAccountService.getPage(user, page, size,
+        @NonNull PersonalAccountPage<Notification> stateOfPage = personalAccountService.getPage(user, page, size,
                 filterNew,
                 filterInProcessing,
                 filterApproved,
                 filterRejected,
                 timeFilter);
-        model.addAttribute("notifications", accountPage);
+        model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
         return "personalAccount";
     }

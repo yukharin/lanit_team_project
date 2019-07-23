@@ -32,28 +32,28 @@
                     <label class="account-filter-form-label" for="checkbox1">
                         Новое
                         <input class="account-filter-form-checkbox" id="checkbox1" name="filterNew" type="checkbox"
-                               value="chosen">
+                               value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox2">
                         В обработке
                         <input class="account-filter-form-checkbox" id="checkbox2" name="filterInProcessing"
-                               type="checkbox" value="chosen">
+                               type="checkbox" value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox3">
                         Отклонено
                         <input class="account-filter-form-checkbox" id="checkbox3" name="filterRejected" type="checkbox"
-                               value="chosen">
+                               value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox4">
                         Одобрено
                         <input class="account-filter-form-checkbox" id="checkbox4" name="filterApproved" type="checkbox"
-                               value="chosen">
+                               value="true">
                     </label>
                 </li>
                 <li>
@@ -96,7 +96,7 @@
                 <th>Журнал действий</th>
                 <th>Удалить</th>
             </tr>
-            <tr th:each="notification : ${notifications}">
+            <tr th:each="notification : ${stateOfPage.page}">
                 <td th:text="${notification.id}">id</td>
                 <td th:text="${notification.notificationType}">notification_type</td>
                 <td th:text="${notification.organization.name}">org_name</td>
@@ -138,31 +138,31 @@
         </table>
         <section class="account-main-manager">
             <div class="account-main-manager-total_elements">
-                <p>Найдено записей: <span th:text="${notifications.getTotalElements()}"></span></p>
+                <p>Найдено записей: <span th:text="${stateOfPage.page.totalElements}"></span></p>
             </div>
             <div>
                 <nav aria-label="Pagination" class="account-main-notifications-manager-pagination"
-                     th:if="${notifications.totalPages gt 0}">
+                     th:if="${stateOfPage.page.totalPages gt 0}">
                     <ul class="pagination justify-content-center font-weight-bold">
-                        <li class="page-item" th:classappend="${notifications.number eq 0} ? 'disabled'">
+                        <li class="page-item" th:classappend="${stateOfPage.page.number eq 0} ? 'disabled'">
                             <a aria-label="Previous"
                                class="page-link"
                                data-toggle="tooltip"
-                               th:href="@{/account/?page={id}(id=${notifications.number lt 2 ? 1 : notifications.number})}"
+                               th:href="@{/account/?page={id}(id=${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number})}"
                                title="Previous Page">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item" th:classappend="${i eq notifications.number + 1} ? 'active'"
-                            th:each="i : ${#numbers.sequence( 1, notifications.totalPages, 1)}">
+                        <li class="page-item" th:classappend="${i eq stateOfPage.page.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( 1, stateOfPage.page.totalPages, 1)}">
                             <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"
                                th:text="${i}" th:title="${'Page '+ i}"></a>
                         </li>
                         <li class="page-item"
-                            th:classappend="${notifications.number + 1 eq notifications.totalPages} ? 'disabled'">
+                            th:classappend="${stateOfPage.page.number + 1 eq stateOfPage.page.totalPages} ? 'disabled'">
                             <a aria-label="Next"
                                class="page-link"
-                               data-toggle="tooltip" th:href="@{/account/?page={id}(id=${notifications.number + 2})}"
+                               data-toggle="tooltip" th:href="@{/account/?page={id}(id=${stateOfPage.page.number + 2})}"
                                title="Next Page">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
