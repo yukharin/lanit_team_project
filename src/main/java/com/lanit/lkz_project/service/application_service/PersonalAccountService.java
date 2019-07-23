@@ -1,7 +1,7 @@
 package com.lanit.lkz_project.service.application_service;
 
-import com.lanit.lkz_project.dao.application_dao.NotificationRepositoryCustomImpl;
 import com.lanit.lkz_project.entities.*;
+import com.lanit.lkz_project.repositories.entitity_repositories.NotificationRepository;
 import com.lanit.lkz_project.service.entities_service.ActionService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
@@ -35,7 +35,7 @@ public class PersonalAccountService {
     @Autowired
     private ActionService actionService;
     @Autowired
-    private NotificationRepositoryCustomImpl notificationRepositoryCustom;
+    private NotificationRepository notificationRepository;
 
     @Transactional
     public PageImpl<Notification> getPage(User user,
@@ -50,7 +50,7 @@ public class PersonalAccountService {
                 applyFilters, filterNew, filterInProcessing, filterApproved, filterRejected);
 
         Pageable pageable = createPageRequest(pageParam, sizeParam);
-        notificationRepositoryCustom.getAccountNotifications(pageState, pageable);
+        notificationRepository.getAccountNotifications(pageState, pageable);
         return new PageImpl<>(pageState.getPageData(), pageable, pageState.getTotal());
     }
 

@@ -1,8 +1,8 @@
 package com.lanit.lkz_project.service.entities_service;
 
 
-import com.lanit.lkz_project.dao.entities_dao.UserRepository;
 import com.lanit.lkz_project.entities.User;
+import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.dao.entities_dao;
+package com.lanit.lkz_project.repositories.entitity_repositories;
 
 import com.lanit.lkz_project.entities.Action;
 import org.springframework.data.jpa.repository.JpaRepository;

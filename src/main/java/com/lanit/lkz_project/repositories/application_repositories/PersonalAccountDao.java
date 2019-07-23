@@ -1,30 +1,31 @@
-package com.lanit.lkz_project.dao.application_dao;
-
+package com.lanit.lkz_project.repositories.application_repositories;
 
 import com.lanit.lkz_project.entities.Notification;
 import com.lanit.lkz_project.entities.NotificationStatus;
 import com.lanit.lkz_project.entities.PersonalAccountStateOfPage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
 @Repository
-public class NotificationRepositoryCustomImpl implements NotificationRepositoryCustom {
+public class PersonalAccountDao {
 
-    @PersistenceContext
-    EntityManager entityManager;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
 
-    @Override
-    public void getAccountNotifications(PersonalAccountStateOfPage page, Pageable pageable) {
+    public void setPageState(PersonalAccountStateOfPage page, Pageable pageable) {
+
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         if (page.getFiltration() == true) {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Notification> criteriaQuery = criteriaBuilder.createQuery(Notification.class);
@@ -57,5 +58,4 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
             page.setTotal(totalNotifications);
         }
     }
-
 }

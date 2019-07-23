@@ -67,5 +67,5 @@
         <prop key="hibernate.jdbc.fetch_size">50</prop>
     </util:properties>
 
-    <jpa:repositories base-package="com.lanit.lkz_project.dao" repository-impl-postfix="CustomImpl"/>
+    <jpa:repositories base-package="com.lanit.lkz_project.repositories" repository-impl-postfix="CustomImpl"/>
 </beans>
