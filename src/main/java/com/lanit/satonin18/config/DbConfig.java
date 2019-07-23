@@ -59,7 +59,6 @@ public class DbConfig {
 
 		factoryBean.setHibernateProperties(props);
 
-
 		factoryBean.setPackagesToScan("com.lanit.satonin18.mvc.entity");
 //		factoryBean.setAnnotatedClasses(
 //				ActionType.class,

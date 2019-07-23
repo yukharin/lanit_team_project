@@ -1,6 +1,8 @@
 package com.lanit.satonin18.mvc.entity;
 
 import lombok.*;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,8 +12,8 @@ import java.io.Serializable;
 @Data //get and set
 //@ToString //can be loop
 @EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class User implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
@@ -26,7 +28,7 @@ public class User implements Serializable {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @ManyToOne//(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
     private Organization organization;
 
@@ -38,5 +40,22 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
 //                ", organization=" + organization +
                 '}';
+    }
+
+//    @PostConstruct
+//    private void p() {
+//        System.out.println("eeeeeeeeeeeeeeeeeeeee");
+//    }
+
+    public User() {
+        System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuu");
+    }
+
+    public User(String firstName, String lastName, Organization organization) {
+        super();
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.organization = organization;
     }
 }

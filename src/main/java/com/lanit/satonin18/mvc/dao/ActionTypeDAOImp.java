@@ -7,10 +7,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository("actionTypeDAO")
+//@Transactional
 public class ActionTypeDAOImp implements CrudDAO<ActionType> {
 
    @Autowired
@@ -58,11 +60,11 @@ public class ActionTypeDAOImp implements CrudDAO<ActionType> {
    public ActionType getById(int id) {
       //Session session = sessionFactory.getCurrentSession();
       try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          ActionType actionType = session.get(ActionType.class, id);
 
-         tx1.commit();
+//         tx1.commit();
          return actionType;
       }
    }
@@ -71,11 +73,11 @@ public class ActionTypeDAOImp implements CrudDAO<ActionType> {
    public List<ActionType> list() {
       //Session session = sessionFactory.getCurrentSession();
       try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          List<ActionType> actionTypes = session.createQuery("from ActionType", ActionType.class).list();
 
-         tx1.commit();
+//         tx1.commit();
          return actionTypes;
       }
    }

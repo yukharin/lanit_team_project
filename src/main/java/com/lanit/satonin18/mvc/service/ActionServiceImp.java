@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service("actionService")
-@Transactional
 public class ActionServiceImp implements ActionService {
 
    @Autowired

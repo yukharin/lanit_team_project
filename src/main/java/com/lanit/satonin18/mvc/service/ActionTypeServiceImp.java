@@ -5,11 +5,9 @@ import com.lanit.satonin18.mvc.entity.ActionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service("actionTypeService")
-@Transactional
 public class ActionTypeServiceImp implements CrudService<ActionType>  {
 
    @Autowired

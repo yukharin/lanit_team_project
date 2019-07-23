@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository("notificationStatusDAO")
+//@Transactional
 public class NotificationStatusDAOImp implements NotificationStatusDAO {
 
    @Autowired
@@ -22,7 +23,7 @@ public class NotificationStatusDAOImp implements NotificationStatusDAO {
    public List<NotificationStatus> filterIds(String[] ids) {
       //Session session = sessionFactory.getCurrentSession();
       try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 //           //ONLY NEED JOIN(or use List) AND HQL-request
 //            StringBuilder sql = new StringBuilder();
 //            for (int i=0; i<ids.length; i++) {
@@ -81,7 +82,7 @@ public class NotificationStatusDAOImp implements NotificationStatusDAO {
 //            }
 
          List<NotificationStatus> list = theQuery.getResultList();
-         tx1.commit();
+//         tx1.commit();
          return list;
       }
    }
@@ -129,11 +130,11 @@ public class NotificationStatusDAOImp implements NotificationStatusDAO {
    public NotificationStatus getById(int id) {
       //Session session = sessionFactory.getCurrentSession();
       try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          NotificationStatus notificationStatus = session.get(NotificationStatus.class, id);
 
-         tx1.commit();
+//         tx1.commit();
          return notificationStatus;
       }
    }
@@ -142,11 +143,11 @@ public class NotificationStatusDAOImp implements NotificationStatusDAO {
    public List<NotificationStatus> list() {
       //Session session = sessionFactory.getCurrentSession();
       try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          List<NotificationStatus> notificationStatuss = session.createQuery("from NotificationStatus", NotificationStatus.class).list();
 
-         tx1.commit();
+//         tx1.commit();
          return notificationStatuss;
       }
    }
@@ -154,7 +155,7 @@ public class NotificationStatusDAOImp implements NotificationStatusDAO {
    public List<NotificationStatus> listByIds(List<Integer> ids) {
       //Session session = sessionFactory.getCurrentSession();
       try (final Session session = sessionFactory.openSession();) {
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          Query theQuery = null;
          theQuery = session.createQuery(
@@ -164,7 +165,7 @@ public class NotificationStatusDAOImp implements NotificationStatusDAO {
          //the
 
          List<NotificationStatus> list = theQuery.getResultList();
-         tx1.commit();
+//         tx1.commit();
          return list;
       }
    }

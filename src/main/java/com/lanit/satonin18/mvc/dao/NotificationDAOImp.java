@@ -10,10 +10,12 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository("notificationDAO")
+//@Transactional
 public class NotificationDAOImp implements NotificationDAO {
 
     @Autowired
@@ -62,11 +64,11 @@ public class NotificationDAOImp implements NotificationDAO {
     public Notification getById(int id) {
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             Notification notification = session.get(Notification.class, id);
 
-            tx1.commit();
+//            tx1.commit();
             return notification;
         }
     }
@@ -75,11 +77,11 @@ public class NotificationDAOImp implements NotificationDAO {
     public List<Notification> list() {
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             List<Notification> notifications = session.createQuery("from Notification", Notification.class).list();
 
-            tx1.commit();
+//            tx1.commit();
             return notifications;
         }
     }
@@ -90,7 +92,7 @@ public class NotificationDAOImp implements NotificationDAO {
             Pagination<Notification> pagination){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
 //            List<Notification> notifications = session.createQuery("from Notification", Notification.class).listByFilterOrg_Order_Pagination();
             StringBuilder sql = new StringBuilder("FROM Notification n WHERE n.organization = :organization ORDER BY n."+orderFieldName);
@@ -102,7 +104,7 @@ public class NotificationDAOImp implements NotificationDAO {
 
             Pagination<Notification> result = pagination.initQuery(query);
 
-            tx1.commit();
+//            tx1.commit();
             return result;
         }
     }
@@ -111,7 +113,7 @@ public class NotificationDAOImp implements NotificationDAO {
     public List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<NotificationStatus> sendedStatuses){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             Query query = null;
             query = session.createQuery(
@@ -121,7 +123,7 @@ public class NotificationDAOImp implements NotificationDAO {
             query.setParameterList("sendedStatuses", sendedStatuses);
 
             List<Notification> list = query.getResultList();
-            tx1.commit();
+//            tx1.commit();
             return list;
         }
     }
@@ -130,7 +132,7 @@ public class NotificationDAOImp implements NotificationDAO {
     public List<Notification> filterOrgAndNotificStatuses(Organization organization, List<NotificationStatus> listNotificStatus){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             Query query = null;
             query = session.createQuery(
@@ -140,7 +142,7 @@ public class NotificationDAOImp implements NotificationDAO {
             query.setParameterList("listNotificStatus", listNotificStatus);
 
             List<Notification> list = query.getResultList();
-            tx1.commit();
+//            tx1.commit();
             return list;
         }
     }
@@ -149,7 +151,7 @@ public class NotificationDAOImp implements NotificationDAO {
     public List<Notification> filterCurrentsAndNotificStatuses(List<Notification> currentNotifications, List<NotificationStatus> listNotificStatus){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 //           //ONLY NEED JOIN(or use List) AND HQL-request
 //            StringBuilder sql = new StringBuilder();
 //            for (int i=0; i<ids.length; i++) {
@@ -204,7 +206,7 @@ public class NotificationDAOImp implements NotificationDAO {
 //            }
 
             List<Notification> list = query.getResultList();
-            tx1.commit();
+//            tx1.commit();
             return list;
         }
     }
@@ -213,7 +215,7 @@ public class NotificationDAOImp implements NotificationDAO {
     public List<Notification> filterOrg(Organization organization){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             Query query = null;
             query = session.createQuery(
@@ -222,7 +224,7 @@ public class NotificationDAOImp implements NotificationDAO {
             query.setParameter("organization", organization);
 
             List<Notification> list = query.getResultList();
-            tx1.commit();
+//            tx1.commit();
             return list;
         }
     }
@@ -231,7 +233,7 @@ public class NotificationDAOImp implements NotificationDAO {
     public List<Notification> filter_Org_NotificStatuses_Archive(Organization organization, List<NotificationStatus> listNotificStatus, List<NotificationStatus> listArchiveStatus){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             Query query = null;
             query = session.createQuery(
@@ -242,7 +244,7 @@ public class NotificationDAOImp implements NotificationDAO {
             query.setParameterList("listArchiveStatus", listArchiveStatus);
 
             List<Notification> list = query.getResultList();
-            tx1.commit();
+//            tx1.commit();
             return list;
         }
     }
@@ -257,7 +259,7 @@ public class NotificationDAOImp implements NotificationDAO {
     ){
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             //TODO REPLASE ON Simple Join string
             boolean flagContinuationCondition = false;
@@ -294,7 +296,7 @@ public class NotificationDAOImp implements NotificationDAO {
 
             Pagination<Notification> result = pagination.initQuery(query);
 
-            tx1.commit();
+//            tx1.commit();
             return result;
         }
     }

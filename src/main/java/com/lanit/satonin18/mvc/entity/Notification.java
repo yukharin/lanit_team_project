@@ -36,11 +36,11 @@ public class Notification implements Serializable {
     @Column(name = "letter_number", nullable = true, length = 12)
     private String letterNumber;
 
-    @ManyToOne//(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
-    private/*protected*/ Organization organization;
+    private Organization organization;
 
-    @ManyToOne//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
     private NotificationStatus notificationStatus;
 
@@ -55,7 +55,7 @@ public class Notification implements Serializable {
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE
     )
-    @OneToMany(mappedBy = "notification")//, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "notification")
     private List<Action> actions;
 
     @Override

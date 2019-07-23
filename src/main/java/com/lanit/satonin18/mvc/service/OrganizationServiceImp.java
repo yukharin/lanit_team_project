@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service("organizationService")
-@Transactional
 public class OrganizationServiceImp  implements OrganizationService {
 
     @Autowired

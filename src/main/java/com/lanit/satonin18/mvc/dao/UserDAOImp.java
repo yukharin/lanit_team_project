@@ -8,9 +8,12 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository("userDAO")
+//@Transactional
 public class UserDAOImp implements UserDAO{
 
    @Autowired
@@ -18,9 +21,9 @@ public class UserDAOImp implements UserDAO{
 
    @Override
    public List<User> searchUserByLastName(String theSearchName) {
-      //Session session = sessionFactory.getCurrentSession();
-      try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+      //Session session = sessionFactory.getCurrentSession(); // сессия из @Transactional
+      try(final Session session = sessionFactory.openSession();){ //сессия НЕ из @Transactional
+//         Transaction tx1 = session.beginTransaction();
 
          Query theQuery = null;
          // only search by name if theSearchName is not empty
@@ -35,7 +38,7 @@ public class UserDAOImp implements UserDAO{
          }
          List<User> list = theQuery.getResultList();
 
-         tx1.commit();
+//         tx1.commit();
          return list;
       }
    }
@@ -83,11 +86,11 @@ public class UserDAOImp implements UserDAO{
    public User getById(int id) {
       //Session session = sessionFactory.getCurrentSession();
       try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          User user = session.get(User.class, id);
 
-         tx1.commit();
+//         tx1.commit();
          return user;
       }
    }
@@ -96,11 +99,11 @@ public class UserDAOImp implements UserDAO{
    public List<User> list() {
       //Session session = sessionFactory.getCurrentSession();
       try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          List<User> users = session.createQuery("from User", User.class).list();
 
-         tx1.commit();
+//         tx1.commit();
          return users;
       }
    }

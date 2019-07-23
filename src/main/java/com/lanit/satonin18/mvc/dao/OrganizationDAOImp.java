@@ -7,9 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Repository("organizationDAO")
+//@Transactional
 public class OrganizationDAOImp implements CrudDAO<Organization> {
 
     //private SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
@@ -64,11 +66,11 @@ public class OrganizationDAOImp implements CrudDAO<Organization> {
     public Organization getById(int id) {
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             Organization organization = session.get(Organization.class, id);
 
-            tx1.commit();
+//            tx1.commit();
             return organization;
         }
     }
@@ -77,11 +79,11 @@ public class OrganizationDAOImp implements CrudDAO<Organization> {
     public List<Organization> list() {
         //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+//            Transaction tx1 = session.beginTransaction();
 
             List<Organization> organizations = session.createQuery("from Organization", Organization.class).list();
 
-            tx1.commit();
+//            tx1.commit();
             return organizations;
         }
     }

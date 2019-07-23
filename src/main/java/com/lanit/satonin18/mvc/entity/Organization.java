@@ -34,15 +34,14 @@ public class Organization implements Serializable {
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE
     )
-    @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL))
-    private/*protected*/ List<User> users;// = new ArrayList<User>();
+    @OneToMany(mappedBy = "organization")
+    private List<User> users;// = new ArrayList<User>();
 
-    //TODO: CAN BE ADDED AUTO TRUE SORT @ORDER BY DATA_RESPONSE@ or comporator in other level abstract ???
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE
     )
-    @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)//, cascade = CascadeType.ALL)//FetchType.LAZY)//
-    private/*protected*/ List<Notification> notifications;// = new ArrayList<Notification>();
+    @OneToMany(mappedBy = "organization")
+    private List<Notification> notifications;// = new ArrayList<Notification>();
 
     @Override
     public String toString() {

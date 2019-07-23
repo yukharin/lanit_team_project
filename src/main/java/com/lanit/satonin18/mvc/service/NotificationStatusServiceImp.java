@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service("notificationStatusService")
-@Transactional
 public class NotificationStatusServiceImp implements NotificationStatusService {
 
    @Autowired

@@ -9,10 +9,12 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository("actionDAO")
+//@Transactional
 public class ActionDAOImp implements ActionDAO {
 
    @Autowired
@@ -73,11 +75,11 @@ public class ActionDAOImp implements ActionDAO {
    public Action getById(int id) {
       //Session session = sessionFactory.getCurrentSession();
       try (final Session session = sessionFactory.openSession();) {
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          Action action = session.get(Action.class, id);
 
-         tx1.commit();
+//         tx1.commit();
          return action;
       }
    }
@@ -86,11 +88,11 @@ public class ActionDAOImp implements ActionDAO {
    public List<Action> list() {
       //Session session = sessionFactory.getCurrentSession();
       try (final Session session = sessionFactory.openSession();) {
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          List<Action> actions = session.createQuery("from Action", Action.class).list();
 
-         tx1.commit();
+//         tx1.commit();
          return actions;
       }
    }
@@ -98,7 +100,7 @@ public class ActionDAOImp implements ActionDAO {
    public List<Action> listByIdNotification(Notification notification) {
       //Session session = sessionFactory.getCurrentSession();
       try (final Session session = sessionFactory.openSession();) {
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          Query<Action> query = session.createQuery("FROM Action AS a WHERE a.notification = :notification", Action.class);
 
@@ -106,7 +108,7 @@ public class ActionDAOImp implements ActionDAO {
 
          List<Action> actions = query.list();
 
-         tx1.commit();
+//         tx1.commit();
          return actions;
       }
    }
@@ -117,7 +119,7 @@ public class ActionDAOImp implements ActionDAO {
            Pagination<Action> actionPagination) {
       //Session session = sessionFactory.getCurrentSession();
       try (final Session session = sessionFactory.openSession();) {
-         Transaction tx1 = session.beginTransaction();
+//         Transaction tx1 = session.beginTransaction();
 
          StringBuilder sql = new StringBuilder(
                  "FROM Action a");
@@ -134,7 +136,7 @@ public class ActionDAOImp implements ActionDAO {
 
          Pagination<Action> result = actionPagination.initQuery(query);
 
-         tx1.commit();
+//         tx1.commit();
          return result;
       }
    }
