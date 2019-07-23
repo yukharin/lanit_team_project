@@ -1,6 +1,5 @@
 package com.lanit.satonin18.config;
 
-import com.lanit.satonin18.mvc.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +9,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.annotation.PostConstruct;
 import java.util.Properties;
 import static org.hibernate.cfg.AvailableSettings.*;
 import static org.hibernate.cfg.AvailableSettings.C3P0_MAX_STATEMENTS;
@@ -22,8 +23,14 @@ public class DbConfig {
 	@Autowired
 	private Environment env;//	private ApplicationContext context;
 
+   @PostConstruct
+   private void p() {
+      System.out.println("pppppppppppppppppppppppppppppppppppppppp");
+   }
+
 	@Bean
 	public LocalSessionFactoryBean getSessionFactory() {
+		System.out.println("ssssssssssssssssssssssssssssssssssssssssssss");
 		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
 //		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));

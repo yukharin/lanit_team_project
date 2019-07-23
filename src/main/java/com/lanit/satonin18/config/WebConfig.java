@@ -20,10 +20,10 @@ import org.springframework.web.servlet.view.JstlView;
         @ComponentScan(
                 basePackages = { "com.lanit.satonin18.mvc"}
         )
-        ,
-        @ComponentScan(
-                basePackages = { "com.lanit.satonin18.config"}
-        )
+//        ,
+//        @ComponentScan(
+//                basePackages = { "com.lanit.satonin18.config"}
+//        )
 })
 public class WebConfig implements WebMvcConfigurer {
 

@@ -40,7 +40,7 @@ public class Notification implements Serializable {
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
     private/*protected*/ Organization organization;
 
-    @ManyToOne
+    @ManyToOne//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
     private NotificationStatus notificationStatus;
 
