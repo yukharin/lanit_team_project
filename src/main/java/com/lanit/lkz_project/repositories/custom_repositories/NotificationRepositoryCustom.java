@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.repositories.application_repositories;
+package com.lanit.lkz_project.repositories.custom_repositories;
 
 import com.lanit.lkz_project.entities.PersonalAccountStateOfPage;
 import org.springframework.data.domain.Pageable;

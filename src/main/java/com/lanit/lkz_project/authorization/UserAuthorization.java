@@ -9,7 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 @Repository
-public class UserDaoAuthorization {
+public class UserAuthorization {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;

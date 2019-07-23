@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
-import com.lanit.lkz_project.authorization.UserServiceAuthorization;
+import com.lanit.lkz_project.authorization.UserAuthorizationService;
 import com.lanit.lkz_project.entities.Organization;
 import com.lanit.lkz_project.entities.User;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
@@ -23,7 +23,7 @@ public class HomePageController {
     private OrganizationService organizationService;
 
     @Autowired
-    private UserServiceAuthorization userServiceAuthorization;
+    private UserAuthorizationService userServiceAuthorization;
 
 
     @RequestMapping("/")

@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
-import com.lanit.lkz_project.authorization.UserServiceAuthorization;
+import com.lanit.lkz_project.authorization.UserAuthorizationService;
 import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.entities_service.NotificationService;
@@ -32,7 +32,7 @@ public class PersonalAccountController {
     @Autowired
     private PersonalAccountService personalAccountService;
     @Autowired
-    private UserServiceAuthorization userAuthorization;
+    private UserAuthorizationService userAuthorization;
 
     @GetMapping("/account/")
     public String getPage(@NonNull @SessionAttribute String login,
