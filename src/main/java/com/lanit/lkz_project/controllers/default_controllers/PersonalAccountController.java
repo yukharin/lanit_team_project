@@ -34,6 +34,7 @@ public class PersonalAccountController {
     @Autowired
     private UserAuthorizationService userAuthorization;
 
+
     @GetMapping("/account/")
     public String getPage(@NonNull @SessionAttribute String login,
                           @NonNull @SessionAttribute String password,

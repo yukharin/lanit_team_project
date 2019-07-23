@@ -17,7 +17,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Random;
 
 @Service
@@ -100,18 +99,6 @@ public class PersonalAccountService {
             pageSize = Integer.parseInt(sizeParam);
         }
         return PageRequest.of(pageNumber, pageSize);
-    }
-
-    private List<Notification> defineUserNotifications(@NonNull User user) {
-        Role role = user.getRole();
-        switch (role) {
-            case AUTHORITY:
-                return notificationService.notifications();
-            case EMPLOYEE:
-                return user.getOrganization().getNotifications();
-            default:
-                throw new IllegalStateException("Invalid user role");
-        }
     }
 
 

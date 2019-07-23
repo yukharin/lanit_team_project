@@ -19,7 +19,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
     EntityManager entityManager;
 
     @Override
-    public void setStateOfPage(PersonalAccountStateOfPage<Notification> page, Pageable pageable, User user) {
+    public void setStateOfPage(final PersonalAccountStateOfPage<Notification> page, final Pageable pageable, final User user) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
         final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);

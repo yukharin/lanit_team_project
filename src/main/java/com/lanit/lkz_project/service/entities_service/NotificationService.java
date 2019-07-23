@@ -37,7 +37,7 @@ public class NotificationService {
 
     @Transactional
     public Notification getNotification(long id) {
-        return notificationRepository.getOne(id);
+        return notificationRepository.findById(id).get();
     }
 
     @Transactional

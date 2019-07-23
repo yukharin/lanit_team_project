@@ -10,5 +10,4 @@ public interface NotificationRepositoryCustom {
     void setStateOfPage(PersonalAccountStateOfPage<Notification> page,
                         Pageable pageable, User user);
 
-
 }
