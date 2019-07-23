@@ -45,12 +45,13 @@ public class PersonalAccountService {
                                           String filterNew,
                                           String filterInProcessing,
                                           String filterApproved,
-                                          String filterRejected) {
+                                          String filterRejected,
+                                          String timeFilter) {
         PersonalAccountStateOfPage<Notification> pageState = createPageState(
                 applyFilters, filterNew, filterInProcessing, filterApproved, filterRejected);
 
         Pageable pageable = createPageRequest(pageParam, sizeParam);
-        notificationRepository.getAccountNotifications(pageState, pageable);
+        notificationRepository.setStateOfPage(pageState, pageable, user);
         return new PageImpl<>(pageState.getPageData(), pageable, pageState.getTotal());
     }
 
@@ -61,7 +62,7 @@ public class PersonalAccountService {
                                                                      String filterRejected) {
         PersonalAccountStateOfPage<Notification> accountPage = new PersonalAccountStateOfPage<>();
         if (applyFilters != null && applyFilters.equals("true")) {
-            accountPage.setFiltration(true);
+            accountPage.setFiltered(true);
         }
         if (filterApproved != null && filterApproved.equals("chosen")) {
             accountPage.addFilters(NotificationStatus.APPROVED);

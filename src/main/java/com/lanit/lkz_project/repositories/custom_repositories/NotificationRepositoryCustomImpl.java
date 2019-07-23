@@ -1,9 +1,7 @@
 package com.lanit.lkz_project.repositories.custom_repositories;
 
 
-import com.lanit.lkz_project.entities.Notification;
-import com.lanit.lkz_project.entities.NotificationStatus;
-import com.lanit.lkz_project.entities.PersonalAccountStateOfPage;
+import com.lanit.lkz_project.entities.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -22,40 +20,46 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
     @PersistenceContext
     EntityManager entityManager;
 
-
     @Override
-    public void getAccountNotifications(PersonalAccountStateOfPage page, Pageable pageable) {
-        if (page.getFiltration() == true) {
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Notification> criteriaQuery = criteriaBuilder.createQuery(Notification.class);
-            Root<Notification> root = criteriaQuery.from(Notification.class);
-            Path<NotificationStatus> status = root.get("status");
-            List<Predicate> filterStatusPredicates = new ArrayList<>();
+    public void setStateOfPage(PersonalAccountStateOfPage<Notification> page, Pageable pageable, User user) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
+        CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
+        Root<Notification> table = notificationsQuery.from(Notification.class);
+
+
+        // predicates initialization
+        Predicate orgPredicate = builder.conjunction();
+        Predicate statusPredicate = builder.conjunction();
+        Order byDate = builder.asc(table.get("dateReceived"));
+
+        if (user.getRole() == Role.EMPLOYEE) {
+            orgPredicate = builder.equal(table.get("organization"), user.getOrganization());
+        }
+        if (page.isFiltered()) {
+            Path<NotificationStatus> status = table.get("status");
+            List<Predicate> statusPredicates = new ArrayList<>();
             Set<NotificationStatus> set = page.getActiveFiltersByStatus();
             for (NotificationStatus notificationStatus : set) {
-                filterStatusPredicates.add(criteriaBuilder.equal(root.get("status"), notificationStatus));
+                statusPredicates.add(builder.equal(status, notificationStatus));
             }
-            criteriaQuery.select(root).distinct(true).where(criteriaBuilder.or(filterStatusPredicates.toArray(new Predicate[filterStatusPredicates.size()])));
-            TypedQuery<Notification> typedQuery = entityManager.createQuery(criteriaQuery);
-            int totalNotifications = typedQuery.getResultList().size();
-            typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-            typedQuery.setMaxResults(pageable.getPageSize());
-            List<Notification> resultList = typedQuery.getResultList();
-            page.setPageData(resultList);
-            page.setTotal(totalNotifications);
-        } else {
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Notification> criteriaQuery = criteriaBuilder.createQuery(Notification.class);
-            Root<Notification> root = criteriaQuery.from(Notification.class);
-            criteriaQuery.select(root).distinct(true);
-            TypedQuery<Notification> typedQuery = entityManager.createQuery(criteriaQuery);
-            int totalNotifications = typedQuery.getResultList().size();
-            typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-            typedQuery.setMaxResults(pageable.getPageSize());
-            List<Notification> resultList = typedQuery.getResultList();
-            page.setPageData(resultList);
-            page.setTotal(totalNotifications);
+            statusPredicate = builder.or(statusPredicates.toArray(new Predicate[0]));
         }
+
+        Predicate resultingPredicate = builder.and(orgPredicate, statusPredicate);
+        notificationsQuery
+                .select(table)
+                .distinct(true)
+                .where(builder.and(resultingPredicate))
+                .orderBy(byDate);
+        TypedQuery<Notification> typedQuery = entityManager.createQuery(notificationsQuery);
+        totalNotifications.select(builder.count(totalNotifications.from(Notification.class))).where(builder.and(statusPredicate, orgPredicate));
+        long count = entityManager.createQuery(totalNotifications).getSingleResult();
+        typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        typedQuery.setMaxResults(pageable.getPageSize());
+        List<Notification> resultList = typedQuery.getResultList();
+        page.setPageData(resultList);
+        page.setTotal(count);
     }
 
 }

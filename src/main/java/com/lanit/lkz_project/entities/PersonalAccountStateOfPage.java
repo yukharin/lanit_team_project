@@ -1,39 +1,36 @@
 package com.lanit.lkz_project.entities;
 
-import org.springframework.data.domain.Page;
-
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
 public class PersonalAccountStateOfPage<T> {
 
-    private boolean filtration;
+    private boolean isFiltered;
 
     private EnumSet<NotificationStatus> activeFiltersByStatus;
 
     private List<T> pageData;
 
-    private Page<T> page;
+    private long total;
 
-    private int total;
+
 
     public PersonalAccountStateOfPage() {
         activeFiltersByStatus = EnumSet.noneOf(NotificationStatus.class);
     }
 
     public void addFilters(NotificationStatus... statuses) {
-        for (NotificationStatus status : statuses) {
-            activeFiltersByStatus.add(status);
-        }
+        activeFiltersByStatus.addAll(Arrays.asList(statuses));
     }
 
-    public boolean getFiltration() {
-        return filtration;
+    public boolean isFiltered() {
+        return isFiltered;
     }
 
-    public void setFiltration(boolean filtration) {
-        this.filtration = filtration;
+    public void setFiltered(boolean filtered) {
+        this.isFiltered = filtered;
     }
 
     public Set<NotificationStatus> getActiveFiltersByStatus() {
@@ -49,19 +46,12 @@ public class PersonalAccountStateOfPage<T> {
         this.pageData = pageData;
     }
 
-    public Page<T> getPage() {
-        return page;
-    }
 
-    public void setPage(Page<T> page) {
-        this.page = page;
-    }
-
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 }

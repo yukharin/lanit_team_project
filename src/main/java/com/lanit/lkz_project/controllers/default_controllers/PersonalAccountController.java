@@ -44,6 +44,7 @@ public class PersonalAccountController {
                           @RequestParam(required = false) String applyFilters,
                           @RequestParam(required = false) String page,
                           @RequestParam(required = false) String size,
+                          @RequestParam(required = false) String timeFilter,
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
         @NonNull PageImpl<Notification> accountPage = personalAccountService.getPage(user, page, size,
@@ -51,7 +52,8 @@ public class PersonalAccountController {
                 filterNew,
                 filterInProcessing,
                 filterApproved,
-                filterRejected);
+                filterRejected,
+                timeFilter);
         model.addAttribute("notifications", accountPage);
         model.addAttribute("user", user);
         return "personalAccount";
