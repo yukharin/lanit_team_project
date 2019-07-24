@@ -60,16 +60,16 @@ public class PersonalAccountService {
                                                               String filterRejected, String timeFilter) {
         PersonalAccountPage<Notification> accountPage = new PersonalAccountPage<>();
         if (filterApproved != null && filterApproved.equals("true")) {
-            accountPage.addFilters(NotificationStatus.APPROVED);
+            accountPage.setApprovedFilter(true);
         }
         if (filterInProcessing != null && filterInProcessing.equals("true")) {
-            accountPage.addFilters(NotificationStatus.IN_PROCESSING);
+            accountPage.setInProcessingFilter(true);
         }
         if (filterNew != null && filterNew.equals("true")) {
-            accountPage.addFilters(NotificationStatus.NEW);
+            accountPage.setNewFilter(true);
         }
         if (filterRejected != null && filterRejected.equals("true")) {
-            accountPage.addFilters(NotificationStatus.REJECTED);
+            accountPage.setRejectedFilter(true);
         }
         if (timeFilter != null) {
             switch (timeFilter) {

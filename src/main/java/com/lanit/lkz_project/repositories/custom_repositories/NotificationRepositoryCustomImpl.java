@@ -11,7 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 @Repository
@@ -36,13 +39,27 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         if (user.getRole() == Role.EMPLOYEE) {
             orgPredicate = builder.equal(table.get("organization"), user.getOrganization());
         }
-        if (!page.getActiveFiltersByStatus().isEmpty()) {
-            Path<NotificationStatus> status = table.get("status");
-            List<Predicate> statusPredicates = new ArrayList<>();
-            Set<NotificationStatus> set = page.getActiveFiltersByStatus();
-            for (NotificationStatus notificationStatus : set) {
-                statusPredicates.add(builder.equal(status, notificationStatus));
-            }
+
+        List<Predicate> statusPredicates = new ArrayList<>();
+        Path<NotificationStatus> status = table.get("status");
+
+        if (page.isNewFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.NEW));
+        }
+
+        if (page.isInProcessingFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.IN_PROCESSING));
+        }
+
+        if (page.isApprovedFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.APPROVED));
+        }
+
+        if (page.isRejectedFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.REJECTED));
+        }
+
+        if (!statusPredicates.isEmpty()) {
             statusPredicate = builder.or(statusPredicates.toArray(new Predicate[0]));
         }
 

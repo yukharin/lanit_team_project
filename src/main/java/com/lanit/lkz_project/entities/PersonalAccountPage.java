@@ -4,29 +4,20 @@ package com.lanit.lkz_project.entities;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-
 @Data
 public class PersonalAccountPage<T> {
-
-    private EnumSet<NotificationStatus> activeFiltersByStatus;
 
     private Page<T> page;
 
     private TimeFilter timeFilter = TimeFilter.Off;
 
-    public TimeFilter getTimeFilter() {
-        return timeFilter;
-    }
+    private boolean newFilter = false;
 
-    public PersonalAccountPage() {
-        activeFiltersByStatus = EnumSet.noneOf(NotificationStatus.class);
-    }
+    private boolean inProcessingFilter = false;
 
-    public void addFilters(NotificationStatus... statuses) {
-        activeFiltersByStatus.addAll(Arrays.asList(statuses));
-    }
+    private boolean approvedFilter = false;
+
+    private boolean rejectedFilter = false;
 
 
     public enum TimeFilter {
@@ -44,8 +35,6 @@ public class PersonalAccountPage<T> {
         public int days() {
             return days;
         }
-
     }
-
 
 }
