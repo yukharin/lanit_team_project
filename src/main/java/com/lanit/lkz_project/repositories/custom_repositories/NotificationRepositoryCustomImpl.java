@@ -40,25 +40,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
             orgPredicate = builder.equal(table.get("organization"), user.getOrganization());
         }
 
-        List<Predicate> statusPredicates = new ArrayList<>();
-        Path<NotificationStatus> status = table.get("status");
-
-        if (page.isNewFilter()) {
-            statusPredicates.add(builder.equal(status, NotificationStatus.NEW));
-        }
-
-        if (page.isInProcessingFilter()) {
-            statusPredicates.add(builder.equal(status, NotificationStatus.IN_PROCESSING));
-        }
-
-        if (page.isApprovedFilter()) {
-            statusPredicates.add(builder.equal(status, NotificationStatus.APPROVED));
-        }
-
-        if (page.isRejectedFilter()) {
-            statusPredicates.add(builder.equal(status, NotificationStatus.REJECTED));
-        }
-
+        List<Predicate> statusPredicates = generateFilterPredicates(builder, table, page);
         if (!statusPredicates.isEmpty()) {
             statusPredicate = builder.or(statusPredicates.toArray(new Predicate[0]));
         }
@@ -87,6 +69,28 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
 
         final long count = entityManager.createQuery(totalNotifications).getSingleResult();
         return new PageImpl<>(resultList, pageable, count);
+    }
+
+    private List<Predicate> generateFilterPredicates(final CriteriaBuilder builder,
+                                                     final Root<Notification> table, final PersonalAccountPage<Notification> page) {
+        Path<NotificationStatus> status = table.get("status");
+        List<Predicate> statusPredicates = new ArrayList<>();
+        if (page.isNewFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.NEW));
+        }
+
+        if (page.isInProcessingFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.IN_PROCESSING));
+        }
+
+        if (page.isApprovedFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.APPROVED));
+        }
+
+        if (page.isRejectedFilter()) {
+            statusPredicates.add(builder.equal(status, NotificationStatus.REJECTED));
+        }
+        return statusPredicates;
     }
 
 }
