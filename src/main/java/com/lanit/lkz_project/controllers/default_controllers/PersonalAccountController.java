@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
@@ -37,23 +38,25 @@ public class PersonalAccountController {
     @GetMapping("/account/")
     public String getPage(@NonNull @SessionAttribute String login,
                           @NonNull @SessionAttribute String password,
+                          @RequestParam(required = false) String page,
+                          @RequestParam(required = false) String size,
                           @RequestParam(required = false) String filterNew,
                           @RequestParam(required = false) String filterInProcessing,
                           @RequestParam(required = false) String filterApproved,
                           @RequestParam(required = false) String filterRejected,
-                          @RequestParam(required = false) String page,
-                          @RequestParam(required = false) String size,
                           @RequestParam(required = false) String timeFilter,
-                          Model model) {
+                          Model model,
+                          HttpSession session) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        @NonNull PersonalAccountPage<Notification> stateOfPage = personalAccountService.getPage(user, page, size,
-                filterNew,
-                filterInProcessing,
-                filterApproved,
-                filterRejected,
-                timeFilter);
-        model.addAttribute("stateOfPage", stateOfPage);
-        model.addAttribute("user", user);
+        PersonalAccountPage<Notification> accountPage =
+                (PersonalAccountPage<Notification>) session.getAttribute("stateOfPage");
+        if (accountPage == null) {
+            accountPage = new PersonalAccountPage<>();
+        }
+        personalAccountService.getPage(accountPage, user, page, size,
+                filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
+        session.setAttribute("stateOfPage", accountPage);
+        session.setAttribute("user", user);
         return "personalAccount";
     }
 

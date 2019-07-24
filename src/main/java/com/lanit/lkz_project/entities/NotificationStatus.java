@@ -5,12 +5,21 @@ import java.util.Set;
 
 public enum NotificationStatus {
 
-    NEW, IN_PROCESSING, REJECTED, APPROVED;
+    NEW("Новое"), IN_PROCESSING("В работе"), REJECTED("Отклонено"), APPROVED("Одобрено");
+
+    private String message;
+
+    NotificationStatus(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 
     public static Set<NotificationStatus> statuses() {
         return EnumSet.allOf(NotificationStatus.class);
     }
-
 
 
 }

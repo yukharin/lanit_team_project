@@ -6,4 +6,5 @@ console.log(newFilter.value);
 console.log(inProcessingFilter.value);
 console.log(approvedFilter.value);
 console.log(rejectedFilter.value);
+var cleanFiltersButton = document.getElementById("clean_filters");
 

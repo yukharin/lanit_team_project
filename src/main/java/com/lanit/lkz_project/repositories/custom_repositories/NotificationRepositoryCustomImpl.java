@@ -64,7 +64,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         }
 
         PersonalAccountPage.TimeFilter timeFilter = page.getTimeFilter();
-        if (timeFilter != null && timeFilter != PersonalAccountPage.TimeFilter.Off) {
+        if (timeFilter != null && timeFilter != PersonalAccountPage.TimeFilter.NO_FILTER) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.DATE, timeFilter.days());

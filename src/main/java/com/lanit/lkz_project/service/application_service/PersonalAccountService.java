@@ -37,56 +37,60 @@ public class PersonalAccountService {
     private NotificationRepository notificationRepository;
 
     @Transactional
-    public PersonalAccountPage<Notification> getPage(User user,
-                                                     String pageParam,
-                                                     String sizeParam,
-                                                     String filterNew,
-                                                     String filterInProcessing,
-                                                     String filterApproved,
-                                                     String filterRejected,
-                                                     String timeFilter) {
-        PersonalAccountPage<Notification> pageState = createPageState(
-                filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
-
+    public void getPage(PersonalAccountPage page,
+                        User user,
+                        String pageParam,
+                        String sizeParam,
+                        String filterNew,
+                        String filterInProcessing,
+                        String filterApproved,
+                        String filterRejected,
+                        String timeFilter) {
+        setPageState(page, filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
         Pageable pageable = createPageRequest(pageParam, sizeParam);
-        Page<Notification> accountPage = notificationRepository.getAccountPage(pageState, pageable, user);
-        pageState.setPage(accountPage);
-        return pageState;
+        Page<Notification> accountPage = notificationRepository.getAccountPage(page, pageable, user);
+        page.setPage(accountPage);
     }
 
-    private PersonalAccountPage<Notification> createPageState(String filterNew,
-                                                              String filterInProcessing,
-                                                              String filterApproved,
-                                                              String filterRejected, String timeFilter) {
-        PersonalAccountPage<Notification> accountPage = new PersonalAccountPage<>();
+    private void setPageState(PersonalAccountPage page,
+                              String filterNew,
+                              String filterInProcessing,
+                              String filterApproved,
+                              String filterRejected,
+                              String timeFilter) {
         if (filterApproved != null && filterApproved.equals("true")) {
-            accountPage.setApprovedFilter(true);
+            page.setApprovedFilter(true);
+        }
+        if (filterApproved != null && filterApproved.equals("false")) {
+            page.setApprovedFilter(false);
         }
         if (filterInProcessing != null && filterInProcessing.equals("true")) {
-            accountPage.setInProcessingFilter(true);
+            page.setInProcessingFilter(true);
         }
+
         if (filterNew != null && filterNew.equals("true")) {
-            accountPage.setNewFilter(true);
+            page.setNewFilter(true);
         }
+
         if (filterRejected != null && filterRejected.equals("true")) {
-            accountPage.setRejectedFilter(true);
+            page.setRejectedFilter(true);
         }
         if (timeFilter != null) {
-            switch (timeFilter) {
-                case "3_days":
-                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.First);
+            switch (PersonalAccountPage.TimeFilter.valueOf(timeFilter)) {
+                case THREE_DAYS:
+                    page.setTimeFilter(PersonalAccountPage.TimeFilter.THREE_DAYS);
                     break;
-                case "10_days":
-                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.Second);
+                case TEN_DAYS:
+                    page.setTimeFilter(PersonalAccountPage.TimeFilter.TEN_DAYS);
                     break;
-                case "30_days":
-                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.Third);
+                case THIRTY_DAYS:
+                    page.setTimeFilter(PersonalAccountPage.TimeFilter.THIRTY_DAYS);
                     break;
                 default:
-                    accountPage.setTimeFilter(PersonalAccountPage.TimeFilter.Off);
+                    page.setTimeFilter(PersonalAccountPage.TimeFilter.NO_FILTER);
+                    break;
             }
         }
-        return accountPage;
     }
 
     private Pageable createPageRequest(String pageParam, String sizeParam) {

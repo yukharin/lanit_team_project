@@ -59,7 +59,7 @@
                     <label for="select1"> Выберите действие
                         <select id="select1" name="actionTypeParam">
                             <option th:each="actionType : ${actionTypes}"
-                                    th:text="${actionType}"
+                                    th:text="${actionType.message}"
                                     th:value="${actionType}">
                             </option>
                         </select>

@@ -43,7 +43,7 @@
             <td th:text="${action.content}">content</td>
             <td th:text="${action.implementor.firstName}+' '+${action.implementor.lastName}">implementor</td>
             <td th:text="${action.implementor.organization.name}">organization</td>
-            <td th:text="${action.statusAfterAction}">status</td>
+            <td th:text="${action.statusAfterAction.message}">status</td>
         </tr>
     </table>
 </main>

@@ -9,7 +9,7 @@ public class PersonalAccountPage<T> {
 
     private Page<T> page;
 
-    private TimeFilter timeFilter = TimeFilter.Off;
+    private TimeFilter timeFilter = TimeFilter.NO_FILTER;
 
     private boolean newFilter = false;
 
@@ -21,19 +21,26 @@ public class PersonalAccountPage<T> {
 
 
     public enum TimeFilter {
-        First(3), Second(10), Third(30), Off;
+        THREE_DAYS(3, "3 дня"), TEN_DAYS(10, "10 дней"), THIRTY_DAYS(30, "30 дней"), NO_FILTER("Выберите срок предоставления ответа");
 
         private int days;
+        private String message;
 
-        TimeFilter() {
+        TimeFilter(int days, String message) {
+            this.days = days;
+            this.message = message;
         }
 
-        TimeFilter(int days) {
-            this.days = days;
+        TimeFilter(String message) {
+            this.message = message;
         }
 
         public int days() {
             return days;
+        }
+
+        public String message() {
+            return message;
         }
     }
 
