@@ -24,7 +24,6 @@ import java.util.Set;
 @Controller
 public class PersonalAccountController {
 
-
     @Autowired
     private NotificationService notificationService;
     @Autowired
@@ -38,6 +37,7 @@ public class PersonalAccountController {
     @GetMapping("/account/")
     public String getPage(@NonNull @SessionAttribute String login,
                           @NonNull @SessionAttribute String password,
+                          @SessionAttribute(required = false) PersonalAccountPage<Notification> stateOfPage,
                           @RequestParam(required = false) String page,
                           @RequestParam(required = false) String size,
                           @RequestParam(required = false) String filterNew,
@@ -48,15 +48,13 @@ public class PersonalAccountController {
                           Model model,
                           HttpSession session) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        PersonalAccountPage<Notification> accountPage =
-                (PersonalAccountPage<Notification>) session.getAttribute("stateOfPage");
-        if (accountPage == null) {
-            accountPage = new PersonalAccountPage<>();
+        if (stateOfPage == null) {
+            stateOfPage = new PersonalAccountPage<>();
         }
-        personalAccountService.getPage(accountPage, user, page, size,
+        personalAccountService.setAccountPageState(stateOfPage, user, page, size,
                 filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
-        session.setAttribute("stateOfPage", accountPage);
-        session.setAttribute("user", user);
+        session.setAttribute("stateOfPage", stateOfPage);
+        model.addAttribute("user", user);
         return "personalAccount";
     }
 

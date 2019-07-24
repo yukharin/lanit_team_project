@@ -37,27 +37,27 @@ public class PersonalAccountService {
     private NotificationRepository notificationRepository;
 
     @Transactional
-    public void getPage(PersonalAccountPage page,
-                        User user,
-                        String pageParam,
-                        String sizeParam,
-                        String filterNew,
-                        String filterInProcessing,
-                        String filterApproved,
-                        String filterRejected,
-                        String timeFilter) {
-        setPageState(page, filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
+    public void setAccountPageState(PersonalAccountPage page,
+                                    User user,
+                                    String pageParam,
+                                    String sizeParam,
+                                    String filterNew,
+                                    String filterInProcessing,
+                                    String filterApproved,
+                                    String filterRejected,
+                                    String timeFilter) {
+        setFilters(page, filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
         Pageable pageable = createPageRequest(pageParam, sizeParam);
         Page<Notification> accountPage = notificationRepository.getAccountPage(page, pageable, user);
         page.setPage(accountPage);
     }
 
-    private void setPageState(PersonalAccountPage page,
-                              String filterNew,
-                              String filterInProcessing,
-                              String filterApproved,
-                              String filterRejected,
-                              String timeFilter) {
+    private void setFilters(PersonalAccountPage page,
+                            String filterNew,
+                            String filterInProcessing,
+                            String filterApproved,
+                            String filterRejected,
+                            String timeFilter) {
         if (filterApproved != null && filterApproved.equals("true")) {
             page.setApprovedFilter(true);
         }

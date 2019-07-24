@@ -12,7 +12,7 @@
     </div>
     <div class="account-personal-data">
         <div>
-            <p th:text="${session.user.firstName}+' '+${session.user.lastName}"></p>
+            <p th:text="${user.firstName}+' '+${user.lastName}"></p>
         </div>
         <div>
             <form method="get" th:action="@{/logout/}">
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="account-organization-name">
-        <p th:text="${session.user.organization.name}"></p>
+        <p th:text="${user.organization.name}"></p>
     </div>
 </header>
 <main class="account-main">
@@ -79,7 +79,7 @@
                 <li>
                     <label class="account-filter-form-label" for="submit1">
                         Применить фильтр
-                        <input class="account-filter-form-submit" id="submit1" name="applyFilters" type="submit"
+                        <input class="account-filter-form-submit" id="submit1" type="submit"
                                value="Применить фильтр">
                     </label>
                 </li>
