@@ -8,6 +8,7 @@ import com.lanit.lkz_project.service.entities_service.UserService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class RegistrationPageService {
     @Autowired
     private UserService userService;
 
+    @Transactional
     public User RegisterUser(@NonNull String firstName,
                              @NonNull String lastName,
                              @NonNull String login,

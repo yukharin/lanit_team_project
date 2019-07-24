@@ -18,12 +18,12 @@ public class UserService {
 
     @Transactional
     public void addUser(@NonNull User user) {
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
     @Transactional
     public void updateUser(@NonNull User user) {
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
     @Transactional
