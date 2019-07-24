@@ -73,7 +73,7 @@ public class CabinetController {
         orderFieldName = DEFAULT_ORDER_FIELD_NAME;
         desc = Common_var.DEFAULT_DESC;
 
-        pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
+        pagination = notificationService._CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
                 currentUser.getOrganization(),
                 checkedMainListNotificStatuses,
                 showArchive, listArchiveStatus,
@@ -118,7 +118,7 @@ public class CabinetController {
     public String current_state(Model model){
         if(currentUser==null) return "redirect:/";
 
-        pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
+        pagination = notificationService._CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
                 currentUser.getOrganization(),
                 checkedMainListNotificStatuses,
                 showArchive, listArchiveStatus,
@@ -188,7 +188,7 @@ public class CabinetController {
         if (haveIdCheckedStatusList) {
             checkedMainListNotificStatuses = statusService.filterIds(ids);
 
-            pagination = notificationService.filter_Org_NotificStatuses_Archive_Order_Pagination(
+            pagination = notificationService._CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
                     currentUser.getOrganization(),
                     checkedMainListNotificStatuses,
                     showArchive, listArchiveStatus,

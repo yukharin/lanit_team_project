@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.query.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -85,172 +84,9 @@ public class NotificationDAOImp implements NotificationDAO {
             return notifications;
         }
     }
-    @Override
-    public Pagination<Notification> listByFilterOrg_Order_Pagination(
-            Organization organization,
-            String orderFieldName, boolean desc,
-            Pagination<Notification> pagination){
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
-//            List<Notification> notifications = session.createQuery("from Notification", Notification.class).listByFilterOrg_Order_Pagination();
-            StringBuilder sql = new StringBuilder("FROM Notification n WHERE n.organization = :organization ORDER BY n."+orderFieldName);
-            if(desc) sql.append(" DESC");
-            Query<Notification> query = session.createQuery(sql.toString()
-                    , Notification.class);
-            query.setParameter("organization", organization);
-//            query.setParameter("orderFieldName", orderFieldName);
-
-            Pagination<Notification> result = pagination.initQuery(query);
-
-//            tx1.commit();
-            return result;
-        }
-    }
 
     @Override
-    public List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<NotificationStatus> sendedStatuses){
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
-            Query query = null;
-            query = session.createQuery(
-                    "FROM Notification as n WHERE n.notificationStatus IN(:sendedStatuses)",
-                    Notification.class);
-//            query.setParameterList("currentNotifications", currentNotifications);
-            query.setParameterList("sendedStatuses", sendedStatuses);
-
-            List<Notification> list = query.getResultList();
-//            tx1.commit();
-            return list;
-        }
-    }
-
-    @Override
-    public List<Notification> filterOrgAndNotificStatuses(Organization organization, List<NotificationStatus> listNotificStatus){
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
-            Query query = null;
-            query = session.createQuery(
-                    "FROM Notification n WHERE n.organization = :organization AND n.notificationStatus IN(:listNotificStatus)",
-                    Notification.class);
-            query.setParameter("organization", organization);
-            query.setParameterList("listNotificStatus", listNotificStatus);
-
-            List<Notification> list = query.getResultList();
-//            tx1.commit();
-            return list;
-        }
-    }
-
-    @Override
-    public List<Notification> filterCurrentsAndNotificStatuses(List<Notification> currentNotifications, List<NotificationStatus> listNotificStatus){
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-//           //ONLY NEED JOIN(or use List) AND HQL-request
-//            StringBuilder sql = new StringBuilder();
-//            for (int i=0; i<ids.length; i++) {
-//                if(i==0){
-//                    sql.append("SELECT * FROM notifications WHERE id_notification_status = :theNotificationStatusId#"+i);
-//                }
-//                sql.append("OR id_notification_status = :theNotificationStatusId#"+i);
-//            }
-//            Query query = null;
-//            query = session.createNativeQuery(sql.toString());
-//            for (int i=0; i<ids.length; i++) {
-//                query.setParameter(
-//                        "theNotificationStatusId#"+i,
-//                        Integer.parseInt(ids[i])
-//                );
-//            }
-
-//            List<NotificationStatus> listNotificStatus = new ArrayList<>();
-//            for (int i=0; i<ids.length; i++) {
-////                ids[i];
-//            }
-//            Query query = null;
-//            query = session.createQuery(
-//                    "FROM Notification "+
-////                            Notification.class.getSimpleName()+", "+
-////                            NotificationStatus.class.getSimpleName()+" "+
-//                            "WHERE Notification.notificationStatus IN (:listNotificStatus)",
-//                    Notification.class);
-//            query.setParameterList("listNotificStatus", listNotificStatus);
-
-            //--------------------------------------------
-//            StringBuilder sql = new StringBuilder();
-//            for (int i=0; i<listNotificStatus.size(); i++) {
-//                if(i==0){
-//                    sql.append("FROM Notification WHERE Notification.notificationStatus = :theNotificationStatus"+i);
-//                }
-//                sql.append(" OR Notification.notificationStatus = :theNotificationStatus"+i);
-//            }
-
-            Query query = null;
-            query = session.createQuery(
-                    "FROM Notification n WHERE n IN (:currentNotifications) AND n.notificationStatus IN(:listNotificStatus)",
-                    Notification.class);
-            query.setParameterList("listNotificStatus", listNotificStatus);
-            query.setParameterList("currentNotifications", currentNotifications);
-            //query.setParameterList("listNotificStatus", listNotificStatus);
-//            for (int i=0; i<listNotificStatus.size(); i++) {
-//                query.setParameter(
-//                        "theNotificationStatus"+i,
-//                        listNotificStatus.get(i)
-//                );
-//            }
-
-            List<Notification> list = query.getResultList();
-//            tx1.commit();
-            return list;
-        }
-    }
-
-    @Override
-    public List<Notification> filterOrg(Organization organization){
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
-            Query query = null;
-            query = session.createQuery(
-                    "FROM Notification n WHERE n.organization = :organization",
-                    Notification.class);
-            query.setParameter("organization", organization);
-
-            List<Notification> list = query.getResultList();
-//            tx1.commit();
-            return list;
-        }
-    }
-
-    @Override
-    public List<Notification> filter_Org_NotificStatuses_Archive(Organization organization, List<NotificationStatus> listNotificStatus, List<NotificationStatus> listArchiveStatus){
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
-            Query query = null;
-            query = session.createQuery(
-                    "FROM Notification n WHERE n.organization = :organization AND n.notificationStatus IN(:listNotificStatus) AND NOT (n.notificationStatus IN (:listArchiveStatus) AND n.dateResponse <= current_date + 15 )",
-                    Notification.class);
-            query.setParameter("organization", organization);
-            query.setParameterList("listNotificStatus", listNotificStatus);
-            query.setParameterList("listArchiveStatus", listArchiveStatus);
-
-            List<Notification> list = query.getResultList();
-//            tx1.commit();
-            return list;
-        }
-    }
-
-    @Override
-    public Pagination<Notification>  filter_Org_NotificStatuses_Archive_Order_Pagination(
+    public Pagination<Notification> _CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
             Organization organization,
             List<NotificationStatus> listNotificStatus,
             boolean showArchive, List<NotificationStatus> listArchiveStatus,
@@ -282,11 +118,23 @@ public class NotificationDAOImp implements NotificationDAO {
                 else {sql.append(" WHERE"); flagContinuationCondition = true;}
                 sql.append(" NOT (n.notificationStatus IN (:listArchiveStatus) AND n.dateResponse <= current_date + 15 )");
             }
-            
+
             sql.append(" ORDER BY n."+orderFieldName);
             if(desc) sql.append(" DESC");
 
-            Query<Notification> query = session.createQuery(
+
+            StringBuilder countStringSql = new StringBuilder(sql);
+            countStringSql.insert(0,"SELECT COUNT (*) ");
+            Query<Long> queryCount = session.createQuery(
+                    countStringSql.toString(),
+                    Long.class);
+            if( ! organization.isGovernment()) queryCount.setParameter("organization", organization);
+            if (listNotificStatus != null) queryCount.setParameterList("listNotificStatus", listNotificStatus);
+            if ( ! showArchive) queryCount.setParameterList("listArchiveStatus", listArchiveStatus);
+            Long count = (Long) queryCount.uniqueResult();
+
+
+            Query <Notification> query = session.createQuery(
                     sql.toString(),
                     Notification.class);
             if( ! organization.isGovernment()) query.setParameter("organization", organization);
@@ -294,7 +142,10 @@ public class NotificationDAOImp implements NotificationDAO {
             if ( ! showArchive) query.setParameterList("listArchiveStatus", listArchiveStatus);
 //            query.setParameter("orderFieldName", orderFieldName);
 
-            Pagination<Notification> result = pagination.initQuery(query);
+            //Pagination<Notification> result = pagination.initQuery(query);
+
+
+            Pagination<Notification> result = pagination.initQuery(query, count);
 
 //            tx1.commit();
             return result;

@@ -2,12 +2,10 @@ package com.lanit.satonin18.mvc.service;
 
 import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.mvc.dao.ActionDAO;
-import com.lanit.satonin18.mvc.dao.CrudDAO;
 import com.lanit.satonin18.mvc.entity.Action;
 import com.lanit.satonin18.mvc.entity.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

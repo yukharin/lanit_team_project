@@ -8,8 +8,6 @@ public interface CrudDAO<T> {
 
    void update(T entity) ;
 
-//    List<T> searchEntities(String theSearchName);
-
    void delete(int id) ;
 
    T getById(int id) ;

@@ -9,7 +9,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -128,13 +127,28 @@ public class ActionDAOImp implements ActionDAO {
          sql.append(" ORDER BY a." + orderFieldName);
          if (desc) sql.append(" DESC");
 
+
+
+
+         StringBuilder countStringSql = new StringBuilder(sql);
+         countStringSql.insert(0,"SELECT COUNT (*) ");
+         Query<Long> queryCount = session.createQuery(
+                 countStringSql.toString(),
+                 Long.class);
+         queryCount.setParameter("notification", notification);
+         Long count = (Long) queryCount.uniqueResult();
+
+
+
+
+
          Query<Action> query = session.createQuery(
                  sql.toString(),
                  Action.class);
          query.setParameter("notification", notification);
 //            query.setParameter("orderFieldName", orderFieldName);
 
-         Pagination<Action> result = actionPagination.initQuery(query);
+         Pagination<Action> result = actionPagination.initQuery(query, count);
 
 //         tx1.commit();
          return result;

@@ -32,16 +32,14 @@ public class Organization implements Serializable {
     private Organization government_org;
 
     @org.hibernate.annotations.LazyCollection(
-            org.hibernate.annotations.LazyCollectionOption.FALSE
-    )
-    @OneToMany(mappedBy = "organization")
-    private List<User> users;// = new ArrayList<User>();
+            org.hibernate.annotations.LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)
+    private List<User> users;
 
     @org.hibernate.annotations.LazyCollection(
-            org.hibernate.annotations.LazyCollectionOption.FALSE
-    )
-    @OneToMany(mappedBy = "organization")
-    private List<Notification> notifications;// = new ArrayList<Notification>();
+            org.hibernate.annotations.LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "organization")//, fetch = FetchType.EAGER)
+    private List<Notification> notifications;
 
     @Override
     public String toString() {

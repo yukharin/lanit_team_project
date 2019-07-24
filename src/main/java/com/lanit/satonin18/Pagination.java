@@ -1,92 +1,52 @@
 package com.lanit.satonin18;
 
+import org.hibernate.query.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.ScrollMode;
-import org.hibernate.ScrollableResults;
-import org.hibernate.query.Query;
-
 public class Pagination<E> {
 
-    protected int totalRecords;
+    protected long totalRecords;
     protected int currentPage;
     protected List<E> list;
     protected int maxResult;
     protected int totalPages;
     protected int maxNavigationPage;
-
-    protected int temp_page;
-    protected int temp_maxResult;
-    protected int temp_maxNavigationPage;
-
     protected List<Integer> navigationPages;
 
-    //static //can be object
-    public static final class EmptyPagination<E> extends Pagination<E>{
+    //static //can be object //generic is only one //how spring and servlet impemets treadsafe
+    public static final class EmptyPagination<E> extends Pagination<E> {
         public EmptyPagination(Pagination pagination) {
-            super(1, pagination.temp_maxResult, pagination.temp_maxNavigationPage);
+            super(1, pagination.maxResult, pagination.maxNavigationPage);
 
             totalRecords = 0;
             currentPage = 1;
             list = new ArrayList();
-            maxResult = temp_maxResult;
+            maxResult = getMaxResult();
             totalPages = 1;
-            maxNavigationPage = temp_maxNavigationPage;
+            maxNavigationPage = getMaxNavigationPage();
             navigationPages = new ArrayList();
         }
     };
 
-    public Pagination(int temp_page, int temp_maxResult, int temp_maxNavigationPage) {
-        this.temp_page = temp_page;
-        this.temp_maxResult = temp_maxResult;
-        this.temp_maxNavigationPage = temp_maxNavigationPage;
+    public Pagination(int currentPage, int maxResult, int maxNavigationPage) {
+        this.currentPage = currentPage;
+        this.maxResult = maxResult;
+        this.maxNavigationPage = maxNavigationPage;
     }
-    // @temp_page: 1, 2, ..
-    public Pagination<E> initQuery(Query<E> query ) {
-        final int pageIndex = temp_page - 1 < 0 ? 0 : temp_page - 1;
 
-        int fromRecordIndex = pageIndex * temp_maxResult;
-        int maxRecordIndex = fromRecordIndex + temp_maxResult;
+    public Pagination<E> initQuery(Query<E> query , long count) {
+        query.setFirstResult((currentPage-1)*maxResult);
+        query.setMaxResults(maxResult);
 
-        ScrollableResults resultScroll = query.scroll(ScrollMode.SCROLL_INSENSITIVE  );
-
-        List<E> results = new ArrayList<E>();
-        boolean hasResult = resultScroll.first();
-        if (hasResult) {
-            // Scroll to position:
-            hasResult = resultScroll.scroll(fromRecordIndex);
-            if (hasResult) {
-                do {
-                    E record = (E) resultScroll.get(0);
-                    results.add(record);
-                } while (resultScroll.next()//
-                        && resultScroll.getRowNumber() >= fromRecordIndex
-                        && resultScroll.getRowNumber() < maxRecordIndex);
-            }
-            // Go to Last record.
-            resultScroll.last();
-        }
-        // Total Records
-        this.totalRecords = resultScroll.getRowNumber() + 1;
-        this.currentPage = pageIndex + 1;
-        this.list = results;
-        this.maxResult = temp_maxResult;
-
-        if (this.totalRecords % this.maxResult == 0) {
-            this.totalPages = this.totalRecords / this.maxResult;
-        } else {
-            this.totalPages = (this.totalRecords / this.maxResult) + 1;
-        }
-        this.maxNavigationPage = temp_maxNavigationPage;
-
-        if (maxNavigationPage < totalPages) {
-            this.maxNavigationPage = temp_maxNavigationPage;
-        }
-        resultScroll.close();
+        list = query.getResultList();
+        totalRecords = count;
+        totalPages = (int) Math.ceil(  ((double)totalRecords)  /  ((double) maxResult)  );
 
         this.calcNavigationPages();
         return this;
+
     }
 
     private void calcNavigationPages() {
@@ -121,7 +81,7 @@ public class Pagination<E> {
         return totalPages;
     }
 
-    public int getTotalRecords() {
+    public long getTotalRecords() {
         return totalRecords;
     }
 

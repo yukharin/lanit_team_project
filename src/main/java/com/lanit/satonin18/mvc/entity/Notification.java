@@ -53,9 +53,8 @@ public class Notification implements Serializable {
     private User userByIdUserImplementor;
 
     @org.hibernate.annotations.LazyCollection(
-            org.hibernate.annotations.LazyCollectionOption.FALSE
-    )
-    @OneToMany(mappedBy = "notification")
+            org.hibernate.annotations.LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "notification")//, fetch = FetchType.EAGER)
     private List<Action> actions;
 
     @Override

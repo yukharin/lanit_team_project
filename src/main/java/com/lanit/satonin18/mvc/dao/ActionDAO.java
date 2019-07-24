@@ -15,7 +15,6 @@ public interface ActionDAO extends CrudDAO<Action> {
    @Override
    void update(Action entity);
 
-
    @Override
    void delete(int id);
 
