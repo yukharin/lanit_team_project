@@ -109,15 +109,15 @@ public class NotificationDAOImp implements NotificationDAO {
 //            Transaction tx1 = session.beginTransaction();
 
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//            SELECT * WHERE ...
+            CriteriaQuery<Notification> criteriaQuery = criteriaBuilder.createQuery(Notification.class);
+            Root<Notification> rootNotific = criteriaQuery.from(Notification.class);
 //            SELECT COUNT(*)
             CriteriaQuery<Long> criteriaQuery_COUNT = criteriaBuilder.createQuery(Long.class);
             Root<Notification> rootNotific_COUNT = criteriaQuery_COUNT.from(Notification.class);
 
-//            SELECT * WHERE ...
-            CriteriaQuery<Notification> criteriaQuery = criteriaBuilder.createQuery(Notification.class);
-            Root<Notification> rootNotific = criteriaQuery.from(Notification.class);
-
             List<Predicate> conditionsList = new ArrayList<Predicate>();
+            List<Predicate> conditionsList_COUNT = new ArrayList<Predicate>();
             Order order = null;
 //---------------------------------------------------
             if( ! organization.isGovernment()) {
@@ -127,15 +127,26 @@ public class NotificationDAOImp implements NotificationDAO {
                                 organization
                         )
                 );
+                conditionsList_COUNT.add(
+                        criteriaBuilder.equal(
+                                rootNotific_COUNT.<Organization>get("organization"),
+                                organization
+                        )
+                );
             }
             Expression<NotificationStatus> expStatus = rootNotific.get("notificationStatus");
+            Expression<NotificationStatus> expStatus_COUNT = rootNotific_COUNT.get("notificationStatus");
             if (listNotificStatus != null) {
                 if(listNotificStatus.size() == 0) return new Pagination.EmptyPagination<Notification>(pagination);
                 conditionsList.add(
                         expStatus.in(listNotificStatus)
                 );
+                conditionsList_COUNT.add(
+                        expStatus_COUNT.in(listNotificStatus)
+                );
             }
-            Expression<java.sql.Date> expDateResponse = rootNotific.get("dateResponse");
+            Expression<Date> expDateResponse = rootNotific.get("dateResponse");
+            Expression<Date> expDateResponse_COUNT = rootNotific_COUNT.get("dateResponse");
 
             Date dateNow = new Date(System.currentTimeMillis());
             Calendar calendar = Calendar.getInstance();
@@ -149,6 +160,14 @@ public class NotificationDAOImp implements NotificationDAO {
                                 criteriaBuilder.and(
                                         expStatus.in(listArchiveStatus),
                                         criteriaBuilder.lessThan/*OrEqualTo*/(expDateResponse, dateNow_minus14day)
+                                )
+                        )
+                );
+                conditionsList_COUNT.add(
+                        criteriaBuilder.not(
+                                criteriaBuilder.and(
+                                        expStatus.in(listArchiveStatus),
+                                        criteriaBuilder.lessThan/*OrEqualTo*/(expDateResponse_COUNT, dateNow_minus14day)
                                 )
                         )
                 );
@@ -166,23 +185,19 @@ public class NotificationDAOImp implements NotificationDAO {
                     .where(conditionsList.toArray(new Predicate[]{}))
                     .orderBy(order)
             ;
+            Query<Notification> q = session.createQuery(criteriaQuery);
 
             criteriaQuery_COUNT
                     .select(
-                            criteriaBuilder.count(
-                                    rootNotific_COUNT
+                            criteriaBuilder.count(rootNotific_COUNT)
                     )
-//                    where(
-//                            conditionsList.toArray(new Predicate[]{})
-//                    );
-            );
-            // Following line if commented causes ->THROW EXCEPTION
-            session.createQuery(criteriaQuery_COUNT);//it must throw Exception
-            criteriaQuery_COUNT.where( conditionsList.toArray(new Predicate[]{}) );
+                    .where(
+                            conditionsList_COUNT.toArray(new Predicate[]{})
+                    )
+            ;
             Query<Long> q_COUNT = session.createQuery(criteriaQuery_COUNT);
             long count_COUNT = q_COUNT.getSingleResult();
 
-            Query<Notification> q = session.createQuery(criteriaQuery);
             Pagination<Notification> result = pagination.initQuery(q, count_COUNT);
 
 //            tx1.commit();

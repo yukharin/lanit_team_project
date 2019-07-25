@@ -124,20 +124,27 @@ public class ActionDAOImp implements ActionDAO {
 //         Transaction tx1 = session.beginTransaction();
 
          CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-//            SELECT COUNT(*)
-         CriteriaQuery<Long> criteriaQuery_COUNT = criteriaBuilder.createQuery(Long.class);
-         Root<Action> rootAction_COUNT = criteriaQuery_COUNT.from(Action.class);
 
 //            SELECT * WHERE ...
          CriteriaQuery<Action> criteriaQuery = criteriaBuilder.createQuery(Action.class);
          Root<Action> rootAction = criteriaQuery.from(Action.class);
+//            SELECT COUNT(*)
+         CriteriaQuery<Long> criteriaQuery_COUNT = criteriaBuilder.createQuery(Long.class);
+         Root<Action> rootAction_COUNT = criteriaQuery_COUNT.from(Action.class);
 
          List<Predicate> conditionsList = new ArrayList<Predicate>();
+         List<Predicate> conditionsList_COUNT = new ArrayList<Predicate>();
          Order order = null;
 //---------------------------------------------
          conditionsList.add(
                  criteriaBuilder.equal(
                          rootAction.<Notification>get("notification"),
+                         notification
+                 )
+         );
+         conditionsList_COUNT.add(
+                 criteriaBuilder.equal(
+                         rootAction_COUNT.<Notification>get("notification"),
                          notification
                  )
          );
@@ -151,26 +158,6 @@ public class ActionDAOImp implements ActionDAO {
             order = criteriaBuilder.asc(
                             rootAction.get(orderFieldName));
          }
-//         StringBuilder sql = new StringBuilder(
-//                 "FROM Action a");
-//         sql.append(" WHERE");
-//         sql.append(" a.notification = :notification");
-//         sql.append(" ORDER BY a." + orderFieldName);
-//         if (desc) sql.append(" DESC");
-
-//         StringBuilder countStringSql = new StringBuilder(sql);
-//         countStringSql.insert(0,"SELECT COUNT (*) ");
-//         Query<Long> queryCount = session.createQuery(
-//                 countStringSql.toString(),
-//                 Long.class);
-//         queryCount.setParameter("notification", notification);
-//         Long count = (Long) queryCount.uniqueResult();
-
-//         Query<Action> query = session.createQuery(
-//                 sql.toString(),
-//                 Action.class);
-//         query.setParameter("notification", notification);
-////            query.setParameter("orderFieldName", orderFieldName);
 //---------------------------------------------------
          criteriaQuery
                  .select(rootAction)
@@ -181,21 +168,12 @@ public class ActionDAOImp implements ActionDAO {
 
          criteriaQuery_COUNT
                  .select(
-                         criteriaBuilder.count(
-                                 rootAction_COUNT
-                         )
-                 );
-//                 .where(conditionsList.toArray(new Predicate[]{}));
-
-         // Following line if commented causes ->THROW EXCEPTION
-         session.createQuery(criteriaQuery_COUNT);//it must throw Exception
-
-         criteriaQuery_COUNT
-                 .where(conditionsList.toArray(new Predicate[]{}));
-
+                         criteriaBuilder.count(rootAction_COUNT)
+                 )
+                 .where(conditionsList_COUNT.toArray(new Predicate[]{}))
+         ;
          Query<Long> q_COUNT = session.createQuery(criteriaQuery_COUNT);
          long count_COUNT = q_COUNT.getSingleResult();
-
 
          Pagination<Action> result = actionPagination.initQuery(q, count_COUNT);
 
