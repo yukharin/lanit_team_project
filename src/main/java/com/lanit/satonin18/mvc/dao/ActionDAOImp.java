@@ -3,6 +3,7 @@ package com.lanit.satonin18.mvc.dao;
 import com.lanit.satonin18.Pagination;
 import com.lanit.satonin18.mvc.entity.Action;
 import com.lanit.satonin18.mvc.entity.Notification;
+import com.lanit.satonin18.mvc.entity.Organization;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +11,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("actionDAO")
@@ -120,35 +123,81 @@ public class ActionDAOImp implements ActionDAO {
       try (final Session session = sessionFactory.openSession();) {
 //         Transaction tx1 = session.beginTransaction();
 
-         StringBuilder sql = new StringBuilder(
-                 "FROM Action a");
-         sql.append(" WHERE");
-         sql.append(" a.notification = :notification");
-         sql.append(" ORDER BY a." + orderFieldName);
-         if (desc) sql.append(" DESC");
+         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//            SELECT COUNT(*)
+         CriteriaQuery<Long> criteriaQuery_COUNT = criteriaBuilder.createQuery(Long.class);
+         Root<Action> rootAction_COUNT = criteriaQuery_COUNT.from(Action.class);
+
+//            SELECT * WHERE ...
+         CriteriaQuery<Action> criteriaQuery = criteriaBuilder.createQuery(Action.class);
+         Root<Action> rootAction = criteriaQuery.from(Action.class);
+
+         List<Predicate> conditionsList = new ArrayList<Predicate>();
+         Order order = null;
+//---------------------------------------------
+         conditionsList.add(
+                 criteriaBuilder.equal(
+                         rootAction.<Notification>get("notification"),
+                         notification
+                 )
+         );
+
+         if(desc) {
+//            criteriaQuery.orderBy(
+            order = criteriaBuilder.desc(
+                            rootAction.get(orderFieldName));
+         }else{
+//            criteriaQuery.orderBy(
+            order = criteriaBuilder.asc(
+                            rootAction.get(orderFieldName));
+         }
+//         StringBuilder sql = new StringBuilder(
+//                 "FROM Action a");
+//         sql.append(" WHERE");
+//         sql.append(" a.notification = :notification");
+//         sql.append(" ORDER BY a." + orderFieldName);
+//         if (desc) sql.append(" DESC");
+
+//         StringBuilder countStringSql = new StringBuilder(sql);
+//         countStringSql.insert(0,"SELECT COUNT (*) ");
+//         Query<Long> queryCount = session.createQuery(
+//                 countStringSql.toString(),
+//                 Long.class);
+//         queryCount.setParameter("notification", notification);
+//         Long count = (Long) queryCount.uniqueResult();
+
+//         Query<Action> query = session.createQuery(
+//                 sql.toString(),
+//                 Action.class);
+//         query.setParameter("notification", notification);
+////            query.setParameter("orderFieldName", orderFieldName);
+//---------------------------------------------------
+         criteriaQuery
+                 .select(rootAction)
+                 .where(conditionsList.toArray(new Predicate[]{}))
+                 .orderBy(order);
+         Query<Action> q = session.createQuery(criteriaQuery);
 
 
+         criteriaQuery_COUNT
+                 .select(
+                         criteriaBuilder.count(
+                                 rootAction_COUNT
+                         )
+                 );
+//                 .where(conditionsList.toArray(new Predicate[]{}));
+
+         // Following line if commented causes ->THROW EXCEPTION
+         session.createQuery(criteriaQuery_COUNT);//it must throw Exception
+
+         criteriaQuery_COUNT
+                 .where(conditionsList.toArray(new Predicate[]{}));
+
+         Query<Long> q_COUNT = session.createQuery(criteriaQuery_COUNT);
+         long count_COUNT = q_COUNT.getSingleResult();
 
 
-         StringBuilder countStringSql = new StringBuilder(sql);
-         countStringSql.insert(0,"SELECT COUNT (*) ");
-         Query<Long> queryCount = session.createQuery(
-                 countStringSql.toString(),
-                 Long.class);
-         queryCount.setParameter("notification", notification);
-         Long count = (Long) queryCount.uniqueResult();
-
-
-
-
-
-         Query<Action> query = session.createQuery(
-                 sql.toString(),
-                 Action.class);
-         query.setParameter("notification", notification);
-//            query.setParameter("orderFieldName", orderFieldName);
-
-         Pagination<Action> result = actionPagination.initQuery(query, count);
+         Pagination<Action> result = actionPagination.initQuery(q, count_COUNT);
 
 //         tx1.commit();
          return result;

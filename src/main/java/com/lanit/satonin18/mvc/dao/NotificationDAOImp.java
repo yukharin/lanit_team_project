@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.query.Query;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Repository("notificationDAO")
@@ -30,6 +35,12 @@ public class NotificationDAOImp implements NotificationDAO {
 
             tx1.commit();
         }
+        //        catch (Exception e) {
+//            e.printStackTrace();
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//        }
     }
 
     @Override
@@ -97,55 +108,82 @@ public class NotificationDAOImp implements NotificationDAO {
         try(final Session session = sessionFactory.openSession();){
 //            Transaction tx1 = session.beginTransaction();
 
-            //TODO REPLASE ON Simple Join string
-            boolean flagContinuationCondition = false;
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//            SELECT COUNT(*)
+            CriteriaQuery<Long> criteriaQuery_COUNT = criteriaBuilder.createQuery(Long.class);
+            Root<Notification> rootNotific_COUNT = criteriaQuery_COUNT.from(Notification.class);
 
-            StringBuilder sql = new StringBuilder(
-                    "FROM Notification n");
+//            SELECT * WHERE ...
+            CriteriaQuery<Notification> criteriaQuery = criteriaBuilder.createQuery(Notification.class);
+            Root<Notification> rootNotific = criteriaQuery.from(Notification.class);
+
+            List<Predicate> conditionsList = new ArrayList<Predicate>();
+            Order order = null;
+//---------------------------------------------------
             if( ! organization.isGovernment()) {
-                sql.append(" WHERE");
-                sql.append(" n.organization = :organization");
-                flagContinuationCondition = true;
+                conditionsList.add(
+                        criteriaBuilder.equal(
+                                rootNotific.<Organization>get("organization"),
+                                organization
+                        )
+                );
             }
+            Expression<NotificationStatus> expStatus = rootNotific.get("notificationStatus");
             if (listNotificStatus != null) {
-                if(listNotificStatus.size()==0) return new Pagination.EmptyPagination<Notification>(pagination);
-                if(flagContinuationCondition) {sql.append(" AND"); flagContinuationCondition=true;}
-                else {sql.append(" WHERE"); flagContinuationCondition = true;}
-                sql.append(" n.notificationStatus IN(:listNotificStatus)");
+                if(listNotificStatus.size() == 0) return new Pagination.EmptyPagination<Notification>(pagination);
+                conditionsList.add(
+                        expStatus.in(listNotificStatus)
+                );
             }
+            Expression<java.sql.Date> expDateResponse = rootNotific.get("dateResponse");
+
+            Date dateNow = new Date(System.currentTimeMillis());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateNow);
+            calendar.add(Calendar.DATE, -14);
+            Date dateNow_minus14day = new Date(calendar.getTimeInMillis());
+
             if ( ! showArchive) {
-                if(flagContinuationCondition) {sql.append(" AND"); flagContinuationCondition=true;}
-                else {sql.append(" WHERE"); flagContinuationCondition = true;}
-                sql.append(" NOT (n.notificationStatus IN (:listArchiveStatus) AND n.dateResponse <= current_date + 15 )");
+                conditionsList.add(
+                        criteriaBuilder.not(
+                                criteriaBuilder.and(
+                                        expStatus.in(listArchiveStatus),
+                                        criteriaBuilder.lessThan/*OrEqualTo*/(expDateResponse, dateNow_minus14day)
+                                )
+                        )
+                );
             }
+            if(desc) {
+                order = criteriaBuilder.desc(
+                        rootNotific.get(orderFieldName));
+            }else{
+                order = criteriaBuilder.asc(
+                        rootNotific.get(orderFieldName));
+            }
+//---------------------------------------------------
+            criteriaQuery
+                    .select(rootNotific)
+                    .where(conditionsList.toArray(new Predicate[]{}))
+                    .orderBy(order)
+            ;
 
-            sql.append(" ORDER BY n."+orderFieldName);
-            if(desc) sql.append(" DESC");
+            criteriaQuery_COUNT
+                    .select(
+                            criteriaBuilder.count(
+                                    rootNotific_COUNT
+                    )
+//                    where(
+//                            conditionsList.toArray(new Predicate[]{})
+//                    );
+            );
+            // Following line if commented causes ->THROW EXCEPTION
+            session.createQuery(criteriaQuery_COUNT);//it must throw Exception
+            criteriaQuery_COUNT.where( conditionsList.toArray(new Predicate[]{}) );
+            Query<Long> q_COUNT = session.createQuery(criteriaQuery_COUNT);
+            long count_COUNT = q_COUNT.getSingleResult();
 
-
-            StringBuilder countStringSql = new StringBuilder(sql);
-            countStringSql.insert(0,"SELECT COUNT (*) ");
-            Query<Long> queryCount = session.createQuery(
-                    countStringSql.toString(),
-                    Long.class);
-            if( ! organization.isGovernment()) queryCount.setParameter("organization", organization);
-            if (listNotificStatus != null) queryCount.setParameterList("listNotificStatus", listNotificStatus);
-            if ( ! showArchive) queryCount.setParameterList("listArchiveStatus", listArchiveStatus);
-            Long count = (Long) queryCount.uniqueResult();
-
-
-            Query <Notification> query = session.createQuery(
-                    sql.toString(),
-                    Notification.class);
-            if( ! organization.isGovernment()) query.setParameter("organization", organization);
-            if (listNotificStatus != null) query.setParameterList("listNotificStatus", listNotificStatus);
-            if ( ! showArchive) query.setParameterList("listArchiveStatus", listArchiveStatus);
-//            query.setParameter("orderFieldName", orderFieldName);
-
-            //Pagination<Notification> result = pagination.initQuery(query);
-
-
-            Pagination<Notification> result = pagination.initQuery(query, count);
+            Query<Notification> q = session.createQuery(criteriaQuery);
+            Pagination<Notification> result = pagination.initQuery(q, count_COUNT);
 
 //            tx1.commit();
             return result;
