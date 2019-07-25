@@ -1,5 +1,4 @@
 var regButton = document.getElementById("submitRegistration");
-alert("test");
 var registrationFunction = function () {
     var form = document.getElementById("register-form");
     var formData = new FormData(form);
