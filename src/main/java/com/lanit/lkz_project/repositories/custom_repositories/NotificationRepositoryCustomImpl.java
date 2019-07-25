@@ -54,13 +54,15 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         }
 
         Predicate resultingPredicate = builder.and(orgPredicate, statusPredicate, datePredicate);
+        // 2 запроса:
+        // Первый, чтобы получить список уведомлений
         notificationsQuery.select(table).distinct(true)
                 .where(builder.and(resultingPredicate))
                 .orderBy(byDate);
+        // Второй, чтобы узнать точное количество уведомлений (данный параметр нужен для пагинации).
         totalNotifications.select(builder.count(totalNotifications
                 .from(Notification.class)))
                 .where(resultingPredicate);
-
 
         TypedQuery<Notification> notificationsTQ = entityManager.createQuery(notificationsQuery);
         notificationsTQ.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
