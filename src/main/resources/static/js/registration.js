@@ -1,10 +1,20 @@
 var regButton = document.getElementById("submitRegistration");
 var registrationFunction = function () {
+
+
     var form = document.getElementById("register-form");
     var formData = new FormData(form);
-    var object = {};
+    var object = {
+        "organization": {
+            "id": null
+        }
+    };
     formData.forEach(function (value, key) {
-        object[key] = value;
+        if (key === "orgId") {
+            object.organization.id = value;
+        } else {
+            object[key] = value;
+        }
     });
     var json = JSON.stringify(object);
     console.log(json);
