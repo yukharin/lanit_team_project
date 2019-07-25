@@ -7,4 +7,11 @@ console.log(inProcessingFilter.value);
 console.log(approvedFilter.value);
 console.log(rejectedFilter.value);
 var cleanFiltersButton = document.getElementById("clean_filters");
+var applyFiltersButton = document.getElementById("apply_filters");
+cleanFiltersButton.addEventListener("click", myFunction);
+applyFiltersButton.addEventListener("click", myFunction);
+
+var myFunction = function () {
+    alert("Hello");
+};
 
