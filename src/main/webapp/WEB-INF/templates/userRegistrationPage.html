@@ -8,7 +8,8 @@
 <body>
 <main class="registration-main">
     <h2 class="registration-header">Registration page</h2>
-    <form class="registration-form" method="post" th:action="@{/registerUser/}">
+    <!--    th:action="@{/registerUser/}"-->
+    <form class="registration-form" id="register-form">
         <ul class="registration-form-list">
             <li class="registration-form-list-element">
                 <label for="inputFirstName">
@@ -48,20 +49,7 @@
             </li>
         </ul>
     </form>
-    <script>
-        var firstName = document.getElementById("inputFirstName");
-        var lastName = document.getElementById("inputLastName");
-        var login = document.getElementById("inputLogin");
-        var password = document.getElementById("inputPassword");
-        var organization = document.getElementById("selectOrganization");
-        var user = {
-            "firstName": firstName.value,
-            "lastName": lastName.value,
-            "login": login.value,
-            "password": password.value,
-            "organization": organization.value
-        };
-        var jsonUser = JSON.stringify(user);
+    <script th:src="@{/js/registration.js}">
     </script>
 </main>
 </body>

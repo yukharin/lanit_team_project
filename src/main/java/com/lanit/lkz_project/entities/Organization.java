@@ -14,8 +14,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "organizations")
-@EqualsAndHashCode(exclude = {"id", "users", "notifications"})
-@ToString(exclude = {"users", "notifications"})
+@EqualsAndHashCode(exclude = {"id", "notifications"})
+@ToString(exclude = {"notifications"})
 @NoArgsConstructor
 public class Organization implements Serializable {
 
@@ -42,9 +42,6 @@ public class Organization implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_gos_org", referencedColumnName = "id")
     private Organization government_org;
-
-    @OneToMany(mappedBy = "organization")
-    private List<User> users;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
     private List<Notification> notifications;

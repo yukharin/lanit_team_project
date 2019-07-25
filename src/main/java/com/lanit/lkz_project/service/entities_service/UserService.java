@@ -18,7 +18,7 @@ public class UserService {
 
     @Transactional
     public void addUser(@NonNull User user) {
-        userRepository.saveAndFlush(user);
+        userRepository.save(user);
     }
 
     @Transactional
@@ -38,7 +38,7 @@ public class UserService {
 
     @Transactional
     public User getUser(long id) {
-        return userRepository.getOne(id);
+        return userRepository.findById(id).get();
     }
 
     @Transactional

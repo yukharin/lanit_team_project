@@ -22,20 +22,10 @@ public class RegistrationPageService {
     private UserService userService;
 
     @Transactional
-    public User RegisterUser(@NonNull String firstName,
-                             @NonNull String lastName,
-                             @NonNull String login,
-                             @NonNull String password,
-                             @NonNull String orgId) {
-        Organization organization = organizationService.getOrganization(Long.valueOf(orgId));
-        Date registrationDate = new Date();
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setLogin(login);
-        user.setPassword(password);
+    public User registerUser(User user) {
+        Organization organization = organizationService.getOrganization(1L);
         user.setOrganization(organization);
-        user.setRegistrationDate(registrationDate);
+        user.setRegistrationDate(new Date());
         user.setRole(defineUserRole(organization));
         userService.addUser(user);
         return user;

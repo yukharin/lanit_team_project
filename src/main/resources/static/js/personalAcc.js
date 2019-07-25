@@ -14,5 +14,6 @@ var myFunction = function () {
 cleanFiltersButton.addEventListener("click", myFunction);
 applyFiltersButton.addEventListener("click", myFunction);
 
+var XHR = new XMLHttpRequest();
 
 
