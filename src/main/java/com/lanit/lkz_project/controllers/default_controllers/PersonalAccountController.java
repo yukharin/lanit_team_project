@@ -9,15 +9,13 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -37,7 +35,7 @@ public class PersonalAccountController {
     @GetMapping("/account/")
     public String getPage(@NonNull @SessionAttribute String login,
                           @NonNull @SessionAttribute String password,
-                          @SessionAttribute(required = false) PersonalAccountPage<Notification> stateOfPage,
+                          @RequestAttribute Optional<PersonalAccountPage<Notification>> optionalPage,
                           @RequestParam(required = false) String page,
                           @RequestParam(required = false) String size,
                           @RequestParam(required = false) String filterNew,
@@ -48,9 +46,7 @@ public class PersonalAccountController {
                           Model model,
                           HttpSession session) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        if (stateOfPage == null) {
-            stateOfPage = new PersonalAccountPage<>();
-        }
+        PersonalAccountPage<Notification> stateOfPage = optionalPage.isPresent() ? optionalPage.get() : new PersonalAccountPage<>();
         personalAccountService.setAccountPageState(stateOfPage, user, page, size,
                 filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
         session.setAttribute("stateOfPage", stateOfPage);

@@ -91,6 +91,45 @@
                         </button>
                     </label>
                 </li>
+                <li>
+                    <div>
+                        <nav aria-label="Pagination" class="account-main-notifications-manager-pagination"
+                             th:if="${session.stateOfPage.page.totalPages gt 0}">
+                            <ul class="pagination justify-content-center font-weight-bold">
+                                <li class="page-item"
+                                    th:classappend="${session.stateOfPage.page.number eq 0} ? 'disabled'">
+                                    <!--                                    <a aria-label="Previous"-->
+                                    <!--                                       class="page-link"-->
+                                    <!--                                       data-toggle="tooltip"-->
+                                    <!--                                       th:href="@{/account/?page={id}(id=${session.stateOfPage.page.number lt 2 ? 1 : session.stateOfPage.page.number})}"-->
+                                    <!--                                       title="Previous Page">-->
+                                    <!--                                        <span aria-hidden="true">&laquo;</span>-->
+                                    <!--                                    </a>-->
+                                    <!--                                    <input type="submit" name="page"-->
+                                    <!--                                           th:value="${session.stateOfPage.page.number lt 2 ? 1 : session.stateOfPage.page.number}">-->
+                                </li>
+                                <li class="page-item"
+                                    th:classappend="${i eq session.stateOfPage.page.number + 1} ? 'active'"
+                                    th:each="i : ${#numbers.sequence( 1, session.stateOfPage.page.totalPages, 1)}">
+                                    <!--                                    <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"-->
+                                    <!--                                       th:text="${i}" th:title="${'Page '+ i}"></a>-->
+                                    <input name="page" th:value="${i}" type="submit">
+                                </li>
+                                <li class="page-item"
+                                    th:classappend="${session.stateOfPage.page.number + 1 eq session.stateOfPage.page.totalPages} ? 'disabled'">
+                                    <!--                                    <a aria-label="Next"-->
+                                    <!--                                       class="page-link"-->
+                                    <!--                                       data-toggle="tooltip"-->
+                                    <!--                                       th:href="@{/account/?page={id}(id=${session.stateOfPage.page.number + 2})}"-->
+                                    <!--                                       title="Next Page">-->
+                                    <!--                                        <span aria-hidden="true">&raquo;</span>-->
+                                    <!--                                    </a>-->
+                                    <!--                                    <input type="submit" name="page" th:value="${session.stateOfPage.page.number + 2}">-->
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </li>
             </ul>
         </form>
     </section>
@@ -151,37 +190,6 @@
         <section class="account-main-manager">
             <div class="account-main-manager-total_elements">
                 <p>Найдено записей: <span th:text="${session.stateOfPage.page.totalElements}"></span></p>
-            </div>
-            <div>
-                <nav aria-label="Pagination" class="account-main-notifications-manager-pagination"
-                     th:if="${session.stateOfPage.page.totalPages gt 0}">
-                    <ul class="pagination justify-content-center font-weight-bold">
-                        <li class="page-item" th:classappend="${session.stateOfPage.page.number eq 0} ? 'disabled'">
-                            <a aria-label="Previous"
-                               class="page-link"
-                               data-toggle="tooltip"
-                               th:href="@{/account/?page={id}(id=${session.stateOfPage.page.number lt 2 ? 1 : session.stateOfPage.page.number})}"
-                               title="Previous Page">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${i eq session.stateOfPage.page.number + 1} ? 'active'"
-                            th:each="i : ${#numbers.sequence( 1, session.stateOfPage.page.totalPages, 1)}">
-                            <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"
-                               th:text="${i}" th:title="${'Page '+ i}"></a>
-                        </li>
-                        <li class="page-item"
-                            th:classappend="${session.stateOfPage.page.number + 1 eq session.stateOfPage.page.totalPages} ? 'disabled'">
-                            <a aria-label="Next"
-                               class="page-link"
-                               data-toggle="tooltip"
-                               th:href="@{/account/?page={id}(id=${session.stateOfPage.page.number + 2})}"
-                               title="Next Page">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
             <div class="account-main-notifications-manager-add_notification">
                 <a th:href="@{/account/addNotification/}">Добавить уведомление</a>
