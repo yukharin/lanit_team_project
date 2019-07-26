@@ -1,6 +1,7 @@
 package com.lanit.lkz_project.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.Date;
 @ToString(exclude = "organization")
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties("organization")
 public class User implements Serializable {
 
     private static int counter = 0;

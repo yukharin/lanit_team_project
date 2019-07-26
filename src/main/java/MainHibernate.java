@@ -1,5 +1,5 @@
-import com.google.gson.Gson;
-import com.lanit.lkz_project.entities.*;
+import com.lanit.lkz_project.entities.Notification;
+import com.lanit.lkz_project.entities.NotificationStatus;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,22 +26,10 @@ public class MainHibernate {
         @Cleanup SessionFactory factory = new Configuration().configure().buildSessionFactory();
         @Cleanup Session session = factory.getCurrentSession();
         session.beginTransaction();
-        testingJson(session);
         session.getTransaction().commit();
     }
 
-    private static void testingJson(Session session) {
 
-        Gson gson = new Gson();
-        User user = gson.fromJson("{\"firstName\":\"GarryVlad\",\"lastName\":\"LadatBDEFD\",\"login\":\"login4567882\",\"password\":\"password7789\",\"organization\":{\"id\":1}}", User.class);
-        Organization organization = user.getOrganization();
-        System.err.println(organization);
-        System.out.println(user);
-        user.setRegistrationDate(new Date());
-        user.setRole(Role.EMPLOYEE);
-        session.save(user);
-
-    }
 
     private static void code(Session session) {
         Date date = new GregorianCalendar(2019, Calendar.SEPTEMBER, 16).getTime();
@@ -63,6 +51,5 @@ public class MainHibernate {
         for (Notification notification : result) {
             System.err.println(notification);
         }
-
     }
 }

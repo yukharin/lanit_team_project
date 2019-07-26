@@ -2,7 +2,6 @@ package com.lanit.lkz_project.repositories.custom_repositories;
 
 
 import com.lanit.lkz_project.entities.*;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -24,7 +23,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
     EntityManager entityManager;
 
     @Override
-    public Page<Notification> getAccountPage(final PersonalAccountPage<Notification> page, final Pageable pageable, final User user) {
+    public PageImpl<Notification> getAccountPage(final PersonalAccountPage<Notification> page, final Pageable pageable, final User user) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
         final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
@@ -68,7 +67,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         notificationsTQ.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
         notificationsTQ.setMaxResults(pageable.getPageSize());
         List<Notification> resultList = notificationsTQ.getResultList();
-
+        resultList.forEach(System.err::println);
         final long count = entityManager.createQuery(totalNotifications).getSingleResult();
         return new PageImpl<>(resultList, pageable, count);
     }

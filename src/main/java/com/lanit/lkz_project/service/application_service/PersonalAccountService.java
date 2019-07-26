@@ -7,7 +7,7 @@ import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class PersonalAccountService {
                                     String timeFilter) {
         setFilters(page, filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
         Pageable pageable = createPageRequest(pageParam, sizeParam);
-        Page<Notification> accountPage = notificationRepository.getAccountPage(page, pageable, user);
+        PageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, pageable, user);
         page.setPage(accountPage);
     }
 

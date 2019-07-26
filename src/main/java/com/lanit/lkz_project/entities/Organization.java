@@ -1,5 +1,6 @@
 package com.lanit.lkz_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"id", "notifications"})
 @ToString(exclude = {"notifications"})
 @NoArgsConstructor
+@JsonIgnoreProperties({"notifications"})
 public class Organization implements Serializable {
 
     private static int counter = 0;

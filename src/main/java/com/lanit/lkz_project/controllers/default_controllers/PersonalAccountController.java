@@ -1,5 +1,6 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lanit.lkz_project.authorization.UserAuthorizationService;
 import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
@@ -43,12 +44,14 @@ public class PersonalAccountController {
                           @RequestParam(required = false) String filterApproved,
                           @RequestParam(required = false) String filterRejected,
                           @RequestParam(required = false) String timeFilter,
-                          Model model,
-                          HttpSession session) {
+                          Model model) throws IOException {
         @NonNull User user = userAuthorization.authorize(login, password);
-        PersonalAccountPage<Notification> stateOfPage = optionalPage.isPresent() ? optionalPage.get() : new PersonalAccountPage<>();
+        PersonalAccountPage<Notification> stateOfPage = optionalPage.orElseGet(PersonalAccountPage::new);
         personalAccountService.setAccountPageState(stateOfPage, user, page, size,
                 filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
+        ObjectMapper mapper = new ObjectMapper();
+//        String json = mapper.writeValueAsString(stateOfPage);
+//        stateOfPage = mapper.readValue(json, PersonalAccountPage.class);
         model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
         return "personalAccount";

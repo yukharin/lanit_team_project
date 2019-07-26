@@ -1,6 +1,7 @@
 package com.lanit.lkz_project.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Date;
 @ToString(exclude = {"notification", "implementor"})
 @Entity
 @Table(name = "actions")
+@JsonIgnoreProperties({"notification", "implementor"})
 public class Action implements Serializable {
 
 
