@@ -32,46 +32,46 @@
                     <label class="account-filter-form-label" for="checkbox1">
                         Новое
                         <input class="account-filter-form-checkbox" id="checkbox1" name="filterNew" type="checkbox"
-                               th:checked="${session.stateOfPage.newFilter}" value="true">
+                               th:checked="${stateOfPage.newFilter}" value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox2">
                         В обработке
                         <input class="account-filter-form-checkbox" id="checkbox2" name="filterInProcessing"
-                               th:checked="${session.stateOfPage.inProcessingFilter}" type="checkbox" value="true">
+                               th:checked="${stateOfPage.inProcessingFilter}" type="checkbox" value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox3">
                         Отклонено
                         <input class="account-filter-form-checkbox" id="checkbox3" name="filterRejected" type="checkbox"
-                               th:checked="${session.stateOfPage.rejectedFilter}" value="true">
+                               th:checked="${stateOfPage.rejectedFilter}" value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox4">
                         Одобрено
                         <input class="account-filter-form-checkbox" id="checkbox4" name="filterApproved" type="checkbox"
-                               th:checked="${session.stateOfPage.approvedFilter}" value="true">
+                               th:checked="${stateOfPage.approvedFilter}" value="true">
                     </label>
                 </li>
                 <li>
                     <label for="select1"> Истекает срок предоставления ответа
                         <select id="select1" name="timeFilter">
-                            <option th:if="${session.stateOfPage.timeFilter != null}"
-                                    th:selected="${session.stateOfPage.timeFilter}"
-                                    th:text="${session.stateOfPage.timeFilter.message()}"
-                                    th:value="${session.stateOfPage.timeFilter}">Выберите срок предоставления ответа
+                            <option th:if="${stateOfPage.timeFilter != null}"
+                                    th:selected="${stateOfPage.timeFilter}"
+                                    th:text="${stateOfPage.timeFilter.message()}"
+                                    th:value="${stateOfPage.timeFilter}">Выберите срок предоставления ответа
                             </option>
-                            <option th:text="${session.stateOfPage.timeFilter.THREE_DAYS.message()}"
-                                    th:value="${session.stateOfPage.timeFilter.THREE_DAYS}">3 дня
+                            <option th:text="${stateOfPage.timeFilter.THREE_DAYS.message()}"
+                                    th:value="${stateOfPage.timeFilter.THREE_DAYS}">3 дня
                             </option>
-                            <option th:text="${session.stateOfPage.timeFilter.TEN_DAYS.message()}"
-                                    th:value="${session.stateOfPage.timeFilter.TEN_DAYS}">10 дней
+                            <option th:text="${stateOfPage.timeFilter.TEN_DAYS.message()}"
+                                    th:value="${stateOfPage.timeFilter.TEN_DAYS}">10 дней
                             </option>
-                            <option th:text="${session.stateOfPage.timeFilter.THIRTY_DAYS.message()}"
-                                    th:value="${session.stateOfPage.timeFilter.THIRTY_DAYS}">30 дней
+                            <option th:text="${stateOfPage.timeFilter.THIRTY_DAYS.message()}"
+                                    th:value="${stateOfPage.timeFilter.THIRTY_DAYS}">30 дней
                             </option>
                         </select>
                     </label>
@@ -94,37 +94,37 @@
                 <li>
                     <div>
                         <nav aria-label="Pagination" class="account-main-notifications-manager-pagination"
-                             th:if="${session.stateOfPage.page.totalPages gt 0}">
+                             th:if="${stateOfPage.page.totalPages gt 0}">
                             <ul class="pagination justify-content-center font-weight-bold">
                                 <li class="page-item"
-                                    th:classappend="${session.stateOfPage.page.number eq 0} ? 'disabled'">
+                                    th:classappend="${stateOfPage.page.number eq 0} ? 'disabled'">
                                     <!--                                    <a aria-label="Previous"-->
                                     <!--                                       class="page-link"-->
                                     <!--                                       data-toggle="tooltip"-->
-                                    <!--                                       th:href="@{/account/?page={id}(id=${session.stateOfPage.page.number lt 2 ? 1 : session.stateOfPage.page.number})}"-->
+                                    <!--                                       th:href="@{/account/?page={id}(id=${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number})}"-->
                                     <!--                                       title="Previous Page">-->
                                     <!--                                        <span aria-hidden="true">&laquo;</span>-->
                                     <!--                                    </a>-->
                                     <!--                                    <input type="submit" name="page"-->
-                                    <!--                                           th:value="${session.stateOfPage.page.number lt 2 ? 1 : session.stateOfPage.page.number}">-->
+                                    <!--                                           th:value="${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number}">-->
                                 </li>
                                 <li class="page-item"
-                                    th:classappend="${i eq session.stateOfPage.page.number + 1} ? 'active'"
-                                    th:each="i : ${#numbers.sequence( 1, session.stateOfPage.page.totalPages, 1)}">
+                                    th:classappend="${i eq stateOfPage.page.number + 1} ? 'active'"
+                                    th:each="i : ${#numbers.sequence( 1, stateOfPage.page.totalPages, 1)}">
                                     <!--                                    <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"-->
                                     <!--                                       th:text="${i}" th:title="${'Page '+ i}"></a>-->
                                     <input name="page" th:value="${i}" type="submit">
                                 </li>
                                 <li class="page-item"
-                                    th:classappend="${session.stateOfPage.page.number + 1 eq session.stateOfPage.page.totalPages} ? 'disabled'">
+                                    th:classappend="${stateOfPage.page.number + 1 eq stateOfPage.page.totalPages} ? 'disabled'">
                                     <!--                                    <a aria-label="Next"-->
                                     <!--                                       class="page-link"-->
                                     <!--                                       data-toggle="tooltip"-->
-                                    <!--                                       th:href="@{/account/?page={id}(id=${session.stateOfPage.page.number + 2})}"-->
+                                    <!--                                       th:href="@{/account/?page={id}(id=${stateOfPage.page.number + 2})}"-->
                                     <!--                                       title="Next Page">-->
                                     <!--                                        <span aria-hidden="true">&raquo;</span>-->
                                     <!--                                    </a>-->
-                                    <!--                                    <input type="submit" name="page" th:value="${session.stateOfPage.page.number + 2}">-->
+                                    <!--                                    <input type="submit" name="page" th:value="${stateOfPage.page.number + 2}">-->
                                 </li>
                             </ul>
                         </nav>
@@ -147,7 +147,7 @@
                 <th>Журнал действий</th>
                 <th>Удалить</th>
             </tr>
-            <tr th:each="notification : ${session.stateOfPage.page}">
+            <tr th:each="notification : ${stateOfPage.page}">
                 <td th:text="${notification.id}">id</td>
                 <td th:text="${notification.notificationType}">notification_type</td>
                 <td th:text="${notification.organization.name}">org_name</td>
@@ -189,7 +189,7 @@
         </table>
         <section class="account-main-manager">
             <div class="account-main-manager-total_elements">
-                <p>Найдено записей: <span th:text="${session.stateOfPage.page.totalElements}"></span></p>
+                <p>Найдено записей: <span th:text="${stateOfPage.page.totalElements}"></span></p>
             </div>
             <div class="account-main-notifications-manager-add_notification">
                 <a th:href="@{/account/addNotification/}">Добавить уведомление</a>

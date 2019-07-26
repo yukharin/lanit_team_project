@@ -49,7 +49,7 @@ public class PersonalAccountController {
         PersonalAccountPage<Notification> stateOfPage = optionalPage.isPresent() ? optionalPage.get() : new PersonalAccountPage<>();
         personalAccountService.setAccountPageState(stateOfPage, user, page, size,
                 filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
-        session.setAttribute("stateOfPage", stateOfPage);
+        model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
         return "personalAccount";
     }
