@@ -149,14 +149,26 @@ public class ActionDAOImp implements ActionDAO {
                  )
          );
 
-         if(desc) {
-//            criteriaQuery.orderBy(
-            order = criteriaBuilder.desc(
-                            rootAction.get(orderFieldName));
+         //Еxample: orderFieldName = organization.name
+         if(orderFieldName.contains(".")){
+            String[] mas = orderFieldName.split("\\.");
+            if(desc) {
+               order = criteriaBuilder.desc(
+                       rootAction.get(mas[0]).get(mas[1])
+               );
+            }else{
+               order = criteriaBuilder.asc(
+                       rootAction.get(mas[0]).get(mas[1])
+               );
+            }
          }else{
-//            criteriaQuery.orderBy(
-            order = criteriaBuilder.asc(
-                            rootAction.get(orderFieldName));
+            if(desc) {
+               order = criteriaBuilder.desc(
+                       rootAction.get(orderFieldName));
+            }else{
+               order = criteriaBuilder.asc(
+                       rootAction.get(orderFieldName));
+            }
          }
 //---------------------------------------------------
          criteriaQuery

@@ -172,13 +172,28 @@ public class NotificationDAOImp implements NotificationDAO {
                         )
                 );
             }
-            if(desc) {
-                order = criteriaBuilder.desc(
-                        rootNotific.get(orderFieldName));
+            //Еxample: orderFieldName = organization.name
+            if(orderFieldName.contains(".")){
+                String[] mas = orderFieldName.split("\\.");
+                if(desc) {
+                    order = criteriaBuilder.desc(
+                            rootNotific.get(mas[0]).get(mas[1])
+                    );
+                }else{
+                    order = criteriaBuilder.asc(
+                            rootNotific.get(mas[0]).get(mas[1])
+                    );
+                }
             }else{
-                order = criteriaBuilder.asc(
-                        rootNotific.get(orderFieldName));
+                if(desc) {
+                    order = criteriaBuilder.desc(
+                            rootNotific.get(orderFieldName));
+                }else{
+                    order = criteriaBuilder.asc(
+                            rootNotific.get(orderFieldName));
+                }
             }
+
 //---------------------------------------------------
             criteriaQuery
                     .select(rootNotific)
