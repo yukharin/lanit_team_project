@@ -2,7 +2,7 @@ package com.lanit.lkz_project.entities;
 
 
 import lombok.Data;
-import org.springframework.data.domain.PageImpl;
+
 
 @Data
 public class PersonalAccountPage<T> {
@@ -11,7 +11,7 @@ public class PersonalAccountPage<T> {
 
     private static final int DEFAULT_PAGE_SIZE = 10;
 
-    private PageImpl<T> page;
+    private JsonPageImpl<T> page;
 
     private TimeFilter timeFilter = TimeFilter.NO_FILTER;
 

@@ -50,8 +50,9 @@ public class PersonalAccountController {
         personalAccountService.setAccountPageState(stateOfPage, user, page, size,
                 filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
         ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(stateOfPage);
-//        stateOfPage = mapper.readValue(json, PersonalAccountPage.class);
+        String json = mapper.writeValueAsString(stateOfPage);
+        System.err.println(json);
+        stateOfPage = mapper.readValue(json, PersonalAccountPage.class);
         model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
         return "personalAccount";

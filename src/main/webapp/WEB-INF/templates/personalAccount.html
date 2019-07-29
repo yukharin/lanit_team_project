@@ -151,7 +151,7 @@
                 <td th:text="${notification.id}">id</td>
                 <td th:text="${notification.notificationType}">notification_type</td>
                 <td th:text="${notification.organization.name}">org_name</td>
-                <td th:text="${notification.status.message}">notification_status</td>
+                <td th:text="${notification.status}">notification_status</td>
                 <td th:text="${#dates.format(notification.dateReceived, 'yyyy-MM-dd')}"></td>
                 <td th:text="${#dates.format(notification.dateResponse, 'yyyy-MM-dd')}"></td>
                 <td th:text="${notification.letterNumber}">letter_number</td>
