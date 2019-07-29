@@ -42,7 +42,6 @@ public class PersonalAccountController {
         } else {
             stateOfPage = new PersonalAccountPage<>();
         }
-        System.err.println(stateOfPage);
         personalAccountService.setAccountPageState(stateOfPage, user);
         model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
