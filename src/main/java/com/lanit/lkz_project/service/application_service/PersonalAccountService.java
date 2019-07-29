@@ -37,17 +37,10 @@ public class PersonalAccountService {
 
     @Transactional
     public void setAccountPageState(PersonalAccountPage page,
-                                    User user,
-                                    String pageParam,
-                                    String sizeParam,
-                                    String filterNew,
-                                    String filterInProcessing,
-                                    String filterApproved,
-                                    String filterRejected,
-                                    String timeFilter) {
-        setFilters(page, filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
-        Pageable pageable = createPageRequest(pageParam, sizeParam);
-        JsonPageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, pageable, user);
+                                    User user) {
+//        setFilters(page, filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
+//        Pageable pageable = createPageRequest(page.getPage().getNumber(), 10);
+        JsonPageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, PageRequest.of(0, 10), user);
         page.setPage(accountPage);
     }
 

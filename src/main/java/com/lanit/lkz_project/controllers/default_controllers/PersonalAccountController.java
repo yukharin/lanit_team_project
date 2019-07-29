@@ -12,11 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 
@@ -33,26 +33,25 @@ public class PersonalAccountController {
     private UserAuthorizationService userAuthorization;
 
 
-    @GetMapping("/account/")
-    public String getPage(@NonNull @SessionAttribute String login,
-                          @NonNull @SessionAttribute String password,
-                          @RequestAttribute Optional<PersonalAccountPage<Notification>> optionalPage,
-                          @RequestParam(required = false) String page,
-                          @RequestParam(required = false) String size,
-                          @RequestParam(required = false) String filterNew,
-                          @RequestParam(required = false) String filterInProcessing,
-                          @RequestParam(required = false) String filterApproved,
-                          @RequestParam(required = false) String filterRejected,
-                          @RequestParam(required = false) String timeFilter,
-                          Model model) throws IOException {
-        @NonNull User user = userAuthorization.authorize(login, password);
-        PersonalAccountPage<Notification> stateOfPage = optionalPage.orElseGet(PersonalAccountPage::new);
-        personalAccountService.setAccountPageState(stateOfPage, user, page, size,
-                filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
+    @RequestMapping("/account/")
+    public String getPage(@SessionAttribute(required = false) String login,
+                          @SessionAttribute(required = false) String password,
+                          @RequestBody(required = false) PersonalAccountPage optionalPage,
+                          Model model, HttpServletRequest request) throws IOException {
+        @NonNull User user = userAuthorization.authorize("yukharin", "password7788");
+        PersonalAccountPage<Notification> stateOfPage;
+        if (optionalPage != null) {
+            stateOfPage = optionalPage;
+        } else {
+            stateOfPage = new PersonalAccountPage<>();
+        }
+        System.err.println(stateOfPage);
+        personalAccountService.setAccountPageState(stateOfPage, user);
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(stateOfPage);
-        System.err.println(json);
-        stateOfPage = mapper.readValue(json, PersonalAccountPage.class);
+//        String json = mapper.writeValueAsString(stateOfPage);
+//        String json = "{\"page\":{\"content\": [],\"number\":0,\"size\":10,\"totalElements\":10,\"pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"last\":true,\"totalPages\":1,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"first\":true,\"numberOfElements\":10,\"empty\":false},\"timeFilter\":\"TEN_DAYS\",\"newFilter\":\"true\",\"inProcessingFilter\":\"true\",\"approvedFilter\":false,\"rejectedFilter\":false}";
+//        System.err.println(json);
+//        stateOfPage = mapper.readValue(json, PersonalAccountPage.class);
         model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
         return "personalAccount";

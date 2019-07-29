@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html id="main-element" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
 </head>
-<body>
+<body id="body">
 <header class="account-header">
     <div>
         <a th:href="@{/account/}"><h2>Личный кабинет</h2></a>
@@ -26,33 +26,33 @@
 </header>
 <main class="account-main">
     <section class="account-filter">
-        <form class="account-filter-form">
+        <form class="account-filter-form" id="filter-form">
             <ul>
                 <li>
                     <label class="account-filter-form-label" for="checkbox1">
                         Новое
-                        <input class="account-filter-form-checkbox" id="checkbox1" name="filterNew" type="checkbox"
+                        <input class="account-filter-form-checkbox" id="checkbox1" name="newFilter" type="checkbox"
                                th:checked="${stateOfPage.newFilter}" value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox2">
                         В обработке
-                        <input class="account-filter-form-checkbox" id="checkbox2" name="filterInProcessing"
+                        <input class="account-filter-form-checkbox" id="checkbox2" name="inProcessingFilter"
                                th:checked="${stateOfPage.inProcessingFilter}" type="checkbox" value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox3">
                         Отклонено
-                        <input class="account-filter-form-checkbox" id="checkbox3" name="filterRejected" type="checkbox"
+                        <input class="account-filter-form-checkbox" id="checkbox3" name="rejectedFilter" type="checkbox"
                                th:checked="${stateOfPage.rejectedFilter}" value="true">
                     </label>
                 </li>
                 <li>
                     <label class="account-filter-form-label" for="checkbox4">
                         Одобрено
-                        <input class="account-filter-form-checkbox" id="checkbox4" name="filterApproved" type="checkbox"
+                        <input class="account-filter-form-checkbox" id="checkbox4" name="approvedFilter" type="checkbox"
                                th:checked="${stateOfPage.approvedFilter}" value="true">
                     </label>
                 </li>
@@ -79,7 +79,7 @@
                 <li>
                     <label class="account-filter-form-label" for="apply_filters">
                         Применить фильтр
-                        <input class="account-filter-form-submit" id="apply_filters" type="submit"
+                        <input class="account-filter-form-submit" id="apply_filters" type="button"
                                value="Применить фильтр">
                     </label>
                 </li>
@@ -196,6 +196,6 @@
             </div>
         </section>
 </main>
-<script defer th:src="@{/js/personalAcc.js}"></script>
 </body>
+<script async th:src="@{/js/personalAccount.js}"></script>
 </html>
