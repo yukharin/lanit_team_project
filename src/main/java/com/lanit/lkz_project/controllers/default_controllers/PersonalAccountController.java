@@ -1,6 +1,5 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lanit.lkz_project.authorization.UserAuthorizationService;
 import com.lanit.lkz_project.entities.*;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
@@ -37,7 +34,7 @@ public class PersonalAccountController {
     public String getPage(@SessionAttribute(required = false) String login,
                           @SessionAttribute(required = false) String password,
                           @RequestBody(required = false) PersonalAccountPage optionalPage,
-                          Model model, HttpServletRequest request) throws IOException {
+                          Model model) {
         @NonNull User user = userAuthorization.authorize("yukharin", "password7788");
         PersonalAccountPage<Notification> stateOfPage;
         if (optionalPage != null) {
@@ -47,11 +44,6 @@ public class PersonalAccountController {
         }
         System.err.println(stateOfPage);
         personalAccountService.setAccountPageState(stateOfPage, user);
-        ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(stateOfPage);
-//        String json = "{\"page\":{\"content\": [],\"number\":0,\"size\":10,\"totalElements\":10,\"pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"offset\":0,\"pageSize\":10,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"last\":true,\"totalPages\":1,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"first\":true,\"numberOfElements\":10,\"empty\":false},\"timeFilter\":\"TEN_DAYS\",\"newFilter\":\"true\",\"inProcessingFilter\":\"true\",\"approvedFilter\":false,\"rejectedFilter\":false}";
-//        System.err.println(json);
-//        stateOfPage = mapper.readValue(json, PersonalAccountPage.class);
         model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
         return "personalAccount";
