@@ -220,7 +220,7 @@
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
                     onclick="
-                            window.location.href='${pageContext.request.contextPath}/cabinet/aboutTheNotification/currentState_TheNotification'
+                            window.location.href='${pageContext.request.contextPath}/cabinet/about_the_notification/current_state'
                             "
             >
                 ОТМЕНА
@@ -232,7 +232,7 @@
 </div>
 
 <%--<div id="return">--%>
-    <%--<a href="${pageContext.request.contextPath}/cabinet/aboutTheNotification/currentState_TheNotification"> Back to "about the notification" </a>--%>
+    <%--<a href="${pageContext.request.contextPath}/cabinet/about_the_notification/current_state"> Back to "about the notification_app" </a>--%>
 <%--</div>--%>
 
 <script>

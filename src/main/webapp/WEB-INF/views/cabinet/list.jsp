@@ -96,28 +96,9 @@
                     Cотрудник органа власти
                 </c:if>
             </span>
-
-            <%--<form action="selectUser" method="POST">--%>
+            
             Текущий Пользователь: ${user.firstName} ${user.lastName}
-            <%--<select type="text" name="idSelectUser" onchange="this.form.submit()" >&lt;%&ndash;multiple="true"&ndash;%&gt;--%>
-            <%--<c:forEach items="${user_list}" var="tempUser">--%>
-            <%--<c:choose>--%>
-            <%--<c:when test="${user.id.equals(tempUser.id)}">--%>
-            <%--<option selected--%>
-            <%--value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>--%>
-            <%--</c:when>--%>
-            <%--<c:otherwise>--%>
-            <%--<option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>--%>
-            <%--</c:otherwise>--%>
-            <%--</c:choose>--%>
-            <%--</c:forEach>--%>
-            <%--</select>--%>
-            <%--<input type="submit" value="Войти на страницу" class="save" />--%>
 
-            <%--<Br><Br>--%>
-            <%--<a class="href-nav-item"--%>
-            <%--href="${pageContext.request.contextPath}/user/list"> Настройка пользователей </a>--%>
-            <%--<Br>--%>
             <Br><Br>
             <a class="href-nav-item"
                href="${pageContext.request.contextPath}/"> Выйти </a>
@@ -128,15 +109,16 @@
 </div>
 
 <div id="content">
-    <form action="listNew"  method="get">
+
+    <form action="listNew"  method="get" <%--modelAttribute="cabinetModel"--%> >
         <div id="filters">
             <%--<form action="filterByNotificStatus"  method="get">--%>
             Фильтры:<Br>
             <table>
                 <td style="text-align: left; width: 30%;">
-                    <c:forEach items="${statuses4select}" var="tempStatus">
+                    <c:forEach items="${state.getStatuses4selectFilter()}" var="tempStatus">
                         <c:choose>
-                            <c:when test="${checked_list.contains(tempStatus)}">
+                            <c:when test="${state.getCheckedMainListNotificStatuses().contains(tempStatus)}">
                                 <input checked
                                        class= "checkboxStatuses4select"
                                        type="checkbox"
@@ -166,11 +148,11 @@
                 </td>
                 <td>
                     <c:choose>
-                        <c:when test="${showArchive}">
+                        <c:when test="${state.getModel().isShowArchive()}">
                             <input checked
                                    class= "checkboxshowArchive"
                                    type="checkbox"
-                                   name="showArchive" value="checked"
+                                   name="showArchive" value="true"
                                    onchange="
                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                    this.form.submit()"
@@ -178,13 +160,11 @@
                             Показывать архивные уведомления
                             </input>
                             <Br>
-                            <%--<input type="hidden" name="showArchive" value="${!showArchive}" checked></input>--%>
-                            <%--<button id="Archive" type="submit" style="background: green">Архив</button><Br>--%>
                         </c:when>
                         <c:otherwise>
                             <input class= "checkboxshowArchive"
                                    type="checkbox"
-                                   name="showArchive" value="checked"
+                                   name="showArchive" value="true"
                                    onchange="
                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                    this.form.submit()"
@@ -192,8 +172,6 @@
                             Показывать архивные уведомления
                             </input>
                             <Br>
-                            <%--<input type="hidden" name="showArchive" value="${!showArchive}"></input>--%>
-                            <%--<button id="Archive" type="submit" style="background: red">Архив</button><Br>--%>
                         </c:otherwise>
                     </c:choose>
                 </td>
@@ -240,14 +218,14 @@
             <%--</form>--%>
         </div>
 
-        <div id="pagination">
+        <div id="state.getPagination()">
             <table>
                 <td style="text-align: left">
-                    Найдено записей: ${pagination.totalRecords}<Br>
+                    Найдено записей: ${state.getPagination().totalRecords}<Br>
                 </td>
                 <td style="text-align: center">
                     <div id="page-navigator">
-                        <c:if test="${pagination.totalPages > 1}">
+                        <c:if test="${state.getPagination().totalPages > 1}">
 
                             <span class ="radioDecorator">
                                 <input id="radioPageFirst"
@@ -264,7 +242,7 @@
                             <span class ="radioDecorator">
                                 <input id="radioPagePrev"
                                        type="radio"
-                                       name="page" value="${(pagination.currentPage != 1) ? pagination.currentPage-1 : 1 }">
+                                       name="page" value="${(state.getPagination().currentPage != 1) ? state.getPagination().currentPage-1 : 1 }">
                                 <button type="button" class="href-nav-item"
                                         onclick="
                                         document.getElementById('radioPagePrev').setAttribute('checked', true);
@@ -273,19 +251,11 @@
                                 </button>
                             </span>
 
-                            <%--<a class="href-nav-item"--%>
-                            <%--&lt;%&ndash;href="selectPagination?maxResult=${pagination.maxResult}&page=1"> << </a>&ndash;%&gt;--%>
-                            <%--href="listNew?page=1"> << </a>--%>
-
-                            <%--<a class="href-nav-item"--%>
-                            <%--&lt;%&ndash;href="selectPagination?maxResult=${pagination.maxResult}&page=${(pagination.currentPage != 1) ? pagination.currentPage-1 : 1 }"> <- </a>&ndash;%&gt;--%>
-                            <%--href="listNew?page=${(pagination.currentPage != 1) ? pagination.currentPage-1 : 1 }"> <- </a>--%>
-
-                            <c:forEach items="${pagination.navigationPages}" var = "page">
+                            <c:forEach items="${state.getPagination().navigationPages}" var = "page">
                                 <c:choose>
                                     <c:when test="${page != -1 }">
 
-                                        <c:if test="${page == pagination.currentPage}">
+                                        <c:if test="${page == state.getPagination().currentPage}">
 
                                             <span class ="radioDecorator">
                                                 <input id="radioPageCount_${page}"
@@ -298,17 +268,9 @@
                                                         ${page}
                                                 </button>
                                             </span>
-                                            <%--<a &lt;%&ndash;class="href-nav-item"&ndash;%&gt;--%>
-                                            <%--class="href-nav-item-current"--%>
-                                            <%--&lt;%&ndash;href="selectPagination?maxResult=${pagination.maxResult}&page=${page}">${page}</a>&ndash;%&gt;--%>
-                                            <%--href="listNew?page=${page}">${page}</a>--%>
-
                                         </c:if>
-                                        <c:if test="${page != pagination.currentPage}">
+                                        <c:if test="${page != state.getPagination().currentPage}">
 
-                                            <%--<a class="href-nav-item"--%>
-                                            <%--&lt;%&ndash;href="selectPagination?maxResult=${pagination.maxResult}&page=${page}">${page}</a>&ndash;%&gt;--%>
-                                            <%--href="listNew?page=${page}">${page}</a>--%>
                                             <span class ="radioDecorator">
                                                 <input id="radioPageCount_${page}"
                                                        type="radio"
@@ -325,22 +287,16 @@
 
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="href-nav-item"> ... </span>
+                                        <button type="button"  class="href-nav-item"> ... </button>
                                     </c:otherwise>
                                 </c:choose>
 
                             </c:forEach>
 
-                            <%--<a class="href-nav-item"--%>
-                            <%--href="selectPagination?page=${(pagination.currentPage != pagination.totalPages)? pagination.currentPage+1 : pagination.currentPage }"> -> </a>--%>
-
-                            <%--<a class="href-nav-item"--%>
-                            <%--href="selectPagination?page=${pagination.totalPages}"> >> </a>--%>
-
                             <span class ="radioDecorator">
                                 <input id="radioPageNext"
                                        type="radio"
-                                       name="page" value="${(pagination.currentPage != pagination.totalPages)? pagination.currentPage+1 : pagination.currentPage }">
+                                       name="page" value="${(state.getPagination().currentPage != state.getPagination().totalPages)? state.getPagination().currentPage+1 : state.getPagination().currentPage }">
                                 <button type="button" class="href-nav-item"
                                         onclick="
                                       document.getElementById('radioPageNext').setAttribute('checked', true);
@@ -351,7 +307,7 @@
                             <span class ="radioDecorator">
                                 <input id="radioPageLast"
                                        type="radio"
-                                       name="page" value="${pagination.totalPages}">
+                                       name="page" value="${state.getPagination().totalPages}">
                                 <button type="button" class="href-nav-item"
                                         onclick="
                                       document.getElementById('radioPageLast').setAttribute('checked', true);
@@ -365,8 +321,6 @@
                 </td>
                 <td style="text-align: right">
                     <div id="selectMaxResult">
-                        <%--<form action="selectPagination" method="get">--%>
-                        <%--<form action="selectMaxResult" method="get">--%>
                         Показывать по :
                         <select type="text" name="maxResult"
                                 onchange="
@@ -375,7 +329,7 @@
                         ><%--multiple="true"--%>
                             <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">
                                 <c:choose>
-                                    <c:when test="${tempMaxResult.equals(pagination.maxResult)}">
+                                    <c:when test="${tempMaxResult.equals(state.getPagination().maxResult)}">
                                         <option selected
                                                 value ="${tempMaxResult}">${tempMaxResult}</option>
                                     </c:when>
@@ -385,7 +339,6 @@
                                 </c:choose>
                             </c:forEach>
                         </select>
-                        <%--ПРЕДЫДУЩИЙ КОСТЫЛЬ<input type="hidden" name="page" value="1"></input>--%>
                         <%--<input type="submit" value="Войти на страницу" class="save" />--%>
                 </td>
             </table>
@@ -399,8 +352,6 @@
                     <th>№</th>
                     <th>Вид уведомления<%--notificationType--%>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=notificationType&desc=true"--%>
-                        <%--href="orderDesc?orderFieldName=notificationType&desc=true" > /\ </a>--%>
                         <span class ="radioDecorator radio-notificationType">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=notificationType&desc=true"
                                    name="orderFieldName" value="notificationType"
@@ -418,8 +369,6 @@
                             </button>
                         </span>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=notificationType&desc=false"--%>
-                        <%--href="orderDesc?orderFieldName=notificationType&desc=false"> \/ </a>--%>
                         <span class ="radioDecorator radio-notificationType">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=notificationType&desc=false"
                                    name="orderFieldName" value="notificationType"
@@ -439,8 +388,6 @@
                     </th>
                     <th>Заказчик<%--organization.NAME--%>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=organization.name&desc=true"--%>
-                        <%--href="orderDesc?orderFieldName=organization.name&desc=true"> /\ </a>--%>
                         <span class ="radioDecorator radio-organization.name">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=organization.name&desc=true"
                                    name="orderFieldName" value="organization.name"
@@ -458,8 +405,6 @@
                             </button>
                         </span>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=organization.name&desc=false"--%>
-                        <%--href="orderDesc?orderFieldName=organization.name&desc=false"> \/ </a>--%>
                         <span class ="radioDecorator radio-organization.name">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=organization.name&desc=false"
                                    name="orderFieldName" value="organization.name"
@@ -479,8 +424,6 @@
                     </th>
                     <th>Срок предоставления ответа<%--dateResponse--%>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=dateResponse&desc=true"--%>
-                        <%--href="orderDesc?orderFieldName=dateResponse&desc=true"> /\ </a>--%>
                         <span class ="radioDecorator radio-dateResponse">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=dateResponse&desc=true"
                                    name="orderFieldName" value="dateResponse"
@@ -498,8 +441,6 @@
                             </button>
                         </span>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=dateResponse&desc=false"--%>
-                        <%--href="orderDesc?orderFieldName=dateResponse&desc=false"> \/ </a>--%>
                         <span class ="radioDecorator radio-dateResponse">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=dateResponse&desc=false"
                                    name="orderFieldName" value="dateResponse"
@@ -519,8 +460,6 @@
                     </th>
                     <th>Статус обработки уведомления<%--notificationStatus--%>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=notificationStatus.name&desc=true"--%>
-                        <%--href="orderDesc?orderFieldName=notificationStatus.name&desc=true"> /\ </a>--%>
                         <span class ="radioDecorator radio-notificationStatus">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=notificationStatus&desc=true"
                                    name="orderFieldName" value="notificationStatus"
@@ -538,8 +477,6 @@
                             </button>
                         </span>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=notificationStatus.name&desc=false"--%>
-                        <%--href="orderDesc?orderFieldName=notificationStatus.name&desc=false"> \/ </a>--%>
                         <span class ="radioDecorator radio-notificationStatus">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=notificationStatus&desc=false"
                                    name="orderFieldName" value="notificationStatus"
@@ -559,8 +496,6 @@
                     </th>
                     <th>Номер уведомления<%--Id--%>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=id&desc=true"--%>
-                        <%--href="orderDesc?orderFieldName=id&desc=true"> /\ </a>--%>
                         <span class ="radioDecorator radio-id">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=id&desc=true"
                                    name="orderFieldName" value="id"
@@ -578,8 +513,6 @@
                             </button>
                         </span>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=id&desc=false"--%>
-                        <%--href="orderDesc?orderFieldName=id&desc=false"> \/ </a>--%>
                         <span class ="radioDecorator radio-id">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=id&desc=false"
                                    name="orderFieldName" value="id"
@@ -599,8 +532,6 @@
                     </th>
                     <th>Дата получения уведомления<%--dateReceived--%>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=dateReceived&desc=true"--%>
-                        <%--href="orderDesc?orderFieldName=dateReceived&desc=true"> /\ </a>--%>
                         <span class ="radioDecorator radio-dateReceived">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=dateReceived&desc=true"
                                    name="orderFieldName" value="dateReceived"
@@ -618,8 +549,6 @@
                             </button>
                         </span>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=dateReceived&desc=false"--%>
-                        <%--href="orderDesc?orderFieldName=dateReceived&desc=false"> \/ </a>--%>
                         <span class ="radioDecorator radio-dateReceived">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=dateReceived&desc=false"
                                    name="orderFieldName" value="dateReceived"
@@ -639,8 +568,6 @@
                     </th>
                     <th>Номер письма<%--letterNumber--%>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=letterNumber&desc=true"--%>
-                        <%--href="orderDesc?orderFieldName=letterNumber&desc=true"> /\ </a>--%>
                         <span class ="radioDecorator radio-letterNumber">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=letterNumber&desc=true"
                                    name="orderFieldName" value="letterNumber"
@@ -658,8 +585,6 @@
                             </button>
                         </span>
                         <Br>
-                        <%--<a class="href-nav-item" id="orderFieldName=letterNumber&desc=false"--%>
-                        <%--href="orderDesc?orderFieldName=letterNumber&desc=false"> \/ </a>--%>
                         <span class ="radioDecorator radio-letterNumber">
                             <input type="radio" id="radio-orderFieldName-orderFieldName=letterNumber&desc=false"
                                    name="orderFieldName" value="letterNumber"
@@ -679,10 +604,10 @@
                     </th>
                     <th>Действия</th>
                 </tr>
-                <c:forEach var="tempNotification" items="${notific_list}" varStatus="notificLoopCount" >
+                <c:forEach var="tempNotification" items="${state.getShowListNotifications()}" varStatus="notificLoopCount" >
                     <tr>
                         <td><input type="checkbox"></td>
-                        <td>${notificLoopCount.count + (pagination.currentPage-1)*pagination.maxResult}
+                        <td>${notificLoopCount.count + (state.getPagination().currentPage-1)*state.getPagination().maxResult}
                         </td>
                         <td>${tempNotification.notificationType}</td>
                         <td>${tempNotification.organization.name}</td>
@@ -691,28 +616,45 @@
                             <c:choose>
                                 <c:when test="${user.organization.government}">
                                     <%--<form action="editStatus" method="get">--%>
-                                        <input type="checkbox" class="hidden_input"
-                                               id="idNotification4editStatus=${tempNotification.id}"
-                                               name="idNotification4editStatus" value="${tempNotification.id}"></input>
-                                        <select type="text" name="idStatus_With_idNotification=${tempNotification.id}"
-                                                onchange="
-                                                document.getElementById('idNotification4editStatus=${tempNotification.id}').setAttribute('checked', true)
-                                                this.form.submit()" >
-                                            <c:forEach items="${statuses4select}" var="status">
-                                                <c:choose>
-                                                    <c:when test="${tempNotification.notificationStatus.id.equals(status.id)}">
-                                                        <option selected
-                                                                value ="${status.id}">${status.name}</option>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <option value ="${status.id}">${status.name}</option>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </select>
-                                            <%--<input type="submit" value="Применить изменения" class="save" />--%>
+                                    <input type="checkbox" class="hidden_input"
+                                           id="idNotification4editStatus=${tempNotification.id}"
+                                           name="selectedIdNotification4editStatus" value="${tempNotification.id}"></input>
+
+                                    <input type="checkbox" class="hidden_input"
+                                           id="idStatus_WithIdNotification=${tempNotification.id}"
+                                           name="selectedNewIdStatus" value="${tempNotification.id}"></input>
+
+                                    <select type="text" id="selectNewActionId"<%--name="idStatus_With_idNotification=${tempNotification.id}"--%>
+                                            onchange="
+                                                    document.getElementById('flagNeedReplaceStatus').setAttribute('value', true);
+                                                    document.getElementById('idNotification4editStatus=${tempNotification.id}').setAttribute('checked', true);
+
+                                                    var selectElement = document.getElementById('selectNewActionId');
+                                                    var n = selectElement.options.selectedIndex;
+
+                                                    var status = document.getElementById('idStatus_WithIdNotification=${tempNotification.id}');
+                                                    status.value = selectElement.options[n].value;
+                                                    status.setAttribute('checked', true);
+
+                                                    this.form.submit()" >
+                                        <c:forEach items="${state.getStatuses4selectFilter()}" var="status">
+
+                                            <c:choose>
+                                                <c:when test="${tempNotification.notificationStatus.id.equals(status.id)}">
+                                                    <option selected
+                                                            value ="${status.id}">${status.name}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value ="${status.id}">${status.name}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </c:forEach>
+                                    </select>
+                                    <%--<input type="submit" value="Применить изменения" class="save" />--%>
                                     <%--</form>--%>
                                 </c:when>
+
                                 <c:otherwise>
                                     ${tempNotification.notificationStatus.name}
                                 </c:otherwise>
@@ -724,12 +666,7 @@
                         <td>
                             Кол-во: ${tempNotification.actions.size()}
                             <Br>
-                            <%--<c:url var="addLink" value="selectTheNotification">--%>
-                                <%--<c:param name="notificationId" value="${tempNotification.id}"/>--%>
-                            <%--</c:url>--%>
-                            <%--<a href="${addLink}">More</a>--%>
-
-                            <c:url var="moreLink" value="aboutTheNotification/selectTheNotification">
+                            <c:url var="moreLink" value="about_the_notification/selectTheNotification">
                                 <c:param name="notificationId" value="${tempNotification.id}"/>
                                 <c:param name="userId" value="${user.id}"/>
                             </c:url>
@@ -741,17 +678,16 @@
                             >
                                 Подробнее
                             </button>
-                            <%--<a style="background-color: #4CAF50; color: white; display: inline-block;" &lt;%&ndash;class="green_button"&ndash;%&gt;--%>
-                               <%--href="${pageContext.request.contextPath}/cabinet/aboutTheNotification/selectTheNotification?notificationId=${tempNotification.id}&userId=${user.id}"--%>
-                            <%--> Подробнее--%>
-                            <%--</a>--%>
-
                             <Br>
                         </td>
                     </tr>
                 </c:forEach>
             </table>
         </div>
+
+        <input id="flagNeedReplaceStatus"
+               type="hidden"
+               name="flagNeedReplaceStatus" value="false"></input>
 
         <input id="selectedNewResultAndNeedSetFirstPage"
                type="hidden"
@@ -771,13 +707,13 @@
             mas[i].checked = false;//.setAttribute('checked', 'checked');
         }
     }
-    document.getElementById("orderFieldName=${orderFieldName}&desc=${desc}").classList.add('href-nav-item-current');
+    document.getElementById("orderFieldName=${state.getModel().getOrderFieldName()}&desc=${state.getModel().isDesc()}").classList.add('href-nav-item-current');
 
-    document.getElementById("radio-orderFieldName-orderFieldName=${orderFieldName}&desc=${desc}").setAttribute('checked', true);
-    document.getElementById("radio-desc-orderFieldName=${orderFieldName}&desc=${desc}").setAttribute('checked', true);
+    document.getElementById("radio-orderFieldName-orderFieldName=${state.getModel().getOrderFieldName()}&desc=${state.getModel().isDesc()}").setAttribute('checked', true);
+    document.getElementById("radio-desc-orderFieldName=${state.getModel().getOrderFieldName()}&desc=${state.getModel().isDesc()}").setAttribute('checked', true);
 
     //todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last
-    document.getElementById("radioPageCount_${pagination.currentPage}").setAttribute('checked', true);
+    document.getElementById("radioPageCount_${state.getPagination().currentPage}").setAttribute('checked', true);
 </script>
 </body>
 </html>
