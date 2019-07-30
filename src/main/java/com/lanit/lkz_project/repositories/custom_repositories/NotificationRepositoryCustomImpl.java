@@ -1,7 +1,12 @@
 package com.lanit.lkz_project.repositories.custom_repositories;
 
 
-import com.lanit.lkz_project.entities.*;
+import com.lanit.lkz_project.entities.dto.JsonPageImpl;
+import com.lanit.lkz_project.entities.dto.PersonalAccountPage;
+import com.lanit.lkz_project.entities.jpa_entities.Notification;
+import com.lanit.lkz_project.entities.jpa_entities.NotificationStatus;
+import com.lanit.lkz_project.entities.jpa_entities.Role;
+import com.lanit.lkz_project.entities.jpa_entities.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 

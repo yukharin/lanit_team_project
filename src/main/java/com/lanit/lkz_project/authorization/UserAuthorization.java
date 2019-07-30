@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.authorization;
 
-import com.lanit.lkz_project.entities.User;
+import com.lanit.lkz_project.entities.jpa_entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

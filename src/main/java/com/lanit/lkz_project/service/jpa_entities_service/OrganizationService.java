@@ -1,6 +1,6 @@
-package com.lanit.lkz_project.service.entities_service;
+package com.lanit.lkz_project.service.jpa_entities_service;
 
-import com.lanit.lkz_project.entities.Organization;
+import com.lanit.lkz_project.entities.jpa_entities.Organization;
 import com.lanit.lkz_project.repositories.entitity_repositories.OrganizationRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

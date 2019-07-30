@@ -1,23 +1,9 @@
-var filterForm = document.getElementById("filter-form");
-var submitButton = document.getElementById("apply_filters");
-var json;
-
 var doFilter = function () {
-    generateJson();
+    var json = generateJson();
     sendFilterData(json);
 };
 
-// var onLoad = function () {
-//     if (request.readyState === XMLHttpRequest.DONE) {
-//         var page = request.responseText;
-//         document.body.innerHTML += "sdsdsd";
-//     }
-// };
-
-
-// if (submitButton) {
-//     submitButton.addEventListener("click", doFilter);
-// }
+var formData;
 
 function generateJson() {
     var formVar = {
@@ -59,7 +45,7 @@ function generateJson() {
         "rejectedFilter": false
     };
     var form = document.getElementById("filter-form");
-    var formData = new FormData(form);
+    formData = new FormData(form);
     formData.forEach(function (value, key) {
         console.log("key - " + key + ", value - " + value);
         if (key === "pageNumber") {
@@ -68,7 +54,7 @@ function generateJson() {
             formVar[key] = value;
         }
     });
-    json = JSON.stringify(formVar);
+    return JSON.stringify(formVar);
 }
 
 
@@ -82,20 +68,11 @@ function sendFilterData(json) {
     request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
             var body = document.getElementById("main-element");
-            var response = request.responseText;
-            body.innerHTML = response;
+            body.innerHTML = request.responseText;
         }
     }
-    // request.onreadystatechange = function () {
-    //     if (request.readyState == XMLHttpRequest.DONE) {
-    //         alert("test");
-    //         var page = request.responseText;
-    //         alert(page);
-    //         var html = document.getElementsByTagName("html");
-    //         html.innerHTML = page;
-    //     }
-    // }
 }
+
 
 
 

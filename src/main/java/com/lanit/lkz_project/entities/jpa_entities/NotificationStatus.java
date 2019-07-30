@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.entities;
+package com.lanit.lkz_project.entities.jpa_entities;
 
 import java.util.EnumSet;
 import java.util.Set;

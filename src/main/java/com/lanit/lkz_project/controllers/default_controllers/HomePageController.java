@@ -1,9 +1,9 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
 import com.lanit.lkz_project.authorization.UserAuthorizationService;
-import com.lanit.lkz_project.entities.Organization;
-import com.lanit.lkz_project.entities.User;
-import com.lanit.lkz_project.service.entities_service.OrganizationService;
+import com.lanit.lkz_project.entities.jpa_entities.Organization;
+import com.lanit.lkz_project.entities.jpa_entities.User;
+import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

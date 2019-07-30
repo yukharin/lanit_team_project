@@ -15,12 +15,12 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
-        <mapping class="com.lanit.lkz_project.entities.User"/>
-        <mapping class="com.lanit.lkz_project.entities.Organization"/>
-        <mapping class="com.lanit.lkz_project.entities.NotificationStatus"/>
-        <mapping class="com.lanit.lkz_project.entities.Notification"/>
-        <mapping class="com.lanit.lkz_project.entities.ActionType"/>
-        <mapping class="com.lanit.lkz_project.entities.Action"/>
-        <mapping class="com.lanit.lkz_project.entities.Role"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.User"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Organization"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.NotificationStatus"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Notification"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.ActionType"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Action"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Role"/>
     </session-factory>
 </hibernate-configuration>

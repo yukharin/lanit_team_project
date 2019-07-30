@@ -1,5 +1,5 @@
-import com.lanit.lkz_project.entities.Notification;
-import com.lanit.lkz_project.entities.NotificationStatus;
+import com.lanit.lkz_project.entities.jpa_entities.Notification;
+import com.lanit.lkz_project.entities.jpa_entities.NotificationStatus;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

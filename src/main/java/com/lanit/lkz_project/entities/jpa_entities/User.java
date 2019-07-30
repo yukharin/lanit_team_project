@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.entities;
+package com.lanit.lkz_project.entities.jpa_entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

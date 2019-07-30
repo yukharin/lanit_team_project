@@ -1,6 +1,6 @@
 //package com.lanit.lkz_project.controllers.rest_controllers;
 //
-//import com.lanit.lkz_project.entities.User;
+//import com.lanit.lkz_project.entities.jpa_entities.User;
 //import com.lanit.lkz_project.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.HttpStatus;
