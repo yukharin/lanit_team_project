@@ -62,8 +62,8 @@ function generateJson() {
     var formData = new FormData(form);
     formData.forEach(function (value, key) {
         console.log("key - " + key + ", value - " + value);
-        if (key === "page") {
-            formVar[key].number = value;
+        if (key === "pageNumber") {
+            formVar.page.number = value - 1;
         } else {
             formVar[key] = value;
         }

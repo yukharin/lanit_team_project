@@ -98,33 +98,35 @@
                             <ul class="pagination justify-content-center font-weight-bold">
                                 <li class="page-item"
                                     th:classappend="${stateOfPage.page.number eq 0} ? 'disabled'">
-                                    <!--                                    <a aria-label="Previous"-->
-                                    <!--                                       class="page-link"-->
-                                    <!--                                       data-toggle="tooltip"-->
-                                    <!--                                       th:href="@{/account/?page={id}(id=${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number})}"-->
-                                    <!--                                       title="Previous Page">-->
-                                    <!--                                        <span aria-hidden="true">&laquo;</span>-->
-                                    <!--                                    </a>-->
-                                    <!--                                    <input type="submit" name="page"-->
-                                    <!--                                           th:value="${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number}">-->
+                                    <a aria-label="Previous"
+                                       class="page-link"
+                                       data-toggle="tooltip"
+                                       th:href="@{/account/?page={id}(id=${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number})}"
+                                       title="Previous Page">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    <input name="pageNumber" onclick="doFilter()"
+                                           th:value="${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number}"
+                                           type="radio">
                                 </li>
                                 <li class="page-item"
                                     th:classappend="${i eq stateOfPage.page.number + 1} ? 'active'"
                                     th:each="i : ${#numbers.sequence( 1, stateOfPage.page.totalPages, 1)}">
-                                    <!--                                    <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"-->
-                                    <!--                                       th:text="${i}" th:title="${'Page '+ i}"></a>-->
-                                    <input name="page" onclick="doFilter()" th:value="${i}" type="submit">
+                                    <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"
+                                       th:text="${i}" th:title="${'Page '+ i}"></a>
+                                    <input name="pageNumber" onclick="doFilter()" th:value="${i}" type="radio">
                                 </li>
                                 <li class="page-item"
                                     th:classappend="${stateOfPage.page.number + 1 eq stateOfPage.page.totalPages} ? 'disabled'">
-                                    <!--                                    <a aria-label="Next"-->
-                                    <!--                                       class="page-link"-->
-                                    <!--                                       data-toggle="tooltip"-->
-                                    <!--                                       th:href="@{/account/?page={id}(id=${stateOfPage.page.number + 2})}"-->
-                                    <!--                                       title="Next Page">-->
-                                    <!--                                        <span aria-hidden="true">&raquo;</span>-->
-                                    <!--                                    </a>-->
-                                    <!--                                    <input type="submit" name="page" th:value="${stateOfPage.page.number + 2}">-->
+                                    <a aria-label="Next"
+                                       class="page-link"
+                                       data-toggle="tooltip"
+                                       th:href="@{/account/?page={id}(id=${stateOfPage.page.number + 2})}"
+                                       title="Next Page">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    <input name="pageNumber" onclick="doFilter()"
+                                           th:value="${stateOfPage.page.number + 2}" type="radio">
                                 </li>
                             </ul>
                         </nav>
