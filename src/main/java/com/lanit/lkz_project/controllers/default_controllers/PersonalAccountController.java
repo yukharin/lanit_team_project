@@ -10,8 +10,10 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
@@ -33,8 +35,8 @@ public class PersonalAccountController {
 
 
     @RequestMapping("/account/")
-    public String getPage(@SessionAttribute(required = false) String login,
-                          @SessionAttribute(required = false) String password,
+    public String getPage(@SessionAttribute String login,
+                          @SessionAttribute String password,
                           @RequestBody Optional<PersonalAccountPage<Notification>> optionalPage,
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
@@ -113,6 +115,20 @@ public class PersonalAccountController {
         User userImplementor = userAuthorization.authorize(login, password);
         personalAccountService.addAction(userImplementor, actionTypeParam, idNotification, comment);
         return "redirect:/account/";
+    }
+
+    @GetMapping("/test")
+    public String showForm(PersonForm personForm) {
+        return "form";
+    }
+
+    @PostMapping("/test")
+    public String checkPersonInfo(@Valid PersonForm personForm, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
+        return "redirect:/results";
     }
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+</head>
+<body>
+<form action="#" method="post" th:action="@{/test}"
+      th:object="${personForm}">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input th:field="*{name}" type="text"/></td>
+            <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name
+                Error
+            </td>
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td><input th:field="*{age}" type="text"/></td>
+            <td th:errors="*{age}" th:if="${#fields.hasErrors('age')}">Age
+                Error
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

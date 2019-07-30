@@ -32,7 +32,7 @@ public class HomePageController {
     }
 
     @GetMapping("/registration/")
-    public String toRegistrationPage(Model model) {
+    public String toRegistrationPage(Model model, User user) {
         List<Organization> organizations = organizationService.organizations();
         model.addAttribute("organizations", organizations);
         return "userRegistrationPage";
