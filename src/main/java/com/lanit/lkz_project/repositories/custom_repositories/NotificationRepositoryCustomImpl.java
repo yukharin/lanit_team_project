@@ -22,11 +22,12 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
     EntityManager entityManager;
 
     @Override
-    public JsonPageImpl<Notification> getAccountPage(final PersonalAccountPage<Notification> page, final Pageable pageable, final User user) {
+    public JsonPageImpl<Notification> getAccountPage(final PersonalAccountPage<Notification> page, final User user) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
         final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
         final Root<Notification> table = notificationsQuery.from(Notification.class);
+        final Pageable pageRequest = page.getPage().getPageable();
 
         // predicates initialization
         Predicate orgPredicate = builder.conjunction();
@@ -63,12 +64,11 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
                 .where(resultingPredicate);
 
         TypedQuery<Notification> notificationsTQ = entityManager.createQuery(notificationsQuery);
-        notificationsTQ.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        notificationsTQ.setMaxResults(pageable.getPageSize());
+        notificationsTQ.setFirstResult(pageRequest.getPageNumber() * pageRequest.getPageSize());
+        notificationsTQ.setMaxResults(pageRequest.getPageSize());
         List<Notification> resultList = notificationsTQ.getResultList();
-        resultList.forEach(System.err::println);
         final long count = entityManager.createQuery(totalNotifications).getSingleResult();
-        return new JsonPageImpl<>(resultList, pageable, count);
+        return new JsonPageImpl<>(resultList, pageRequest, count);
     }
 
     private List<Predicate> generateFilterPredicates(final CriteriaBuilder builder,

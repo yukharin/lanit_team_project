@@ -2,16 +2,22 @@ package com.lanit.lkz_project.entities;
 
 
 import lombok.Data;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.Collections;
 
 
 @Data
 public class PersonalAccountPage<T> {
 
+    private static final int DEFAULT_TOTAL_ELEMENTS = 0;
+
     private static final int DEFAULT_PAGE_NUMBER = 0;
 
     private static final int DEFAULT_PAGE_SIZE = 10;
 
-    private JsonPageImpl<T> page;
+    private JsonPageImpl<T> page = new JsonPageImpl<>(Collections.emptyList(),
+            PageRequest.of(DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE), DEFAULT_TOTAL_ELEMENTS);
 
     private TimeFilter timeFilter = TimeFilter.NO_FILTER;
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -33,17 +34,13 @@ public class PersonalAccountController {
     @RequestMapping("/account/")
     public String getPage(@SessionAttribute(required = false) String login,
                           @SessionAttribute(required = false) String password,
-                          @RequestBody(required = false) PersonalAccountPage optionalPage,
+                          @RequestBody Optional<PersonalAccountPage<Notification>> optionalPage,
                           Model model) {
-        @NonNull User user = userAuthorization.authorize("yukharin", "password7788");
-        PersonalAccountPage<Notification> stateOfPage;
-        if (optionalPage != null) {
-            stateOfPage = optionalPage;
-        } else {
-            stateOfPage = new PersonalAccountPage<>();
-        }
-        personalAccountService.setAccountPageState(stateOfPage, user);
-        model.addAttribute("stateOfPage", stateOfPage);
+        @NonNull User user = userAuthorization.authorize(login, password);
+        PersonalAccountPage<Notification> page = optionalPage.orElseGet(PersonalAccountPage::new);
+        System.err.println(page);
+        personalAccountService.setAccountPageState(page, user);
+        model.addAttribute("stateOfPage", page);
         model.addAttribute("user", user);
         return "personalAccount";
     }

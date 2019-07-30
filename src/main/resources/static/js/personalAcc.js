@@ -1,5 +1,5 @@
 var filterForm = document.getElementById("filter-form");
-var submitButtton = document.getElementById("apply_filters");
+var submitButton = document.getElementById("apply_filters");
 var json;
 
 var doFilter = function () {
@@ -15,9 +15,9 @@ var doFilter = function () {
 // };
 
 
-if (submitButtton) {
-    submitButtton.addEventListener("click", doFilter);
-}
+// if (submitButton) {
+//     submitButton.addEventListener("click", doFilter);
+// }
 
 function generateJson() {
     var formVar = {
@@ -83,7 +83,6 @@ function sendFilterData(json) {
         if (request.readyState === XMLHttpRequest.DONE) {
             var body = document.getElementById("main-element");
             var response = request.responseText;
-            response += "hello";
             body.innerHTML = response;
         }
     }

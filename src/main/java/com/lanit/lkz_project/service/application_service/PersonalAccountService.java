@@ -7,8 +7,6 @@ import com.lanit.lkz_project.service.entities_service.NotificationService;
 import com.lanit.lkz_project.service.entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +19,7 @@ import java.util.Random;
 @Service
 public class PersonalAccountService {
 
-    private static final int DEFAULT_PAGE_NUMBER = 0;
-    private static final int DEFAULT_PAGE_SIZE = 10;
+
     private static final int BOUND_TO_GENERATE_NUMBER = 10;
 
 
@@ -36,68 +33,11 @@ public class PersonalAccountService {
     private NotificationRepository notificationRepository;
 
     @Transactional
-    public void setAccountPageState(PersonalAccountPage page,
+    public void setAccountPageState(PersonalAccountPage<Notification> page,
                                     User user) {
-//        setFilters(page, filterNew, filterInProcessing, filterApproved, filterRejected, timeFilter);
-//        Pageable pageable = createPageRequest(page.getPage().getNumber(), 10);
-        JsonPageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, PageRequest.of(0, 10), user);
+        JsonPageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, user);
         page.setPage(accountPage);
     }
-
-    private void setFilters(PersonalAccountPage page,
-                            String filterNew,
-                            String filterInProcessing,
-                            String filterApproved,
-                            String filterRejected,
-                            String timeFilter) {
-        if (filterApproved != null && filterApproved.equals("true")) {
-            page.setApprovedFilter(true);
-        }
-        if (filterApproved != null && filterApproved.equals("false")) {
-            page.setApprovedFilter(false);
-        }
-        if (filterInProcessing != null && filterInProcessing.equals("true")) {
-            page.setInProcessingFilter(true);
-        }
-
-        if (filterNew != null && filterNew.equals("true")) {
-            page.setNewFilter(true);
-        }
-
-        if (filterRejected != null && filterRejected.equals("true")) {
-            page.setRejectedFilter(true);
-        }
-        if (timeFilter != null) {
-            switch (PersonalAccountPage.TimeFilter.valueOf(timeFilter)) {
-                case THREE_DAYS:
-                    page.setTimeFilter(PersonalAccountPage.TimeFilter.THREE_DAYS);
-                    break;
-                case TEN_DAYS:
-                    page.setTimeFilter(PersonalAccountPage.TimeFilter.TEN_DAYS);
-                    break;
-                case THIRTY_DAYS:
-                    page.setTimeFilter(PersonalAccountPage.TimeFilter.THIRTY_DAYS);
-                    break;
-                default:
-                    page.setTimeFilter(PersonalAccountPage.TimeFilter.NO_FILTER);
-                    break;
-            }
-        }
-    }
-
-    private Pageable createPageRequest(String pageParam, String sizeParam) {
-        int pageNumber = DEFAULT_PAGE_NUMBER;
-        int pageSize = DEFAULT_PAGE_SIZE;
-        if (pageParam != null && !pageParam.isEmpty()) {
-            pageNumber = Integer.parseInt(pageParam) - 1;
-        }
-
-        if (sizeParam != null && !sizeParam.isEmpty()) {
-            pageSize = Integer.parseInt(sizeParam);
-        }
-        return PageRequest.of(pageNumber, pageSize);
-    }
-
 
     public EnumSet<ActionType> getAppropriateActions(@NonNull Notification notification) {
         NotificationStatus status = notification.getStatus();

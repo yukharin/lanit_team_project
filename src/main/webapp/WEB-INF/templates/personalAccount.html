@@ -80,7 +80,7 @@
                     <label class="account-filter-form-label" for="apply_filters">
                         Применить фильтр
                         <input class="account-filter-form-submit" id="apply_filters" type="button"
-                               value="Применить фильтр">
+                               onclick="doFilter()" value="Применить фильтр">
                     </label>
                 </li>
                 <li>
@@ -113,7 +113,7 @@
                                     th:each="i : ${#numbers.sequence( 1, stateOfPage.page.totalPages, 1)}">
                                     <!--                                    <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"-->
                                     <!--                                       th:text="${i}" th:title="${'Page '+ i}"></a>-->
-                                    <input name="page" th:value="${i}" type="submit">
+                                    <input name="page" onclick="doFilter()" th:value="${i}" type="submit">
                                 </li>
                                 <li class="page-item"
                                     th:classappend="${stateOfPage.page.number + 1 eq stateOfPage.page.totalPages} ? 'disabled'">
@@ -197,5 +197,5 @@
         </section>
 </main>
 </body>
-<script async th:src="@{/js/personalAccount.js}"></script>
+<script th:src="@{/js/personalAcc.js}"></script>
 </html>
