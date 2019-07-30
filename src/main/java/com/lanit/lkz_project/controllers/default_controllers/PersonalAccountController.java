@@ -38,7 +38,6 @@ public class PersonalAccountController {
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
         PersonalAccountPage<Notification> page = optionalPage.orElseGet(PersonalAccountPage::new);
-        System.err.println("NUMBER:" + page.getPage().getPageable().getPageNumber());
         personalAccountService.setAccountPageState(page, user);
         model.addAttribute("stateOfPage", page);
         model.addAttribute("user", user);
