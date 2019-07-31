@@ -3,46 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
+    <link href="https://fonts.google.com/specimen/Grenze?selection.family=Grenze" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/casca.css}" type="text/css"/>
 </head>
 <body>
 <main class="login-main">
-    <h2 class="login-header">Login</h2>
-    <ul class="login-list">
-        <li class="login-list-element">
-            <form class="login-form" method="post" th:action="@{/login/}">
-                <ul class="login-form-list">
-                    <li class="login-form-list-element">
-                        <label class="login-form-label" for="input-userName"> User Name: <input
-                                class="login-form-input"
-                                id="input-userName"
-                                name="login"
-                                type="text"/>
-                        </label>
-                    </li>
-                    <li class="login-form-list-element">
-                        <label class="login-form-label" for="input-password"> Password: <input
-                                class="login-form-input"
-                                id="input-password"
-                                name="password"
-                                type="password"/>
-                        </label>
-                    </li>
-                    <li class="login-form-list-element">
-                        <label class="login-form-label" for="submit-button">
-                            <button id="submit-button" type="submit">Логин</button>
-                        </label>
-                    </li>
-                </ul>
-            </form>
-        <li class="login-list-element">
-            <form class="registration-form" method="get" th:action="@{/registration/}">
-                <label class="login-form-label" for="submit-button2">
-                    <button id="submit-button2" type="submit">Регистрация</button>
-                </label>
-            </form>
-        </li>
-    </ul>
+    <div class="login-element">
+        <h2>Добро пожаловать на страничку авторизации, пожалуйста введите ваши регистрационные данные</h2>
+        <form class="login-form" method="post" th:action="@{/login/}">
+            <label class="login-form-label" for="input-userName"> Имя пользователя: <input
+                    class="login-form-input"
+                    id="input-userName"
+                    name="login"
+                    type="text"/>
+            </label>
+            <label class="login-form-label" for="input-password"> Пароль:
+                <input
+                        class="login-form-input"
+                        id="input-password"
+                        name="password"
+                        type="password"/>
+            </label>
+            <label class="login-form-label" for="login-submit-button">
+                <button id="login-submit-button" type="submit">Логин</button>
+            </label>
+            <p>Еще не зарегестрированы?</p>
+            <div class="registration-href">
+                <a th:href="@{/registration/}">Регистрация</a>
+            </div>
+        </form>
+    </div>
 </main>
-<a href="hello">Click here...</a>
 </body>
 </html>

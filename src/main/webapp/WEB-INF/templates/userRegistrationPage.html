@@ -3,16 +3,16 @@
 <head>
     <title>Registration</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" th:href="@{/css/cascade.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/casca.css}" type="text/css"/>
 </head>
 <body>
 <main class="registration-main">
-    <h2 class="registration-header">Registration page</h2>
+    <h2 class="registration-header">Страничка регистрации</h2>
     <form class="registration-form" id="register-form" method="post" th:action="@{/registerUser/}" th:object="${user}">
         <ul class="registration-form-list">
             <li class="registration-form-list-element">
                 <label for="inputFirstName">
-                    First name<input id="inputFirstName" name="firstName" th:field="*{firstName}" type="text"/>
+                    Имя<input id="inputFirstName" name="firstName" th:field="*{firstName}" type="text"/>
                 </label>
                 <div th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">First_name
                     Error
@@ -20,9 +20,9 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputLastName">
-                    Last name<input class="registration-form-input" id="inputLastName" name="lastName"
-                                    th:field="*{lastName}"
-                                    type="text"/>
+                    Фамилия<input class="registration-form-input" id="inputLastName" name="lastName"
+                                  th:field="*{lastName}"
+                                  type="text"/>
                 </label>
                 <div th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">Last_name
                     Error
@@ -30,7 +30,7 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputLogin">
-                    Login<input id="inputLogin" name="login" th:field="*{login}" type="text"/>
+                    Логин<input id="inputLogin" name="login" th:field="*{login}" type="text"/>
                 </label>
                 <div th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login
                     Error
@@ -38,7 +38,7 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputPassword">
-                    Password<input id="inputPassword" name="password" th:field="*{password}" type="text"/>
+                    Пароль<input id="inputPassword" name="password" th:field="*{password}" type="text"/>
                 </label>
                 <div th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password
                     Error
@@ -46,7 +46,7 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="selectOrganization">
-                    Your organization
+                    Ваша организация
                     <select class="registration-form-select" id="selectOrganization" name="orgId"
                             th:field="*{organization}">
                         <option class="registration-form-select-option" th:each="organization : ${organizations}"
@@ -61,7 +61,8 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="submitRegistration">
-                    <input class="registration-form-submit" id="submitRegistration" type="submit" value="Отправить">
+                    <input class="registration-form-submit" id="submitRegistration" type="submit"
+                           value="Зарегистрироваться">
                 </label>
             </li>
         </ul>

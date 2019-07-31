@@ -1,0 +1,333 @@
+/*css priority:*/
+/*1. inline styles*/
+/*2. ID selectors */
+/*3. .class*/
+/*4. tag*/
+/*5. group selector*/
+/*6. * selector*/
+
+/*When priorities equal - priority below *.css file overrides priority above it*/
+
+/*A CSS selector can contain more than one simple selector. Between the simple selectors, we can include a combinator.*/
+/*There are four different combinators in CSS:*/
+
+/*descendant selector (space)*/
+/*child selector (>)*/
+/*adjacent sibling selector (+)*/
+/*general sibling selector (~)*/
+
+
+/*PSEUDO CLASSES*/
+/*A pseudo-class is used to define a special state of an element.*/
+
+/*For example, it can be used to:*/
+
+/*Style an element when a user mouses over it*/
+/*Style visited and unvisited links differently*/
+/*Style an element when it gets focus*/
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: sans-serif;
+    padding: 10px;
+    border-style: solid;
+    border-color: black;
+    margin: 10px;
+}
+
+.account-header {
+    margin: 0px;
+    padding: 0px;
+}
+
+.account-header-personal_info {
+    padding: 10px;
+    background-color: silver;
+    opacity: 50%;
+}
+
+.account-header-personal_info div {
+    display: inline-block;
+}
+
+.account-header-personal-data {
+
+}
+
+.account-header-account-href {
+    width: 88%;
+}
+
+.account-header-account-href a {
+    text-decoration: none;
+    color: black;
+}
+
+.account-header-account-href a:hover {
+    text-decoration: none;
+    color: maroon;
+}
+
+.account-header-organization-name {
+    padding: 10px;
+    vertical-align: center;
+    text-align: center;
+    background-color: maroon;
+    height: 75px;
+    max-width: 100%;
+}
+
+.account-header-organization-name p {
+    color: white;
+    height: 20px;
+    font-family: "Bauhaus 93", sans-serif;
+}
+
+.account-header-logout-button a {
+    text-decoration: none;
+    color: white;
+    background-color: maroon;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.account-header-logout-button a:hover {
+    color: maroon;
+    background-color: white;
+}
+
+.account-header-user_info {
+    margin: 5px;
+}
+
+.account-header-user_info p {
+    font-family: sans-serif;
+    color: black;
+}
+
+/*loginPage styles*/
+
+
+.login-form label,
+.login-form input,
+.login-form button {
+    display: block;
+    margin: 1px;
+}
+
+.login-element {
+    border: black solid 2px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 100%;
+    background-color: silver;
+}
+
+#login-submit-button {
+    text-decoration: none;
+    color: white;
+    background-color: maroon;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.registration-href {
+    margin-bottom: 12px;
+}
+
+.registration-href a {
+    text-decoration: none;
+    color: white;
+    background-color: maroon;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+
+.login-form input {
+    border: 2px solid black;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: maroon;
+    background: whitesmoke;
+}
+
+
+/*registration page styles*/
+.registration-form label,
+.registration-form input,
+.registration-form button,
+.registration-form select {
+    display: block;
+    margin: 1px;
+}
+
+.registration-form {
+    border: black solid 2px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 100%;
+    background-color: silver;
+}
+
+.registration-form-submit {
+    text-decoration: none;
+    color: white;
+    background-color: maroon;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.registration-form-select {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
+    border-radius: .5em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+    linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+}
+
+.registration-form-select::-ms-expand {
+    display: none;
+}
+
+.registration-form-select:hover {
+    border-color: #888;
+}
+
+.registration-form-select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+.registration-form-select option {
+    font-weight: normal;
+}
+
+/*personal account styles*/
+
+.account-filter-form {
+    border: solid 1px black;
+}
+
+.account-main-notifications-table {
+    border: solid 1px black;
+}
+
+.account-main-notifications-manager-pagination {
+    border-top: solid 1px black;
+}
+
+.pagination-list-element {
+    all: initial;
+}
+
+.account-filter-form-first_part {
+    display: inline-block;
+    padding: 22px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.account-filter-form-second_part_part {
+    display: inline-block;
+}
+
+.account-filter-form-checkbox-label {
+}
+
+.account-filter-form-checkbox-label input {
+    all: initial;
+}
+
+.account-filter-form-checkbox-label input + span {
+    border: black 1px solid;
+    margin: 15px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.account-filter-form-checkbox-label input:checked + span {
+    border: black 1px solid;
+    margin: 15px;
+    padding: 10px;
+    background-color: maroon;
+    border-radius: 8px;
+    color: white;
+}
+
+.account-filter-form-checkbox-label input + span:hover {
+    background-color: maroon;
+    color: white;
+}
+
+
+.account-filter-form-button-submit {
+    padding: 10px;
+    border: black 1px solid;
+    border-radius: 8px;
+    color: white;
+    background-color: green;
+    margin: 10px 10px 10px 30px;
+}
+
+.account-filter-form-button-submit:hover {
+    color: white;
+    background-color: maroon;
+}
+
+.account-filter-form-button-reset {
+    padding: 10px;
+    border: black 1px solid;
+    border-radius: 8px;
+    color: white;
+    background-color: slategray;
+    margin: 10px;
+}
+
+.account-filter-form-button-reset:hover {
+    color: white;
+    background-color: maroon;
+}
+
+.account-filter-form-select-time_filter {
+    padding: 10px;
+    border: black 1px solid;
+    border-radius: 8px;
+    background-color: #0328fc;
+    color: white;
+    margin: 10px 10px 10px auto;
+}
+
+
+
+
+
+
