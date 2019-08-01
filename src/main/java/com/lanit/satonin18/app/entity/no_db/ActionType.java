@@ -114,10 +114,9 @@ class ActionTypeStoreMapHelper {
 //todo move f(x) in other class
 public enum ActionType{
     //i don't init var here and add in constructor HashMap<Integer, ActionType>.put(id,this)
-    BUG(0,"BUG"),
-    SENDING_ANSWER(1,"Направление ответа"),
-    CONFORM_ANSWER(2,"Согласовать ответ"),
-    REJECT_ANSWER(3, "Отклонить ответ");
+    SENDING_ANSWER(0,"Направление ответа"),
+    CONFORM_ANSWER(1,"Согласовать ответ"),
+    REJECT_ANSWER(2, "Отклонить ответ");
 
     private static int count=0;
 

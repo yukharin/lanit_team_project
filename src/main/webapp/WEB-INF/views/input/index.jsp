@@ -75,24 +75,24 @@
                 <c:if test="${user == null}">
                     (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)
                 </c:if>
-                <c:if test="${user.organization.government}">
-                    Cотрудник органа власти
-                </c:if>
+                <%--<c:if test="${user.organization.government}">--%>
+                    <%--Cотрудник органа власти--%>
+                <%--</c:if>--%>
             </span>
 
             <form action="selectUser" method="POST">
                 Текущий Пользователь:
                 <select type="text" name="idSelectUser" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
                     <c:forEach items="${user_list}" var="tempUser">
-                        <c:choose>
-                            <c:when test="${user.id.equals(tempUser.id)}">
-                                <option selected
-                                        value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                            </c:when>
-                            <c:otherwise>
+                        <%--<c:choose>--%>
+                            <%--<c:when test="${user.id.equals(tempUser.id)}">--%>
+                                <%--<option selected--%>
+                                        <%--value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>--%>
+                            <%--</c:when>--%>
+                            <%--<c:otherwise>--%>
                                 <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                            </c:otherwise>
-                        </c:choose>
+                            <%--</c:otherwise>--%>
+                        <%--</c:choose>--%>
                     </c:forEach>
                 </select>
                 <input type="submit" value="Войти на страницу" class="save" />

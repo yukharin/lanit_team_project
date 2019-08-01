@@ -28,7 +28,7 @@ public class User implements Serializable {
     private String lastName;
 
     @ManyToOne
-    @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_org", referencedColumnName = "id", nullable = false)
     private Organization organization;
 
     @Override

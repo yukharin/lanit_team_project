@@ -113,11 +113,10 @@ class NotificStatusStoreMapHelper {
 
 //todo move f(x) in other class
 public enum Status {
-    BUG(0,"BUG"),
-    NEW(1, "Новое"),
-    IN_WORK(2, "В работе"),
-    REJECTED(3, "Отклонено", true),
-    OK(4, "Одобрено", true);
+    NEW(0, "Новое"),
+    IN_WORK(1, "В работе"),
+    REJECTED(2, "Отклонено", true),
+    OK(3, "Одобрено", true);
 
     @Getter
     private int id; //todo нужна проверка на уникальность

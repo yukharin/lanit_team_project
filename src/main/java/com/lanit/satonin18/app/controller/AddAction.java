@@ -12,25 +12,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller("addActionController")
 @RequestMapping("/cabinet/about_the_notification/addAction")
 public class AddAction {
-    //----------------------------------------------------------------
-    private User currentUser;
-    private Notification currentNotification;
-
     @Autowired
     private NotificationService notificationService;
     @Autowired
     private UserService userService;
     @Autowired
     private ActionService actionService;
-//    @Autowired
-//    private CrudDAO<ActionType> actionTypeService;
-//    @Autowired
-//    private NotificationStatusService statusService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -39,9 +32,13 @@ public class AddAction {
     public String formPage(
             @RequestParam("notificationId") int notificationId,
             @RequestParam("userId") int userId,
-            Model model) {
-        currentUser = userService.getById(userId);
-        currentNotification = notificationService.getById(notificationId);
+            HttpSession session, Model model) {
+        User currentUser = userService.getById(userId);
+        Notification currentNotification = notificationService.getById(notificationId);
+        if(currentUser == null || currentNotification == null) return "redirect:/"; //todo add alert(error)
+
+        session.setAttribute("user", userId);
+        session.setAttribute("notification", notificationId);
 
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
@@ -59,8 +56,12 @@ public class AddAction {
             @RequestParam("content") String content,
             @RequestParam("idUserImplementor") int idUserImplementor,
             @RequestParam("idNotificationStatus") int idNotificationStatus,
-            Model model) {
-
+            HttpSession session, Model model) {
+        Integer userId = (Integer) session.getAttribute("user");
+        Integer notificationId = (Integer) session.getAttribute("notification");
+        if(userId == null || notificationId == null) return "redirect:/"; //todo add alert( IT DONT SAVE)
+        User currentUser = userService.getById(userId);
+        Notification currentNotification = notificationService.getById(notificationId);
 //------------------------------------------------
 //        ActionType actionType = actionTypeService.getById(idActionType);
 //        ActionType actionType = ActionType.values()[idActionType];

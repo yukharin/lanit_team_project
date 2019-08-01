@@ -13,9 +13,4 @@ public class NotificationAppModel {
     private boolean desc = Common_Default_var.DESC;
 
     private boolean selectedNewResultAndNeedSetFirstPage = false;
-
-//    private boolean showArchive = false;//если параметр не пришел, то false, если пришел( то приходит только true)  //Default_NotificationApp_var.SHOW_ARCHIVE;
-//    private List<Integer> idFilterStatus = new ArrayList<>( /*IdStatus.getAllId()*/ ); //если ничего передали, значит пусто
-//    (Mock)selectFastFilter
-
 }

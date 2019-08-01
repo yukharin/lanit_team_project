@@ -17,18 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
 @Controller("notificationAppController")
 @RequestMapping("/cabinet/about_the_notification")
 public class NotificationAppController {
-    //TODO take in sesion //can be store ID
-    private User currentUser;
-    private Notification currentNotification;
-    private NotificationAppState state;
-
     @Autowired
     private NotificationAppService notificationAppService;
 
@@ -36,12 +33,8 @@ public class NotificationAppController {
     private UserService userService;
     @Autowired
     private NotificationService notificationService;
-//    @Autowired
-//    private CrudDAO<ActionType> actionTypeService;
-//    @Autowired
-//    private NotificationStatusService statusService;
 
-    private void addAttributes_Action(Model model) {
+    private void addAttributes_Action(Model model, NotificationAppState state, User currentUser, Notification currentNotification) {
         model.addAttribute("state", state);
 
         model.addAttribute("user", currentUser);
@@ -57,50 +50,50 @@ public class NotificationAppController {
     public String selectTheNotification(
             @RequestParam("notificationId") int notificationId,
             @RequestParam("userId") int userId,
-            Model model) {
-        currentUser = userService.getById(userId);
-        if(currentUser==null) return "redirect:/";
-
-        currentNotification = notificationService.getById(notificationId);
+            HttpSession session, Model model,
+            final RedirectAttributes redirectAttributes) {
+        NotificationAppModel notificationModel = new NotificationAppModel();
+        //notificationModel.set#(##);
 //------------------------------------------------
-//        NotificationAppModel notificationModel = new NotificationAppModel();
-//        notificationModel.set#(#);
-//
-        state = new NotificationAppState();
-//        state.setModel(notificationModel);
+        session.setAttribute("user", userId); //todo добавляем без проверки
+        session.setAttribute("notification", notificationId);
+        session.setAttribute("notificationModel", notificationModel);
 
-//        notificationAppService.initCommonVar4NotificationAppState(state, currentNotification);
-
-//        addAttributes_Action(dto);
-//        return "redirect:/cabinet/about_the_notification/current_state";
-        return "redirect:/cabinet/about_the_notification/moreNew";
+        redirectAttributes.addFlashAttribute( notificationModel);
+        return "redirect:moreNew"; //return "redirect:/cabinet/about_the_notification/moreNew";
     }
 
     @GetMapping("/current_state")
     public String currentState(
-            Model model) {
-        if(currentUser==null) return "redirect:/";
+            HttpSession session, Model model,
+            final RedirectAttributes redirectAttributes) {
+        NotificationAppModel notificationModel = (NotificationAppModel) session.getAttribute("notificationModel");
+        if (notificationModel == null) {
+            notificationModel = new NotificationAppModel();//notificationModel.set#(##);
+        }
+        redirectAttributes.addFlashAttribute( "NotificationModel", notificationModel);
 
-        notificationAppService.executeQuery(state, currentNotification);
-
-        addAttributes_Action(model);
-        return "about_the_notification/form_more";
+        return "redirect:moreNew";
     }
 
     @GetMapping("/moreNew")
     public String moreNew(
-//            HttpServletRequest request, HttpServletResponse response,
             @ModelAttribute(value = "NotificationModel") NotificationAppModel notificationModel,
-            Model model){
-        if(currentUser==null) return "redirect:/";
-
+            HttpSession session, Model model){
+        Integer userId = (Integer) session.getAttribute("user");
+        Integer notificationId = (Integer) session.getAttribute("notification");
+        if(userId == null || notificationId == null) return "redirect:/"; //todo add alert( IT DONT SAVE)
+        User currentUser = userService.getById(userId);
+        Notification currentNotification = notificationService.getById(notificationId);
+//------------------------------------------------
         if(notificationModel.isSelectedNewResultAndNeedSetFirstPage() ) notificationModel.setPage(1);
 
-        state.setModel(notificationModel);
+        NotificationAppState state = new NotificationAppState(notificationModel);
 
         notificationAppService.executeQuery(state, currentNotification);
-
-        addAttributes_Action(model);
+//------------------------------------------------
+        session.setAttribute("notificationModel", notificationModel);
+        addAttributes_Action(model, state, currentUser, currentNotification);
         return "about_the_notification/form_more";
     }
 

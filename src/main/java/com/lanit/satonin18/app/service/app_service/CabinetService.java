@@ -28,12 +28,6 @@ public class CabinetService {
     @Autowired
     private OrganizationService organizationService;
 
-    public void initCommonVar4CabinetState(CabinetState cabinetState) {
-//        cabinetState.setStatuses4selectFilter(statusService.listByIds(IdStatus.getAllId()));
-        cabinetState.setStatuses4selectFilter( Arrays.asList(Status.values()) );
-        cabinetState.setListArchiveStatus( Status.getArchiveStatuses() );
-        cabinetState.setCheckedMainListNotificStatuses(CabinetState.getStatuses4selectFilter());
-    }
     public void executeQuery(CabinetState state, User currentUser) {
         CabinetModel model = state.getModel();
         if ( ! model.getIdFilterStatus().isEmpty()) {
@@ -63,8 +57,6 @@ public class CabinetService {
             );
             state.setShowListNotifications(Collections.EMPTY_LIST);
         }
-
-
     }
 
     public void editStatus(Integer idNotification, Integer idNewStatus) {
