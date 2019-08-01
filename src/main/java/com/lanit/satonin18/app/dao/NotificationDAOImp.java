@@ -2,8 +2,8 @@ package com.lanit.satonin18.app.dao;
 
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.entity.NotificationStatus;
 import com.lanit.satonin18.app.entity.Organization;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

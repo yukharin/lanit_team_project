@@ -2,8 +2,8 @@ package com.lanit.satonin18.app.service.entities_service;
 
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.entity.NotificationStatus;
 import com.lanit.satonin18.app.entity.Organization;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import com.lanit.satonin18.app.service.entities_service.CrudService;
 
 import java.util.List;

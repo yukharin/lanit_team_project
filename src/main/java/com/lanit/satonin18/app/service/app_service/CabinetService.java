@@ -2,17 +2,16 @@ package com.lanit.satonin18.app.service.app_service;
 
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.dao.CrudDAO;
-import com.lanit.satonin18.app.entity.ActionType;
 import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.entity.NotificationStatus;
 import com.lanit.satonin18.app.entity.User;
 import com.lanit.satonin18.app.dto.cabinet.CabinetModel;
 import com.lanit.satonin18.app.dto.cabinet.CabinetState;
-import com.lanit.satonin18.app.dto.cabinet.IdStatus;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Service("cabinetService")
@@ -23,15 +22,16 @@ public class CabinetService {
     private UserService userService;
     @Autowired
     private ActionService actionService;
-    @Autowired
-    private CrudDAO<ActionType> actionTypeService;
-    @Autowired
-    private NotificationStatusService statusService;
+//    @Autowired
+//    private CrudDAO<ActionType> actionTypeService;
+//    @Autowired
+//    private NotificationStatusService statusService;
     @Autowired
     private OrganizationService organizationService;
 
     public void initCommonVar4CabinetState(CabinetState cabinetState) {
-        cabinetState.setStatuses4selectFilter(statusService.listByIds(IdStatus.getAllId()));
+//        cabinetState.setStatuses4selectFilter(statusService.listByIds(IdStatus.getAllId()));
+        cabinetState.setStatuses4selectFilter( Arrays.asList(NotificationStatus.values()) );
         cabinetState.setListArchiveStatus(statusService.listByIds(IdStatus.getArchiveStatusesId()));
         cabinetState.setCheckedMainListNotificStatuses(CabinetState.getStatuses4selectFilter());
     }

@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.entity;
 
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,8 +41,9 @@ public class Notification implements Serializable {
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
     private Organization organization;
 
-    @ManyToOne
-    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+//    @ManyToOne
+//    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private NotificationStatus notificationStatus;
 
     @ManyToOne

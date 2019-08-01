@@ -3,12 +3,10 @@ package com.lanit.satonin18.app.service.app_service;
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.dao.CrudDAO;
 import com.lanit.satonin18.app.entity.Action;
-import com.lanit.satonin18.app.entity.ActionType;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.dto.notification_app.NotificationAppModel;
 import com.lanit.satonin18.app.dto.notification_app.NotificationAppState;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
-import com.lanit.satonin18.app.service.entities_service.NotificationStatusService;
 import com.lanit.satonin18.app.service.entities_service.OrganizationService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +24,10 @@ public class NotificationAppService {
     private UserService userService;
     @Autowired
     private ActionService actionService;
-    @Autowired
-    private CrudDAO<ActionType> actionTypeService;
-    @Autowired
-    private NotificationStatusService statusService;
+//    @Autowired
+//    private CrudDAO<ActionType> actionTypeService;
+//    @Autowired
+//    private NotificationStatusService statusService;
     @Autowired
     private OrganizationService organizationService;
 

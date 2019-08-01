@@ -1,7 +1,8 @@
 package com.lanit.satonin18.app.controller;
 
-import com.lanit.satonin18.app.dao.CrudDAO;
 import com.lanit.satonin18.app.entity.*;
+import com.lanit.satonin18.app.entity.no_db.ActionType;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Arrays;
 
 @Controller("addActionController")
 @RequestMapping("/cabinet/about_the_notification/addAction")
@@ -24,10 +27,10 @@ public class AddAction {
     private UserService userService;
     @Autowired
     private ActionService actionService;
-    @Autowired
-    private CrudDAO<ActionType> actionTypeService;
-    @Autowired
-    private NotificationStatusService statusService;
+//    @Autowired
+//    private CrudDAO<ActionType> actionTypeService;
+//    @Autowired
+//    private NotificationStatusService statusService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -42,8 +45,10 @@ public class AddAction {
 
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
-        model.addAttribute("listActionType", actionTypeService.list());
-        model.addAttribute("listStatus", statusService.list());
+//        model.addAttribute("listActionType", actionTypeService.list());
+        model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
+//        model.addAttribute("listStatus", statusService.list());
+        model.addAttribute("listStatus",Arrays.asList(NotificationStatus.values()));
         return "add_action";
     }
 
@@ -57,7 +62,9 @@ public class AddAction {
             Model model) {
 
 //------------------------------------------------
-        ActionType actionType = actionTypeService.getById(idActionType);
+//        ActionType actionType = actionTypeService.getById(idActionType);
+//        ActionType actionType = ActionType.values()[idActionType];
+        ActionType actionType = ActionType.getById(idActionType);
         User userImplementor = userService.getById(idUserImplementor);
         NotificationStatus status = statusService.getById(idNotificationStatus);
 

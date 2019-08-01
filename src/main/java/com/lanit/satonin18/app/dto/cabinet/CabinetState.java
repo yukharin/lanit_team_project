@@ -2,7 +2,7 @@ package com.lanit.satonin18.app.dto.cabinet;
 
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.entity.NotificationStatus;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import lombok.*;
 
 import java.util.List;

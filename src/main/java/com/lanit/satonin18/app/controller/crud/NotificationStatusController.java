@@ -1,7 +1,7 @@
 package com.lanit.satonin18.app.controller.crud;
 
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.NotificationStatus;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import com.lanit.satonin18.app.service.entities_service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/notificationStatus")
 public class NotificationStatusController {
 
-	@Autowired
-	private CrudService<NotificationStatus> notificationStatusService;
+//	@Autowired
+//	private CrudService<NotificationStatus> notificationStatusService;
 
 	//todo need in jsf connected in organizationService
 	@Autowired

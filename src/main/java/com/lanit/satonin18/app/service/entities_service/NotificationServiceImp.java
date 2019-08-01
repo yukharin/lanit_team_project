@@ -5,8 +5,8 @@ import java.util.List;
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.dao.NotificationDAO;
 import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.entity.NotificationStatus;
 import com.lanit.satonin18.app.entity.Organization;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

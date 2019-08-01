@@ -31,10 +31,10 @@ public class NotificationAppController {
     private UserService userService;
     @Autowired
     private NotificationService notificationService;
-    @Autowired
-    private CrudDAO<ActionType> actionTypeService;
-    @Autowired
-    private NotificationStatusService statusService;
+//    @Autowired
+//    private CrudDAO<ActionType> actionTypeService;
+//    @Autowired
+//    private NotificationStatusService statusService;
 
     private void addAttributes_Action(Model model) {
         model.addAttribute("state", state);

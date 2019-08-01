@@ -1,5 +1,7 @@
 package com.lanit.satonin18.app.entity;
 
+import com.lanit.satonin18.app.entity.no_db.ActionType;
+import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,16 +32,18 @@ public class Action implements Serializable {
     @JoinColumn(name = "id_notification", referencedColumnName = "id", nullable = false)
     private Notification notification;
 
-    @ManyToOne
-    @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
+//    @ManyToOne
+//    @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private ActionType actionType;
 
     @ManyToOne
     @JoinColumn(name = "id_implementor", referencedColumnName = "id", nullable = false)
     private User userByIdImplementor;
 
-    @ManyToOne
-    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+//    @ManyToOne
+//    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private NotificationStatus notificationStatusAfterProcessing;
 
     public Action() {
