@@ -43,7 +43,7 @@
                 <th>letterNumber</th>
                 <th>userByIdUserCuratorGos</th>
                 <th>userByIdUserImplementor</th>
-                <th>notificationStatus</th>
+                <th>status</th>
                 <th>Actions</th>
                 <th>f(x)</th>
             </tr>
@@ -67,7 +67,7 @@
                     <td>${tempNotification.letterNumber}</td>
                     <td>${tempNotification.userByIdUserCuratorGos}</td>
                     <td>${tempNotification.userByIdUserImplementor}</td>
-                    <td>${tempNotification.notificationStatus}</td>
+                    <td>${tempNotification.status}</td>
                     <td>${tempNotification.actions}</td>
                     <td>
                         <a href="${updateLink}">Update</a>

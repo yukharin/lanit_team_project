@@ -29,7 +29,7 @@
 
 		<!--  saveOrUpdate a search box -->
 		<form:form action="search" method="POST">
-			Search notificationStatus: <input type="text" name="theSearchName" />
+			Search status: <input type="text" name="theSearchName" />
 
 			<input type="submit" value="Search" class="add-button" />
 		</form:form>

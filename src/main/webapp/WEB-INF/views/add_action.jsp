@@ -179,7 +179,7 @@
                         <select type="text" name="idNotificationStatus" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
                             <c:forEach items="${listStatus}" var="tempStatus">
                                 <c:choose>
-                                    <c:when test="${currentNotification.notificationStatus.id.equals(tempStatus.id)}">
+                                    <c:when test="${currentNotification.status.id.equals(tempStatus.id)}">
                                         <option selected
                                                 value ="${tempStatus.id}">${tempStatus.name}</option>
                                     </c:when>

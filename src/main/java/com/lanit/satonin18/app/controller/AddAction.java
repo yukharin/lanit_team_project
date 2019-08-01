@@ -2,7 +2,7 @@ package com.lanit.satonin18.app.controller;
 
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.no_db.ActionType;
-import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
+import com.lanit.satonin18.app.entity.no_db.Status;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class AddAction {
 //        model.addAttribute("listActionType", actionTypeService.list());
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
 //        model.addAttribute("listStatus", statusService.list());
-        model.addAttribute("listStatus",Arrays.asList(NotificationStatus.values()));
+        model.addAttribute("listStatus",Arrays.asList(Status.values()));
         return "add_action";
     }
 
@@ -66,7 +66,7 @@ public class AddAction {
 //        ActionType actionType = ActionType.values()[idActionType];
         ActionType actionType = ActionType.getById(idActionType);
         User userImplementor = userService.getById(idUserImplementor);
-        NotificationStatus status = statusService.getById(idNotificationStatus);
+        Status status = Status.getById(idNotificationStatus);
 
         long timeNow = System.currentTimeMillis();
 
@@ -74,14 +74,14 @@ public class AddAction {
         actionNew.setNotification(currentNotification);//can be add in inside: notification.getActions().add(THIS);
         actionNew.setActionType(actionType);
         actionNew.setUserByIdImplementor(userImplementor);
-        actionNew.setNotificationStatusAfterProcessing(status);
+        actionNew.setStatusAfterProcessing(status);
         actionNew.setDate(new java.sql.Timestamp(timeNow));
         actionNew.setContent(content);
 
         actionService.save(actionNew);
 
         currentNotification.getActions().add(actionNew);
-        currentNotification.setNotificationStatus(actionNew.getNotificationStatusAfterProcessing());
+        currentNotification.setStatus(actionNew.getStatusAfterProcessing());
         //other logic app//currentNotification.setDateResponse(new java.sql.Date(timeNow));
 
         notificationService.saveOrUpdate(currentNotification);

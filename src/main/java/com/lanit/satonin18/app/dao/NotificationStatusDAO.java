@@ -1,29 +1,29 @@
 //package com.lanit.satonin18.app.dao;
 //
-//import com.lanit.satonin18.app.entity.NotificationStatus;
+//import com.lanit.satonin18.app.entity.Status;
 //
 //import java.util.List;
 //
 ////CRUD - Create Read_by _id Update Delete
-//public interface NotificationStatusDAO extends CrudDAO<NotificationStatus> {
+//public interface NotificationStatusDAO extends CrudDAO<Status> {
 //
-//   List<NotificationStatus> filterIds(String[] ids) ;
-//
-//   @Override
-//   void saveOrUpdate(NotificationStatus entity);
+//   List<Status> filterIds(String[] ids) ;
 //
 //   @Override
-//   void update(NotificationStatus entity) ;
+//   void saveOrUpdate(Status entity);
+//
+//   @Override
+//   void update(Status entity) ;
 //
 //
 //   @Override
 //   void delete(int id) ;
 //
 //   @Override
-//   NotificationStatus getById(int id) ;
+//   Status getById(int id) ;
 //
 //   @Override
-//   List<NotificationStatus> list() ;
+//   List<Status> list() ;
 //
-//   List<NotificationStatus> listByIds(List<Integer> ids);
+//   List<Status> listByIds(List<Integer> ids);
 //}

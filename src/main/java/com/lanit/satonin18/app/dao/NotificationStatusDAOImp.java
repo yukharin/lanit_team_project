@@ -1,7 +1,7 @@
 //package com.lanit.satonin18.app.dao;
 //
 //
-//import com.lanit.satonin18.app.entity.NotificationStatus;
+//import com.lanit.satonin18.app.entity.Status;
 //import org.hibernate.Session;
 //import org.hibernate.SessionFactory;
 //import org.hibernate.Transaction;
@@ -20,7 +20,7 @@
 //   private SessionFactory sessionFactory;
 //
 //   @Override
-//   public List<NotificationStatus> filterIds(String[] ids) {
+//   public List<Status> filterIds(String[] ids) {
 //      //Session session = sessionFactory.getCurrentSession();
 //      try(final Session session = sessionFactory.openSession();){
 ////         Transaction tx1 = session.beginTransaction();
@@ -41,7 +41,7 @@
 ////                );
 ////            }
 //
-////            List<NotificationStatus> listNotificStatus = new ArrayList<>();
+////            List<Status> listNotificStatus = new ArrayList<>();
 ////            for (int i=0; i<ids.length; i++) {
 //////                ids[i];
 ////            }
@@ -70,8 +70,8 @@
 //
 //         Query theQuery = null;
 //         theQuery = session.createQuery(
-//                 "FROM NotificationStatus n WHERE n.id IN (:listIds)",
-//                 NotificationStatus.class);
+//                 "FROM Status n WHERE n.id IN (:listIds)",
+//                 Status.class);
 //         theQuery.setParameterList("listIds", listIds);
 //         //theQuery.setParameterList("listNotificStatus", listNotificStatus);
 ////            for (int i=0; i<listNotificStatus.size(); i++) {

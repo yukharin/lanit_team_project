@@ -6,7 +6,7 @@ import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.dao.NotificationDAO;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
+import com.lanit.satonin18.app.entity.no_db.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +16,16 @@ public class NotificationServiceImp implements NotificationService {
     private NotificationDAO notificationDAO;
 
 //    @Override
-//    public List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<NotificationStatus> sendedStatuses){
+//    public List<Notification> filterDataAndNoArchiveNotifications(List<Notification> currentNotifications, List<Status> sendedStatuses){
 //        return notificationDAO.filterDataAndNoArchiveNotifications(currentNotifications, sendedStatuses);
 //    }
 //    @Override
-//    public List<Notification> filterOrgAndNotificStatuses(Organization organization, List<NotificationStatus> listNotificStatus){
+//    public List<Notification> filterOrgAndNotificStatuses(Organization organization, List<Status> listNotificStatus){
 //        return notificationDAO.filterOrgAndNotificStatuses(organization, listNotificStatus);
 //    }
 //
 //    @Override
-//    public List<Notification> filterCurrentsAndNotificStatuses(List<Notification> currentNotifications, /*String[] ids*/List<NotificationStatus> listNotificStatus){
+//    public List<Notification> filterCurrentsAndNotificStatuses(List<Notification> currentNotifications, /*String[] ids*/List<Status> listNotificStatus){
 //        return notificationDAO.filterCurrentsAndNotificStatuses(currentNotifications, /*ids*/ listNotificStatus);
 //    }
 
@@ -66,15 +66,15 @@ public class NotificationServiceImp implements NotificationService {
 //    }
 //
 //    @Override
-//    public List<Notification> filter_Org_NotificStatuses_Archive(Organization organization, List<NotificationStatus> checkedStatusList, List<NotificationStatus> listArchiveStatus){
+//    public List<Notification> filter_Org_NotificStatuses_Archive(Organization organization, List<Status> checkedStatusList, List<Status> listArchiveStatus){
 //        return notificationDAO.filter_Org_NotificStatuses_Archive(organization, checkedStatusList, listArchiveStatus);
 //    }
 
 //    @Override
 //    public Pagination<Notification>  filter_Org_NotificStatuses_Archive_Order_Pagination(
 //            Organization organization,
-//            List<NotificationStatus> listNotificStatus,
-//            boolean showArchive, List<NotificationStatus> listArchiveStatus,
+//            List<Status> listNotificStatus,
+//            boolean showArchive, List<Status> listArchiveStatus,
 //            String orderFieldName, boolean desc,
 //            Pagination<Notification> pagination
 //    ){
@@ -90,8 +90,8 @@ public class NotificationServiceImp implements NotificationService {
     @Override
     public Pagination<Notification> _CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
             Organization organization,
-            List<NotificationStatus> listNotificStatus,
-            boolean showArchive, List<NotificationStatus> listArchiveStatus,
+            List<Status> listNotificStatus,
+            boolean showArchive, List<Status> listArchiveStatus,
             String orderFieldName, boolean desc,
             Pagination<Notification> pagination
     ){

@@ -41,7 +41,7 @@
 				<th>date</th>
 				<th>userByIdImplementor</th>
 				<th>actionType</th>
-				<th>notificationStatusAfterProcessing</th>
+				<th>statusAfterProcessing</th>
 				<th>f(x)</th>
 			</tr>
 
@@ -61,7 +61,7 @@
 					<td>${tempAction.date.toString()}</td>
 					<td>${tempAction.userByIdImplementor}</td>
 					<td>${tempAction.actionType}</td>
-					<td>${tempAction.notificationStatusAfterProcessing}</td>
+					<td>${tempAction.statusAfterProcessing}</td>
 					<td>
 						<a href="${updateLink}">Update</a>
 						<a href="${deleteLink}" onclick="if (!(confirm('Are you sure?'))) return false">Delete</a>

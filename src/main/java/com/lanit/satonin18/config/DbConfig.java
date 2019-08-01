@@ -62,7 +62,7 @@ public class DbConfig {
 		factoryBean.setPackagesToScan("com.lanit.satonin18.app.entity");
 //		factoryBean.setAnnotatedClasses(
 //				ActionType.class,
-//				NotificationStatus.class,
+//				Status.class,
 //
 //				Action.class,
 //				Notification.class,

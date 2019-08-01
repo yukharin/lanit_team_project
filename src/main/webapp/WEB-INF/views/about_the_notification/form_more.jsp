@@ -230,7 +230,7 @@
                             Статус уведомления:
                         </th>
                         <td>
-                            <input type="text" name="notificationStatus.name" value="${currentNotification.notificationStatus.name}"
+                            <input type="text" name="status.name" value="${currentNotification.status.name}"
                                    disabled>
                         </td>
                     </tr>
@@ -590,34 +590,34 @@
                             </th>
                             <th>Статус после изменения<%--Id--%>
                                 <Br>
-                                <span class ="radioDecorator radio-notificationStatusAfterProcessing.name">
-                                    <input type="radio" id="radio-orderFieldName-orderFieldName=notificationStatusAfterProcessing.name&desc=true"
-                                           name="orderFieldName" value="notificationStatusAfterProcessing.name"
+                                <span class ="radioDecorator radio-statusAfterProcessing.name">
+                                    <input type="radio" id="radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=true"
+                                           name="orderFieldName" value="statusAfterProcessing.name"
                                     <%--onchange="this.form.submit()" --%> >
-                                    <input type="radio" id="radio-desc-orderFieldName=notificationStatusAfterProcessing.name&desc=true"
+                                    <input type="radio" id="radio-desc-orderFieldName=statusAfterProcessing.name&desc=true"
                                            name="desc" value="true"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <button type="button"  class="href-nav-item" id="orderFieldName=notificationStatusAfterProcessing.name&desc=true"
+                                    <button type="button"  class="href-nav-item" id="orderFieldName=statusAfterProcessing.name&desc=true"
                                             onclick="
-                                    document.getElementById('radio-orderFieldName-orderFieldName=notificationStatusAfterProcessing.name&desc=true').setAttribute('checked', true);
-                                    document.getElementById('radio-desc-orderFieldName=notificationStatusAfterProcessing.name&desc=true').setAttribute('checked', true);
+                                    document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=true').setAttribute('checked', true);
+                                    document.getElementById('radio-desc-orderFieldName=statusAfterProcessing.name&desc=true').setAttribute('checked', true);
                                     document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
                                 </span>
                                 <Br>
-                                <span class ="radioDecorator radio-notificationStatusAfterProcessing.name">
-                                    <input type="radio" id="radio-orderFieldName-orderFieldName=notificationStatusAfterProcessing.name&desc=false"
-                                           name="orderFieldName" value="notificationStatusAfterProcessing.name"
+                                <span class ="radioDecorator radio-statusAfterProcessing.name">
+                                    <input type="radio" id="radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=false"
+                                           name="orderFieldName" value="statusAfterProcessing.name"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <input type="radio" id="radio-desc-orderFieldName=notificationStatusAfterProcessing.name&desc=false"
+                                    <input type="radio" id="radio-desc-orderFieldName=statusAfterProcessing.name&desc=false"
                                            name="desc" value="false"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <button type="button"  class="href-nav-item" id="orderFieldName=notificationStatusAfterProcessing.name&desc=false"
+                                    <button type="button"  class="href-nav-item" id="orderFieldName=statusAfterProcessing.name&desc=false"
                                             onclick="
-                                document.getElementById('radio-orderFieldName-orderFieldName=notificationStatusAfterProcessing.name&desc=false').setAttribute('checked', true);
-                                document.getElementById('radio-desc-orderFieldName=notificationStatusAfterProcessing.name&desc=false').setAttribute('checked', true);
+                                document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=false').setAttribute('checked', true);
+                                document.getElementById('radio-desc-orderFieldName=statusAfterProcessing.name&desc=false').setAttribute('checked', true);
                                 document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
@@ -633,7 +633,7 @@
                                 <td>${tempAction.date.toString()}</td>
                                 <td>${tempAction.userByIdImplementor.firstName} ${tempAction.userByIdImplementor.lastName}</td>
                                 <td>${tempAction.userByIdImplementor.organization.name}</td>
-                                <td>${tempAction.notificationStatusAfterProcessing.name}</td>
+                                <td>${tempAction.statusAfterProcessing.name}</td>
                             </tr>
                         </c:forEach>
                     </table>

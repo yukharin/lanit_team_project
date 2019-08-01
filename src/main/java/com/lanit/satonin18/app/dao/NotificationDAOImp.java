@@ -3,7 +3,7 @@ package com.lanit.satonin18.app.dao;
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
+import com.lanit.satonin18.app.entity.no_db.Status;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -98,8 +98,8 @@ public class NotificationDAOImp implements NotificationDAO {
     @Override
     public Pagination<Notification> _CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
             Organization organization,
-            List<NotificationStatus> listNotificStatus,
-            boolean showArchive, List<NotificationStatus> listArchiveStatus,
+            List<Status> listNotificStatus,
+            boolean showArchive, List<Status> listArchiveStatus,
             String orderFieldName, boolean desc,
             Pagination<Notification> pagination
     ){
@@ -133,8 +133,8 @@ public class NotificationDAOImp implements NotificationDAO {
                         )
                 );
             }
-            Expression<NotificationStatus> expStatus = rootNotific.get("notificationStatus");
-            Expression<NotificationStatus> expStatus_COUNT = rootNotific_COUNT.get("notificationStatus");
+            Expression<Status> expStatus = rootNotific.get("status");
+            Expression<Status> expStatus_COUNT = rootNotific_COUNT.get("status");
             if (listNotificStatus != null) {
                 if(listNotificStatus.size() == 0) return new Pagination.EmptyPagination<Notification>(pagination);
                 conditionsList.add(

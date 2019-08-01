@@ -3,7 +3,7 @@ package com.lanit.satonin18.app.dao;
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
+import com.lanit.satonin18.app.entity.no_db.Status;
 
 import java.util.List;
 
@@ -27,8 +27,8 @@ public interface NotificationDAO extends CrudDAO<Notification> {
 
    Pagination<Notification> _CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
            Organization organization,
-           List<NotificationStatus> listNotificStatus,
-           boolean showArchive, List<NotificationStatus> listArchiveStatus,
+           List<Status> listNotificStatus,
+           boolean showArchive, List<Status> listArchiveStatus,
            String orderFieldName, boolean desc,
            Pagination<Notification> pagination
    );

@@ -3,7 +3,7 @@ package com.lanit.satonin18.app.controller;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.dto.Common_Default_var;
 import com.lanit.satonin18.app.dto.cabinet.*;
-import com.lanit.satonin18.app.entity.no_db.NotificationStatus;
+import com.lanit.satonin18.app.entity.no_db.Status;
 import com.lanit.satonin18.app.service.app_service.CabinetService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class CabinetController {
 //        session.setAttribute("user", idSelectUser);
 
         CabinetModel cabinetModel = new CabinetModel();
-        cabinetModel.setIdFilterStatus( new ArrayList<>( NotificationStatus.getAllId() ) );
+        cabinetModel.setIdFilterStatus( new ArrayList<>( Status.getAllId() ) );
 
         state = new CabinetState();
         state.setModel(cabinetModel);

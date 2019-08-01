@@ -12,7 +12,7 @@
 //@EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
-//public class NotificationStatus  implements Serializable {
+//public class Status  implements Serializable {
 //    @Id
 //    @Column(name = "id", nullable = false)
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@
 //
 //    @Override
 //    public String toString() {
-//        return "NotificationStatus{" +
+//        return "Status{" +
 //                "id=" + id +
 //                ", name='" + name + '\'' +
 //                '}';

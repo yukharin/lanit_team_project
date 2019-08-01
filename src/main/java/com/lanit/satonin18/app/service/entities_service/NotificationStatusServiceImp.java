@@ -1,7 +1,7 @@
 //package com.lanit.satonin18.app.service.entities_service;
 //
 //import com.lanit.satonin18.app.dao.NotificationStatusDAO;
-//import com.lanit.satonin18.app.entity.NotificationStatus;
+//import com.lanit.satonin18.app.entity.Status;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //
@@ -14,18 +14,18 @@
 //   private NotificationStatusDAO notificationStatusDAO;
 //
 //   @Override
-//   public List<NotificationStatus> filterIds(String[] ids){
+//   public List<Status> filterIds(String[] ids){
 //      return notificationStatusDAO.filterIds(ids);
 //   }
 //
 //   @Override
-//   public void saveOrUpdate(NotificationStatus notificationStatus) {
-//      notificationStatusDAO.saveOrUpdate(notificationStatus);
+//   public void saveOrUpdate(Status statusAfterProcessing) {
+//      notificationStatusDAO.saveOrUpdate(statusAfterProcessing);
 //   }
 //
 //   @Override
-//   public void update(NotificationStatus notificationStatus) {
-//      notificationStatusDAO.update(notificationStatus);
+//   public void update(Status statusAfterProcessing) {
+//      notificationStatusDAO.update(statusAfterProcessing);
 //   }
 //
 //   @Override
@@ -34,16 +34,16 @@
 //   }
 //
 //   @Override
-//   public NotificationStatus getById(int id) {
+//   public Status getById(int id) {
 //      return notificationStatusDAO.getById(id);
 //   }
 //
 //   @Override
-//   public List<NotificationStatus> list() {
+//   public List<Status> list() {
 //      return notificationStatusDAO.list();
 //   }
 //
-//   public List<NotificationStatus> listByIds(List<Integer> ids){
+//   public List<Status> listByIds(List<Integer> ids){
 //      return notificationStatusDAO.listByIds(ids);
 //   }
 //}

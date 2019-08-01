@@ -5,6 +5,8 @@ import com.lanit.satonin18.app.dao.CrudDAO;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.dto.notification_app.NotificationAppModel;
 import com.lanit.satonin18.app.dto.notification_app.NotificationAppState;
+import com.lanit.satonin18.app.entity.no_db.ActionType;
+import com.lanit.satonin18.app.entity.no_db.Status;
 import com.lanit.satonin18.app.service.app_service.NotificationAppService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.*;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 @Controller("notificationAppController")
 @RequestMapping("/cabinet/about_the_notification")
@@ -42,8 +47,10 @@ public class NotificationAppController {
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
         model.addAttribute("selectShowListMaxResult", Common_Default_var.selectShowListMaxResult);
-        model.addAttribute("listActionType", actionTypeService.list());
-        model.addAttribute("listStatus", statusService.list());
+//        model.addAttribute("listActionType", actionTypeService.list());
+        model.addAttribute("listActionType", Arrays.asList(ActionType.values()) );
+//        model.addAttribute("listStatus", statusService.list());
+        model.addAttribute("listStatus", Arrays.asList(Status.values()) );
     }
 
     @GetMapping("/selectTheNotification")
