@@ -233,7 +233,9 @@ body {
 /*personal account styles*/
 
 .account-filter-form {
-    border: solid 1px black;
+    border-right: solid 1px black;
+    border-left: solid 1px black;
+    border-top: solid 1px black;
 }
 
 .account-main-notifications-table {
@@ -274,7 +276,7 @@ body {
     border-radius: 8px;
 }
 
-.account-filter-form-checkbox-label input:checked + span {
+.account-filter-form-checkbox-label input:checked + input + span {
     border: black 1px solid;
     margin: 15px;
     padding: 10px;
@@ -321,12 +323,147 @@ body {
     padding: 10px;
     border: black 1px solid;
     border-radius: 8px;
-    background-color: #0328fc;
+    background-color: slategray;
     color: white;
     margin: 10px 10px 10px auto;
 }
 
+.account-filter-form-third_part {
+    display: inline-block;
+    padding: 10px;
+    border-top: 1px black solid;
+    width: 100%;
+    max-width: 100%;
+}
 
+
+.account-filter-form-third_part-total_elements {
+    display: inline-block;
+    width: 45%;
+    max-width: 45%;
+}
+
+.pagination {
+    display: inline-block;
+    width: 48%;
+    max-width: 48%;
+}
+
+.pagination-list {
+}
+
+.pagination-list-element {
+
+}
+
+.pagination-list-element-input-left {
+    padding: 10px;
+    border: black 1px solid;
+    background-color: white;
+    color: black;
+}
+
+.pagination-list-element-input {
+    padding: 10px;
+    border: black 1px solid;
+    background-color: white;
+    color: black;
+}
+
+.pagination-list-element-input-right {
+    padding: 10px;
+    border: black 1px solid;
+    background-color: white;
+    color: black;
+}
+
+.pagination-list-element-input-left:hover {
+    background-color: maroon;
+    color: white;
+}
+
+
+.pagination-list-element-input:hover {
+    background-color: maroon;
+    color: white;
+}
+
+
+.pagination-list-element-input-right:hover {
+    background-color: maroon;
+    color: white;
+}
+
+
+.account-filter-form-third_part-select_size {
+    max-width: 10%;
+    display: inline-block;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.account-filter-form-third_part-select_size select {
+    height: 35px;
+    width: 50px;
+}
+
+.account-main-notifications-table {
+    border-bottom: black solid 1px;
+    border-left: black solid 1px;
+    border-right: black solid 1px;
+    padding: 10px;
+    width: 100%;
+    max-width: 100%;
+    align-content: center;
+}
+
+.account-main-notifications-table tr {
+    padding: 10px;
+    border: black 1px solid;
+    align-content: center;
+}
+
+.account-main-notifications-table th {
+    padding: 10px;
+    border: black 1px solid;
+    align-content: center;
+}
+
+.account-main-notifications-table td {
+    border: black 1px solid;
+    align-content: center;
+}
+
+.account-filter-form-sorting-label {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid black;
+    background-color: slategray;
+    color: white;
+}
+
+.account-filter-form-checkbox-label-sorting input {
+    all: initial;
+}
+
+.account-filter-form-checkbox-label-sorting input + span {
+    border: black 1px solid;
+    margin: 25px;
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+}
+
+.account-filter-form-checkbox-label-sorting input:checked + input + span {
+    background-color: maroon;
+    color: white;
+}
+
+.account-filter-form-checkbox-label-sorting input + span:hover {
+    background-color: maroon;
+    color: white;
+}
 
 
 

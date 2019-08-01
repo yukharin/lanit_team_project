@@ -26,96 +26,109 @@
 </header>
 <main class="account-main">
     <section class="account-filter">
-        <form class="account-filter-form" id="filter-form">
+        <form class="account-filter-form" id="filter-form" method="get" th:action="@{/account/}"
+              th:object="${stateOfPage}">
             <div class="account-filter-form-first_part">
                 <label class="account-filter-form-checkbox-label" for="checkbox1">
                     <input class="account-filter-form-checkbox" id="checkbox1" name="newFilter"
-                           th:checked="${stateOfPage.newFilter}"
-                           type="checkbox" value="true">
+                           th:checked="*{newFilter}" th:field="*{newFilter}" type="checkbox" value="true">
                     <span>Новое</span>
                 </label>
                 <label class="account-filter-form-checkbox-label" for="checkbox2">
                     <input class="account-filter-form-checkbox" id="checkbox2" name="inProcessingFilter"
-                           th:checked="${stateOfPage.inProcessingFilter}" type="checkbox" value="true">
+                           th:checked="*{inProcessingFilter}" th:field="*{inProcessingFilter}" type="checkbox"
+                           value="true">
                     <span>В обработке</span>
                 </label>
                 <label class="account-filter-form-checkbox-label" for="checkbox3">
                     <input class="account-filter-form-checkbox" id="checkbox3" name="rejectedFilter"
-                           th:checked="${stateOfPage.rejectedFilter}"
-                           type="checkbox" value="true">
+                           th:checked="*{rejectedFilter}"
+                           th:field="*{rejectedFilter}" type="checkbox" value="true">
                     <span>Отклонено</span>
                 </label>
                 <label class="account-filter-form-checkbox-label" for="checkbox4">
                     <input class="account-filter-form-checkbox" id="checkbox4" name="approvedFilter"
-                           th:checked="${stateOfPage.approvedFilter}"
-                           type="checkbox" value="true">
+                           th:checked="*{approvedFilter}"
+                           th:field="*{approvedFilter}" type="checkbox" value="true">
                     <span>Одобрено</span>
+                </label>
+                <label class="account-filter-form-sorting-label">
+                    Сортировка по:
+                    <select class="account-filter-form-sorting-select" th:field="*{sortParameter}">
+                        <option th:text="*{sortParameter.BY_DATE_RECEIVED.message}"
+                                th:value="*{sortParameter.BY_DATE_RECEIVED}"></option>
+                        <option th:text="*{sortParameter.BY_DATE_RESPONSE.message}"
+                                th:value="*{sortParameter.BY_DATE_RESPONSE}"></option>
+                        <option th:text="*{sortParameter.BY_STATUS.message}"
+                                th:value="*{sortParameter.BY_STATUS}"></option>
+                        <option th:text="*{sortParameter.BY_ORGANIZATION.message}"
+                                th:value="*{sortParameter.BY_ORGANIZATION}"></option>
+                    </select>
+                    <label class="account-filter-form-checkbox-label-sorting" for="checkbox5">
+                        <input class="sorting-order-radio" id="checkbox5" th:checked="*{reversedOrder}"
+                               th:field="*{reversedOrder}"
+                               type="checkbox">
+                        <span>Инвертирование</span>
+                    </label>
                 </label>
             </div>
             <div class="account-filter-form-second_part">
-                <button class="account-filter-form-button-submit" id="apply_filters" onclick="doFilter()"
-                        type="button" value="Применить фильтр">ПРИМЕНИТЬ ФИЛЬТР
+                <button class="account-filter-form-button-submit" id="apply_filters"
+                        type="submit" value="Применить фильтр">ПРИМЕНИТЬ ФИЛЬТР
                 </button>
-                <button class="account-filter-form-button-reset" id="clean_filters" onclick="doFilter()"
+                <button class="account-filter-form-button-reset" id="clean_filters"
                         type="reset">ОЧИСТИТЬ ФИЛЬТР
                 </button>
-                <label class="account-filter-form-select-time_filter" for="select1"> Истекает срок предоставления ответа
-                    <select id="select1" name="timeFilter">
-                        <option th:if="${stateOfPage.timeFilter != null}"
-                                th:selected="${stateOfPage.timeFilter}"
-                                th:text="${stateOfPage.timeFilter.message()}"
-                                th:value="${stateOfPage.timeFilter}">Выберите срок предоставления ответа
+                <label class="account-filter-form-select-time_filter" for="select1"> Срок предоставления ответа
+                    <select id="select1" name="timeFilter" th:field="*{timeFilter}">
+                        <option th:text="*{timeFilter.NO_FILTER.message()}"
+                                th:value="*{timeFilter.NO_FILTER}">Выберите промежуток времени
                         </option>
-                        <option th:text="${stateOfPage.timeFilter.THREE_DAYS.message()}"
-                                th:value="${stateOfPage.timeFilter.THREE_DAYS}">3 дня
+                        <option th:text="*{timeFilter.THREE_DAYS.message()}"
+                                th:value="*{timeFilter.THREE_DAYS}">3 дня
                         </option>
-                        <option th:text="${stateOfPage.timeFilter.TEN_DAYS.message()}"
-                                th:value="${stateOfPage.timeFilter.TEN_DAYS}">10 дней
+                        <option th:text="*{timeFilter.TEN_DAYS.message()}"
+                                th:value="*{timeFilter.TEN_DAYS}">10 дней
                         </option>
-                        <option th:text="${stateOfPage.timeFilter.THIRTY_DAYS.message()}"
-                                th:value="${stateOfPage.timeFilter.THIRTY_DAYS}">30 дней
+                        <option th:text="*{timeFilter.THIRTY_DAYS.message()}"
+                                th:value="*{timeFilter.THIRTY_DAYS}">30 дней
                         </option>
                     </select>
                 </label>
             </div>
-            <div>
-                <nav aria-label="Pagination" class="account-main-notifications-manager-pagination"
-                     th:if="${stateOfPage.page.totalPages gt 0}">
-                    <ul class="pagination justify-content-center font-weight-bold">
-                        <li class="page-item"
-                            th:classappend="${stateOfPage.page.number eq 0} ? 'disabled'">
-                            <a aria-label="Previous"
-                               class="page-link"
-                               data-toggle="tooltip"
-                               th:href="@{/account/?page={id}(id=${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number})}"
-                               title="Previous Page">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                            <input name="pageNumber" onclick="doFilter()"
-                                   th:value="${stateOfPage.page.number lt 2 ? 1 : stateOfPage.page.number}"
-                                   type="radio">
+            <div class="account-filter-form-third_part">
+                <div class="account-filter-form-third_part-total_elements">
+                    <p>Найдено записей: <span th:text="*{page.totalElements}"></span></p>
+                </div>
+                <nav class="pagination" th:if="*{page.totalPages gt 0}">
+                    <ul class="pagination-list">
+                        <li class="pagination-list-element" th:classappend="*{page.number eq 0} ? 'disabled'">
+                            <input class="pagination-list-element-input-left" name="number"
+                                   th:field="*{number}"
+                                   th:value="*{page.number lt 2?1:page.number}" type="submit">
                         </li>
-                        <li class="page-item"
+                        <li class="pagination-list-element"
                             th:classappend="${i eq stateOfPage.page.number + 1} ? 'active'"
                             th:each="i : ${#numbers.sequence( 1, stateOfPage.page.totalPages, 1)}">
-                            <a class="page-link" data-toggle="tooltip" th:href="@{/account/?page={id}(id=${i})}"
-                               th:text="${i}" th:title="${'Page '+ i}"></a>
-                            <input name="pageNumber" onclick="doFilter()" th:value="${i}" type="radio">
+                            <input class="pagination-list-element-input" name="number" th:field="*{number}"
+                                   th:title="${'Page '+i}" th:value="${i}"
+                                   type="submit">
                         </li>
-                        <li class="page-item"
-                            th:classappend="${stateOfPage.page.number + 1 eq stateOfPage.page.totalPages} ? 'disabled'">
-                            <a aria-label="Next"
-                               class="page-link"
-                               data-toggle="tooltip"
-                               th:href="@{/account/?page={id}(id=${stateOfPage.page.number + 2})}"
-                               title="Next Page">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                            <input name="pageNumber" onclick="doFilter()"
-                                   th:value="${stateOfPage.page.number + 2}" type="radio">
+                        <li class="pagination-list-element"
+                            th:classappend="*{page.number + 1 eq page.totalPages} ? 'disabled'">
+                            <input class="pagination-list-element-input-right" th:field="*{number}"
+                                   th:value="*{page.number+2}"
+                                   type="submit">
                         </li>
                     </ul>
                 </nav>
+                <div class="account-filter-form-third_part-select_size">
+                    <select name="size" onchange="this.form.submit()" th:field="*{size}">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
             </div>
         </form>
     </section>
@@ -133,8 +146,8 @@
                 <th>Журнал действий</th>
                 <th>Удалить</th>
             </tr>
-            <tr th:each="notification : ${stateOfPage.page.content}">
-                <td th:text="${notification.id}">id</td>
+            <tr th:each="notification,iterator : ${stateOfPage.page.content}">
+                <td th:text="${iterator.index+1}"></td>
                 <td th:text="${notification.notificationType}">notification_type</td>
                 <td th:text="${notification.organization.name}">org_name</td>
                 <td th:text="${notification.status}">notification_status</td>
@@ -174,14 +187,11 @@
             </tr>
         </table>
         <section class="account-main-manager">
-            <div class="account-main-manager-total_elements">
-                <p>Найдено записей: <span th:text="${stateOfPage.page.totalElements}"></span></p>
-            </div>
             <div class="account-main-notifications-manager-add_notification">
                 <a th:href="@{/account/addNotification/}">Добавить уведомление</a>
             </div>
         </section>
 </main>
 </body>
-<script th:src="@{/js/personalAcc.js}"></script>
+<script th:src="@{/js/personalAccount.js}"></script>
 </html>

@@ -34,13 +34,27 @@ public class PersonalAccountController {
     private UserAuthorizationService userAuthorization;
 
 
+//    @RequestMapping("/account/")
+//    public String getPage(@SessionAttribute String login,
+//                          @SessionAttribute String password,
+//                          @RequestBody Optional<PersonalAccountPage<Notification>> optionalPage,
+//                          Model model) {
+//        @NonNull User user = userAuthorization.authorize(login, password);
+//        PersonalAccountPage<Notification> page = optionalPage.orElseGet(PersonalAccountPage::new);
+//        personalAccountService.setAccountPageState(page, user);
+//        model.addAttribute("stateOfPage", page);
+//        model.addAttribute("user", user);
+//        return "personalAccount";
+//    }
+
     @RequestMapping("/account/")
     public String getPage(@SessionAttribute String login,
                           @SessionAttribute String password,
-                          @RequestBody Optional<PersonalAccountPage<Notification>> optionalPage,
+                          @ModelAttribute Optional<PersonalAccountPage<Notification>> stateOfPage,
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        PersonalAccountPage<Notification> page = optionalPage.orElseGet(PersonalAccountPage::new);
+        PersonalAccountPage<Notification> page = stateOfPage.orElseGet(PersonalAccountPage::new);
+        System.err.println(page);
         personalAccountService.setAccountPageState(page, user);
         model.addAttribute("stateOfPage", page);
         model.addAttribute("user", user);

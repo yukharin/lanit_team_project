@@ -7,7 +7,9 @@ import com.lanit.lkz_project.entities.jpa_entities.Notification;
 import com.lanit.lkz_project.entities.jpa_entities.NotificationStatus;
 import com.lanit.lkz_project.entities.jpa_entities.Role;
 import com.lanit.lkz_project.entities.jpa_entities.User;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -32,13 +34,26 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
         final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
         final Root<Notification> table = notificationsQuery.from(Notification.class);
-        final Pageable pageRequest = page.getPage().getPageable();
-
+        final String sortParameter = page.getSortParameter().getValue();
+        final Sort.Direction sortOrder;
+        if (page.isReversedOrder()) {
+            sortOrder = Sort.Direction.DESC;
+        } else {
+            sortOrder = Sort.Direction.ASC;
+        }
+        final int pageNumber = page.getNumber() - 1;
+        final int pageSize = page.getSize();
+        final Pageable pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortOrder, sortParameter));
         // predicates initialization
         Predicate orgPredicate = builder.conjunction();
         Predicate statusPredicate = builder.conjunction();
         Predicate datePredicate = builder.conjunction();
-        Order byDate = builder.asc(table.get("dateReceived"));
+        Order sortingOrder;
+        if (sortOrder == Sort.Direction.ASC) {
+            sortingOrder = builder.asc(table.get(sortParameter));
+        } else {
+            sortingOrder = builder.desc(table.get(sortParameter));
+        }
 
         if (user.getRole() == Role.EMPLOYEE) {
             orgPredicate = builder.equal(table.get("organization"), user.getOrganization());
@@ -62,7 +77,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         // Первый, чтобы получить список уведомлений
         notificationsQuery.select(table).distinct(true)
                 .where(builder.and(resultingPredicate))
-                .orderBy(byDate);
+                .orderBy(sortingOrder);
         // Второй, чтобы узнать точное количество уведомлений (данный параметр нужен для пагинации).
         totalNotifications.select(builder.count(totalNotifications
                 .from(Notification.class)))

@@ -1,3 +1,9 @@
+function resetForm() {
+    var form = document.getElementById("filter-form");
+    form.reset();
+
+}
+
 var doFilter = function () {
     var json = generateJson();
     sendFilterData(json);
