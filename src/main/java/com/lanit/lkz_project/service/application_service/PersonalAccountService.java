@@ -6,7 +6,6 @@ import com.lanit.lkz_project.entities.jpa_entities.*;
 import com.lanit.lkz_project.repositories.entitity_repositories.NotificationRepository;
 import com.lanit.lkz_project.service.jpa_entities_service.ActionService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
-import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,6 @@ public class PersonalAccountService {
     private static final int BOUND_TO_GENERATE_NUMBER = 10;
 
 
-    @Autowired
-    private OrganizationService organizationService;
     @Autowired
     private NotificationService notificationService;
     @Autowired
@@ -56,22 +53,16 @@ public class PersonalAccountService {
     }
 
     public void addAction(@NonNull User userImplementor,
-                          @NonNull String actionTypeParam,
-                          @NonNull String idNotification,
-                          @NonNull String comment) {
-        ActionType actionType = Enum.valueOf(ActionType.class, actionTypeParam);
-        Notification notification = notificationService.getNotification(Long.valueOf(idNotification));
-        Action action = new Action();
+                          @NonNull Action action) {
+        Notification notification = notificationService.getNotification(action.getNotification().getId());
         action.setNotification(notification);
-        action.setActionType(actionType);
-        action.setContent(comment);
         action.setDate(new Date());
         action.setImplementor(userImplementor);
-        NotificationStatus status = defineStatus(actionType);
+        NotificationStatus status = defineStatus(action.getActionType());
         action.setStatusAfterAction(status);
         notification.setStatus(status);
+        notificationService.addNotification(notification);
         actionService.addAction(action);
-        notificationService.updateNotification(notification);
     }
 
     private NotificationStatus defineStatus(@NonNull ActionType actionType) {

@@ -109,7 +109,8 @@ public class PersonalAccountController {
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
             @NonNull @RequestParam String id,
-            Model model) {
+            Model model,
+            Action action) {
         User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(Long.valueOf(id));
         EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
@@ -123,12 +124,9 @@ public class PersonalAccountController {
     public String addAction(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
-            @NonNull @RequestParam String actionTypeParam,
-            @NonNull @RequestParam String idNotification,
-            @NonNull @RequestParam String comment) {
+            @NonNull @ModelAttribute Action action) {
         User userImplementor = userAuthorization.authorize(login, password);
-        personalAccountService.addAction(userImplementor, actionTypeParam, idNotification, comment);
+        personalAccountService.addAction(userImplementor, action);
         return "redirect:/account/";
     }
-
 }

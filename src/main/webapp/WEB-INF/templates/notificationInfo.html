@@ -91,9 +91,11 @@
     </div>
     <div class="not_info-add_action">
         <h3 class="not_info-add_action-header">Добавить действие</h3>
-        <form class="not_info-add_action-form" method="post" th:action="@{/account/notification_info/commit/}">
+        <form class="not_info-add_action-form" method="post" th:action="@{/account/notification_info/commit/}"
+              th:object="${action}">
             <label class="not_info-add_action-form-label" for="select1"> Выберите действие
-                <select class="not_info-add_action-form-select" id="select1" name="actionTypeParam">
+                <select class="not_info-add_action-form-select" id="select1" name="actionTypeParam"
+                        th:field="*{actionType}">
                     <option class="not_info-add_action-form-option" th:each="actionType : ${actionTypes}"
                             th:text="${actionType.message}"
                             th:value="${actionType}">
@@ -101,11 +103,12 @@
                 </select>
             </label>
             <label class="not_info-add_action-form-label" for="input1">Комментарий
-                <input class="not_info-add_action-form-input-comment" id="input1" name="comment" type="text"/>
+                <input class="not_info-add_action-form-input-comment" id="input1" name="comment" th:field="*{content}"
+                       type="text"/>
             </label>
             <label class="not_info-add_action-form-label-submit" for="input2">
-                <input class="not_info-add_action-form-input-hidden" name="idNotification" th:value="${notification.id}"
-                       type="hidden"/>
+                <input class="not_info-add_action-form-input-hidden" name="notification.id"
+                       th:value="${notification.id}" type="hidden"/>
                 <input class="not_info-add_action-form-input-submit" id="input2" type="submit" value="Сохранить"/>
             </label>
         </form>
