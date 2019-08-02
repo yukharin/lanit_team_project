@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 
@@ -47,12 +46,11 @@ public class PersonalAccountController {
     @RequestMapping("/account/")
     public String getPage(@SessionAttribute String login,
                           @SessionAttribute String password,
-                          @ModelAttribute Optional<PersonalAccountPage<Notification>> stateOfPage,
+                          @ModelAttribute PersonalAccountPage<Notification> stateOfPage,
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        PersonalAccountPage<Notification> page = stateOfPage.orElseGet(PersonalAccountPage::new);
-        personalAccountService.setAccountPageState(page, user);
-        model.addAttribute("stateOfPage", page);
+        personalAccountService.setAccountPageState(stateOfPage, user);
+        model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
         return "personalAccount";
     }

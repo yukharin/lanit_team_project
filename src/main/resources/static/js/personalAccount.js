@@ -4,6 +4,7 @@ function resetForm() {
 
 }
 
+
 var doFilter = function () {
     var json = generateJson();
     sendFilterData(json);
