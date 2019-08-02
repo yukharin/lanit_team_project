@@ -33,7 +33,6 @@ public class CabinetController {
         model.addAttribute("user", currentUser);
         model.addAttribute("selectShowListMaxResult", Common_Default_var.selectShowListMaxResult);
         model.addAttribute("listFastFilter", Default_Cabinet_var.list4FastFilter);
-        //dto.addAttribute("currentFastFilter", cabinetModel.getCurrentFastFilter());
     }
 
     @GetMapping("/selectUser")

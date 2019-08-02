@@ -1,6 +1,5 @@
 package com.lanit.satonin18.app.dao;
 
-
 import com.lanit.satonin18.app.entity.Organization;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,16 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository("organizationDAO")
-//@Transactional
 public class OrganizationDAOImp implements CrudDAO<Organization> {
 
-    //private SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
-    //@Component
-    //@Inject
-    //@Resource(name="sessionFactory")
-    //@Qualifier("sessionFactory")
-    //@Named("sessionFactory")
     @Autowired
     private SessionFactory sessionFactory;
 

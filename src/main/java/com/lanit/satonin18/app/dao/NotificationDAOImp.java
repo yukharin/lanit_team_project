@@ -136,7 +136,7 @@ public class NotificationDAOImp implements NotificationDAO {
             Expression<Status> expStatus = rootNotific.get("status");
             Expression<Status> expStatus_COUNT = rootNotific_COUNT.get("status");
             if (listNotificStatus != null) {
-                if(listNotificStatus.size() == 0) return new Pagination.EmptyPagination<Notification>(pagination);
+                if(listNotificStatus.size() == 0) return pagination.new EmptyPagination<Notification>(pagination);
                 conditionsList.add(
                         expStatus.in(listNotificStatus)
                 );

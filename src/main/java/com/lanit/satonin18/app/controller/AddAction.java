@@ -27,7 +27,6 @@ public class AddAction {
     @Autowired
     private OrganizationService organizationService;
 
-    // todo need set page=1
     @GetMapping("/formPage")
     public String formPage(
             @RequestParam("notificationId") int notificationId,
@@ -42,14 +41,11 @@ public class AddAction {
 
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
-//        model.addAttribute("listActionType", actionTypeService.list());
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
-//        model.addAttribute("listStatus", statusService.list());
         model.addAttribute("listStatus",Arrays.asList(Status.values()));
         return "add_action";
     }
 
-        // todo need set page=1
     @GetMapping("/save")
     public String save(
             @RequestParam("idActionType") int idActionType,
@@ -63,8 +59,6 @@ public class AddAction {
         User currentUser = userService.getById(userId);
         Notification currentNotification = notificationService.getById(notificationId);
 //------------------------------------------------
-//        ActionType actionType = actionTypeService.getById(idActionType);
-//        ActionType actionType = ActionType.values()[idActionType];
         ActionType actionType = ActionType.getById(idActionType);
         User userImplementor = userService.getById(idUserImplementor);
         Status status = Status.getById(idNotificationStatus);

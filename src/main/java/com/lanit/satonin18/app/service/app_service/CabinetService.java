@@ -21,10 +21,6 @@ public class CabinetService {
     private UserService userService;
     @Autowired
     private ActionService actionService;
-//    @Autowired
-//    private CrudDAO<ActionType> actionTypeService;
-//    @Autowired
-//    private NotificationStatusService statusService;
     @Autowired
     private OrganizationService organizationService;
 
@@ -32,7 +28,6 @@ public class CabinetService {
         CabinetModel model = state.getModel();
         if ( ! model.getIdFilterStatus().isEmpty()) {
             state.setCheckedMainListNotificStatuses(
-//                    statusService.listByIds(model.getIdFilterStatus())
                     Status.getByIds(model.getIdFilterStatus())
             );
             state.setPagination(
@@ -53,7 +48,7 @@ public class CabinetService {
         }else{
             state.setCheckedMainListNotificStatuses(Collections.EMPTY_LIST);
             state.setPagination(
-                    new Pagination.EmptyPagination<Notification>( state.getPagination() )
+                    state.getPagination().new EmptyPagination<Notification>( state.getPagination() )
             );
             state.setShowListNotifications(Collections.EMPTY_LIST);
         }

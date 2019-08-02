@@ -12,5 +12,9 @@ public interface Default_Cabinet_var {
     public static final String ORDER_FIELD_NAME = "dateResponse";
     public static final boolean SHOW_ARCHIVE = false;
     public static final List<FastFilter> list4FastFilter = new ArrayList<>(Arrays.asList(FastFilter.values()));
-    public static final Pagination<Notification> pagination = new Pagination<Notification>(1, Common_Default_var.MAX_RESULT, Common_Default_var.NAVIGATION_PAGES);
+    public static final Pagination<Notification> pagination = new Pagination<Notification>(
+            1,
+            Common_Default_var.MAX_RESULT,
+            Common_Default_var.NAVIGATION_PAGES
+    );
 }

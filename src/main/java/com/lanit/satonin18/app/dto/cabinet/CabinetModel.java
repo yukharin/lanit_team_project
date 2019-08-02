@@ -6,7 +6,6 @@ import lombok.Data;
 import java.util.Collections;
 import java.util.List;
 
-
 @Data
 public class CabinetModel {
     private int maxResult = Common_Default_var.MAX_RESULT;
@@ -14,15 +13,11 @@ public class CabinetModel {
     private boolean desc = Common_Default_var.DESC;
 
     private String orderFieldName = Default_Cabinet_var.ORDER_FIELD_NAME;
-    private boolean showArchive = Default_Cabinet_var.SHOW_ARCHIVE;//если параметр не пришел, то false, если пришел( то приходит только true)  //Default_NotificationApp_var.SHOW_ARCHIVE;
+    private boolean showArchive = Default_Cabinet_var.SHOW_ARCHIVE;//если параметр не пришел, то false, если пришел( то приходит только true)
 
     private boolean selectedNewResultAndNeedSetFirstPage = false;
-
-    private List<Integer> idFilterStatus = Collections.EMPTY_LIST;//new ArrayList<>( /*IdStatus.getAllId()*/ ); //если ничего передали, значит пусто
-
+    private List<Integer> idFilterStatus = Collections.EMPTY_LIST;//если ничего передали, значит пусто
     private boolean flagNeedReplaceStatus = false;
     private Integer selectedIdNotification4editStatus = null;
     private Integer selectedNewIdStatus = null;
-//    (Mock)selectFastFilter
-
 }

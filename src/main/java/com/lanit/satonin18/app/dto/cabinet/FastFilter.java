@@ -6,7 +6,7 @@ public enum FastFilter {
     RUN_OUT_3_DAY_DATA_RESPONSE (2, "Истекает срок предоставления ответа (за 3 дня)"),
     DIR_LETTER(3, "(Mock)По направленному письму (для выбранной записи)"),
     MULTIPLE_RETURNS(4, "Множественные возвраты");
-
+//--------------------------------------------------------------------
     private int id;
     private String description;
 
@@ -33,8 +33,4 @@ public enum FastFilter {
 //        public static mas[] values(){
 //            return ALL_STATIC FINAL_OBJECT;
 //        }
-
-//    public static void addAllInTheList(List<FastFilter> list){
-//        list.addAll(Arrays.asList(FastFilter.values()));
-//    }
 };

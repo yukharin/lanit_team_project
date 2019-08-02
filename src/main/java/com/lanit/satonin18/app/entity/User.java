@@ -41,11 +41,6 @@ public class User implements Serializable {
                 '}';
     }
 
-//    @PostConstruct
-//    private void p() {
-//        System.out.println("eeeeeeeeeeeeeeeeeeeee");
-//    }
-
     public User() {
         System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuu");
     }

@@ -19,7 +19,7 @@ public class Pagination<E> {
     protected List<Integer> navigationPages;
 
     //static //can be object //generic is only one //how spring and servlet impemets treadsafe
-    public static final class EmptyPagination<E> extends Pagination<E> {
+    public final class EmptyPagination<E> extends Pagination<E> {
         public EmptyPagination(Pagination pagination) {
             super(1, pagination.maxResult, pagination.maxNavigationPage);
 

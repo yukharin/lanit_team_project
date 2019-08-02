@@ -12,7 +12,6 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 @Repository("userDAO")
-//@Transactional
 public class UserDAOImp implements UserDAO{
 
    @Autowired
