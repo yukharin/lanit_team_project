@@ -423,6 +423,11 @@ body {
     margin: 0 auto;
 }
 
+.account-main-notifications-table-rows_data:hover {
+    background-color: maroon;
+    color: white;
+}
+
 .account-main-notifications-table th {
     padding: 10px;
     border: black 1px solid;
@@ -432,6 +437,23 @@ body {
 .account-main-notifications-table td {
     border: black 1px solid;
     margin: 0 auto;
+}
+
+.account-main-notifications-table-delete_form {
+
+}
+
+.account-main-notifications-table-delete_form-input {
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: black 1px solid;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.account-main-notifications-table-delete_form-input:hover {
+    background-color: blue;
 }
 
 .account-filter-form-sorting-label {
@@ -555,7 +577,11 @@ body {
 }
 
 .not_info-notification-data-form-input {
+}
 
+.not_info-notification-data-form-input:hover {
+    background-color: white;
+    color: black;
 }
 
 .not_info-notification-data-form-first {

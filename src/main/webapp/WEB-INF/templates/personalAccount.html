@@ -142,11 +142,11 @@
                 <th>Дата получения уведомления</th>
                 <th>Срок предоставления ответа</th>
                 <th>Номер письма</th>
-                <th>Совершить действие</th>
-                <th>Журнал действий</th>
                 <th>Удалить</th>
             </tr>
-            <tr th:each="notification,iterator : ${stateOfPage.page.content}">
+            <tr class="account-main-notifications-table-rows_data"
+                th:each="notification,iterator : ${stateOfPage.page.content}"
+                th:onclick="'javascript:rowClicked(\'' + ${notification.id} + '\');'">
                 <td th:text="${iterator.index+1}"></td>
                 <td th:text="${notification.notificationType}">notification_type</td>
                 <td th:text="${notification.organization.name}">org_name</td>
@@ -155,32 +155,12 @@
                 <td th:text="${#dates.format(notification.dateResponse, 'yyyy-MM-dd')}"></td>
                 <td th:text="${notification.letterNumber}">letter_number</td>
                 <td>
-                    <form method="post" th:action="@{/account/notification_info/}">
-                        <label for="hidden1">
-                            <input id="hidden1" name="id" th:value="${notification.id}" type="hidden"/>
-                        </label>
-                        <label for="submit3">
-                            <input id="submit3" type="submit" value="Работа с уведомлением"/>
-                        </label>
-                    </form>
-                </td>
-                <td>
-                    <form method="post" th:action="@{/account/notification_actions_history/}">
-                        <label for="hidden2">
-                            <input id="hidden2" name="id" th:value="${notification.id}" type="hidden"/>
-                        </label>
-                        <label for="submit4">
-                            <input id="submit4" type="submit" value="Журнал действий"/>
-                        </label>
-                    </form>
-                </td>
-                <td>
-                    <form method="post" th:action="@{/account/delete/}">
-                        <label for="hidden3">
+                    <form class="account-main-notifications-table-delete_form" method="post"
+                          th:action="@{/account/delete/}">
+                        <label class="account-main-notifications-table-delete_form-label" for="hidden3">
                             <input id="hidden3" name="id" th:value="${notification.id}" type="hidden">
-                        </label>
-                        <label for="delete_form">
-                            <input id="delete_form" type="submit" value="Удалить"/>
+                            <input class="account-main-notifications-table-delete_form-input" id="delete_form"
+                                   type="submit" value="Удалить"/>
                         </label>
                     </form>
                 </td>
@@ -194,4 +174,9 @@
 </main>
 </body>
 <script th:src="@{/js/personalAccount.js}"></script>
+<script>
+    function rowClicked(value) {
+        location.href = "/lkz_project_war/account/notification_info/?id=" + value;
+    }
+</script>
 </html>

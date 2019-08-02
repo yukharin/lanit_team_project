@@ -101,7 +101,7 @@ public class PersonalAccountController {
         return "redirect:/account/";
     }
 
-    @PostMapping("/account/notification_info/")
+    @RequestMapping("/account/notification_info/")
     public String getNotificationPage(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
