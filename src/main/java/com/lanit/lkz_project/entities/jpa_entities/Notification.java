@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -63,6 +64,7 @@ public class Notification implements Serializable {
     @Future
     @Temporal(TemporalType.DATE)
     @Column(name = "date_response")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateResponse;
 
 

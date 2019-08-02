@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Random;
@@ -47,17 +46,8 @@ public class PersonalAccountService {
     }
 
 
-    public void addNotification(@NonNull User user,
-                                @NonNull String notificationType,
-                                @NonNull String dateResponse,
-                                @NonNull String orgId) throws ParseException {
-        Notification notification = new Notification();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfResponse = format.parse(dateResponse);
-        Organization organization = organizationService.getOrganization(Long.valueOf(orgId));
-        notification.setOrganization(organization);
-        notification.setNotificationType(notificationType);
-        notification.setDateResponse(dateOfResponse);
+    public void addNotification(@NonNull Notification notification,
+                                @NonNull User user) throws ParseException {
         notification.setDateReceived(new Date());
         notification.setStatus(NotificationStatus.NEW);
         notification.setLetterNumber(generateLetterNumber());

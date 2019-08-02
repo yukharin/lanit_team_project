@@ -3,7 +3,7 @@
 <head>
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" th:href="@{/css/casca.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/cascad.css}" type="text/css"/>
 </head>
 <body>
 <header class="account-header">
@@ -25,39 +25,30 @@
     </div>
 </header>
 <main>
-    <div>
-        <h3>Создать уведомление</h3>
-    </div>
-    <div>
-        <form id="addNotification" method="post" th:action="@{/account/addNotification/add/}">
-            <ul>
-                <li>
-                    <label for="input1">Введите тип уведомления
-                        <br><input id="input1" name="notificationType" type="text"/>
-                    </label>
-                </li>
-                <li>
-                    <label for="input2"> Введите дату, до которой нужно отправить ответ
-                        <br><input id="input2" name="dateResponse" type="date"/>
-                    </label>
-                </li>
-                <li>
-                    <label for="select1">
-                        Выберите организацию, которой вы хотите предоставить уведомление
-                        <br><select id="select1" name="orgId">
-                        <option th:each="organization : ${organizations}"
-                                th:text="${organization.name}"
-                                th:value="${organization.id}">
-                        </option>
-                    </select>
-                    </label>
-                </li>
-                <li>
-                    <label for="submit1">
-                        <input id="submit1" type="submit" value="Отправить"/>
-                    </label>
-                </li>
-            </ul>
+    <div class="add_notification">
+        <h3 class="add_notification-header">Создать уведомление</h3>
+        <form class="add_notification-form" id="addNotification" method="post"
+              th:action="@{/account/addNotification/add/}" th:object="${notification}">
+            <label class="add_notification-form-label" for="input1">Введите тип уведомления
+                <input class="add_notification-form-input" id="input1" name=notificationType
+                       th:field="*{notificationType}" type="text"/>
+            </label>
+            <label class="add_notification-form-label" for="input2"> Введите дату, до которой нужно отправить ответ
+                <input class="add_notification-form-input" id="input2" name="dateResponse" th:field="*{dateResponse}"
+                       type="date"/>
+            </label>
+            <label class="add_notification-form-label" for="select1">
+                Выберите организацию, которой вы хотите предоставить уведомление
+                <select class="add_notification-form-select" id="select1" name="orgId" th:field="*{organization.id}">
+                    <option class="add_notification-form-option" th:each="organization : ${organizations}"
+                            th:text="${organization.name}"
+                            th:value="${organization.id}">
+                    </option>
+                </select>
+            </label>
+            <label class="add_notification-form-label" for="submit1">
+                <input class="add_notification-form-input-submit" id="submit1" type="submit" value="Отправить"/>
+            </label>
         </form>
     </div>
 </main>

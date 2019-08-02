@@ -10,10 +10,8 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
@@ -85,6 +83,7 @@ public class PersonalAccountController {
     public String getAddNotificationPage(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
+            @ModelAttribute Notification notification,
             Model model) {
         User user = userAuthorization.authorize(login, password);
         model.addAttribute("user", user);
@@ -97,11 +96,11 @@ public class PersonalAccountController {
     public String addNotification(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
-            @NonNull @RequestParam String notificationType,
-            @NonNull @RequestParam String dateResponse,
-            @NonNull @RequestParam String orgId) throws ParseException {
+            @ModelAttribute Notification notification) throws ParseException {
         User user = userAuthorization.authorize(login, password);
-        personalAccountService.addNotification(user, notificationType, dateResponse, orgId);
+        System.err.println("INPUT: " + notification);
+        System.err.println(notification.getOrganization());
+        personalAccountService.addNotification(notification, user);
         return "redirect:/account/";
     }
 
@@ -130,20 +129,6 @@ public class PersonalAccountController {
         User userImplementor = userAuthorization.authorize(login, password);
         personalAccountService.addAction(userImplementor, actionTypeParam, idNotification, comment);
         return "redirect:/account/";
-    }
-
-    @GetMapping("/test")
-    public String showForm(PersonForm personForm) {
-        return "form";
-    }
-
-    @PostMapping("/test")
-    public String checkPersonInfo(@Valid PersonForm personForm, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "form";
-        }
-        return "redirect:/results";
     }
 
 }

@@ -420,18 +420,18 @@ body {
 .account-main-notifications-table tr {
     padding: 10px;
     border: black 1px solid;
-    align-content: center;
+    margin: 0 auto;
 }
 
 .account-main-notifications-table th {
     padding: 10px;
     border: black 1px solid;
-    align-content: center;
+    margin: 0 auto;
 }
 
 .account-main-notifications-table td {
     border: black 1px solid;
-    align-content: center;
+    margin: 0 auto;
 }
 
 .account-filter-form-sorting-label {
@@ -463,6 +463,26 @@ body {
 .account-filter-form-checkbox-label-sorting input + span:hover {
     background-color: maroon;
     color: white;
+}
+
+
+.account-main-notifications-manager-add_notification {
+    padding: 30px;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.account-main-notifications-manager {
+
+}
+
+.account-main-notifications-manager-add_notification a {
+    padding: 15px;
+    border: 1px solid black;
+    background-color: green;
+    color: white;
+    margin: 20px 10px 10px;
+    border-radius: 8px;
 }
 
 
@@ -628,14 +648,67 @@ body {
 .not_info-actions_history-table tr {
     padding: 5px;
     border: black solid 1px;
+    margin: 0 auto;
 }
 
 .not_info-actions_history-table th {
     border: black solid 1px;
     padding: 5px;
+    margin: 0 auto;
 }
 
 .not_info-actions_history-table td {
     border: black solid 1px;
     padding: 5px;
+
+}
+
+/*Add notification styles*/
+
+.add_notification {
+    padding: 15px;
+    border: black solid 1px;
+    margin-top: 15px;
+}
+
+.add_notification-header {
+    padding: 10px;
+    margin-left: 15px;
+}
+
+.add_notification-form {
+    width: 50%;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    display: block;
+}
+
+.add_notification-form-label {
+    display: block;
+    border: black 1px solid;
+    padding: 15px;
+}
+
+.add_notification-form-input {
+
+}
+
+
+.add_notification-form-select {
+
+}
+
+.add_notification-form-option {
+
+}
+
+.add_notification-form-input-submit {
+    border: 1px solid black;
+    background-color: green;
+    color: white;
+    height: 40px;
+    width: 90px;
+    border-radius: 8px;
+    margin: 5px;
 }
