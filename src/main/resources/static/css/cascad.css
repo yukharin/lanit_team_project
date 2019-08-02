@@ -466,5 +466,176 @@ body {
 }
 
 
+/*Notification info styles*/
 
 
+.not_info-navigation {
+    padding: 5px;
+    background-color: maroon;
+}
+
+
+.not_info-navigation-list {
+    display: inline-block;
+}
+
+.not_info-navigation-list-element {
+    display: inline-block;
+}
+
+.not_info-navigation-list-form {
+
+}
+
+.not_info-navigation-list-form-label {
+    padding: 8px;
+    color: black;
+    box-sizing: border-box;
+    width: auto;
+}
+
+
+.not_info-navigation-list-form-input-hidden {
+
+}
+
+.not_info-navigation-list-form-input {
+    color: white;
+    background-color: green;
+    border-radius: 8px;
+    padding: 8px;
+    border: black 1px solid;
+    margin-bottom: 8px;
+    height: 40px;
+}
+
+.not_info-navigation-list-form-input:hover {
+    background-color: slategray;
+    color: black;
+}
+
+.not_info-notification-data-header {
+    margin: 5px 5px 5px 30px;
+}
+
+.not_info-notification-data {
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.not_info-notification-data-form {
+
+}
+
+.not_info-notification-data-form-label {
+    padding: 5px;
+    border: 1px solid black;
+    margin: 5px;
+    display: block;
+}
+
+.not_info-notification-data-form-input {
+
+}
+
+.not_info-notification-data-form-first {
+    width: 50%;
+    margin: 15px;
+}
+
+.not_info-notification-data-form-second {
+    width: 50%;
+    margin: 15px;
+}
+
+.not_info-add_action {
+    border: 1px solid black;
+    margin-top: 5px;
+}
+
+.not_info-add_action-header {
+    margin: 15px 5px 5px 45px;
+}
+
+.not_info-add_action-form {
+    padding: 15px;
+    width: 50%;
+}
+
+.not_info-add_action-form-label {
+    padding: 8px;
+    border: 1px solid black;
+    display: block;
+    margin: 8px 8px 8px 22px;
+}
+
+.not_info-add_action-form-select {
+
+}
+
+.not_info-add_action-form-option {
+
+}
+
+.not_info-add_action-form-input-hidden {
+
+}
+
+.not_info-add_action-form-input-submit {
+    padding: 10px;
+    border: black 1px solid;
+    border-radius: 8px;
+    color: white;
+    background-color: green;
+    margin: 5px;
+    width: 165px;
+}
+
+.not_info-add_action-form-label-submit {
+    padding: 8px;
+    border: 1px solid black;
+    display: block;
+    margin: 8px 8px 8px 22px;
+}
+
+.not_info-add_action-form-input-submit:hover {
+    background-color: maroon;
+}
+
+.not_info-add_action-form-input-comment {
+
+}
+
+
+/*Actions history*/
+
+.not_info-actions_history {
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+.not_info-actions_history-header {
+
+}
+
+.not_info-actions_history-table {
+    border: black solid 1px;
+    padding: 10px;
+    width: 100%;
+}
+
+.not_info-actions_history-table tr {
+    padding: 5px;
+    border: black solid 1px;
+}
+
+.not_info-actions_history-table th {
+    border: black solid 1px;
+    padding: 5px;
+}
+
+.not_info-actions_history-table td {
+    border: black solid 1px;
+    padding: 5px;
+}

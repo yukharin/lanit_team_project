@@ -54,7 +54,6 @@ public class PersonalAccountController {
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
         PersonalAccountPage<Notification> page = stateOfPage.orElseGet(PersonalAccountPage::new);
-        System.err.println(page);
         personalAccountService.setAccountPageState(page, user);
         model.addAttribute("stateOfPage", page);
         model.addAttribute("user", user);
@@ -68,9 +67,11 @@ public class PersonalAccountController {
             @NonNull @RequestParam String id,
             Model model) {
         User user = userAuthorization.authorize(login, password);
-        Set<Action> actions = notificationService.getNotification(Long.valueOf(id)).getActions();
+        Notification notification = notificationService.getNotification(Long.valueOf(id));
+        Set<Action> actions = notification.getActions();
         model.addAttribute("user", user);
         model.addAttribute("actions", actions);
+        model.addAttribute("notification", notification);
         return "notificationActions";
     }
 

@@ -73,7 +73,7 @@ public class Notification implements Serializable {
 
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user_notification_author")
     private User userNotificationAuthor;
 
