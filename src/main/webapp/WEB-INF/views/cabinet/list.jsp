@@ -622,19 +622,22 @@
 
                                     <input type="checkbox" class="hidden_input"
                                            id="idStatus_WithIdNotification=${tempNotification.id}"
-                                           name="selectedNewIdStatus" value="${tempNotification.id}"></input>
+                                           name="selectedNewIdStatus" value="${tempNotification.status.id}"></input>
 
-                                    <select type="text" id="selectNewActionId"<%--name="idStatus_With_idNotification=${tempNotification.id}"--%>
+                                    <select type="text" id="selectElement_NewActionId_WithIdNotification=${tempNotification.id}"<%--name="idStatus_With_idNotification=${tempNotification.id}"--%>
                                             onchange="
-                                                    document.getElementById('flagNeedReplaceStatus').setAttribute('value', true);
-                                                    document.getElementById('idNotification4editStatus=${tempNotification.id}').setAttribute('checked', true);
+                                                    document.getElementById('flagNeedReplaceStatus').setAttribute('value', 'true');
 
-                                                    var selectElement = document.getElementById('selectNewActionId');
+                                                    document.getElementById('idNotification4editStatus=${tempNotification.id}').setAttribute('checked', 'true');
+
+                                                    var selectElement = document.getElementById('selectElement_NewActionId_WithIdNotification=${tempNotification.id}');
                                                     var n = selectElement.options.selectedIndex;
+                                                    var optionValue = selectElement.options[n].value;
 
                                                     var status = document.getElementById('idStatus_WithIdNotification=${tempNotification.id}');
-                                                    status.value = selectElement.options[n].value;
-                                                    status.setAttribute('checked', true);
+                                                    // status.value = selectElement.options[n].value;
+                                                    status.setAttribute('value', optionValue);
+                                                    status.setAttribute('checked', 'true');
 
                                                     this.form.submit()" >
                                         <c:forEach items="${state.getStatuses4selectFilter()}" var="status">
