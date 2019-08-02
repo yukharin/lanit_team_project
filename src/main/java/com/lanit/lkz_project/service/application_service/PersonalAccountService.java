@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Random;
@@ -44,7 +43,7 @@ public class PersonalAccountService {
 
 
     public void addNotification(@NonNull Notification notification,
-                                @NonNull User user) throws ParseException {
+                                @NonNull User user) {
         notification.setDateReceived(new Date());
         notification.setStatus(NotificationStatus.NEW);
         notification.setLetterNumber(generateLetterNumber());

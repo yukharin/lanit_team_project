@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -96,10 +95,8 @@ public class PersonalAccountController {
     public String addNotification(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
-            @ModelAttribute Notification notification) throws ParseException {
+            @ModelAttribute Notification notification) {
         User user = userAuthorization.authorize(login, password);
-        System.err.println("INPUT: " + notification);
-        System.err.println(notification.getOrganization());
         personalAccountService.addNotification(notification, user);
         return "redirect:/account/";
     }
