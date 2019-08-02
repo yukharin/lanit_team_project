@@ -691,7 +691,6 @@
         <input id="flagNeedReplaceStatus"
                type="hidden"
                name="flagNeedReplaceStatus" value="false"></input>
-
         <input id="selectedNewResultAndNeedSetFirstPage"
                type="hidden"
                name="selectedNewResultAndNeedSetFirstPage" value="false"></input>

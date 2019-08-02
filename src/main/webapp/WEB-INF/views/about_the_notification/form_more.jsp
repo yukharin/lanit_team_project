@@ -123,14 +123,14 @@
             <h5 style="text-transform: uppercase;">
                 ${currentNotification.notificationType}
 
-                    <button type="button"
-                            id = "button-common_info_about_notification" class="href-nav-item-current button-default-visibility-false"
-                            onclick="
+                <button type="button"
+                        id = "button-common_info_about_notification" class="href-nav-item-current button-default-visibility-false"
+                        onclick="
                     changeVisibilityById('controlled_visibility-common_info_about_notification', 'button-common_info_about_notification')
                     "
-                    >
-                        /\
-                    </button>
+                >
+                    /\
+                </button>
             </h5>
             <div class="controlled_visibility div-default-visibility-false" id="controlled_visibility-common_info_about_notification"
                  style="display: none">
@@ -379,24 +379,25 @@
                         </td>
                         <td style="text-align: right">
                             <div id="selectMaxResult">
-                                    Показывать по :
-                                    <select type="text" name="maxResult"
-                                            onchange="
+                                Показывать по :
+                                <select type="text" name="maxResult"
+                                        onchange="
                                     document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()"
-                                    ><%--multiple="true"--%>
-                                        <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">
-                                            <c:choose>
-                                                <c:when test="${tempMaxResult.equals(state.getPagination().maxResult)}">
-                                                    <option selected
-                                                            value ="${tempMaxResult}">${tempMaxResult}</option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value ="${tempMaxResult}">${tempMaxResult}</option>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                    </select>
+                                ><%--multiple="true"--%>
+                                    <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">
+                                        <c:choose>
+                                            <c:when test="${tempMaxResult.equals(state.getPagination().maxResult)}">
+                                                <option selected
+                                                        value ="${tempMaxResult}">${tempMaxResult}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value ="${tempMaxResult}">${tempMaxResult}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </div>
                         </td>
                     </table>
                 </div>
@@ -409,34 +410,34 @@
                             <th>№</th>
                             <th>Тип действия<%--tempAction.actionType.name--%>
                                 <Br>
-                                <span class ="radioDecorator radio-actionType.name">
-                                    <input type="radio" id="radio-orderFieldName-orderFieldName=actionType.name&desc=true"
-                                           name="orderFieldName" value="actionType.name"
+                                <span class ="radioDecorator radio-actionType">
+                                    <input type="radio" id="radio-orderFieldName-orderFieldName=actionType&desc=true"
+                                           name="orderFieldName" value="actionType"
                                     <%--onchange="this.form.submit()" --%> >
-                                    <input type="radio" id="radio-desc-orderFieldName=actionType.name&desc=true"
+                                    <input type="radio" id="radio-desc-orderFieldName=actionType&desc=true"
                                            name="desc" value="true"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <button type="button"  class="href-nav-item" id="orderFieldName=actionType.name&desc=true"
+                                    <button type="button"  class="href-nav-item" id="orderFieldName=actionType&desc=true"
                                             onclick="
-                                    document.getElementById('radio-orderFieldName-orderFieldName=actionType.name&desc=true').setAttribute('checked', true);
-                                    document.getElementById('radio-desc-orderFieldName=actionType.name&desc=true').setAttribute('checked', true);
+                                    document.getElementById('radio-orderFieldName-orderFieldName=actionType&desc=true').setAttribute('checked', true);
+                                    document.getElementById('radio-desc-orderFieldName=actionType&desc=true').setAttribute('checked', true);
                                     document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
                                 </span>
                                 <Br>
-                                <span class ="radioDecorator radio-actionType.name">
-                                    <input type="radio" id="radio-orderFieldName-orderFieldName=actionType.name&desc=false"
-                                           name="orderFieldName" value="actionType.name"
+                                <span class ="radioDecorator radio-actionType">
+                                    <input type="radio" id="radio-orderFieldName-orderFieldName=actionType&desc=false"
+                                           name="orderFieldName" value="actionType"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <input type="radio" id="radio-desc-orderFieldName=actionType.name&desc=false"
+                                    <input type="radio" id="radio-desc-orderFieldName=actionType&desc=false"
                                            name="desc" value="false"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <button type="button"  class="href-nav-item" id="orderFieldName=actionType.name&desc=false"
+                                    <button type="button"  class="href-nav-item" id="orderFieldName=actionType&desc=false"
                                             onclick="
-                                document.getElementById('radio-orderFieldName-orderFieldName=actionType.name&desc=false').setAttribute('checked', true);
-                                document.getElementById('radio-desc-orderFieldName=actionType.name&desc=false').setAttribute('checked', true);
+                                document.getElementById('radio-orderFieldName-orderFieldName=actionType&desc=false').setAttribute('checked', true);
+                                document.getElementById('radio-desc-orderFieldName=actionType&desc=false').setAttribute('checked', true);
                                 document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
@@ -590,34 +591,34 @@
                             </th>
                             <th>Статус после изменения<%--Id--%>
                                 <Br>
-                                <span class ="radioDecorator radio-statusAfterProcessing.name">
-                                    <input type="radio" id="radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=true"
-                                           name="orderFieldName" value="statusAfterProcessing.name"
+                                <span class ="radioDecorator radio-statusAfterProcessing">
+                                    <input type="radio" id="radio-orderFieldName-orderFieldName=statusAfterProcessing&desc=true"
+                                           name="orderFieldName" value="statusAfterProcessing"
                                     <%--onchange="this.form.submit()" --%> >
-                                    <input type="radio" id="radio-desc-orderFieldName=statusAfterProcessing.name&desc=true"
+                                    <input type="radio" id="radio-desc-orderFieldName=statusAfterProcessing&desc=true"
                                            name="desc" value="true"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <button type="button"  class="href-nav-item" id="orderFieldName=statusAfterProcessing.name&desc=true"
+                                    <button type="button"  class="href-nav-item" id="orderFieldName=statusAfterProcessing&desc=true"
                                             onclick="
-                                    document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=true').setAttribute('checked', true);
-                                    document.getElementById('radio-desc-orderFieldName=statusAfterProcessing.name&desc=true').setAttribute('checked', true);
+                                    document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing&desc=true').setAttribute('checked', true);
+                                    document.getElementById('radio-desc-orderFieldName=statusAfterProcessing&desc=true').setAttribute('checked', true);
                                     document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
                                 </span>
                                 <Br>
-                                <span class ="radioDecorator radio-statusAfterProcessing.name">
-                                    <input type="radio" id="radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=false"
-                                           name="orderFieldName" value="statusAfterProcessing.name"
+                                <span class ="radioDecorator radio-statusAfterProcessing">
+                                    <input type="radio" id="radio-orderFieldName-orderFieldName=statusAfterProcessing&desc=false"
+                                           name="orderFieldName" value="statusAfterProcessing"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <input type="radio" id="radio-desc-orderFieldName=statusAfterProcessing.name&desc=false"
+                                    <input type="radio" id="radio-desc-orderFieldName=statusAfterProcessing&desc=false"
                                            name="desc" value="false"
                                     <%--onchange="this.form.submit()"--%> >
-                                    <button type="button"  class="href-nav-item" id="orderFieldName=statusAfterProcessing.name&desc=false"
+                                    <button type="button"  class="href-nav-item" id="orderFieldName=statusAfterProcessing&desc=false"
                                             onclick="
-                                document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing.name&desc=false').setAttribute('checked', true);
-                                document.getElementById('radio-desc-orderFieldName=statusAfterProcessing.name&desc=false').setAttribute('checked', true);
+                                document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing&desc=false').setAttribute('checked', true);
+                                document.getElementById('radio-desc-orderFieldName=statusAfterProcessing&desc=false').setAttribute('checked', true);
                                 document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
