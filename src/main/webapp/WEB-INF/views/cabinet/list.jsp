@@ -124,7 +124,7 @@
                                        type="checkbox"
                                        name="idFilterStatus"  value="${tempStatus.id}"
                                        onchange="
-                                       document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                       document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                        this.form.submit()"
                                 >
                                         ${tempStatus.name}
@@ -136,7 +136,7 @@
                                        type="checkbox"
                                        name="idFilterStatus" value="${tempStatus.id}"
                                        onchange="
-                                       document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                       document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                        this.form.submit()"
                                 >
                                         ${tempStatus.name}
@@ -154,7 +154,7 @@
                                    type="checkbox"
                                    name="showArchive" value="true"
                                    onchange="
-                                   document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                   document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                    this.form.submit()"
                             >
                             Показывать архивные уведомления
@@ -166,7 +166,7 @@
                                    type="checkbox"
                                    name="showArchive" value="true"
                                    onchange="
-                                   document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                   document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                    this.form.submit()"
                             >
                             Показывать архивные уведомления
@@ -202,7 +202,7 @@
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;"<%--class="green_button"--%>
                     onclick="
-                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                     this.form.submit();"
             >
                 Применить фильтр
@@ -210,7 +210,7 @@
             <button type="button"<%--type="form.submit"--%> style="background-color: #666666; color: white; display: inline-block;"
                     onclick="
                     filterButtonUndoInDefault4setChecked();
-                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                     this.form.submit();"
             >
                 Отменить фильтр
@@ -324,7 +324,7 @@
                         Показывать по :
                         <select type="text" name="maxResult"
                                 onchange="
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()"
                         ><%--multiple="true"--%>
                             <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">
@@ -363,7 +363,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=notificationType&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=notificationType&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 /\
                             </button>
@@ -380,7 +380,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=notificationType&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=notificationType&desc=false').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 \/
                             </button>
@@ -399,7 +399,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=organization.name&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=organization.name&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 /\
                             </button>
@@ -416,7 +416,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=organization.name&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=organization.name&desc=false').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 \/
                             </button>
@@ -435,7 +435,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateResponse&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateResponse&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 /\
                             </button>
@@ -452,7 +452,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateResponse&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateResponse&desc=false').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 \/
                             </button>
@@ -471,7 +471,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=status&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=status&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 /\
                             </button>
@@ -488,7 +488,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=status&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=status&desc=false').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 \/
                             </button>
@@ -507,7 +507,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=id&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=id&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 /\
                             </button>
@@ -524,7 +524,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=id&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=id&desc=false').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 \/
                             </button>
@@ -543,7 +543,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateReceived&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateReceived&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 /\
                             </button>
@@ -560,7 +560,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=dateReceived&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=dateReceived&desc=false').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 \/
                             </button>
@@ -579,7 +579,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=letterNumber&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=letterNumber&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 /\
                             </button>
@@ -596,7 +596,7 @@
                                     onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=letterNumber&desc=false').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=letterNumber&desc=false').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                 \/
                             </button>
@@ -688,12 +688,16 @@
             </table>
         </div>
 
+        <%--<input id="flagUseParameters"--%>
+               <%--type="hidden"--%>
+               <%--name="flagUseParameters" value="true"></input>--%>
+
         <input id="flagNeedReplaceStatus"
                type="hidden"
                name="flagNeedReplaceStatus" value="false"></input>
-        <input id="selectedNewResultAndNeedSetFirstPage"
+        <input id="flagNeedSetFirstPage"
                type="hidden"
-               name="selectedNewResultAndNeedSetFirstPage" value="false"></input>
+               name="flagNeedSetFirstPage" value="false"></input>
     </form>
 
 </div>

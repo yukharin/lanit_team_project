@@ -23,9 +23,8 @@ public class InputController {
 
     @PostMapping("/selectUser")
     public String selectUser(
-            @RequestParam("idSelectUser") int idSelectUser,
+            @RequestParam int idSelectUser,
             Model model){
-
         return "redirect:/cabinet/selectUser?idSelectUser=" + idSelectUser;
     }
 }

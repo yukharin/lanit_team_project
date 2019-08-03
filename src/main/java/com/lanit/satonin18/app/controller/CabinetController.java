@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -37,54 +38,46 @@ public class CabinetController {
 
     @GetMapping("/selectUser")
     public String selectUser(
-            @RequestParam("idSelectUser") int idSelectUser,
+            @RequestParam int idSelectUser,
             HttpSession session, Model model,
             final RedirectAttributes redirectAttributes){
-        CabinetModel cabinetModel = new CabinetModel();
-        cabinetModel.setIdFilterStatus( new ArrayList<>( Status.getAllId() ) );
-//------------------------------------------------
         session.setAttribute("user", idSelectUser); //todo добавляем без проверки
-        session.setAttribute("cabinetModel", cabinetModel);
-        redirectAttributes.addFlashAttribute( cabinetModel);
-        return "redirect:listNew"; //return "redirect:/cabinet/current_state";
+        return "redirect:/cabinet/listNew";
     }
 
-    @GetMapping("/current_state") //save state if user go in other web-page, and after return here
-    public String current_state( HttpSession session, Model model,
-                                 final RedirectAttributes redirectAttributes){
-        CabinetModel cabinetModel = (CabinetModel) session.getAttribute("cabinetModel");
-        if (cabinetModel == null) {
-            cabinetModel = new CabinetModel();
-            cabinetModel.setIdFilterStatus( new ArrayList<>( Status.getAllId() ) );
-        };
-//------------------------------------------------
-        redirectAttributes.addFlashAttribute( "cabinetModel", cabinetModel);
-        return "redirect:listNew";
-    }
-
-    @GetMapping("/listNew") //will need add  @GetMapping("/")
-    public String listNew(
-            HttpSession session,
-            @ModelAttribute(value = "cabinetModel") CabinetModel cabinetModel,
-            Model model){
+    @GetMapping("/listNew")
+    public String listNew(HttpServletRequest request,
+                          HttpSession session,
+                          @ModelAttribute(value = "cabinetModel") CabinetModel cabinetModel,
+                          Model model){
         Integer userId = (Integer) session.getAttribute("user");
         if( userId == null) return "redirect:/";
         User currentUser = userService.getById(userId);
 //------------------------------------------------
-        if(cabinetModel.isSelectedNewResultAndNeedSetFirstPage() )
-            cabinetModel.setPage(1);
-        if(cabinetModel.isFlagNeedReplaceStatus())
-            replaceStatus(cabinetModel);
-
+        if ( request.getParameterMap().isEmpty() ) {
+            CabinetModel temp = (CabinetModel)  session.getAttribute("cabinetModel"+"#"+userId);
+            if(temp != null) {
+                cabinetModel = temp;
+            } else {
+                cabinetModel = new CabinetModel();
+                cabinetModel.setIdFilterStatus( new ArrayList(Status.getAllId()) );
+            }
+        } else {
+            if(cabinetModel.isFlagNeedSetFirstPage() )
+                cabinetModel.setPage(1);
+            if(cabinetModel.isFlagNeedReplaceStatus())
+                replaceStatus(cabinetModel);
+        }
+//------------------------------------------------
         CabinetState state = new CabinetState(cabinetModel);
         cabinetService.executeQuery(state, currentUser);
 //------------------------------------------------
-        session.setAttribute("cabinetModel", cabinetModel);
+        session.setAttribute("cabinetModel"+"#"+userId, cabinetModel);
         addAttributes_Notification(model, currentUser, state);
         return "cabinet/list";
     }
 
-    private void replaceStatus(@ModelAttribute("cabinetModel") CabinetModel cabinetModel) {
+    private void replaceStatus(CabinetModel cabinetModel) {
         int idNotification = cabinetModel.getSelectedIdNotification4editStatus();
         int idNewStatus = cabinetModel.getSelectedNewIdStatus();
 

@@ -220,7 +220,7 @@
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
                     onclick="
-                            window.location.href='${pageContext.request.contextPath}/cabinet/about_the_notification/current_state'
+                            window.location.href='${pageContext.request.contextPath}/cabinet/about_the_notification/moreNew'
                             "
             >
                 ОТМЕНА

@@ -652,7 +652,7 @@
 </div>
 
 <div id="return">
-    <a href="${pageContext.request.contextPath}/cabinet/current_state"> Back to list </a>
+    <a href="${pageContext.request.contextPath}/cabinet/listNew"> Back to list </a>
 </div>
 
 <script>

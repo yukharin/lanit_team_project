@@ -29,9 +29,10 @@ public class AddAction {
 
     @GetMapping("/formPage")
     public String formPage(
-            @RequestParam("notificationId") int notificationId,
-            @RequestParam("userId") int userId,
-            HttpSession session, Model model) {
+            @RequestParam int notificationId,
+            @RequestParam int userId,
+            HttpSession session,
+            Model model) {
         User currentUser = userService.getById(userId);
         Notification currentNotification = notificationService.getById(notificationId);
         if(currentUser == null || currentNotification == null) return "redirect:/"; //todo add alert(error)
@@ -48,11 +49,12 @@ public class AddAction {
 
     @GetMapping("/save")
     public String save(
-            @RequestParam("idActionType") int idActionType,
-            @RequestParam("content") String content,
-            @RequestParam("idUserImplementor") int idUserImplementor,
-            @RequestParam("idNotificationStatus") int idNotificationStatus,
-            HttpSession session, Model model) {
+            @RequestParam int idActionType,
+            @RequestParam String content,
+            @RequestParam int idUserImplementor,
+            @RequestParam int idNotificationStatus,
+            HttpSession session,
+            Model model) {
         Integer userId = (Integer) session.getAttribute("user");
         Integer notificationId = (Integer) session.getAttribute("notification");
         if(userId == null || notificationId == null) return "redirect:/"; //todo add alert( IT DONT SAVE)
@@ -81,6 +83,6 @@ public class AddAction {
 
         notificationService.saveOrUpdate(currentNotification);
 
-        return "redirect:/cabinet/about_the_notification/current_state";
+        return "redirect:/cabinet/about_the_notification/moreNew";
     }
 }

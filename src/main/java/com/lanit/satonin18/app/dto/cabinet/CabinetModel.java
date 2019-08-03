@@ -15,8 +15,11 @@ public class CabinetModel {
     private String orderFieldName = Default_Cabinet_var.ORDER_FIELD_NAME;
     private boolean showArchive = Default_Cabinet_var.SHOW_ARCHIVE;//если параметр не пришел, то false, если пришел( то приходит только true)
 
-    private boolean selectedNewResultAndNeedSetFirstPage = false;
+    private boolean flagNeedSetFirstPage = false;
+
+//    private boolean flagUseParameters = false;
     private List<Integer> idFilterStatus = Collections.EMPTY_LIST;//если ничего передали, значит пусто
+
     private boolean flagNeedReplaceStatus = false;
     private Integer selectedIdNotification4editStatus = null;
     private Integer selectedNewIdStatus = null;

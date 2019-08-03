@@ -13,14 +13,13 @@ import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @Controller("notificationAppController")
@@ -48,38 +47,20 @@ public class NotificationAppController {
 
     @GetMapping("/selectTheNotification")
     public String selectTheNotification(
-            @RequestParam("notificationId") int notificationId,
-            @RequestParam("userId") int userId,
+            @RequestParam int notificationId,
+            @RequestParam int userId,
             HttpSession session, Model model,
             final RedirectAttributes redirectAttributes) {
-        NotificationAppModel notificationModel = new NotificationAppModel();
-        //notificationModel.set#(##);
-//------------------------------------------------
         session.setAttribute("user", userId); //todo добавляем без проверки
         session.setAttribute("notification", notificationId);
-        session.setAttribute("notificationModel", notificationModel);
-
-        redirectAttributes.addFlashAttribute( notificationModel);
-        return "redirect:moreNew"; //return "redirect:/cabinet/about_the_notification/moreNew";
+        return "redirect:/cabinet/about_the_notification/moreNew";
     }
 
-    @GetMapping("/current_state")
-    public String currentState(
-            HttpSession session, Model model,
-            final RedirectAttributes redirectAttributes) {
-        NotificationAppModel notificationModel = (NotificationAppModel) session.getAttribute("notificationModel");
-        if (notificationModel == null) {
-            notificationModel = new NotificationAppModel();//notificationModel.set#(##);
-        }
-        redirectAttributes.addFlashAttribute( "NotificationModel", notificationModel);
-
-        return "redirect:moreNew";
-    }
-
+    //было решено не сохранять настройки этой страницы в сессии
     @GetMapping("/moreNew")
     public String moreNew(
-            @ModelAttribute(value = "NotificationModel") NotificationAppModel notificationModel,
-            HttpSession session, Model model){
+                          @ModelAttribute(value = "notificationModel") NotificationAppModel notificationModel,
+                          HttpSession session, Model model){
         Integer userId = (Integer) session.getAttribute("user");
         Integer notificationId = (Integer) session.getAttribute("notification");
         if(userId == null || notificationId == null) return "redirect:/"; //todo add alert( IT DONT SAVE)
@@ -89,10 +70,8 @@ public class NotificationAppController {
         if(notificationModel.isSelectedNewResultAndNeedSetFirstPage() ) notificationModel.setPage(1);
 
         NotificationAppState state = new NotificationAppState(notificationModel);
-
         notificationAppService.executeQuery(state, currentNotification);
 //------------------------------------------------
-        session.setAttribute("notificationModel", notificationModel);
         addAttributes_Action(model, state, currentUser, currentNotification);
         return "about_the_notification/form_more";
     }
