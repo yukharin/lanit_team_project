@@ -8,6 +8,7 @@ import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,12 @@ import java.util.Set;
 
 @Controller
 public class PersonalAccountController {
+
+    @Value("${default_page_number}")
+    private int test;
+
+    @Value("${default_page_size}")
+    private int testing;
 
     @Autowired
     private NotificationService notificationService;
@@ -48,10 +55,13 @@ public class PersonalAccountController {
                           @SessionAttribute String password,
                           @ModelAttribute PersonalAccountPage<Notification> stateOfPage,
                           Model model) {
+        System.err.println("OUTPUT: " + stateOfPage);
         @NonNull User user = userAuthorization.authorize(login, password);
         personalAccountService.setAccountPageState(stateOfPage, user);
         model.addAttribute("stateOfPage", stateOfPage);
         model.addAttribute("user", user);
+        System.err.println("PROP: " + testing);
+        System.err.println(test);
         return "personalAccount";
     }
 

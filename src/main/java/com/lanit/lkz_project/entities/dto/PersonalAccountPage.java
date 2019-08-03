@@ -1,20 +1,29 @@
 package com.lanit.lkz_project.entities.dto;
 
 
+import com.lanit.lkz_project.entities.jpa_entities.Notification;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import javax.annotation.PostConstruct;
 
 
 @Data
 @ToString
+@Component
 public class PersonalAccountPage<T> {
+
 
     private static final int DEFAULT_TOTAL_ELEMENTS = 0;
 
-    private static final int DEFAULT_PAGE_NUMBER = 1;
+    private int DEFAULT_PAGE_NUMBER = 1;
 
-    private static final int DEFAULT_PAGE_SIZE = 10;
+    @Value("${default_page_size}")
+    private int DEFAULT_PAGE_SIZE;
 
     private TimeFilter timeFilter = TimeFilter.NO_FILTER;
 
@@ -88,6 +97,18 @@ public class PersonalAccountPage<T> {
         public void setMessage(String message) {
             this.message = message;
         }
+    }
+
+    @ModelAttribute
+    public static PersonalAccountPage<Notification> getAccountPage() {
+        PersonalAccountPage page = new PersonalAccountPage<>();
+        System.err.println("PAGE: " + page);
+        return page;
+    }
+
+    @PostConstruct
+    public void test() {
+        System.err.println("Construction:  " + this);
     }
 
 
