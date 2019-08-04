@@ -55,6 +55,7 @@ public class User implements Serializable {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
+
     @NotBlank
     @Size(min = 3, max = 45, message = "Login must be of length ranging from 3 to 45.")
     @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$",
@@ -72,12 +73,10 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false, length = 45)
     private String password;
 
-    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "registration_date", nullable = false)
     private Date registrationDate;
 
-    @NotNull
     @Column(name = "role")
     private Role role;
 

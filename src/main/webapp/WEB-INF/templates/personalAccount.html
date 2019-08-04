@@ -3,7 +3,7 @@
 <head>
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" th:href="@{/css/cascad.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
 </head>
 <body id="body">
 <header class="account-header">
@@ -116,7 +116,7 @@
                         </li>
                         <li class="pagination-list-element"
                             th:classappend="*{page.number + 1 eq page.totalPages} ? 'disabled'">
-                            <input class="pagination-list-element-input-right" th:field="*{number}"
+                            <input class="pagination-list-element-input-right" th:name="number"
                                    th:value="*{page.number+2}"
                                    type="submit">
                         </li>
@@ -150,7 +150,7 @@
                 <td th:text="${iterator.index+1}"></td>
                 <td th:text="${notification.notificationType}">notification_type</td>
                 <td th:text="${notification.organization.name}">org_name</td>
-                <td th:text="${notification.status}">notification_status</td>
+                <td th:text="${notification.status.message}">notification_status</td>
                 <td th:text="${#dates.format(notification.dateReceived, 'yyyy-MM-dd')}"></td>
                 <td th:text="${#dates.format(notification.dateResponse, 'yyyy-MM-dd')}"></td>
                 <td th:text="${notification.letterNumber}">letter_number</td>

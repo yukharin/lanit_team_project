@@ -48,13 +48,13 @@ public class Notification implements Serializable {
     @Column(name = "notification_type")
     private String notificationType;
 
-    @NotNull
+    //    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "notification_status")
     private NotificationStatus status;
 
 
-    @NotNull
+    //    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "date_received")
     private Date dateReceived;
@@ -68,19 +68,20 @@ public class Notification implements Serializable {
     private Date dateResponse;
 
 
-    @NotBlank
-    @Size(min = 12, max = 12, message = "Length must be exactly 12 characters.")
+    //    @NotBlank
+//    @Size(min = 12, max = 12, message = "Length must be exactly 12 characters.")
     @Column(name = "letter_number")
     private String letterNumber;
 
 
-    @NotNull
+    //    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user_notification_author")
     private User userNotificationAuthor;
 
     @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER)
     private Set<Action> actions;
+
 
 }
 

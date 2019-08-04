@@ -738,3 +738,10 @@ body {
     border-radius: 8px;
     margin: 5px;
 }
+
+
+/*error-div*/
+
+.error-div {
+    color: red;
+}

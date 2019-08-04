@@ -3,7 +3,7 @@
 <head>
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" th:href="@{/css/cascad.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
 </head>
 <body>
 <header class="account-header">
@@ -32,10 +32,18 @@
             <label class="add_notification-form-label" for="input1">Введите тип уведомления
                 <input class="add_notification-form-input" id="input1" name=notificationType
                        th:field="*{notificationType}" type="text"/>
+                <div class="error-div" th:errors="*{notificationType}" th:if="${#fields.hasErrors('notificationType')}">
+                    Notification_type
+                    Error
+                </div>
             </label>
             <label class="add_notification-form-label" for="input2"> Введите дату, до которой нужно отправить ответ
                 <input class="add_notification-form-input" id="input2" name="dateResponse" th:field="*{dateResponse}"
                        type="date"/>
+                <div class="error-div" th:errors="*{dateResponse}" th:if="${#fields.hasErrors('dateResponse')}">
+                    Date_response
+                    Error
+                </div>
             </label>
             <label class="add_notification-form-label" for="select1">
                 Выберите организацию, которой вы хотите предоставить уведомление
@@ -45,6 +53,10 @@
                             th:value="${organization.id}">
                     </option>
                 </select>
+                <div class="error-div" th:errors="*{organization}" th:if="${#fields.hasErrors('organization')}">
+                    Organization
+                    Error
+                </div>
             </label>
             <label class="add_notification-form-label" for="submit1">
                 <input class="add_notification-form-input-submit" id="submit1" type="submit" value="Отправить"/>

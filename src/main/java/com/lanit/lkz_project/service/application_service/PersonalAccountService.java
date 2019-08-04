@@ -1,6 +1,5 @@
 package com.lanit.lkz_project.service.application_service;
 
-import com.lanit.lkz_project.entities.dto.JsonPageImpl;
 import com.lanit.lkz_project.entities.dto.PersonalAccountPage;
 import com.lanit.lkz_project.entities.jpa_entities.*;
 import com.lanit.lkz_project.repositories.entitity_repositories.NotificationRepository;
@@ -8,6 +7,7 @@ import com.lanit.lkz_project.service.jpa_entities_service.ActionService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +32,7 @@ public class PersonalAccountService {
     @Transactional
     public void setAccountPageState(PersonalAccountPage<Notification> page,
                                     User user) {
-        JsonPageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, user);
+        PageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, user);
         page.setPage(accountPage);
     }
 

@@ -3,7 +3,7 @@
 <head>
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" th:href="@{/css/cascad.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
 </head>
 <body>
 <header class="account-header">
@@ -64,7 +64,7 @@
                 </label>
                 <label class="not_info-notification-data-form-label" for="input4">Статус уведомления
                     <input class="not_info-notification-data-form-input" disabled
-                           id="input4" th:placeholder="${notification.status}" type="text">
+                           id="input4" th:placeholder="${notification.status.message}" type="text">
                 </label>
                 <label class="not_info-notification-data-form-label" for="input5">Дата получения уведомления
                     <input class="not_info-notification-data-form-input" disabled id="input5"
@@ -101,13 +101,19 @@
                             th:value="${actionType}">
                     </option>
                 </select>
+                <div class="error-div" th:errors="*{actionType}" th:if="${#fields.hasErrors('actionType')}">ActionType
+                    Error
+                </div>
             </label>
             <label class="not_info-add_action-form-label" for="input1">Комментарий
-                <input class="not_info-add_action-form-input-comment" id="input1" name="comment" th:field="*{content}"
+                <input class="not_info-add_action-form-input-comment" id="input1" name="content" th:field="*{content}"
                        type="text"/>
+                <div class="error-div" th:errors="*{content}" th:if="${#fields.hasErrors('content')}">Content
+                    Error
+                </div>
             </label>
             <label class="not_info-add_action-form-label-submit" for="input2">
-                <input class="not_info-add_action-form-input-hidden" name="notification.id"
+                <input class="not_info-add_action-form-input-hidden" th:name="notification.id"
                        th:value="${notification.id}" type="hidden"/>
                 <input class="not_info-add_action-form-input-submit" id="input2" type="submit" value="Сохранить"/>
             </label>

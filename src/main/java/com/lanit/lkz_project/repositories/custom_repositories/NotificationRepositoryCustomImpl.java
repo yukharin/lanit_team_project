@@ -1,12 +1,12 @@
 package com.lanit.lkz_project.repositories.custom_repositories;
 
 
-import com.lanit.lkz_project.entities.dto.JsonPageImpl;
 import com.lanit.lkz_project.entities.dto.PersonalAccountPage;
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
 import com.lanit.lkz_project.entities.jpa_entities.NotificationStatus;
 import com.lanit.lkz_project.entities.jpa_entities.Role;
 import com.lanit.lkz_project.entities.jpa_entities.User;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,7 +29,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
     EntityManager entityManager;
 
     @Override
-    public JsonPageImpl<Notification> getAccountPage(final PersonalAccountPage<Notification> page, final User user) {
+    public PageImpl<Notification> getAccountPage(final PersonalAccountPage<Notification> page, final User user) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
         final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
@@ -88,7 +88,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         notificationsTQ.setMaxResults(pageRequest.getPageSize());
         List<Notification> resultList = notificationsTQ.getResultList();
         final long count = entityManager.createQuery(totalNotifications).getSingleResult();
-        return new JsonPageImpl<>(resultList, pageRequest, count);
+        return new PageImpl<Notification>(resultList, pageRequest, count);
     }
 
     private List<Predicate> generateFilterPredicates(final CriteriaBuilder builder,
