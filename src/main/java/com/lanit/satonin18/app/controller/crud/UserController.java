@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller("userController")
@@ -37,14 +40,11 @@ public class UserController {
 		model.addAttribute("listOrg", organizationService.list());
 		return "crud/user/form_add";
 	}
-	@GetMapping("/apply_add")
+	@PostMapping("/apply_add")
 	public String apply_add(
-//			@RequestParam("id")  int id,
 			@RequestParam("firstName")  String  firstName,
 			@RequestParam("lastName")  String  lastName,
-			@RequestParam("idOrg")  int idOrg
-//			@ModelAttribute("user") User user
-	){
+			@RequestParam("idOrg")  int idOrg){
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
@@ -60,7 +60,7 @@ public class UserController {
 		model.addAttribute("listOrg", organizationService.list());
 		return "crud/user/form_update";
 	}
-	@GetMapping("/apply_update")
+	@PostMapping("/apply_update")
 	public String apply_update(
 			@RequestParam("id")  int id,
 			@RequestParam("firstName")  String  firstName,

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%--<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>--%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,6 +6,7 @@
 
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>saveOrUpdate User</title>
     <!--link type="text/css" rel="stylesheet" href="@{pageContext.request.contextPath}/resources/css/style.css" />
     <link type="text/css" rel="stylesheet" href="@{pageContext.request.contextPath}/resources/css/form-add-style.css" /-->
@@ -20,7 +21,7 @@
 <div id="container">
     <h2>SaveOrUpdate User</h2>
 
-    <form action="apply_update" method="get"><%--modelAttribute="user"--%>
+    <form action="apply_update" method="post" accept-charset="UTF-8" ><%--modelAttribute="user"--%>
 
         <%--<form:hidden path="id" />--%>
         <input type="hidden" name="id" value="${user.id}">

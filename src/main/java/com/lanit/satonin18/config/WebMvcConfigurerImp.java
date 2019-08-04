@@ -23,7 +23,7 @@ import javax.annotation.PostConstruct;
 //                basePackages = { "com.lanit.satonin18.config"}
 //        )
 })
-public class WebConfig implements WebMvcConfigurer {
+public class WebMvcConfigurerImp implements WebMvcConfigurer {
 
     @PostConstruct
     private void p() {
@@ -33,10 +33,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public InternalResourceViewResolver resolver() {
         System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setViewClass(JstlView.class);
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".jsp");
+
         return resolver;
     }
 }

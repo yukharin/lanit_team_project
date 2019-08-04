@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,7 +48,7 @@ public class AddAction {
         return "cabinet/about_the_notification/add_action";
     }
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public String save(
             @RequestParam int idActionType,
             @RequestParam String content,

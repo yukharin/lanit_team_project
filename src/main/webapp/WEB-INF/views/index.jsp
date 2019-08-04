@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -61,8 +61,7 @@
 </head>
 <body>
 
-<%--TODO: NEED HAVE COMMON TEMPLATE--%>
-<%--THIS EDITED--%>
+<%--COMMON TEMPLATE was EDITED--%>
 <div id="common_header_user">
     <table id="header_table">
         <th style="text-align: left;">
