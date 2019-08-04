@@ -9,15 +9,15 @@ import java.util.List;
 @Data
 //@NoArgsConstructor
 @AllArgsConstructor
-public class NotificationAppState {
+public class AboutTheNotificationState {
 
-    private Pagination<Action> pagination = Default_NotificationApp_var.pagination;
+    private Pagination<Action> pagination = Default_AboutTheNotification_var.pagination;
     private List<Action> showListActions;
     private Action latestAction;
 
-    private NotificationAppModel model = new NotificationAppModel();
+    private AboutTheNotificationDto dto;
 
-    public NotificationAppState(NotificationAppModel model) {
-        this.model = model;
+    public AboutTheNotificationState(AboutTheNotificationDto dto) {
+        this.dto = dto;
     }
 }

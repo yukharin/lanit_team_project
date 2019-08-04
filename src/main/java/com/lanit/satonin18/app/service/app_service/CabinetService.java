@@ -1,16 +1,15 @@
 package com.lanit.satonin18.app.service.app_service;
 
 import com.lanit.satonin18.app.Pagination;
+import com.lanit.satonin18.app.dto.cabinet.CabinetDto;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.User;
-import com.lanit.satonin18.app.dto.cabinet.CabinetModel;
 import com.lanit.satonin18.app.dto.cabinet.CabinetState;
-import com.lanit.satonin18.app.entity.no_db.Status;
+import com.lanit.satonin18.app.entity.no_in_db.Status;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 @Service("cabinetService")
@@ -25,7 +24,7 @@ public class CabinetService {
     private OrganizationService organizationService;
 
     public void executeQuery(CabinetState state, User currentUser) {
-        CabinetModel model = state.getModel();
+        CabinetDto model = state.getDto();
         if ( ! model.getIdFilterStatus().isEmpty()) {
             state.setCheckedMainListNotificStatuses(
                     Status.getByIds(model.getIdFilterStatus())

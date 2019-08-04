@@ -3,7 +3,7 @@ package com.lanit.satonin18.app.service.entities_service;
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.no_db.Status;
+import com.lanit.satonin18.app.entity.no_in_db.Status;
 
 import java.util.List;
 

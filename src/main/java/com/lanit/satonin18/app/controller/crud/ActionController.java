@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller("actionController")
-//@Scope("session")
-@RequestMapping("/action")
+@RequestMapping("/crud/action")
 public class ActionController {
 
 	@Autowired
@@ -35,7 +33,6 @@ public class ActionController {
 		return "crud/action/list";
 	}
 
-	//@RequestMapping(value = "/showFormForAdd", method = RequestMethod.GET)
 	@GetMapping("/add")
 	public String add(Model model){
 		model.addAttribute("action", new Action());
@@ -48,22 +45,4 @@ public class ActionController {
 		actionService.saveOrUpdate(action);
 		return "redirect:crud/action/notific_list";
 	}
-/*
-	@ModelAttribute("action")
-    public Action formBackingObject() {
-        return new Action();
-    }
-
-	@PostMapping("/addAction")
-	public String saveAction(@ModelAttribute("action") @Valid Action action, BindingResult result, Model entity) {
-
-		if (result.hasErrors()) {
-			entity.addAttribute("actions", actionService.notific_list());
-			return "crud/editActions";
-		}
-
-		actionService.save(action);
-		return "redirect:/";
-	}
-	*/
 }

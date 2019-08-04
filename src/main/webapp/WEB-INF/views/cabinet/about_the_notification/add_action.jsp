@@ -125,7 +125,7 @@
             <%--<Br>--%>
             <Br><Br>
             <a class="href-nav-item"
-               href="${pageContext.request.contextPath}/"> Выйти </a>
+               href="${pageContext.request.contextPath}/output"> Выйти </a>
             <Br>
             <%--</form>--%>
         </th>
@@ -220,7 +220,7 @@
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
                     onclick="
-                            window.location.href='${pageContext.request.contextPath}/cabinet/about_the_notification/moreNew'
+                            window.location.href='${pageContext.request.contextPath}/cabinet/about_the_notification/actions'
                             "
             >
                 ОТМЕНА
@@ -232,7 +232,7 @@
 </div>
 
 <%--<div id="return">--%>
-    <%--<a href="${pageContext.request.contextPath}/cabinet/about_the_notification/current_state"> Back to "about the notification_app" </a>--%>
+    <%--<a href="${pageContext.request.contextPath}/cabinet/about_the_notification/actions"> Back to "about the notification_app" </a>--%>
 <%--</div>--%>
 
 <script>

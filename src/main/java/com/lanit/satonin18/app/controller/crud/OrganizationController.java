@@ -9,17 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("organizationController")
-//@Scope("session")
-@RequestMapping("/organization")
+@RequestMapping("/crud/organization")
 public class OrganizationController {
 
     @Autowired
     private CrudService<Organization> organizationService;
-
-    @GetMapping("/")
-    public String index(Model model) {
-        return "crud/organization/index";
-    }
 
     @GetMapping("/list")
     public String list(Model model) {

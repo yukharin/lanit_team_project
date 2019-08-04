@@ -9,17 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("notificationController")
-//@Scope("session")
-@RequestMapping("/notification")
+@RequestMapping("/crud/notification")
 public class NotificationController {
 
     @Autowired
     private CrudService<Notification> notificationService;
-
-    @GetMapping("/")
-    public String index(Model model) {
-        return "crud/notification/index";
-    }
 
     @GetMapping("/list")
     public String list(Model model) {

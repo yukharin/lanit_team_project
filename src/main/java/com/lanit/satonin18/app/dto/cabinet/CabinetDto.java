@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-public class CabinetModel {
+public class CabinetDto {
     private int maxResult = Common_Default_var.MAX_RESULT;
     private int page = Common_Default_var.PAGE;
     private boolean desc = Common_Default_var.DESC;

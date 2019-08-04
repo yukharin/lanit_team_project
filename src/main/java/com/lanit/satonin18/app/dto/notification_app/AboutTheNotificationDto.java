@@ -4,8 +4,8 @@ import com.lanit.satonin18.app.dto.Common_Default_var;
 import lombok.Data;
 
 @Data
-public class NotificationAppModel {
-    private String orderFieldName = Default_NotificationApp_var.ORDER_FIELD_NAME;
+public class AboutTheNotificationDto {
+    private String orderFieldName = Default_AboutTheNotification_var.ORDER_FIELD_NAME;
 
     private int maxResult = Common_Default_var.MAX_RESULT;
     private int page = Common_Default_var.PAGE;

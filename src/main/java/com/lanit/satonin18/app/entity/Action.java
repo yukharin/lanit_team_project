@@ -1,7 +1,7 @@
 package com.lanit.satonin18.app.entity;
 
-import com.lanit.satonin18.app.entity.no_db.ActionType;
-import com.lanit.satonin18.app.entity.no_db.Status;
+import com.lanit.satonin18.app.entity.no_in_db.ActionType;
+import com.lanit.satonin18.app.entity.no_in_db.Status;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;

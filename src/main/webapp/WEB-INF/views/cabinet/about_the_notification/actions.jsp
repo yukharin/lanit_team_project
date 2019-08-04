@@ -109,7 +109,7 @@
             Текущий Пользователь: ${user.firstName} ${user.lastName}
             <Br><Br>
             <a class="href-nav-item"
-               href="${pageContext.request.contextPath}/"> Выйти </a>
+               href="${pageContext.request.contextPath}/output"> Выйти </a>
             <Br>
         </th>
     </table>
@@ -117,7 +117,7 @@
 
 <div id="content">
 
-    <form action="moreNew"  method="get" <%--modelAttribute="NotificationAppModel"--%> >
+    <form action="actions"  method="get" <%--modelAttribute="AboutTheNotificationDto"--%> >
 
         <div id="common_info_about_notification">
             <h5 style="text-transform: uppercase;">
@@ -652,7 +652,7 @@
 </div>
 
 <div id="return">
-    <a href="${pageContext.request.contextPath}/cabinet/listNew"> Back to list </a>
+    <a href="${pageContext.request.contextPath}/cabinet/notifications"> Back to list </a>
 </div>
 
 <script>
@@ -684,10 +684,10 @@
     // };
 
 
-    document.getElementById("orderFieldName=${state.getModel().getOrderFieldName()}&desc=${state.getModel().isDesc()}").classList.add('href-nav-item-current');
+    document.getElementById("orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").classList.add('href-nav-item-current');
 
-    document.getElementById("radio-orderFieldName-orderFieldName=${state.getModel().getOrderFieldName()}&desc=${state.getModel().isDesc()}").setAttribute('checked', true);
-    document.getElementById("radio-desc-orderFieldName=${state.getModel().getOrderFieldName()}&desc=${state.getModel().isDesc()}").setAttribute('checked', true);
+    document.getElementById("radio-orderFieldName-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', true);
+    document.getElementById("radio-desc-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', true);
 
     //todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last
     document.getElementById("radioPageCount_${state.getPagination().currentPage}").setAttribute('checked', true);

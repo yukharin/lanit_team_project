@@ -58,7 +58,7 @@
 
 
     <p>
-        <a href="${pageContext.request.contextPath}/user/list"> Back to user list </a>
+        <a href="${pageContext.request.contextPath}/crud/user/list"> Back to user list </a>
     </p>
 
 </div>

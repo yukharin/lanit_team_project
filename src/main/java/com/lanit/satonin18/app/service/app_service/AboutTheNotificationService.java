@@ -1,11 +1,10 @@
 package com.lanit.satonin18.app.service.app_service;
 
 import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dao.CrudDAO;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationDto;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationState;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.dto.notification_app.NotificationAppModel;
-import com.lanit.satonin18.app.dto.notification_app.NotificationAppState;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
 import com.lanit.satonin18.app.service.entities_service.OrganizationService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
@@ -16,7 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 @Service("notificationAppService")
-public class NotificationAppService {
+public class AboutTheNotificationService {
 
     @Autowired
     private com.lanit.satonin18.app.service.entities_service.NotificationService notificationService;
@@ -31,19 +30,19 @@ public class NotificationAppService {
     @Autowired
     private OrganizationService organizationService;
 
-//    public void initCommonVar4NotificationAppState(NotificationAppState notificationState, Notification currentNotification) {
+//    public void initCommonVar4NotificationAppState(AboutTheNotificationState notificationState, Notification currentNotification) {
 //    }
 
-    public void executeQuery(NotificationAppState state, Notification currentNotification) {
-        NotificationAppModel model = state.getModel();
+    public void executeQuery(AboutTheNotificationState state, Notification currentNotification) {
+        AboutTheNotificationDto dto = state.getDto();
 
         state.setPagination(
                 actionService.filter_Notific_Order_Pagination(
                         currentNotification,
-                        model.getOrderFieldName(), model.isDesc(),
+                        dto.getOrderFieldName(), dto.isDesc(),
                         new Pagination<Action>(
-                                model.getPage(),
-                                model.getMaxResult(),
+                                dto.getPage(),
+                                dto.getMaxResult(),
                                 state.getPagination().getMaxNavigationPage())
                 )
         );
@@ -54,12 +53,7 @@ public class NotificationAppService {
         //todo need go in db
         if( ! state.getShowListActions().isEmpty()) {
             state.setLatestAction(
-                    Collections.max(state.getShowListActions(), new Comparator<Action>() {
-                        @Override
-                        public int compare(Action o1, Action o2) {
-                            return o1.getDate().compareTo(o2.getDate());
-                        }
-                    })
+                    Collections.max(state.getShowListActions(), (o1, o2) -> o1.getDate().compareTo(o2.getDate()))
             );
         }
     }

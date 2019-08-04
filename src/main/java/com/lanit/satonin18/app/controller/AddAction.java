@@ -1,8 +1,8 @@
 package com.lanit.satonin18.app.controller;
 
 import com.lanit.satonin18.app.entity.*;
-import com.lanit.satonin18.app.entity.no_db.ActionType;
-import com.lanit.satonin18.app.entity.no_db.Status;
+import com.lanit.satonin18.app.entity.no_in_db.ActionType;
+import com.lanit.satonin18.app.entity.no_in_db.Status;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class AddAction {
         model.addAttribute("currentNotification", currentNotification);
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
         model.addAttribute("listStatus",Arrays.asList(Status.values()));
-        return "add_action";
+        return "cabinet/about_the_notification/add_action";
     }
 
     @GetMapping("/save")
@@ -79,10 +79,9 @@ public class AddAction {
 
         currentNotification.getActions().add(actionNew);
         currentNotification.setStatus(actionNew.getStatusAfterProcessing());
-        //other logic app//currentNotification.setDateResponse(new java.sql.Date(timeNow));
 
         notificationService.saveOrUpdate(currentNotification);
 
-        return "redirect:/cabinet/about_the_notification/moreNew";
+        return "redirect:/cabinet/about_the_notification/actions";
     }
 }

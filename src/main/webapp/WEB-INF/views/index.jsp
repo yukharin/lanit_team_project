@@ -62,6 +62,7 @@
 <body>
 
 <%--TODO: NEED HAVE COMMON TEMPLATE--%>
+<%--THIS EDITED--%>
 <div id="common_header_user">
     <table id="header_table">
         <th style="text-align: left;">
@@ -99,7 +100,7 @@
 
                 <Br><Br>
                 <a class="href-nav-item"
-                   href="${pageContext.request.contextPath}/user/list"> Настройка пользователей </a>
+                   href="${pageContext.request.contextPath}/crud/user/list"> Настройка пользователей </a>
                 <Br>
             </form>
         </th>

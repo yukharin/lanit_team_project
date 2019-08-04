@@ -2,7 +2,7 @@ package com.lanit.satonin18.app.dto.cabinet;
 
 import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.entity.no_db.Status;
+import com.lanit.satonin18.app.entity.no_in_db.Status;
 import lombok.*;
 
 import java.util.Arrays;
@@ -19,9 +19,9 @@ public class CabinetState {
 
     private List<Status> checkedMainListNotificStatuses = Arrays.asList(Status.values());
     private List<Notification> showListNotifications;
-    private CabinetModel model;
+    private CabinetDto dto;
 
-    public CabinetState(CabinetModel model) {
-        this.model = model;
+    public CabinetState(CabinetDto dto) {
+        this.dto = dto;
     }
 }

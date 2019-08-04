@@ -3,7 +3,7 @@ package com.lanit.satonin18.app.controller;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.dto.Common_Default_var;
 import com.lanit.satonin18.app.dto.cabinet.*;
-import com.lanit.satonin18.app.entity.no_db.Status;
+import com.lanit.satonin18.app.entity.no_in_db.Status;
 import com.lanit.satonin18.app.service.app_service.CabinetService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,44 +42,44 @@ public class CabinetController {
             HttpSession session, Model model,
             final RedirectAttributes redirectAttributes){
         session.setAttribute("user", idSelectUser); //todo добавляем без проверки
-        return "redirect:/cabinet/listNew";
+        return "redirect:/cabinet/notifications";
     }
 
-    @GetMapping("/listNew")
-    public String listNew(HttpServletRequest request,
+    @GetMapping("/notifications")
+    public String notifications(HttpServletRequest request,
                           HttpSession session,
-                          @ModelAttribute(value = "cabinetModel") CabinetModel cabinetModel,
+                          @ModelAttribute(value = "cabinetDto") CabinetDto dto,
                           Model model){
         Integer userId = (Integer) session.getAttribute("user");
         if( userId == null) return "redirect:/";
         User currentUser = userService.getById(userId);
 //------------------------------------------------
         if ( request.getParameterMap().isEmpty() ) {
-            CabinetModel temp = (CabinetModel)  session.getAttribute("cabinetModel"+"#"+userId);
+            CabinetDto temp = (CabinetDto)  session.getAttribute("cabinetDto"+"#"+userId);
             if(temp != null) {
-                cabinetModel = temp;
+                dto = temp;
             } else {
-                cabinetModel = new CabinetModel();
-                cabinetModel.setIdFilterStatus( new ArrayList(Status.getAllId()) );
+                dto = new CabinetDto();
+                dto.setIdFilterStatus( new ArrayList(Status.getAllId()) );
             }
         } else {
-            if(cabinetModel.isFlagNeedSetFirstPage() )
-                cabinetModel.setPage(1);
-            if(cabinetModel.isFlagNeedReplaceStatus())
-                replaceStatus(cabinetModel);
+            if(dto.isFlagNeedSetFirstPage() )
+                dto.setPage(1);
+            if(dto.isFlagNeedReplaceStatus())
+                replaceStatus(dto);
         }
 //------------------------------------------------
-        CabinetState state = new CabinetState(cabinetModel);
+        CabinetState state = new CabinetState(dto);
         cabinetService.executeQuery(state, currentUser);
 //------------------------------------------------
-        session.setAttribute("cabinetModel"+"#"+userId, cabinetModel);
+        session.setAttribute("cabinetDto"+"#"+userId, dto);
         addAttributes_Notification(model, currentUser, state);
-        return "cabinet/list";
+        return "cabinet/notifications";
     }
 
-    private void replaceStatus(CabinetModel cabinetModel) {
-        int idNotification = cabinetModel.getSelectedIdNotification4editStatus();
-        int idNewStatus = cabinetModel.getSelectedNewIdStatus();
+    private void replaceStatus(CabinetDto cabinetDto) {
+        int idNotification = cabinetDto.getSelectedIdNotification4editStatus();
+        int idNewStatus = cabinetDto.getSelectedNewIdStatus();
 
         cabinetService.editStatus(idNotification, idNewStatus);
     }

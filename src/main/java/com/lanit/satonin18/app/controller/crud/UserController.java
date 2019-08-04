@@ -11,24 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@Scope("session")
-//@SessionAttributes(value = "user")
-
 @Controller("userController")
-@RequestMapping("/user")
+@RequestMapping("/crud/user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	//todo need in jsf connected in organizationService
 	@Autowired
 	private CrudService<Organization> organizationService;
-
-	@GetMapping("/")
-	public String index(Model model) {
-		return "crud/user/index";
-	}
 
 	@GetMapping("/list")
 	public String list(Model model) {

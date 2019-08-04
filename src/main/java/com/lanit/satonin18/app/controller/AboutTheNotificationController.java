@@ -1,13 +1,12 @@
 package com.lanit.satonin18.app.controller;
 
 import com.lanit.satonin18.app.dto.Common_Default_var;
-import com.lanit.satonin18.app.dao.CrudDAO;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationDto;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationState;
 import com.lanit.satonin18.app.entity.*;
-import com.lanit.satonin18.app.dto.notification_app.NotificationAppModel;
-import com.lanit.satonin18.app.dto.notification_app.NotificationAppState;
-import com.lanit.satonin18.app.entity.no_db.ActionType;
-import com.lanit.satonin18.app.entity.no_db.Status;
-import com.lanit.satonin18.app.service.app_service.NotificationAppService;
+import com.lanit.satonin18.app.entity.no_in_db.ActionType;
+import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.service.app_service.AboutTheNotificationService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +15,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 
-@Controller("notificationAppController")
+@Controller("aboutTheNotificationController")
 @RequestMapping("/cabinet/about_the_notification")
-public class NotificationAppController {
+public class AboutTheNotificationController {
     @Autowired
-    private NotificationAppService notificationAppService;
+    private AboutTheNotificationService aboutTheNotificationService;
 
     @Autowired
     private UserService userService;
     @Autowired
     private NotificationService notificationService;
 
-    private void addAttributes_Action(Model model, NotificationAppState state, User currentUser, Notification currentNotification) {
+    private void addAttributes_Action(Model model, AboutTheNotificationState state, User currentUser, Notification currentNotification) {
         model.addAttribute("state", state);
 
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
         model.addAttribute("selectShowListMaxResult", Common_Default_var.selectShowListMaxResult);
-//        model.addAttribute("listActionType", actionTypeService.list());
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()) );
-//        model.addAttribute("listStatus", statusService.list());
         model.addAttribute("listStatus", Arrays.asList(Status.values()) );
     }
 
@@ -51,29 +45,27 @@ public class NotificationAppController {
             @RequestParam int userId,
             HttpSession session, Model model,
             final RedirectAttributes redirectAttributes) {
-        session.setAttribute("user", userId); //todo добавляем без проверки
-        session.setAttribute("notification", notificationId);
-        return "redirect:/cabinet/about_the_notification/moreNew";
+        session.setAttribute("currentNotification", notificationId); //todo добавляем без проверки
+        return "redirect:/cabinet/about_the_notification/actions";
     }
 
-    //было решено не сохранять настройки этой страницы в сессии
-    @GetMapping("/moreNew")
-    public String moreNew(
-                          @ModelAttribute(value = "notificationModel") NotificationAppModel notificationModel,
+    @GetMapping("/actions")
+    public String actions(
+                          @ModelAttribute(value = "aboutTheNotificationDto") AboutTheNotificationDto dto,
                           HttpSession session, Model model){
         Integer userId = (Integer) session.getAttribute("user");
-        Integer notificationId = (Integer) session.getAttribute("notification");
-        if(userId == null || notificationId == null) return "redirect:/"; //todo add alert( IT DONT SAVE)
+        Integer notificationId = (Integer) session.getAttribute("currentNotification");
+        if(userId == null || notificationId == null) return "redirect:/";
         User currentUser = userService.getById(userId);
         Notification currentNotification = notificationService.getById(notificationId);
 //------------------------------------------------
-        if(notificationModel.isSelectedNewResultAndNeedSetFirstPage() ) notificationModel.setPage(1);
+        if(dto.isSelectedNewResultAndNeedSetFirstPage() ) dto.setPage(1);
 
-        NotificationAppState state = new NotificationAppState(notificationModel);
-        notificationAppService.executeQuery(state, currentNotification);
+        AboutTheNotificationState state = new AboutTheNotificationState(dto);
+        aboutTheNotificationService.executeQuery(state, currentNotification);
 //------------------------------------------------
         addAttributes_Action(model, state, currentUser, currentNotification);
-        return "about_the_notification/form_more";
+        return "cabinet/about_the_notification/actions";
     }
 
 
