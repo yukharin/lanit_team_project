@@ -6,15 +6,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -54,17 +54,14 @@ public class Notification implements Serializable {
     private NotificationStatus status;
 
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "date_received")
-    private Date dateReceived;
+    private LocalDate dateReceived;
 
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     @Future
-    @Temporal(TemporalType.DATE)
     @Column(name = "date_response")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateResponse;
+    private LocalDate dateResponse;
 
 
     //    @NotBlank

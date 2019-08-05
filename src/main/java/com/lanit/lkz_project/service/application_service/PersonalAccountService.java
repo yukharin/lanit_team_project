@@ -15,7 +15,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.EnumSet;
 import java.util.Random;
 
@@ -48,7 +49,7 @@ public class PersonalAccountService {
 
     public void addNotification(@NonNull Notification notification,
                                 @NonNull User user) {
-        notification.setDateReceived(new Date());
+        notification.setDateReceived(LocalDate.now());
         notification.setStatus(NotificationStatus.NEW);
         notification.setLetterNumber(generateLetterNumber());
         notification.setUserNotificationAuthor(user);
@@ -59,7 +60,7 @@ public class PersonalAccountService {
                           @NonNull Action action) {
         Notification notification = notificationService.getNotification(action.getNotification().getId());
         action.setNotification(notification);
-        action.setDate(new Date());
+        action.setDate(LocalDateTime.now());
         action.setImplementor(userImplementor);
         NotificationStatus status = defineStatus(action.getActionType());
         action.setStatusAfterAction(status);

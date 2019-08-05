@@ -68,14 +68,14 @@
                 </label>
                 <label class="not_info-notification-data-form-label" for="input5">Дата получения уведомления
                     <input class="not_info-notification-data-form-input" disabled id="input5"
-                           th:placeholder="${notification.dateReceived}" type="text">
+                           th:placeholder="${#temporals.format(notification.dateReceived, 'dd-MM-yyyy')}" type="text">
                 </label>
             </div>
             <div class="not_info-notification-data-form-second">
                 <label class="not_info-notification-data-form-label" for="input6">Дата, когда необходимо предоставить
                     ответ
                     <input class="not_info-notification-data-form-input" disabled id="input6"
-                           th:placeholder="${notification.dateResponse}" type="text">
+                           th:placeholder="${#temporals.format(notification.dateResponse, 'dd-MM-yyyy')}" type="text">
                 </label>
                 <label class="not_info-notification-data-form-label" for="input7">Номер письма
                     <input class="not_info-notification-data-form-input" disabled id="input7"

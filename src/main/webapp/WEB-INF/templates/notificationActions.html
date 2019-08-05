@@ -68,7 +68,7 @@
         </tr>
         <tr th:each="action,iterator : ${actions}">
             <td th:text="${iterator.index+1}">id</td>
-            <td th:text="${#dates.format(action.date)}">date</td>
+            <td th:text="${#temporals.format(action.date, 'dd-MM-yyyy HH:mm')}">date</td>
             <td th:text="${action.content}">content</td>
             <td th:text="${action.implementor.firstName}+' '+${action.implementor.lastName}">implementor</td>
             <td th:text="${action.implementor.organization.name}">organization</td>

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Service
 public class RegistrationPageService {
@@ -22,7 +22,7 @@ public class RegistrationPageService {
 
     @Transactional
     public User registerUser(User user) {
-        user.setRegistrationDate(new Date());
+        user.setRegistrationDate(LocalDateTime.now());
         Organization organization = organizationService.getOrganization(user.getOrganization().getId());
         user.setOrganization(organization);
         user.setRole(defineUserRole(organization));

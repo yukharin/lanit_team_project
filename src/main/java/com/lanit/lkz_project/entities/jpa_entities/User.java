@@ -7,14 +7,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -74,9 +75,8 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false, length = 45)
     private String password;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "registration_date", nullable = false)
-    private Date registrationDate;
+    private LocalDateTime registrationDate;
 
     @Column(name = "role")
     private Role role;

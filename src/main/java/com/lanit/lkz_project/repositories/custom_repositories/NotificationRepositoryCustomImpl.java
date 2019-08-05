@@ -17,9 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -77,10 +76,8 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
 
         PersonalAccountPageDto.TimeFilter timeFilter = page.getTimeFilter();
         if (timeFilter != null && timeFilter != PersonalAccountPageDto.TimeFilter.NO_FILTER) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date());
-            calendar.add(Calendar.DATE, timeFilter.days());
-            datePredicate = builder.lessThan(table.get(Notification_.dateResponse), calendar.getTime());
+            datePredicate = builder.lessThan(table.get(Notification_.dateResponse),
+                    LocalDate.now().plusDays(timeFilter.days()));
         }
 
         Predicate resultingPredicate = builder.and(orgPredicate, statusPredicate, datePredicate);

@@ -38,7 +38,7 @@
                 </div>
             </label>
             <label class="add_notification-form-label" for="input2"> Введите дату, до которой нужно отправить ответ
-                <input class="add_notification-form-input" id="input2" name="dateResponse" th:field="*{dateResponse}"
+                <input class="add_notification-form-input" id="input2" name="dateResponse" th:field="*{{dateResponse}}"
                        type="date"/>
                 <div class="error-div" th:errors="*{dateResponse}" th:if="${#fields.hasErrors('dateResponse')}">
                     Date_response

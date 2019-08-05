@@ -1,14 +1,15 @@
 package com.lanit.lkz_project;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.time.Duration;
+import java.time.Instant;
 
 
 public class Main {
 
-    Logger logger = LoggerFactory.getLogger("TRSTING");
 
     public static void main(String[] args) {
+        System.err.println(Instant.MAX);
+        System.err.println(Duration.between(Instant.now(), Instant.now()));
 
     }
 
