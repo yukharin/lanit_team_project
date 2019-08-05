@@ -54,15 +54,15 @@
                 </label>
                 <label class="account-filter-form-sorting-label">
                     Сортировка по:
-                    <select class="account-filter-form-sorting-select" th:field="*{sortParameter}">
+                    <select class="account-filter-form-sorting-select" id="select1" th:field="*{sortParameter}">
                         <option th:text="*{sortParameter.BY_DATE_RECEIVED.message}"
-                                th:value="*{sortParameter.BY_DATE_RECEIVED}"></option>
+                                id="select1-op1" th:value="*{sortParameter.BY_DATE_RECEIVED}"></option>
                         <option th:text="*{sortParameter.BY_DATE_RESPONSE.message}"
-                                th:value="*{sortParameter.BY_DATE_RESPONSE}"></option>
+                                id="select1-op2" th:value="*{sortParameter.BY_DATE_RESPONSE}"></option>
                         <option th:text="*{sortParameter.BY_STATUS.message}"
-                                th:value="*{sortParameter.BY_STATUS}"></option>
+                                id="select1-op3" th:value="*{sortParameter.BY_STATUS}"></option>
                         <option th:text="*{sortParameter.BY_ORGANIZATION.message}"
-                                th:value="*{sortParameter.BY_ORGANIZATION}"></option>
+                                id="select1-op4" th:value="*{sortParameter.BY_ORGANIZATION}"></option>
                     </select>
                     <label class="account-filter-form-checkbox-label-sorting" for="checkbox5">
                         <input class="sorting-order-radio" id="checkbox5" th:checked="*{reversedOrder}"
@@ -77,21 +77,21 @@
                         type="submit" value="Применить фильтр">ПРИМЕНИТЬ ФИЛЬТР
                 </button>
                 <button class="account-filter-form-button-reset" id="clean_filters"
-                        type="reset">ОЧИСТИТЬ ФИЛЬТР
+                        onclick="resetFilter()" type="reset">ОЧИСТИТЬ ФИЛЬТР
                 </button>
                 <label class="account-filter-form-select-time_filter" for="select1"> Срок предоставления ответа
-                    <select id="select1" name="timeFilter" th:field="*{timeFilter}">
+                    <select id="select2" name="timeFilter" th:field="*{timeFilter}">
                         <option th:text="*{timeFilter.NO_FILTER.message()}"
-                                th:value="*{timeFilter.NO_FILTER}">Выберите промежуток времени
+                                id="select2-op1" th:value="*{timeFilter.NO_FILTER}">Выберите промежуток времени
                         </option>
                         <option th:text="*{timeFilter.THREE_DAYS.message()}"
-                                th:value="*{timeFilter.THREE_DAYS}">3 дня
+                                id="select2-op2" th:value="*{timeFilter.THREE_DAYS}">3 дня
                         </option>
                         <option th:text="*{timeFilter.TEN_DAYS.message()}"
-                                th:value="*{timeFilter.TEN_DAYS}">10 дней
+                                id="select2-op3" th:value="*{timeFilter.TEN_DAYS}">10 дней
                         </option>
                         <option th:text="*{timeFilter.THIRTY_DAYS.message()}"
-                                th:value="*{timeFilter.THIRTY_DAYS}">30 дней
+                                id="select2-op4" th:value="*{timeFilter.THIRTY_DAYS}">30 дней
                         </option>
                     </select>
                 </label>
@@ -174,9 +174,10 @@
     </section>
 </main>
 </body>
-<script th:src="@{/js/personalAccount.js}"></script>
+<script th:src="@{/js/account.js}"></script>
 <script>
     function rowClicked(value) {
         location.href = "/lkz_project_war/account/notification_info/?id=" + value;
-    }</script>
+    }
+</script>
 </html>

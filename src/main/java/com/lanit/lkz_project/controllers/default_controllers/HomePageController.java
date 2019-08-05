@@ -34,7 +34,8 @@ public class HomePageController {
     }
 
     @GetMapping("/registration/")
-    public String toRegistrationPage(Model model, @ModelAttribute User user) {
+    public String toRegistrationPage(Model model,
+                                     @ModelAttribute User user) {
         List<Organization> organizations = organizationService.organizations();
         model.addAttribute("organizations", organizations);
         logger.trace("Adding model attribute - list of all organizations, then sending userRegistrationPage.html");
@@ -54,8 +55,8 @@ public class HomePageController {
     }
 
     @GetMapping("/logout/")
-    public String logout(@NonNull @RequestParam String login,
-                         @NonNull @RequestParam String password,
+    public String logout(@NonNull @SessionAttribute String login,
+                         @NonNull @SessionAttribute String password,
                          HttpSession session) {
         @NonNull User user = userServiceAuthorization.authorize(login, password);
         session.removeAttribute("login");
