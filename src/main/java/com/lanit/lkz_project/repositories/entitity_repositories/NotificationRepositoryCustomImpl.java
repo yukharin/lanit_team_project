@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.repositories.custom_repositories;
+package com.lanit.lkz_project.repositories.entitity_repositories;
 
 
 import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
