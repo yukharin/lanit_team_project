@@ -27,7 +27,7 @@
 <main class="account-main">
     <section class="account-filter">
         <form class="account-filter-form" id="filter-form" method="get" th:action="@{/account/}"
-              th:object="${stateOfPage}">
+              th:object="${pageDTO}">
             <div class="account-filter-form-first_part">
                 <label class="account-filter-form-checkbox-label" for="checkbox1">
                     <input class="account-filter-form-checkbox" id="checkbox1" name="newFilter"
@@ -108,8 +108,8 @@
                                    th:value="*{page.number lt 2?1:page.number}" type="submit">
                         </li>
                         <li class="pagination-list-element"
-                            th:classappend="${i eq stateOfPage.page.number + 1} ? 'active'"
-                            th:each="i : ${#numbers.sequence( 1, stateOfPage.page.totalPages, 1)}">
+                            th:classappend="${i eq pageDTO.page.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( 1, pageDTO.page.totalPages, 1)}">
                             <input class="pagination-list-element-input" name="number" th:field="*{number}"
                                    th:title="${'Page '+i}" th:value="${i}"
                                    type="submit">
@@ -145,7 +145,7 @@
                 <th>Удалить</th>
             </tr>
             <tr class="account-main-notifications-table-rows_data"
-                th:each="notification,iterator : ${stateOfPage.page.content}"
+                th:each="notification,iterator : ${pageDTO.page.content}"
                 th:onclick="'javascript:rowClicked(\'' + ${notification.id} + '\');'">
                 <td th:text="${iterator.index+1}"></td>
                 <td th:text="${notification.notificationType}">notification_type</td>

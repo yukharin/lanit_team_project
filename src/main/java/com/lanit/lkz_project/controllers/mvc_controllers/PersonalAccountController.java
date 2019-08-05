@@ -55,14 +55,14 @@ public class PersonalAccountController {
     @RequestMapping("/account/")
     public String getPage(@SessionAttribute String login,
                           @SessionAttribute String password,
-                          @ModelAttribute PersonalAccountPageDto<Notification> stateOfPage,
+                          @ModelAttribute PersonalAccountPageDto<Notification> pageDTO,
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        personalAccountService.setAccountPageState(stateOfPage, user);
-        model.addAttribute("stateOfPage", stateOfPage);
+        personalAccountService.setAccountPageState(pageDTO, user);
+        model.addAttribute("pageDTO", pageDTO);
         model.addAttribute("user", user);
-        logger.trace("added 2 attributes to model: stateOfPage - "
-                + stateOfPage + " and user - " + user + " , then sending to personalAccount.html");
+        logger.trace("added 2 attributes to model: pageDTO - "
+                + pageDTO + " and user - " + user + " , then sending to personalAccount.html");
         return "personalAccount";
     }
 
@@ -122,7 +122,7 @@ public class PersonalAccountController {
             return "addNotification";
         } else {
             personalAccountService.addNotification(notification, user);
-            logger.info("user: " + user + "added notification to the database, added notification - "
+            logger.info("user: " + user + "added notificationDTO to the database, added notificationDTO - "
                     + notification + ", then redirect to account.html");
             return "redirect:/account/";
         }
@@ -133,7 +133,7 @@ public class PersonalAccountController {
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
             @NonNull @RequestParam String id,
-            @ModelAttribute Action action,
+            @ModelAttribute Action actionDTO,
             Model model) {
         User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(Long.valueOf(id));
