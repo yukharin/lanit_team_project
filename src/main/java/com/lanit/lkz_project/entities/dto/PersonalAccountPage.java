@@ -2,17 +2,13 @@ package com.lanit.lkz_project.entities.dto;
 
 
 import lombok.Data;
-import lombok.ToString;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
 
 @Data
-@ToString
-@Component
 public class PersonalAccountPage<Notification> {
 
 
