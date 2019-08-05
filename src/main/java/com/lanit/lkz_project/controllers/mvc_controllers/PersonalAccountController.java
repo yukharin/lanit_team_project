@@ -133,7 +133,7 @@ public class PersonalAccountController {
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
             @NonNull @RequestParam String id,
-            @ModelAttribute Action actionDTO,
+            @ModelAttribute Action action,
             Model model) {
         User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(Long.valueOf(id));
