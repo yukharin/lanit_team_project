@@ -1,8 +1,12 @@
 package com.lanit.lkz_project.repositories.custom_repositories;
 
 
-import com.lanit.lkz_project.entities.dto.PersonalAccountPage;
-import com.lanit.lkz_project.entities.jpa_entities.*;
+import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
+import com.lanit.lkz_project.entities.enums.NotificationStatus;
+import com.lanit.lkz_project.entities.enums.Role;
+import com.lanit.lkz_project.entities.jpa_entities.Notification;
+import com.lanit.lkz_project.entities.jpa_entities.Notification_;
+import com.lanit.lkz_project.entities.jpa_entities.User;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +30,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
     EntityManager entityManager;
 
     @Override
-    public PageImpl<Notification> getAccountPage(final PersonalAccountPage<Notification> page, final User user) {
+    public PageImpl<Notification> getAccountPage(final PersonalAccountPageDto<Notification> page, final User user) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
         final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
@@ -71,8 +75,8 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
             statusPredicate = builder.or(statusPredicates.toArray(new Predicate[0]));
         }
 
-        PersonalAccountPage.TimeFilter timeFilter = page.getTimeFilter();
-        if (timeFilter != null && timeFilter != PersonalAccountPage.TimeFilter.NO_FILTER) {
+        PersonalAccountPageDto.TimeFilter timeFilter = page.getTimeFilter();
+        if (timeFilter != null && timeFilter != PersonalAccountPageDto.TimeFilter.NO_FILTER) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.DATE, timeFilter.days());
@@ -95,11 +99,11 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         notificationsTQ.setMaxResults(pageRequest.getPageSize());
         List<Notification> resultList = notificationsTQ.getResultList();
         final long count = entityManager.createQuery(totalNotifications).getSingleResult();
-        return new PageImpl<Notification>(resultList, pageRequest, count);
+        return new PageImpl<>(resultList, pageRequest, count);
     }
 
     private List<Predicate> generateFilterPredicates(final CriteriaBuilder builder,
-                                                     final Root<Notification> table, final PersonalAccountPage<Notification> page) {
+                                                     final Root<Notification> table, final PersonalAccountPageDto<Notification> page) {
         Path<NotificationStatus> status = table.get(Notification_.status);
         List<Predicate> statusPredicates = new ArrayList<>();
         if (page.isNewFilter()) {

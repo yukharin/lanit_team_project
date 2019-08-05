@@ -17,10 +17,10 @@
         <property name="current_session_context_class">thread</property>
         <mapping class="com.lanit.lkz_project.entities.jpa_entities.User"/>
         <mapping class="com.lanit.lkz_project.entities.jpa_entities.Organization"/>
-        <mapping class="com.lanit.lkz_project.entities.jpa_entities.NotificationStatus"/>
+        <mapping class="com.lanit.lkz_project.entities.enums.NotificationStatus"/>
         <mapping class="com.lanit.lkz_project.entities.jpa_entities.Notification"/>
-        <mapping class="com.lanit.lkz_project.entities.jpa_entities.ActionType"/>
+        <mapping class="com.lanit.lkz_project.entities.enums.ActionType"/>
         <mapping class="com.lanit.lkz_project.entities.jpa_entities.Action"/>
-        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Role"/>
+        <mapping class="com.lanit.lkz_project.entities.enums.Role"/>
     </session-factory>
 </hibernate-configuration>

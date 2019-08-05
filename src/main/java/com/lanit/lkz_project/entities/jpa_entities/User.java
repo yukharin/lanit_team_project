@@ -2,6 +2,7 @@ package com.lanit.lkz_project.entities.jpa_entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.lanit.lkz_project.entities.enums.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

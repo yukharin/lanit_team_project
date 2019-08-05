@@ -1,7 +1,7 @@
 package com.lanit.lkz_project.service.application_service;
 
+import com.lanit.lkz_project.entities.enums.Role;
 import com.lanit.lkz_project.entities.jpa_entities.Organization;
-import com.lanit.lkz_project.entities.jpa_entities.Role;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import com.lanit.lkz_project.service.jpa_entities_service.UserService;

@@ -1,5 +1,5 @@
+import com.lanit.lkz_project.entities.enums.NotificationStatus;
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
-import com.lanit.lkz_project.entities.jpa_entities.NotificationStatus;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +28,6 @@ public class MainHibernate {
         session.beginTransaction();
         session.getTransaction().commit();
     }
-
 
 
     private static void code(Session session) {

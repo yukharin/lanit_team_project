@@ -1,7 +1,11 @@
 package com.lanit.lkz_project.service.application_service;
 
-import com.lanit.lkz_project.entities.dto.PersonalAccountPage;
-import com.lanit.lkz_project.entities.jpa_entities.*;
+import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
+import com.lanit.lkz_project.entities.enums.ActionType;
+import com.lanit.lkz_project.entities.enums.NotificationStatus;
+import com.lanit.lkz_project.entities.jpa_entities.Action;
+import com.lanit.lkz_project.entities.jpa_entities.Notification;
+import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.repositories.entitity_repositories.NotificationRepository;
 import com.lanit.lkz_project.service.jpa_entities_service.ActionService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
@@ -30,7 +34,7 @@ public class PersonalAccountService {
     private NotificationRepository notificationRepository;
 
     @Transactional
-    public void setAccountPageState(PersonalAccountPage<Notification> page,
+    public void setAccountPageState(PersonalAccountPageDto<Notification> page,
                                     User user) {
         PageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, user);
         page.setPage(accountPage);

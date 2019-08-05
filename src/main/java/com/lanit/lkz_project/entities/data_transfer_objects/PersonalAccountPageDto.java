@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.entities.dto;
+package com.lanit.lkz_project.entities.data_transfer_objects;
 
 
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.Collections;
 
 
 @Data
-public class PersonalAccountPage<Notification> {
+public class PersonalAccountPageDto<Notification> {
 
 
     private static final int DEFAULT_TOTAL_ELEMENTS = 0;

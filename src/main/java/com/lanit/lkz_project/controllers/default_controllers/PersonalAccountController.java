@@ -1,8 +1,12 @@
 package com.lanit.lkz_project.controllers.default_controllers;
 
 import com.lanit.lkz_project.authorization.UserAuthorizationService;
-import com.lanit.lkz_project.entities.dto.PersonalAccountPage;
-import com.lanit.lkz_project.entities.jpa_entities.*;
+import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
+import com.lanit.lkz_project.entities.enums.ActionType;
+import com.lanit.lkz_project.entities.jpa_entities.Action;
+import com.lanit.lkz_project.entities.jpa_entities.Notification;
+import com.lanit.lkz_project.entities.jpa_entities.Organization;
+import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
@@ -38,10 +42,10 @@ public class PersonalAccountController {
 //    @RequestMapping("/account/")
 //    public String getPage(@SessionAttribute String login,
 //                          @SessionAttribute String password,
-//                          @RequestBody Optional<PersonalAccountPage<Notification>> optionalPage,
+//                          @RequestBody Optional<PersonalAccountPageDto<Notification>> optionalPage,
 //                          Model model) {
 //        @NonNull User user = userAuthorization.authorize(login, password);
-//        PersonalAccountPage<Notification> page = optionalPage.orElseGet(PersonalAccountPage::new);
+//        PersonalAccountPageDto<Notification> page = optionalPage.orElseGet(PersonalAccountPageDto::new);
 //        personalAccountService.setAccountPageState(page, user);
 //        model.addAttribute("stateOfPage", page);
 //        model.addAttribute("user", user);
@@ -51,7 +55,7 @@ public class PersonalAccountController {
     @RequestMapping("/account/")
     public String getPage(@SessionAttribute String login,
                           @SessionAttribute String password,
-                          @ModelAttribute PersonalAccountPage<Notification> stateOfPage,
+                          @ModelAttribute PersonalAccountPageDto<Notification> stateOfPage,
                           Model model) {
         @NonNull User user = userAuthorization.authorize(login, password);
         personalAccountService.setAccountPageState(stateOfPage, user);

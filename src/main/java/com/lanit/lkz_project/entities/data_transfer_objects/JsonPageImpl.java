@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.entities.dto;
+package com.lanit.lkz_project.entities.data_transfer_objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
