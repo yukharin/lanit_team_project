@@ -2,10 +2,7 @@ package com.lanit.lkz_project.repositories.custom_repositories;
 
 
 import com.lanit.lkz_project.entities.dto.PersonalAccountPage;
-import com.lanit.lkz_project.entities.jpa_entities.Notification;
-import com.lanit.lkz_project.entities.jpa_entities.NotificationStatus;
-import com.lanit.lkz_project.entities.jpa_entities.Role;
-import com.lanit.lkz_project.entities.jpa_entities.User;
+import com.lanit.lkz_project.entities.jpa_entities.*;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +31,8 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         final CriteriaQuery<Notification> notificationsQuery = builder.createQuery(Notification.class);
         final CriteriaQuery<Long> totalNotifications = builder.createQuery(Long.class);
         final Root<Notification> table = notificationsQuery.from(Notification.class);
+
+        // sorting set up
         final String sortParameter = page.getSortParameter().getValue();
         final Sort.Direction sortOrder;
         if (page.isReversedOrder()) {
@@ -41,13 +40,19 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
         } else {
             sortOrder = Sort.Direction.ASC;
         }
+
+        // page number and page size initialization
         final int pageNumber = page.getNumber() - 1;
         final int pageSize = page.getSize();
+
+        // page request initialization
         final Pageable pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortOrder, sortParameter));
         // predicates initialization
         Predicate orgPredicate = builder.conjunction();
         Predicate statusPredicate = builder.conjunction();
         Predicate datePredicate = builder.conjunction();
+
+        // defining sorting order
         Order sortingOrder;
         if (sortOrder == Sort.Direction.ASC) {
             sortingOrder = builder.asc(table.get(sortParameter));
@@ -55,8 +60,10 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
             sortingOrder = builder.desc(table.get(sortParameter));
         }
 
+
+        // defining amount of notification depending on role
         if (user.getRole() == Role.EMPLOYEE) {
-            orgPredicate = builder.equal(table.get("organization"), user.getOrganization());
+            orgPredicate = builder.equal(table.get(Notification_.organization), user.getOrganization());
         }
 
         List<Predicate> statusPredicates = generateFilterPredicates(builder, table, page);
@@ -69,7 +76,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.DATE, timeFilter.days());
-            datePredicate = builder.lessThan(table.get("dateResponse"), calendar.getTime());
+            datePredicate = builder.lessThan(table.get(Notification_.dateResponse), calendar.getTime());
         }
 
         Predicate resultingPredicate = builder.and(orgPredicate, statusPredicate, datePredicate);
@@ -93,7 +100,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
 
     private List<Predicate> generateFilterPredicates(final CriteriaBuilder builder,
                                                      final Root<Notification> table, final PersonalAccountPage<Notification> page) {
-        Path<NotificationStatus> status = table.get("status");
+        Path<NotificationStatus> status = table.get(Notification_.status);
         List<Predicate> statusPredicates = new ArrayList<>();
         if (page.isNewFilter()) {
             statusPredicates.add(builder.equal(status, NotificationStatus.NEW));

@@ -40,7 +40,8 @@ public class PersonalAccountPage<Notification> {
             PageRequest.of(DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE), DEFAULT_TOTAL_ELEMENTS);
 
     public enum TimeFilter {
-        THREE_DAYS(3, "3 дня"), TEN_DAYS(10, "10 дней"), THIRTY_DAYS(30, "30 дней"), NO_FILTER("Выберите промежуток времени");
+        THREE_DAYS(3, "3 дня"), TEN_DAYS(10, "10 дней"),
+        THIRTY_DAYS(30, "30 дней"), NO_FILTER("Выберите промежуток времени");
 
         private int days;
         private String message;
