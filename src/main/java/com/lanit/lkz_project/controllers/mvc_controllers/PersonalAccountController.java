@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.controllers.default_controllers;
+package com.lanit.lkz_project.controllers.mvc_controllers;
 
 import com.lanit.lkz_project.authorization.UserAuthorizationService;
 import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;

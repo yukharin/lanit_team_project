@@ -1,4 +1,4 @@
-package com.lanit.lkz_project.controllers.default_controllers;
+package com.lanit.lkz_project.controllers.mvc_controllers;
 
 import com.lanit.lkz_project.entities.jpa_entities.Organization;
 import com.lanit.lkz_project.entities.jpa_entities.User;
