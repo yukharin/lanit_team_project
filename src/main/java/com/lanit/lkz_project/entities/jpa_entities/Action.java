@@ -52,17 +52,14 @@ public class Action implements Serializable {
     private String content;
 
 
-    //    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date date;
 
-    //    @NotNull
     @OneToOne
     @JoinColumn(name = "id_implementor", referencedColumnName = "id", nullable = false)
     private User implementor;
 
-    //    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "notification_status")
     private NotificationStatus statusAfterAction;

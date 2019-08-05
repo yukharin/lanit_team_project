@@ -7,8 +7,8 @@ import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import lombok.NonNull;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +23,7 @@ import java.util.Set;
 @Controller
 public class PersonalAccountController {
 
-    private static final Logger logger = LogManager.getLogger(PersonalAccountController.class);
+    private static Logger logger = LoggerFactory.getLogger(PersonalAccountController.class);
 
     @Autowired
     private NotificationService notificationService;
@@ -166,7 +166,8 @@ public class PersonalAccountController {
             return "notificationInfo";
         } else {
             personalAccountService.addAction(userImplementor, action);
-            logger.info("user: " + userImplementor + " added action : " + action + " to notification: " + notification + " , then redirecting to account.html");
+            logger.info("user: " + userImplementor + " added action : "
+                    + action + " to notification: " + notification + " , then redirecting to account.html");
             return "redirect:/account/";
         }
     }

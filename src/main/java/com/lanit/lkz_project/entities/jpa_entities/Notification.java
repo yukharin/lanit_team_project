@@ -48,13 +48,11 @@ public class Notification implements Serializable {
     @Column(name = "notification_type")
     private String notificationType;
 
-    //    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "notification_status")
     private NotificationStatus status;
 
 
-    //    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "date_received")
     private Date dateReceived;
