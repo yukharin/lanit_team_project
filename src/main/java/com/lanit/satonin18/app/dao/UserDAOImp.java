@@ -1,13 +1,15 @@
 package com.lanit.satonin18.app.dao;
 
-
 import com.lanit.satonin18.app.entity.User;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,10 +20,47 @@ public class UserDAOImp implements UserDAO{
    private SessionFactory sessionFactory;
 
    @Override
+   @Transactional
+   public void saveOrUpdate(User user) {  //TODO need saveOrUpdate @NotNull final IN ARG //throws Exc
+      sessionFactory.getCurrentSession()
+              .saveOrUpdate(user);
+   }
+
+   @Override
+   @Transactional
+   public void update(User user) {
+      sessionFactory.getCurrentSession()
+              .update(user);
+   }
+
+   @Override
+   @Transactional
+   public void delete(int id) {
+      Session session = sessionFactory.getCurrentSession();
+
+      User user = session.load(User.class, id);
+      if(user != null)
+         session.delete(user);
+   }
+
+   @Override
+   public User getById(int id) {
+      try(final Session session = sessionFactory.openSession();){
+         User user = session.get(User.class, id);
+         return user;
+      }
+   }
+
+   @Override
+   public List<User> list() {
+      try(final Session session = sessionFactory.openSession();){
+         List<User> users = session.createQuery("from User", User.class).list();
+         return users;
+      }
+   }
+   @Override
    public List<User> searchUserByLastName(String theSearchName) {
-      //Session session = sessionFactory.getCurrentSession(); // сессия из @Transactional
-      try(final Session session = sessionFactory.openSession();){ //сессия НЕ из @Transactional
-//         Transaction tx1 = session.beginTransaction();
+      try(final Session session = sessionFactory.openSession();){
 
          Query theQuery = null;
          // only search by name if theSearchName is not empty
@@ -35,74 +74,7 @@ public class UserDAOImp implements UserDAO{
             theQuery = session.createQuery("from User", User.class);
          }
          List<User> list = theQuery.getResultList();
-
-//         tx1.commit();
          return list;
-      }
-   }
-
-   @Override
-   public void saveOrUpdate(User user) {  //TODO need saveOrUpdate @NotNull final IN ARG //throws Exc
-      //Session session = sessionFactory.getCurrentSession();
-      try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
-
-         session.saveOrUpdate(user);
-
-         tx1.commit();
-      }
-   }
-
-   @Override
-   public void update(User user) {
-      //Session session = sessionFactory.getCurrentSession();
-      try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
-
-         session.update(user);
-
-         tx1.commit();
-      }
-   }
-
-   @Override
-   public void delete(int id) {
-      //Session session = sessionFactory.getCurrentSession();
-      try(final Session session = sessionFactory.openSession();){
-         Transaction tx1 = session.beginTransaction();
-
-         User user = session.load(User.class, id);
-
-         if(user != null)
-            session.delete(user);
-
-         tx1.commit();
-      }
-   }
-
-   @Override
-   public User getById(int id) {
-      //Session session = sessionFactory.getCurrentSession();
-      try(final Session session = sessionFactory.openSession();){
-//         Transaction tx1 = session.beginTransaction();
-
-         User user = session.get(User.class, id);
-
-//         tx1.commit();
-         return user;
-      }
-   }
-
-   @Override
-   public List<User> list() {
-      //Session session = sessionFactory.getCurrentSession();
-      try(final Session session = sessionFactory.openSession();){
-//         Transaction tx1 = session.beginTransaction();
-
-         List<User> users = session.createQuery("from User", User.class).list();
-
-//         tx1.commit();
-         return users;
       }
    }
 }

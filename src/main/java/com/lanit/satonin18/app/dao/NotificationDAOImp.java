@@ -4,12 +4,15 @@ import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
 import java.sql.Date;
@@ -18,79 +21,47 @@ import java.util.Calendar;
 import java.util.List;
 
 @Repository("notificationDAO")
-//@Transactional
 public class NotificationDAOImp implements NotificationDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
+    @Transactional
     public void saveOrUpdate(Notification notification) {  //TODO need saveOrUpdate @NotNull final IN ARG //throws Exc
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
-
-            session.saveOrUpdate(notification);
-
-            tx1.commit();
-        }
-        //        catch (Exception e) {
-//            e.printStackTrace();
-//            if (transaction != null) {
-//                transaction.rollback();
-//            }
-//        }
+        sessionFactory.getCurrentSession()
+                .saveOrUpdate(notification);
     }
 
     @Override
+    @Transactional
     public void update(Notification notification) {
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
-
-            session.update(notification);
-
-            tx1.commit();
-        }
+        sessionFactory.getCurrentSession()
+                .update(notification);
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
-        //Session session = sessionFactory.getCurrentSession();
-        try(final Session session = sessionFactory.openSession();){
-            Transaction tx1 = session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
 
-            Notification notification = session.load(Notification.class, id);
-
-            if(notification != null)
-                session.delete(notification);
-
-            tx1.commit();
-        }
+        Notification notification = session.load(Notification.class, id);
+        if(notification != null)
+            session.delete(notification);
     }
 
     @Override
     public Notification getById(int id) {
-        //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
             Notification notification = session.get(Notification.class, id);
-
-//            tx1.commit();
             return notification;
         }
     }
 
     @Override
     public List<Notification> list() {
-        //Session session = sessionFactory.getCurrentSession();
         try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
             List<Notification> notifications = session.createQuery("from Notification", Notification.class).list();
-
-//            tx1.commit();
             return notifications;
         }
     }
@@ -101,13 +72,10 @@ public class NotificationDAOImp implements NotificationDAO {
             List<Status> listNotificStatus,
             boolean showArchive, List<Status> listArchiveStatus,
             String orderFieldName, boolean desc,
-            Pagination<Notification> pagination
-    ){
-        //Session session = sessionFactory.getCurrentSession();
+            Pagination<Notification> pagination){
         try(final Session session = sessionFactory.openSession();){
-//            Transaction tx1 = session.beginTransaction();
-
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+
 //            SELECT * WHERE ...
             CriteriaQuery<Notification> criteriaQuery = criteriaBuilder.createQuery(Notification.class);
             Root<Notification> rootNotific = criteriaQuery.from(Notification.class);
@@ -213,8 +181,6 @@ public class NotificationDAOImp implements NotificationDAO {
             long count_COUNT = q_COUNT.getSingleResult();
 
             Pagination<Notification> result = pagination.initQuery(q, count_COUNT);
-
-//            tx1.commit();
             return result;
         }
     }

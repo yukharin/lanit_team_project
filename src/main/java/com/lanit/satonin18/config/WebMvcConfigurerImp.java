@@ -13,16 +13,12 @@ import javax.annotation.PostConstruct;
 
 
 @Configuration
-@EnableWebMvc
 @ComponentScans( value = {
         @ComponentScan(
-                basePackages = {"com.lanit.satonin18.app"}
+                basePackages = {"com.lanit.satonin18.app.controller"}
         )
-//        ,
-//        @ComponentScan(
-//                basePackages = { "com.lanit.satonin18.config"}
-//        )
 })
+@EnableWebMvc
 public class WebMvcConfigurerImp implements WebMvcConfigurer {
 
     @PostConstruct

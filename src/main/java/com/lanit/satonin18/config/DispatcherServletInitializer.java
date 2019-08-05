@@ -17,12 +17,16 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
       //create the root Spring application context
       AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
       rootContext.register(DbConfig.class);
+      //Where CentralServerConfigurationEntryPoint.class must only scan components that must work in the server side
+      // (@Service, @Repository, @Configuration for Transaction, Hibernate, DataSource etc)
 
       servletContext.addListener(new ContextLoaderListener(rootContext));
 
       //Create the dispatcher servlet's Spring application context
       AnnotationConfigWebApplicationContext servletAppContext = new AnnotationConfigWebApplicationContext();
       servletAppContext.register(WebMvcConfigurerImp.class);
+      //Where CentralWebConfigurationEntryPoint must only scan components that must work in the client/web side
+      // (@Controller, @Configuration for Formatters, Tiles, Converters etc)
 
       DispatcherServlet dispatcherServlet = new DispatcherServlet(servletAppContext);
       // throw NoHandlerFoundException to controller ExceptionHandler.class. Used for <error-page> analogue
