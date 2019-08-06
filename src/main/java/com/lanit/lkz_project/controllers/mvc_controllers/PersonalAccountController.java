@@ -27,6 +27,14 @@ import java.util.Set;
 @Controller
 public class PersonalAccountController {
 
+
+    private static int counter = 0;
+
+    {
+        counter++;
+        System.err.println("PersonalAccountController: " + counter);
+    }
+
     private static Logger logger = LoggerFactory.getLogger(PersonalAccountController.class);
 
     @Autowired
