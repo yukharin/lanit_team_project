@@ -53,7 +53,7 @@ public class Action implements Serializable {
     @Column(length = 300)
     private String content;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "date")
     private LocalDateTime date;
 
     @OneToOne

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/account")
 public class PersonalAccountController {
 
 
@@ -61,7 +62,7 @@ public class PersonalAccountController {
 //        return "personalAccount";
 //    }
 
-    @RequestMapping("/account/")
+    @RequestMapping("/")
     public String getPage(@SessionAttribute String login,
                           @SessionAttribute String password,
                           @ModelAttribute PersonalAccountPageDto<Notification> pageDTO,
@@ -75,7 +76,7 @@ public class PersonalAccountController {
         return "personalAccount";
     }
 
-    @PostMapping("/account/notification_actions_history/")
+    @PostMapping("/notification_actions_history/")
     public String getNotificationActions(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
@@ -92,14 +93,14 @@ public class PersonalAccountController {
         return "notificationActions";
     }
 
-    @PostMapping("/account/delete/")
+    @PostMapping("/delete/")
     public String deleteNotification(@NonNull @RequestParam String id) {
         notificationService.removeNotification(Long.valueOf(id));
         logger.info("Removed notification with id: " + id + " , then sending to account.html");
         return "redirect:/account/";
     }
 
-    @GetMapping("/account/addNotification/")
+    @GetMapping("/addNotification/")
     public String getAddNotificationPage(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
@@ -114,7 +115,7 @@ public class PersonalAccountController {
         return "addNotification";
     }
 
-    @PostMapping("/account/addNotification/add/")
+    @PostMapping("/addNotification/add/")
     public String addNotification(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
@@ -137,7 +138,7 @@ public class PersonalAccountController {
         }
     }
 
-    @RequestMapping("/account/notification_info/")
+    @RequestMapping("/notification_info/")
     public String getNotificationPage(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
@@ -156,7 +157,7 @@ public class PersonalAccountController {
         return "notificationInfo";
     }
 
-    @PostMapping("/account/notification_info/commit/")
+    @PostMapping("/notification_info/commit/")
     public String addAction(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,

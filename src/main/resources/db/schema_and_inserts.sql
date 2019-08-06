@@ -122,6 +122,21 @@ CREATE TABLE IF NOT EXISTS `lanit`.`actions`
 )
     ENGINE = InnoDB;
 
+USE `lanit`;
+
+DELIMITER $$
+USE `lanit`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `lanit`.`notifications_AFTER_INSERT`
+    AFTER INSERT
+    ON `notifications`
+    FOR EACH ROW
+BEGIN
+    INSERT INTO actions (id_notification, action_type, content, date, id_implementor, notification_status)
+    values (new.id, 3, 'Уведомление создано', now(), 1, new.id_user_notification_author);
+END$$
+
+
+DELIMITER ;
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

@@ -6,7 +6,7 @@ import java.util.Set;
 
 public enum ActionType {
 
-    SEND_TO_PROCESSING("Отправить в обработку"), APPROVE("Одобрить"), REJECT("Отклонить");
+    SEND_TO_PROCESSING("Отправить в обработку"), APPROVE("Одобрить"), REJECT("Отклонить"), CREATE("Создать");
 
     private String message;
 
