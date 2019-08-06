@@ -2,13 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd   http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 
     <context:component-scan base-package="com.lanit.lkz_project"/>
 
+    <jpa:repositories base-package="com.lanit.lkz_project.repositories" repository-impl-postfix="CustomImpl"/>
 
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -53,18 +53,18 @@
     <!--          p:packagesToScan="com.lanit.lkz_project"-->
     <!--          p:hibernateProperties-ref="hibernateProperties"/>-->
 
-    <util:properties id="hibernateProperties">
-        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-        <prop key="hibernate.connection.autocommit">false</prop>
-        <prop key="hibernate.connection.pool_size">4</prop>
-        <prop key="hibernate.show_sql">true</prop>
-        <prop key="hibernate.connection.CharSet">utf8</prop>
-        <prop key="hibernate.connection.characterEncoding">utf8</prop>
-        <prop key="hibernate.connection.useUnicode">true</prop>
-        <prop key="hibernate.max_fetch_depth">4</prop>
-        <prop key="hibernate.jdbc.batch_size">10</prop>
-        <prop key="hibernate.jdbc.fetch_size">50</prop>
-    </util:properties>
+    <!--    <util:properties id="hibernateProperties">-->
+    <!--        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
+    <!--        <prop key="hibernate.connection.autocommit">false</prop>-->
+    <!--        <prop key="hibernate.connection.pool_size">4</prop>-->
+    <!--        <prop key="hibernate.show_sql">true</prop>-->
+    <!--        <prop key="hibernate.connection.CharSet">utf8</prop>-->
+    <!--        <prop key="hibernate.connection.characterEncoding">utf8</prop>-->
+    <!--        <prop key="hibernate.connection.useUnicode">true</prop>-->
+    <!--        <prop key="hibernate.max_fetch_depth">4</prop>-->
+    <!--        <prop key="hibernate.jdbc.batch_size">10</prop>-->
+    <!--        <prop key="hibernate.jdbc.fetch_size">50</prop>-->
+    <!--    </util:properties>-->
 
-    <jpa:repositories base-package="com.lanit.lkz_project.repositories" repository-impl-postfix="CustomImpl"/>
+
 </beans>

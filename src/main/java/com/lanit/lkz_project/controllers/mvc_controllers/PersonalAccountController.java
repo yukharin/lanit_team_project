@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.util.EnumSet;
 import java.util.List;
@@ -182,5 +183,10 @@ public class PersonalAccountController {
                     + action + " to notification: " + notification + " , then redirecting to account.html");
             return "redirect:/account/";
         }
+    }
+
+    @PostConstruct
+    private void print() {
+        System.err.println("CONTROLLER!: " + this);
     }
 }
