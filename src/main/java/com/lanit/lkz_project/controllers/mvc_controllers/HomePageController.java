@@ -27,7 +27,7 @@ public class HomePageController {
     private UserAuthorizationService userServiceAuthorization;
 
 
-    @RequestMapping("/")
+    @RequestMapping(path = "/", produces = "text/html; charset=UTF-8")
     public String toLoginPage() {
         logger.trace("sending loginPage.html");
         return "loginPage";
