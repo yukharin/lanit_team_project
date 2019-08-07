@@ -6,22 +6,23 @@ import java.util.List;
 
 //CRUD - Create Read_by _id Update Delete
 public interface UserDAO extends CrudDAO<User> {
-
-   public List<User> searchUserByLastName(String theSearchName) ;
-
    @Override
-   void saveOrUpdate(User entity);
+   void save(User entity);
 
    @Override
    void update(User entity) ;
 
-
    @Override
-   void delete(int id) ;
+   void delete(User entity) ;
 
    @Override
    User getById(int id) ;
 
    @Override
    List<User> list() ;
+
+   void deleteById(int id) ;
+
+   List<User> searchUserByLastName(String theSearchName) ;
+
 }

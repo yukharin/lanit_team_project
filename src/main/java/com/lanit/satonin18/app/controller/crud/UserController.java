@@ -9,9 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller("userController")
@@ -31,7 +28,7 @@ public class UserController {
 	}
 	@GetMapping("/delete")
 	public String removeUser(@RequestParam("userId") int id){
-		userService.delete(id);
+		userService.deleteById(id);
 		return "redirect:list";
 	}
 	@GetMapping("/add")
@@ -50,7 +47,7 @@ public class UserController {
 		user.setLastName(lastName);
 		user.setOrganization(organizationService.getById(idOrg));
 
-		userService.saveOrUpdate(user);
+		userService.save(user);
 		System.out.println(user);
 		return "redirect:list";
 	}
@@ -73,7 +70,7 @@ public class UserController {
 		user.setLastName(lastName);
 		user.setOrganization(organizationService.getById(idOrg));
 
-		userService.saveOrUpdate(user);
+		userService.update(user);
 		System.out.println(user);
 		return "redirect:list";
 	}

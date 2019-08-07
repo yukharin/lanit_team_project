@@ -599,7 +599,7 @@
                                     </button>
                                 </span>
                         </tr>
-                        <c:forEach var="tempAction" items="${state.getShowListActions()}" varStatus="actionLoopCount" >
+                        <c:forEach var="tempAction" items="${state.getPagination().getList()}" varStatus="actionLoopCount" >
                             <tr>
                                 <td><input type="checkbox"></td>
                                 <td>${actionLoopCount.count + (state.getPagination().currentPage-1)*state.getPagination().maxResult}</td>

@@ -26,7 +26,7 @@
                class="add-button"
         />
 
-        <!--  saveOrUpdate a search box -->
+        <!--  save a search box -->
         <form:form action="search" method="POST">
             Search notification: <input type="text" name="theSearchName" />
 

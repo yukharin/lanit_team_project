@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.List;
 
 @Service("actionService")
 public class ActionServiceImp implements ActionService {
-
    @Autowired
    private ActionDAO actionDAO;
 
    @Override
-   public void saveOrUpdate(Action action) {
-      actionDAO.saveOrUpdate(action);
+   public void save(Action action) {
+      actionDAO.save(action);
    }
 
    @Override
@@ -27,8 +27,8 @@ public class ActionServiceImp implements ActionService {
    }
 
    @Override
-   public void delete(int id) {
-      actionDAO.delete(id);
+   public void delete(Action action) {
+      actionDAO.delete(action);
    }
 
    @Override
@@ -41,8 +41,10 @@ public class ActionServiceImp implements ActionService {
       return actionDAO.list();
    }
 
-    @Override
-    public void save(Action action) {  actionDAO.save(action); }
+   @Override
+   public void deleteById(int id) {
+      actionDAO.deleteById(id);
+   }
 
    @PostConstruct
    private void p() {

@@ -8,17 +8,19 @@ import java.util.List;
 public interface OrganizationService extends CrudService<Organization> {
 
     @Override
-    void saveOrUpdate(Organization organization) ;
+    void save(Organization organization) ;
 
     @Override
     void update(Organization organization) ;
 
     @Override
-    void delete(int id) ;
+    void delete(Organization organization) ;
 
     @Override
     Organization getById(int id) ;
 
     @Override
     List<Organization> list() ;
+
+    void deleteById(int id) ;
 }

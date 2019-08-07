@@ -81,7 +81,7 @@ public class AddAction {
         currentNotification.getActions().add(actionNew);
         currentNotification.setStatus(actionNew.getStatusAfterProcessing());
 
-        notificationService.saveOrUpdate(currentNotification);
+        notificationService.update(currentNotification);
 
         return "redirect:/cabinet/about_the_notification/actions";
     }

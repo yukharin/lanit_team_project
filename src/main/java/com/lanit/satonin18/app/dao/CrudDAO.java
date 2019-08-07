@@ -1,16 +1,9 @@
 package com.lanit.satonin18.app.dao;
 
+import com.lanit.satonin18.app.Crud;
+
 import java.util.List;
 
 //CRUD - Create Read_by _id Update Delete
-public interface CrudDAO<T> {
-   void saveOrUpdate(T entity);
-
-   void update(T entity) ;
-
-   void delete(int id) ;
-
-   T getById(int id) ;
-
-   List<T> list() ;
+public interface CrudDAO<T> extends Crud<T> {
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 //@NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class CabinetState {
     @Getter private static final List<Status> statuses4selectFilter = Arrays.asList(Status.values());
     @Getter private static final List<Status> listArchiveStatus = Status.getArchiveStatuses();
@@ -18,7 +18,7 @@ public class CabinetState {
     private Pagination<Notification> pagination = Default_Cabinet_var.pagination;
 
     private List<Status> checkedMainListNotificStatuses = Arrays.asList(Status.values());
-    private List<Notification> showListNotifications;
+
     private CabinetDto dto;
 
     public CabinetState(CabinetDto dto) {

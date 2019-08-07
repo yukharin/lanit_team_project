@@ -41,24 +41,18 @@ public class CabinetService {
                                     state.getPagination().getMaxNavigationPage())
                     )
             );
-            state.setShowListNotifications(
-                    state.getPagination().getList()
-            );
         }else{
             state.setCheckedMainListNotificStatuses(Collections.EMPTY_LIST);
             state.setPagination(
                     state.getPagination().new EmptyPagination<Notification>( state.getPagination() )
             );
-            state.setShowListNotifications(Collections.EMPTY_LIST);
         }
     }
 
     public void editStatus(Integer idNotification, Integer idNewStatus) {
         Notification notification = notificationService.getById(idNotification);
-        Status status = Status.getById(idNewStatus);
+        notification.setStatus(Status.getById(idNewStatus));
 
-        notification.setStatus(status);
-
-        notificationService.saveOrUpdate(notification);
+        notificationService.update(notification);
     }
 }

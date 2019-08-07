@@ -10,13 +10,13 @@ import java.util.List;
 public interface ActionService extends CrudService<Action> {
 
     @Override
-    void saveOrUpdate(Action action) ;
+    void save(Action action) ;
 
     @Override
     void update(Action action) ;
 
     @Override
-    void delete(int id) ;
+    void delete(Action action) ;
 
     @Override
     Action getById(int id) ;
@@ -24,7 +24,7 @@ public interface ActionService extends CrudService<Action> {
     @Override
     List<Action> list() ;
 
-    void save(Action action);
+    void deleteById(int id) ;
 
     List<Action> listByIdNotification(Notification notification) ;
 

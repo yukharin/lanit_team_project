@@ -17,7 +17,6 @@ public class CabinetDto {
 
     private boolean flagNeedSetFirstPage = false;
 
-//    private boolean flagUseParameters = false;
     private List<Integer> idFilterStatus = Collections.EMPTY_LIST;//если ничего передали, значит пусто
 
     private boolean flagNeedReplaceStatus = false;

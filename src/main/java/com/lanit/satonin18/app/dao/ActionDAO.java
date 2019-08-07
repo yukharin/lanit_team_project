@@ -10,13 +10,13 @@ import java.util.List;
 public interface ActionDAO extends CrudDAO<Action> {
 
    @Override
-   void saveOrUpdate(Action entity);
+   void save(Action entity);
 
    @Override
    void update(Action entity);
 
    @Override
-   void delete(int id);
+   void delete(Action entity);
 
    @Override
    Action getById(int id);
@@ -24,9 +24,9 @@ public interface ActionDAO extends CrudDAO<Action> {
    @Override
    List<Action> list();
 
-   void save(Action action) ;
+    void deleteById(int id);
 
-   List<Action> listByIdNotification(Notification notification);
+    List<Action> listByIdNotification(Notification notification);
 
    Pagination<Action> filter_Notific_Order_Pagination(Notification notification, String orderFieldName, boolean desc, Pagination<Action> actionPagination);
 }

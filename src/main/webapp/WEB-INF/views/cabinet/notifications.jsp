@@ -576,7 +576,7 @@
                     </th>
                     <th>Действия</th>
                 </tr>
-                <c:forEach var="tempNotification" items="${state.getShowListNotifications()}" varStatus="notificLoopCount" >
+                <c:forEach var="tempNotification" items="${state.getPagination().getList()}" varStatus="notificLoopCount" >
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>${notificLoopCount.count + (state.getPagination().currentPage-1)*state.getPagination().maxResult}

@@ -27,7 +27,7 @@
                class="add-button"
         />
 
-        <!--  saveOrUpdate a search box -->
+        <!--  save a search box -->
         <form:form action="search" method="POST">
             Search organization: <input type="text" name="theSearchName" />
 

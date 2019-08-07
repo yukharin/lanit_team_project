@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.service.entities_service;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.lanit.satonin18.app.dao.UserDAO;
@@ -14,13 +15,8 @@ public class UserServiceImp implements UserService  {
    private UserDAO userDAO;
 
    @Override
-   public List<User> searchUserByLastName(String theSearchName) {
-      return userDAO.searchUserByLastName(theSearchName);
-   }
-
-   @Override
-   public void saveOrUpdate(User user) {
-      userDAO.saveOrUpdate(user);
+   public void save(User user) {
+      userDAO.save(user);
    }
 
    @Override
@@ -29,8 +25,8 @@ public class UserServiceImp implements UserService  {
    }
 
    @Override
-   public void delete(int id) {
-      userDAO.delete(id);
+   public void delete(User user) {
+      userDAO.delete(user);
    }
 
    @Override
@@ -41,5 +37,15 @@ public class UserServiceImp implements UserService  {
    @Override
    public List<User> list() {
       return userDAO.list();
+   }
+
+   @Override
+   public void deleteById(int id) {
+      userDAO.deleteById(id);
+   }
+
+   @Override
+   public List<User> searchUserByLastName(String theSearchName) {
+      return userDAO.searchUserByLastName(theSearchName);
    }
 }

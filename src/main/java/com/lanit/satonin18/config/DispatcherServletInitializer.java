@@ -3,13 +3,11 @@ package com.lanit.satonin18.config;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
    @Override
@@ -42,8 +40,15 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
       encodingFilter.setInitParameter("encoding", "UTF-8");
       encodingFilter.setInitParameter("forceEncoding", "true");
       encodingFilter.addMappingForUrlPatterns(null, true, "/*");
-
    }
+
+//   @Override
+//   protected Filter[] getServletFilters() {
+//      CharacterEncodingFilter cef = new CharacterEncodingFilter();
+//      cef.setEncoding("UTF-8");
+//      cef.setForceEncoding(true);
+//      return new Filter[]{new HiddenHttpMethodFilter(), cef};
+//   }
 
    @Override
    protected Class<?>[] getRootConfigClasses() {

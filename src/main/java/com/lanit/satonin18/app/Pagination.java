@@ -3,6 +3,7 @@ package com.lanit.satonin18.app;
 import lombok.Data;
 import org.hibernate.query.Query;
 
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Pagination<E> {
         this.maxNavigationPage = maxNavigationPage;
     }
 
-    public Pagination<E> initQuery(Query<E> query , long count) {
+    public Pagination<E> initQuery(TypedQuery<E> query , long count) {
         query.setFirstResult((currentPage-1)*maxResult);
         query.setMaxResults(maxResult);
 
