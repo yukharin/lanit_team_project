@@ -746,3 +746,17 @@ body {
 .error-div {
     color: red;
 }
+
+
+/*error page*/
+
+.error-page-body {
+    margin: 20px;
+    padding: 75px;
+    border: 2px solid black;
+}
+
+.error-page-walle {
+    max-width: 100%;
+    width: 100%;
+}
