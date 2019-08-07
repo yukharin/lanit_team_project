@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import javax.servlet.http.HttpServletRequest;
-
 @ControllerAdvice
 public class AdviceController {
 
@@ -25,7 +23,7 @@ public class AdviceController {
 
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ModelAndView handleError404(HttpServletRequest request, Exception e) {
+    public ModelAndView handleError404(Exception e) {
         logger.error("404 error: " + e.getMessage());
         ModelAndView modelAndView = new ModelAndView("404error");
         return modelAndView;
