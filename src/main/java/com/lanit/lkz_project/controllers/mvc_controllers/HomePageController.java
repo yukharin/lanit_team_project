@@ -9,16 +9,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static com.lanit.lkz_project.controllers.Utils.LOGIN_PAGE;
+import static com.lanit.lkz_project.controllers.Utils.REGISTRATION_PAGE;
 
 @Controller
 public class HomePageController {
 
     private static Logger logger = LoggerFactory.getLogger(PersonalAccountController.class);
+
 
     @Autowired
     private OrganizationService organizationService;
@@ -28,18 +32,20 @@ public class HomePageController {
 
 
     @RequestMapping(path = "/", produces = "text/html; charset=UTF-8")
-    public String toLoginPage() {
+    public ModelAndView toLoginPage(ModelAndView modelAndView) {
         logger.trace("sending loginPage.html");
-        return "loginPage";
+        modelAndView.setViewName(LOGIN_PAGE);
+        return modelAndView;
     }
 
     @GetMapping("/registration/")
-    public String toRegistrationPage(Model model,
-                                     @ModelAttribute User user) {
+    public ModelAndView toRegistrationPage(ModelAndView modelAndView,
+                                           @ModelAttribute User user) {
         List<Organization> organizations = organizationService.organizations();
-        model.addAttribute("organizations", organizations);
+        modelAndView.addObject("organizations", organizations);
+        modelAndView.setViewName(REGISTRATION_PAGE);
         logger.trace("Adding model attribute - list of all organizations, then sending userRegistrationPage.html");
-        return "userRegistrationPage";
+        return modelAndView;
     }
 
 
