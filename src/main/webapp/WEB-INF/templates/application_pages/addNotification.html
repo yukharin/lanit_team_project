@@ -31,7 +31,7 @@
               th:action="@{/account/addNotification/add/}" th:object="${notification}">
             <label class="add_notification-form-label" for="input1">Введите тип уведомления
                 <input class="add_notification-form-input" id="input1" name=notificationType
-                       th:field="*{notificationType}" type="text"/>
+                       required th:field="*{notificationType}" type="text"/>
                 <div class="error-div" th:errors="*{notificationType}" th:if="${#fields.hasErrors('notificationType')}">
                     Notification_type
                     Error
@@ -39,7 +39,7 @@
             </label>
             <label class="add_notification-form-label" for="input2"> Введите дату, до которой нужно отправить ответ
                 <input class="add_notification-form-input" id="input2" name="dateResponse" th:field="*{{dateResponse}}"
-                       type="date"/>
+                       required type="date"/>
                 <div class="error-div" th:errors="*{dateResponse}" th:if="${#fields.hasErrors('dateResponse')}">
                     Date_response
                     Error
@@ -47,7 +47,8 @@
             </label>
             <label class="add_notification-form-label" for="select1">
                 Выберите организацию, которой вы хотите предоставить уведомление
-                <select class="add_notification-form-select" id="select1" name="orgId" th:field="*{organization.id}">
+                <select class="add_notification-form-select" id="select1" name="orgId" required
+                        th:field="*{organization.id}">
                     <option class="add_notification-form-option" th:each="organization : ${organizations}"
                             th:text="${organization.name}"
                             th:value="${organization.id}">

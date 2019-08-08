@@ -163,6 +163,7 @@ public class PersonalAccountController {
             personalAccountService.addNotification(notification, user);
             logger.info("user: " + user + "added notificationDTO to the database, added notificationDTO - "
                     + notification + ", then redirect to account.html");
+            modelAndView.addObject("user", user);
             modelAndView.setViewName(account_page);
             return modelAndView;
         }

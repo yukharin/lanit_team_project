@@ -12,7 +12,7 @@
         <ul class="registration-form-list">
             <li class="registration-form-list-element">
                 <label for="inputFirstName">
-                    Имя<input id="inputFirstName" name="firstName" th:field="*{firstName}" type="text"/>
+                    Имя<input id="inputFirstName" name="firstName" required th:field="*{firstName}" type="text"/>
                 </label>
                 <div class="error-div" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">First_name
                     Error
@@ -22,7 +22,7 @@
                 <label class="registration-form-label" for="inputLastName">
                     Фамилия<input class="registration-form-input" id="inputLastName" name="lastName"
                                   th:field="*{lastName}"
-                                  type="text"/>
+                                  required type="text"/>
                 </label>
                 <div class="error-div" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">Last_name
                     Error
@@ -30,7 +30,7 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputLogin">
-                    Логин<input id="inputLogin" name="login" th:field="*{login}" type="text"/>
+                    Логин<input id="inputLogin" name="login" required th:field="*{login}" type="text"/>
                 </label>
                 <div class="error-div" th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login
                     Error
@@ -38,7 +38,7 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputPassword">
-                    Пароль<input id="inputPassword" name="password" th:field="*{password}" type="text"/>
+                    Пароль<input id="inputPassword" name="password" required th:field="*{password}" type="text"/>
                 </label>
                 <div class="error-div" th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password
                     Error
@@ -48,7 +48,7 @@
                 <label class="registration-form-label" for="selectOrganization">
                     Ваша организация
                     <select class="registration-form-select" id="selectOrganization" name="orgId"
-                            th:field="*{organization.id}">
+                            required th:field="*{organization.id}">
                         <option class="registration-form-select-option" th:each="organization : ${organizations}"
                                 th:text="${organization.name}"
                                 th:value="${organization.id}">

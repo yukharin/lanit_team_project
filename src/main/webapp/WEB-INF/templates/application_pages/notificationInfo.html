@@ -95,7 +95,7 @@
               th:object="${action}">
             <label class="not_info-add_action-form-label" for="select1"> Выберите действие
                 <select class="not_info-add_action-form-select" id="select1" name="actionTypeParam"
-                        th:field="*{actionType}">
+                        required th:field="*{actionType}">
                     <option class="not_info-add_action-form-option" th:each="actionType : ${actionTypes}"
                             th:text="${actionType.message}"
                             th:value="${actionType}">
@@ -107,7 +107,7 @@
             </label>
             <label class="not_info-add_action-form-label" for="input1">Комментарий
                 <input class="not_info-add_action-form-input-comment" id="input1" name="content" th:field="*{content}"
-                       type="text"/>
+                       required type="text"/>
                 <div class="error-div" th:errors="*{content}" th:if="${#fields.hasErrors('content')}">Content
                     Error
                 </div>
