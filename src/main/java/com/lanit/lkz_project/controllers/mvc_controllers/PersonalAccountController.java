@@ -23,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -78,21 +80,6 @@ public class PersonalAccountController {
                                 @ModelAttribute PersonalAccountPageDto<Notification> pageDTO,
                                 ModelAndView modelAndView, HttpServletRequest request) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        Locale locale = request.getLocale();
-        System.err.println("getCountry: " + locale.getCountry());
-        System.err.println("getDisplayCountry: " + locale.getDisplayCountry());
-        System.err.println("getDisplayLanguage: " + locale.getDisplayLanguage());
-        System.err.println("getDisplayName: " + locale.getDisplayName());
-        System.err.println("getDisplayScript: " + locale.getDisplayScript());
-        System.err.println("getDisplayVariant: " + locale.getDisplayVariant());
-        System.err.println("getLanguage: " + locale.getLanguage());
-        System.err.println("getISO3Country: " + locale.getISO3Country());
-        System.err.println("getLanguageTag: " + locale.toLanguageTag());
-        System.err.println("getVariant: " + locale.getVariant());
-        Enumeration<Locale> localeEnumeration = request.getLocales();
-        while (localeEnumeration.hasMoreElements()) {
-            System.err.println(localeEnumeration.nextElement());
-        }
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
         modelAndView.addObject("user", user);
