@@ -14,6 +14,7 @@ import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.lanit.lkz_project.controllers.Utils.*;
 
 @Controller
 @RequestMapping("/account")
@@ -40,6 +40,15 @@ public class PersonalAccountController {
     }
 
     private static Logger logger = LoggerFactory.getLogger(PersonalAccountController.class);
+
+    @Value("${account_page}")
+    private String account_page;
+    @Value("${actions_history_page}")
+    private String actions_history_page;
+    @Value("${create_notification_page}")
+    private String create_notification_page;
+    @Value("${notification_info_page}")
+    private String notification_info_page;
 
     @Autowired
     private NotificationService notificationService;
@@ -73,7 +82,7 @@ public class PersonalAccountController {
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
         modelAndView.addObject("user", user);
-        modelAndView.setViewName(ACCOUNT_PAGE);
+        modelAndView.setViewName(account_page);
         logger.trace("added 2 attributes to model: pageDTO - "
                 + pageDTO + " and user - " + user + " , then sending to personalAccount.html");
         return modelAndView;
@@ -85,13 +94,13 @@ public class PersonalAccountController {
             @NonNull @SessionAttribute String password,
             @NonNull @RequestParam String id,
             ModelAndView modelAndView) {
-        User user = userAuthorization.authorize(login, password);
+        @NonNull User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(Long.valueOf(id));
         Set<Action> actions = notification.getActions();
         modelAndView.addObject("user", user);
         modelAndView.addObject("actions", actions);
         modelAndView.addObject("notification", notification);
-        modelAndView.setViewName(ACTIONS_HISTORY_PAGE);
+        modelAndView.setViewName(actions_history_page);
         logger.trace("added 3 attributes to model: user - " + user
                 + ", actions: " + actions + ", notification - " + notification);
         return modelAndView;
@@ -110,11 +119,11 @@ public class PersonalAccountController {
             @NonNull @SessionAttribute String password,
             @ModelAttribute Notification notification,
             ModelAndView modelAndView) {
-        User user = userAuthorization.authorize(login, password);
+        @NonNull User user = userAuthorization.authorize(login, password);
         modelAndView.addObject("user", user);
         List<Organization> organizations = organizationService.nonGovernmentOrganizations();
         modelAndView.addObject("organizations", organizations);
-        modelAndView.setViewName(CREATE_NOTIFICATION_PAGE);
+        modelAndView.setViewName(create_notification_page);
         logger.trace("added 2 attributes to model: user - "
                 + user + " and organizations - " + organizations + " , then sending to addNotification.html");
         return modelAndView;
@@ -125,14 +134,14 @@ public class PersonalAccountController {
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
             @Valid @ModelAttribute Notification notification, BindingResult bindingResult, ModelAndView modelAndView) {
-        User user = userAuthorization.authorize(login, password);
+        @NonNull User user = userAuthorization.authorize(login, password);
         if (bindingResult.hasErrors()) {
             logger.info("user: " + user + "passed wrong input to the form: "
                     + bindingResult.getAllErrors());
             modelAndView.addObject("user", user);
             List<Organization> organizations = organizationService.nonGovernmentOrganizations();
             modelAndView.addObject("organizations", organizations);
-            modelAndView.setViewName(CREATE_NOTIFICATION_PAGE);
+            modelAndView.setViewName(create_notification_page);
             logger.info("added 2 attributes to model: user - "
                     + user + " and organizations - " + organizations + " , then sending to addNotification.html");
             return modelAndView;
@@ -140,7 +149,7 @@ public class PersonalAccountController {
             personalAccountService.addNotification(notification, user);
             logger.info("user: " + user + "added notificationDTO to the database, added notificationDTO - "
                     + notification + ", then redirect to account.html");
-            modelAndView.setViewName(ACCOUNT_PAGE);
+            modelAndView.setViewName(account_page);
             return modelAndView;
         }
     }
@@ -152,13 +161,13 @@ public class PersonalAccountController {
             @NonNull @RequestParam String id,
             @ModelAttribute Action action,
             ModelAndView modelAndView) {
-        User user = userAuthorization.authorize(login, password);
+        @NonNull User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(Long.valueOf(id));
         EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
         modelAndView.addObject("user", user);
         modelAndView.addObject("notification", notification);
         modelAndView.addObject("actionTypes", types);
-        modelAndView.setViewName(NOTIFICATION_INFO_PAGE);
+        modelAndView.setViewName(notification_info_page);
         logger.trace("added 3 attributes to model: user - "
                 + user + " and notification - " + notification
                 + "and  actionTypes " + types + " then sending to notificationInfo.html");
@@ -172,7 +181,7 @@ public class PersonalAccountController {
             @Valid @NonNull @ModelAttribute Action action,
             BindingResult bindingResult,
             ModelAndView modelAndView) {
-        User userImplementor = userAuthorization.authorize(login, password);
+        @NonNull User userImplementor = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(action.getNotification().getId());
         logger.info("user: " + userImplementor + " passed input to the form");
         if (bindingResult.hasErrors()) {
@@ -182,7 +191,7 @@ public class PersonalAccountController {
             modelAndView.addObject("user", userImplementor);
             modelAndView.addObject("notification", notification);
             modelAndView.addObject("actionTypes", types);
-            modelAndView.setViewName(NOTIFICATION_INFO_PAGE);
+            modelAndView.setViewName(notification_info_page);
             logger.info("added 3 attributes to model: user - "
                     + userImplementor + " and notification - " + notification
                     + "and  actionTypes " + types + " then sending to notificationInfo.html");
