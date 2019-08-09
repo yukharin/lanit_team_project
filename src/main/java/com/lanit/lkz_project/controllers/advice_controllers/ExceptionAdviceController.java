@@ -29,11 +29,10 @@ public class ExceptionAdviceController {
     }
 
 
-    @ExceptionHandler({NoHandlerFoundException.class})
-    public ModelAndView handleError404(Exception e, ModelAndView modelAndView) {
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public String handleError404(Exception e) {
         logger.error("404 error: " + e.getMessage());
-        modelAndView.setViewName(error_404_page);
-        return modelAndView;
+        return error_404_page;
     }
 
 }
