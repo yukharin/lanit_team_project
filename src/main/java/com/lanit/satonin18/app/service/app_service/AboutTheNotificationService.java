@@ -1,8 +1,8 @@
 package com.lanit.satonin18.app.service.app_service;
 
 //import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationDtoOnInput;
-import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationStateOnOutput;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationDto;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationState;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
@@ -27,8 +27,8 @@ public class AboutTheNotificationService {
     @Autowired
     private OrganizationService organizationService;
 
-    public void executeQuery(AboutTheNotificationStateOnOutput state, Notification currentNotification) {
-        AboutTheNotificationDtoOnInput dto = state.getDto();
+    public void executeQuery(AboutTheNotificationState state, Notification currentNotification) {
+        AboutTheNotificationDto dto = state.getDto();
 
         state.setPageImpl(
                 actionService.filter_Notific_Order_Pagination(

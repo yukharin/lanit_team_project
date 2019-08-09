@@ -29,6 +29,7 @@ public class InputController {
         return "redirect:/cabinet/selectUser?idSelectUser=" + idSelectUser;
     }
 
+    //todo edit session, rest - post
     @GetMapping("/output")
     public String output(HttpSession session){
         session.removeAttribute("user");

@@ -1,8 +1,6 @@
 package com.lanit.satonin18.app.repository;
 
 //import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dto.Common_Default_var;
-import com.lanit.satonin18.app.dto.notification_app.Default_AboutTheNotification_var;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.no_in_db.Status;

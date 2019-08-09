@@ -91,7 +91,7 @@
 
 <div id="content">
 
-    <form action="actions"  method="get" <%--modelAttribute="AboutTheNotificationDtoOnInput"--%> >
+    <form action="actions"  method="get" <%--modelAttribute="AboutTheNotificationDto"--%> >
 
         <div id="common_info_about_notification">
             <h5 style="text-transform: uppercase;">

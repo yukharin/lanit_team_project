@@ -11,9 +11,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public interface Common_Default_var {
+public interface CommonDefaultVar {
     public static final boolean DESC = true;
-    public static final int PAGE = 0;
+    public static final int FIRST_PAGE = 0;
     public static final int MAX_RESULT = 10;
     public static final int MAX_NAVIGATION_PAGES = 10;
     public static final List<Integer> selectShowListMaxResult =  new ArrayList<>(Arrays.asList( new Integer[]{
@@ -21,8 +21,8 @@ public interface Common_Default_var {
     }));
 
     public static final Pageable PAGEABLE = PageRequest.of(
-            Common_Default_var.PAGE,
-            Common_Default_var.MAX_RESULT
+            CommonDefaultVar.FIRST_PAGE,
+            CommonDefaultVar.MAX_RESULT
 //            ,
 //            MAX_NAVIGATION_PAGES
     );

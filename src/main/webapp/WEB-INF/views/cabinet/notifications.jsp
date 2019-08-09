@@ -82,7 +82,7 @@
 
 <div id="content">
 
-    <form action="notifications"  method="get" <%--modelAttribute="cabinetDtoOnInput"--%> >
+    <form action="filters"  method="post" <%--modelAttribute="cabinetDtoOnInput"--%> >
         <div id="filters">
             <%--<form action="filterByNotificStatus"  method="get">--%>
             Фильтры:<Br>
@@ -96,7 +96,7 @@
                                        type="checkbox"
                                        name="idFilterStatus"  value="${tempStatus.id}"
                                        onchange="
-                                       document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
+                                       // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                        this.form.submit()"
                                 >
                                         ${tempStatus.name}
@@ -108,7 +108,7 @@
                                        type="checkbox"
                                        name="idFilterStatus" value="${tempStatus.id}"
                                        onchange="
-                                       document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
+                                       // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                        this.form.submit()"
                                 >
                                         ${tempStatus.name}
@@ -120,13 +120,13 @@
                 </td>
                 <td>
                     <c:choose>
-                        <c:when test="${state.getDto().isShowArchive()}">
+                        <c:when test="${state.getDto().getShowArchive()}">
                             <input checked
                                    class= "checkboxshowArchive"
                                    type="checkbox"
                                    name="showArchive" value="true"
                                    onchange="
-                                   document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
+                                   // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                    this.form.submit()"
                             >
                             Показывать архивные уведомления
@@ -138,7 +138,7 @@
                                    type="checkbox"
                                    name="showArchive" value="true"
                                    onchange="
-                                   document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
+                                   // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                    this.form.submit()"
                             >
                             Показывать архивные уведомления
@@ -175,7 +175,7 @@
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;"<%--class="green_button"--%>
                     onclick="
-            document.getElementById('flagNeedSetFirstPage').setAttribute('value', 'true');
+            // document.getElementById('flagNeedSetFirstPage').setAttribute('value', 'true');
             this.form.submit();"
             >
                 Применить фильтр
@@ -183,13 +183,19 @@
             <button type="button"<%--type="form.submit"--%> style="background-color: #666666; color: white; display: inline-block;"
                     onclick="
             filterButtonUndoInDefault4setChecked();
-            document.getElementById('flagNeedSetFirstPage').setAttribute('value', 'true');
+            // document.getElementById('flagNeedSetFirstPage').setAttribute('value', 'true');
             this.form.submit();"
             >
                 Отменить фильтр
             </button>
             <%--</form>--%>
         </div>
+
+        <%--<input id="flagNeedSetFirstPage"--%>
+               <%--type="hidden"--%>
+               <%--name="flagNeedSetFirstPage" value="false"></input>--%>
+    </form>
+    <form action="notifications"  method="get" <%--modelAttribute="cabinetDtoOnInput"--%> >
 
         <jsp:include page="/WEB-INF/templates/pagination.jsp" />
 
@@ -564,10 +570,10 @@
         }
     }
 
-    document.getElementById("orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").classList.add('href-nav-item-current');
+    document.getElementById("orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().getDesc()}").classList.add('href-nav-item-current');
     //
-    document.getElementById("radio-orderFieldName-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', 'true');
-    document.getElementById("radio-desc-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', 'true');
+    document.getElementById("radio-orderFieldName-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().getDesc()}").setAttribute('checked', 'true');
+    document.getElementById("radio-desc-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().getDesc()}").setAttribute('checked', 'true');
     //
     //todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last
     document.getElementById("radioPageCount_${state.getPageImpl().getPageable().getPageNumber()}").setAttribute('checked', 'true');

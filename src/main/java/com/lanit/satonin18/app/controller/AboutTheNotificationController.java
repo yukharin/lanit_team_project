@@ -1,8 +1,8 @@
 package com.lanit.satonin18.app.controller;
 
-import com.lanit.satonin18.app.dto.Common_Default_var;
-import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationDtoOnInput;
-import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationStateOnOutput;
+import com.lanit.satonin18.app.dto.CommonDefaultVar;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationDto;
+import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationState;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.no_in_db.ActionType;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
@@ -29,12 +29,12 @@ public class AboutTheNotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    private void addAttributes_Action(Model model, AboutTheNotificationStateOnOutput state, User currentUser, Notification currentNotification) {
+    private void addAttributes_Action(Model model, AboutTheNotificationState state, User currentUser, Notification currentNotification) {
         model.addAttribute("state", state);
 
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
-        model.addAttribute("selectShowListMaxResult", Common_Default_var.selectShowListMaxResult);
+        model.addAttribute("selectShowListMaxResult", CommonDefaultVar.selectShowListMaxResult);
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()) );
         model.addAttribute("listStatus", Arrays.asList(Status.values()) );
     }
@@ -51,7 +51,7 @@ public class AboutTheNotificationController {
 
     @GetMapping("/actions")
     public String actions(
-                          @ModelAttribute(value = "aboutTheNotificationDto") AboutTheNotificationDtoOnInput dto,
+                          @ModelAttribute(value = "aboutTheNotificationDto") AboutTheNotificationDto dto,
                           HttpSession session, Model model){
         Integer userId = (Integer) session.getAttribute("user");
         Integer notificationId = (Integer) session.getAttribute("currentNotification");
@@ -60,9 +60,9 @@ public class AboutTheNotificationController {
         Notification currentNotification = notificationService.findById(notificationId);
 //------------------------------------------------
 //        dto.setPage(dto.getPage()-1);
-        if(dto.isFlagNeedSetFirstPage() ) dto.setPage(Common_Default_var.PAGE);
+        if(dto.isFlagNeedSetFirstPage() ) dto.setPage(CommonDefaultVar.FIRST_PAGE);
 
-        AboutTheNotificationStateOnOutput state = new AboutTheNotificationStateOnOutput(dto);
+        AboutTheNotificationState state = new AboutTheNotificationState(dto);
         aboutTheNotificationService.executeQuery(state, currentNotification);
 //------------------------------------------------
         addAttributes_Action(model, state, currentUser, currentNotification);

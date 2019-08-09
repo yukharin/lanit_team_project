@@ -1,30 +1,26 @@
-package com.lanit.satonin18.app.dto.cabinet;
+package com.lanit.satonin18.app.dto.notification_app;
 
 //import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dto.Common_Default_var;
-import com.lanit.satonin18.app.entity.Notification;
-import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.dto.CommonDefaultVar;
+import com.lanit.satonin18.app.entity.Action;
 import lombok.*;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Data
 //@NoArgsConstructor
-//@AllArgsConstructor
-public class CabinetStateOnOutput {
-    @Getter private static final List<Status> statuses4selectFilter = Arrays.asList(Status.values());
-    @Getter private static final List<Status> listArchiveStatus = Status.getArchiveStatuses();
-    //--------------------------------------------------------------------
-    private PageImpl<Notification> pageImpl = Common_Default_var.EMPTY_PAGE_IMPL_NOTIFICATION; //
+@AllArgsConstructor
+public class AboutTheNotificationState {
 
-    private List<Status> checkedMainListNotificStatuses = Arrays.asList(Status.values());
+    private PageImpl<Action> pageImpl = CommonDefaultVar.EMPTY_PAGE_IMPL_ACTION;
+    private List<Action> showListActions;
+    private Action latestAction;
 
-    private CabinetDtoOnInput dto;
+    private AboutTheNotificationDto dto;
 
-    public CabinetStateOnOutput(CabinetDtoOnInput dto) {
+    public AboutTheNotificationState(AboutTheNotificationDto dto) {
         this.dto = dto;
     }
 
@@ -34,7 +30,7 @@ public class CabinetStateOnOutput {
         navigationPages = new ArrayList<Integer>();
         int totalPages = pageImpl.getTotalPages();
         int currentPage = pageImpl.getPageable().getPageNumber();
-        int maxNavigationPages = Common_Default_var.MAX_NAVIGATION_PAGES;
+        int maxNavigationPages = CommonDefaultVar.MAX_NAVIGATION_PAGES;
 
         int current = currentPage > totalPages ? totalPages : currentPage;
         int begin = current - maxNavigationPages / 2;
