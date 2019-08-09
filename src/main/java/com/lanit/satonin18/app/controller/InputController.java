@@ -19,7 +19,7 @@ public class InputController {
     @GetMapping("/")
     public String input(
             Model model){
-        model.addAttribute("user_list", userService.list());
+        model.addAttribute("user_list", userService.findAll());
         return "index";
     }
 

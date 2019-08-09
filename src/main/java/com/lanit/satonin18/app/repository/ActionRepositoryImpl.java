@@ -1,84 +1,31 @@
-package com.lanit.satonin18.app.dao;
+package com.lanit.satonin18.app.repository;
 
-import com.lanit.satonin18.app.Pagination;
+//import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.transaction.TransactionManager;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository("actionDAO")
-public class ActionDAOImp implements ActionDAO {
-//    @Autowired
-//    private SessionFactory sessionFactory;
-//    protected Session getCurrentSession() {
-//        return sessionFactory.getCurrentSession();
-//    }
-
+@Repository
+public class ActionRepositoryImpl
+        implements ActionRepositoryCustomized
+{
     @PersistenceContext
     EntityManager em;
 
-    @Override
-    @Transactional
-    public void save(Action action) {  //TODO need save @NotNull final IN ARG //throws Exc
-        em.persist(action);
-    }
-
-    @Override
-    @Transactional
-    public void update(Action action) {
-        em.merge(action);
-    }
-
-    @Override
-    @Transactional
-    public void delete(Action action) {
-        em.remove(action);
-    }
-
-    @Override
-    public Action getById(int id) {
-        return em.find(Action.class, id);
-    }
-
-    @Override
-    public List<Action> list() {
-        return em.createQuery("from Action", Action.class)
-                .getResultList();
-    }
-    @Override
-    @Transactional
-    public void deleteById(int id) {
-        Action action = em.find(Action.class, id);
-        if (action != null)
-            em.remove(action);
-    }
-
-    public List<Action> listByIdNotification(Notification notification) {
-        TypedQuery<Action> query = em.createQuery("FROM Action AS a WHERE a.notification = :notification", Action.class);
-        query.setParameter("notification", notification);
-
-        return query.getResultList();
-    }
-
-    public Pagination<Action> filter_Notific_Order_Pagination(
+    public PageImpl<Action> filter_Notific_Order_Pagination(
             Notification notification,
             String orderFieldName, boolean desc,
-            Pagination<Action> actionPagination) {
+            Pageable actionPagination) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 
 //            SELECT * WHERE ...
@@ -141,8 +88,17 @@ public class ActionDAOImp implements ActionDAO {
                 .where(conditionsList_COUNT.toArray(new Predicate[]{}))
         ;
         TypedQuery<Long> q_COUNT = em.createQuery(criteriaQuery_COUNT);
-        long count_COUNT = q_COUNT.getSingleResult();
+        long countAll = q_COUNT.getSingleResult();
 //
-        return actionPagination.initQuery(q, count_COUNT);
+//        return actionPagination.initQuery(q, countAll);
+        int pageNumber = actionPagination.getPageNumber();
+        int pageSize = actionPagination.getPageSize();
+
+        q.setFirstResult((pageNumber)*pageSize);
+        q.setMaxResults(pageSize);
+
+        List<Action> list = q.getResultList();
+
+        return new PageImpl(list, actionPagination, countAll);
     }
 }

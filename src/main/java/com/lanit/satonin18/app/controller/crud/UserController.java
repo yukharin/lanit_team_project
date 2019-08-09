@@ -14,7 +14,8 @@ import java.util.List;
 @Controller("userController")
 @RequestMapping("/crud/user")
 public class UserController {
-
+//	@Autowired
+//	private TestServiceImpl testServiceImpl;
 	@Autowired
 	private UserService userService;
 
@@ -23,7 +24,7 @@ public class UserController {
 
 	@GetMapping("/list")
 	public String list(Model model) {
-		model.addAttribute("list", userService.list());
+		model.addAttribute("list", userService.findAll());
 		return "crud/user/list";
 	}
 	@GetMapping("/delete")
@@ -34,7 +35,7 @@ public class UserController {
 	@GetMapping("/add")
 	public String add(Model model){
 		model.addAttribute("user", new User());
-		model.addAttribute("listOrg", organizationService.list());
+		model.addAttribute("listOrg", organizationService.findAll());
 		return "crud/user/form_add";
 	}
 	@PostMapping("/apply_add")
@@ -45,7 +46,7 @@ public class UserController {
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
-		user.setOrganization(organizationService.getById(idOrg));
+		user.setOrganization(organizationService.findById(idOrg));
 
 		userService.save(user);
 		System.out.println(user);
@@ -53,8 +54,8 @@ public class UserController {
 	}
 	@GetMapping("/update")
 	public String update(@RequestParam("userId") int id, Model model){
-		model.addAttribute("user", userService.getById(id));
-		model.addAttribute("listOrg", organizationService.list());
+		model.addAttribute("user", userService.findById(id));
+		model.addAttribute("listOrg", organizationService.findAll());
 		return "crud/user/form_update";
 	}
 	@PostMapping("/apply_update")
@@ -65,12 +66,13 @@ public class UserController {
 			@RequestParam("idOrg")  int idOrg
 //			@ModelAttribute("user") User user
 	){
-		User user = userService.getById(id);
+		User user = userService.findById(id);
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
-		user.setOrganization(organizationService.getById(idOrg));
+		user.setOrganization(organizationService.findById(idOrg));
 
-		userService.update(user);
+//		userService.update(user);
+		userService.save(user);
 		System.out.println(user);
 		return "redirect:list";
 	}
@@ -79,10 +81,8 @@ public class UserController {
 	public String searchUsers(@RequestParam("theSearchName") String theSearchName,
 							  Model theModel) {
 		System.out.println(theSearchName);
-		List<User> theUsers = userService.searchUserByLastName(theSearchName);
-		for(User user : theUsers) {
-			System.out.println(user);
-		}
+		List<User> theUsers = userService.findByLastNameIgnoreCaseContaining(theSearchName);
+
 		theModel.addAttribute("list", theUsers);
 		theModel.addAttribute("valueSearch", theSearchName);
 		return "crud/user/list";

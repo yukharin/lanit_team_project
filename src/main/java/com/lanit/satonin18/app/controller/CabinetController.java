@@ -28,7 +28,7 @@ public class CabinetController {
     @Autowired
     private CabinetService cabinetService;
 
-    private void addAttributes_Notification(Model model, User currentUser, CabinetState state) {
+    private void addAttributes_Notification(Model model, User currentUser, CabinetStateOnOutput state) {
         model.addAttribute("state", state);
 
         model.addAttribute("user", currentUser);
@@ -48,28 +48,29 @@ public class CabinetController {
     @GetMapping("/notifications")
     public String notifications(HttpServletRequest request,
                           HttpSession session,
-                          @ModelAttribute(value = "cabinetDto") CabinetDto dto,
+                          @ModelAttribute(value = "cabinetDto") CabinetDtoOnInput dto,
                           Model model){
         Integer userId = (Integer) session.getAttribute("user");
         if( userId == null) return "redirect:/";
-        User currentUser = userService.getById(userId);
+        User currentUser = userService.findById(userId);
 //------------------------------------------------
+//        dto.setPage(dto.getPage()-1);
         if ( request.getParameterMap().isEmpty() ) {
-            CabinetDto temp = (CabinetDto)  session.getAttribute("cabinetDto"+"#"+userId);
+            CabinetDtoOnInput temp = (CabinetDtoOnInput)  session.getAttribute("cabinetDto"+"#"+userId);
             if(temp != null) {
                 dto = temp;
             } else {
-                dto = new CabinetDto();
+                dto = new CabinetDtoOnInput();
                 dto.setIdFilterStatus( new ArrayList(Status.getAllId()) );
             }
         } else {
             if(dto.isFlagNeedSetFirstPage() )
-                dto.setPage(1);
+                dto.setPage(Common_Default_var.PAGE);
             if(dto.isFlagNeedReplaceStatus())
                 replaceStatus(dto);
         }
 //------------------------------------------------
-        CabinetState state = new CabinetState(dto);
+        CabinetStateOnOutput state = new CabinetStateOnOutput(dto);
         cabinetService.executeQuery(state, currentUser);
 //------------------------------------------------
         session.setAttribute("cabinetDto"+"#"+userId, dto);
@@ -77,9 +78,9 @@ public class CabinetController {
         return "cabinet/notifications";
     }
 
-    private void replaceStatus(CabinetDto cabinetDto) {
-        int idNotification = cabinetDto.getSelectedIdNotification4editStatus();
-        int idNewStatus = cabinetDto.getSelectedNewIdStatus();
+    private void replaceStatus(CabinetDtoOnInput dto) {
+        int idNotification = dto.getSelectedIdNotification4editStatus();
+        int idNewStatus = dto.getSelectedNewIdStatus();
 
         cabinetService.editStatus(idNotification, idNewStatus);
     }

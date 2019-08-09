@@ -1,16 +1,10 @@
 package com.lanit.satonin18.config;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 import static org.hibernate.cfg.AvailableSettings.*;
@@ -28,7 +21,7 @@ import static org.hibernate.cfg.AvailableSettings.*;
 @Configuration
 @ComponentScans( value = {
 		@ComponentScan(
-				basePackages = {"com.lanit.satonin18.app.dao"}
+				basePackages = {"com.lanit.satonin18.app.repository"}
 		)
 		,
 		@ComponentScan(
@@ -36,7 +29,9 @@ import static org.hibernate.cfg.AvailableSettings.*;
 		)
 })
 @EnableTransactionManagement
-//@EnableJpaRepositories
+@EnableJpaRepositories(
+		basePackages = {"com.lanit.satonin18.app.repository"},
+		repositoryImplementationPostfix = "Impl")
 @PropertySource("classpath:db.properties")
 public class DbConfig {
 
@@ -46,6 +41,23 @@ public class DbConfig {
 	@PostConstruct
 	private void p() {
 		System.out.println("pppppppppppppppppppppppppppppppppppppppp");
+	}
+
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter(){
+		return new HibernateJpaVendorAdapter();
+	}
+
+	@Bean //no DataSource
+	public DriverManagerDataSource dataSource() {
+		System.out.println("ddddddddddddddddddddddddddddddddddddd");
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+		dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
+		dataSource.setUrl(env.getProperty("jdbc.url"));
+		dataSource.setUsername(env.getProperty("jdbc.user"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
+		return dataSource;
 	}
 
 	private Properties hibernateProperties() {
@@ -77,18 +89,6 @@ public class DbConfig {
 		return props;
 	}
 
-	@Bean //no DataSource
-	public DriverManagerDataSource dataSource() {
-		System.out.println("ddddddddddddddddddddddddddddddddddddd");
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-		dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
-		dataSource.setUrl(env.getProperty("jdbc.url"));
-		dataSource.setUsername(env.getProperty("jdbc.user"));
-		dataSource.setPassword(env.getProperty("jdbc.password"));
-		return dataSource;
-	}
-
 //	@Bean
 //	public LocalSessionFactoryBean getSessionFactory() throws IOException {
 //		System.out.println("ssssssssssssssssssssssssssssssssssssssssssss");
@@ -117,23 +117,16 @@ public class DbConfig {
 		em_fb.setJpaVendorAdapter(jpaVendorAdapter());
 		em_fb.afterPropertiesSet();//
 
-//		return em_fb;
 		return em_fb.getNativeEntityManagerFactory();
 	}
 
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter(){
-		return new HibernateJpaVendorAdapter();
-	}
-	//for @Transactional
+	//for working @Transactional
 	@Bean
 	public PlatformTransactionManager transactionManager() throws IOException {
 		System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-
 //		return new HibernateTransactionManager(getSessionFactory().getObject());
 //		return new JpaTransactionManager(getSessionFactory().getObject());
 
-//		return new JpaTransactionManager(entityManagerFactory().getObject());
-		return new JpaTransactionManager(entityManagerFactory());
+		return new JpaTransactionManager(entityManagerFactory()); //.getObject());
 	}
 }

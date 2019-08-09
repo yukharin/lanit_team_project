@@ -29,7 +29,7 @@
 
 		<!--  save a search box -->
 		<form:form action="search" method="POST">
-			Search action: <input type="text" name="theSearchName" />
+			Search action: <input type="text" name="theSearchName" value="${valueSearch}" />
 
 			<input type="submit" value="Search" class="add-button" />
 		</form:form>

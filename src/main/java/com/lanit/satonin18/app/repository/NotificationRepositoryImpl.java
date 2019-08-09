@@ -1,82 +1,36 @@
-package com.lanit.satonin18.app.dao;
+package com.lanit.satonin18.app.repository;
 
-import com.lanit.satonin18.app.Pagination;
+//import com.lanit.satonin18.app.Pagination;
+import com.lanit.satonin18.app.dto.Common_Default_var;
+import com.lanit.satonin18.app.dto.notification_app.Default_AboutTheNotification_var;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
-@Repository("notificationDAO")
-public class NotificationDAOImp implements NotificationDAO {
-//    @Autowired
-//    private SessionFactory sessionFactory;
-//    protected Session getCurrentSession() {
-//        return sessionFactory.getCurrentSession();
-//    }
-
+@Repository
+public class NotificationRepositoryImpl
+        implements NotificationRepositoryCustomized
+{
     @PersistenceContext
     EntityManager em;
 
     @Override
-    @Transactional
-    public void save(Notification notification) {
-        em.persist(notification);
-    }
-
-    @Override
-    @Transactional
-    public void update(Notification notification) {
-        em.merge(notification);
-    }
-
-    @Override
-    @Transactional
-    public void delete(Notification notification) {
-        em.remove(notification);
-    }
-
-    @Override
-    public Notification getById(int id) {
-        return em.find(Notification.class, id);
-    }
-
-    @Override
-    public List<Notification> list() {
-        return em.createQuery("from Notification", Notification.class)
-                .getResultList();
-    }
-
-    @Override
-    @Transactional
-    public void deleteById(int id) {
-        Notification notification = em.find(Notification.class, id);
-        if(notification != null)
-            em.remove(notification);
-    }
-    @Override
-    public Pagination<Notification> _CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
+    public PageImpl<Notification> getPaginationByfilter_Org_NotificStatuses_Archive_Order_Pagination(
             Organization organization,
             List<Status> listNotificStatus,
             boolean showArchive, List<Status> listArchiveStatus,
             String orderFieldName, boolean desc,
-            Pagination<Notification> pagination){
+            Pageable pagination
+    ){
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 
 //            SELECT * WHERE ...
@@ -107,7 +61,9 @@ public class NotificationDAOImp implements NotificationDAO {
         Expression<Status> expStatus = rootNotific.get("status");
         Expression<Status> expStatus_COUNT = rootNotific_COUNT.get("status");
         if (listNotificStatus != null) {
-            if(listNotificStatus.size() == 0) return pagination.new EmptyPagination<Notification>(pagination);
+            if(listNotificStatus.size() == 0)
+//                return pageImpl.new EmptyPagination<Notification>(pageImpl);
+                return new PageImpl(Collections.EMPTY_LIST, pagination, 0);
             conditionsList.add(
                     expStatus.in(listNotificStatus)
             );
@@ -180,10 +136,17 @@ public class NotificationDAOImp implements NotificationDAO {
                 )
         ;
         TypedQuery<Long> q_COUNT = em.createQuery(criteriaQuery_COUNT);
-        long count_COUNT = q_COUNT.getSingleResult();
+        long countAll = q_COUNT.getSingleResult();
 //
-        return pagination.initQuery(q, count_COUNT);
+//        return pageImpl.initQuery(q, countAll);
+        int pageNumber = pagination.getPageNumber();
+        int pageSize = pagination.getPageSize();
+
+        q.setFirstResult((pageNumber)*pageSize);
+        q.setMaxResults(pageSize);
+
+        List<Notification> list = q.getResultList();
+
+        return new PageImpl(list, pagination, countAll);
     }
 }
-
-

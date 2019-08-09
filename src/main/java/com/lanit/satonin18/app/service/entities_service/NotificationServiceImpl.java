@@ -1,66 +1,62 @@
 package com.lanit.satonin18.app.service.entities_service;
 
-import java.util.Collections;
 import java.util.List;
 
-import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dao.NotificationDAO;
+//import com.lanit.satonin18.app.Pagination;
+import com.lanit.satonin18.app.repository.NotificationRepository;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Service("notificationService")
-public class NotificationServiceImp implements NotificationService {
+public class NotificationServiceImpl implements NotificationService {
     @Autowired
-    private NotificationDAO notificationDAO;
+    private NotificationRepository notificationRepository;
 
     @PersistenceContext
     EntityManager em;
 
     @Override
     public void save(Notification notification) {
-        notificationDAO.save(notification);
-    }
-
-    @Override
-    public void update(Notification notification) {
-        notificationDAO.update(notification);
+        notificationRepository.save(notification);
     }
 
     @Override
     public void delete(Notification notification) {
-        notificationDAO.delete(notification);
+        notificationRepository.delete(notification);
     }
 
     @Override
-    public Notification getById(int id) {
-        return notificationDAO.getById(id);
+    public Notification findById(int id) {
+        return notificationRepository.findById(id).get();
     }
 
     @Override
-    public List<Notification> list() {
-        return notificationDAO.list();
+    public List<Notification> findAll() {
+        return notificationRepository.findAll();
     }
 
     @Override
     public void deleteById(int id) {
-        notificationDAO.deleteById(id);
+        notificationRepository.deleteById(id);
     }
 
     @Override
-    public Pagination<Notification> _CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
+    public PageImpl<Notification> _CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
             Organization organization,
             List<Status> listNotificStatus,
             boolean showArchive, List<Status> listArchiveStatus,
             String orderFieldName, boolean desc,
-            Pagination<Notification> pagination
+            Pageable pagination
     ){
-        return notificationDAO._CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
+        return notificationRepository.getPaginationByfilter_Org_NotificStatuses_Archive_Order_Pagination(
                 organization,
                 listNotificStatus,
                 showArchive, listArchiveStatus,

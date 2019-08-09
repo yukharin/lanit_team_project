@@ -10,15 +10,12 @@ public interface UserService extends CrudService<User> {
     void save(User organization) ;
 
     @Override
-    void update(User organization) ;
+    User findById(int id) ;
 
     @Override
-    User getById(int id) ;
-
-    @Override
-    List<User> list() ;
+    List<User> findAll() ;
 
     void deleteById(int id) ;
 
-    List<User> searchUserByLastName(String theSearchName) ;
+    List<User> findByLastNameIgnoreCaseContaining(String theSearchName) ;
 }

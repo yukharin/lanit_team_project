@@ -34,8 +34,8 @@ public class AddAction {
             @RequestParam int userId,
             HttpSession session,
             Model model) {
-        User currentUser = userService.getById(userId);
-        Notification currentNotification = notificationService.getById(notificationId);
+        User currentUser = userService.findById(userId);
+        Notification currentNotification = notificationService.findById(notificationId);
         if(currentUser == null || currentNotification == null) return "redirect:/"; //todo add alert(error)
 
         session.setAttribute("user", userId);
@@ -59,11 +59,11 @@ public class AddAction {
         Integer userId = (Integer) session.getAttribute("user");
         Integer notificationId = (Integer) session.getAttribute("notification");
         if(userId == null || notificationId == null) return "redirect:/"; //todo add alert( IT DONT SAVE)
-        User currentUser = userService.getById(userId);
-        Notification currentNotification = notificationService.getById(notificationId);
+        User currentUser = userService.findById(userId);
+        Notification currentNotification = notificationService.findById(notificationId);
 //------------------------------------------------
         ActionType actionType = ActionType.getById(idActionType);
-        User userImplementor = userService.getById(idUserImplementor);
+        User userImplementor = userService.findById(idUserImplementor);
         Status status = Status.getById(idNotificationStatus);
 
         long timeNow = System.currentTimeMillis();
@@ -81,7 +81,7 @@ public class AddAction {
         currentNotification.getActions().add(actionNew);
         currentNotification.setStatus(actionNew.getStatusAfterProcessing());
 
-        notificationService.update(currentNotification);
+        notificationService.save(currentNotification);//update
 
         return "redirect:/cabinet/about_the_notification/actions";
     }

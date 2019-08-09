@@ -91,7 +91,7 @@
 
 <div id="content">
 
-    <form action="actions"  method="get" <%--modelAttribute="AboutTheNotificationDto"--%> >
+    <form action="actions"  method="get" <%--modelAttribute="AboutTheNotificationDtoOnInput"--%> >
 
         <div id="common_info_about_notification">
             <h5 style="text-transform: uppercase;">
@@ -251,130 +251,7 @@
                     </button>
                 </div>
 
-                <div id="paginationAction">
-                    <table>
-                        <td style="text-align: left">
-                            Найдено записей: ${state.getPagination().totalRecords}<Br>
-                        </td>
-                        <td style="text-align: center">
-                            <div id="page-navigator">
-                                <c:if test="${state.getPagination().totalPages > 1}">
-
-                                    <span class ="radioDecorator">
-                                        <input id="radioPageFirst"
-                                               type="radio"
-                                               name="page" value="1">
-                                        <button type="button"  class="href-nav-item"
-                                                onclick="
-                                        document.getElementById('radioPageFirst').setAttribute('checked', true);
-                                        this.form.submit()" >
-                                            <<
-                                        </button>
-                                    </span>
-
-                                    <span class ="radioDecorator">
-                                        <input id="radioPagePrev"
-                                               type="radio"
-                                               name="page" value="${(state.getPagination().currentPage != 1) ? state.getPagination().currentPage-1 : 1 }">
-                                        <button type="button"  class="href-nav-item"
-                                                onclick="
-                                        document.getElementById('radioPagePrev').setAttribute('checked', true);
-                                        this.form.submit()">
-                                            <-
-                                        </button>
-                                    </span>
-
-                                    <c:forEach items="${state.getPagination().navigationPages}" var = "page">
-                                        <c:choose>
-                                            <c:when test="${page != -1 }">
-
-                                                <c:if test="${page == state.getPagination().currentPage}">
-
-                                                    <span class ="radioDecorator">
-                                                        <input id="radioPageCount_${page}"
-                                                               type="radio"
-                                                               name="page" value="${page}">
-                                                        <button type="button"  class="href-nav-item-current"
-                                                                onclick="
-                                                                        document.getElementById('radioPageCount_${page}').setAttribute('checked', true);
-                                                                        this.form.submit()">
-                                                                ${page}
-                                                        </button>
-                                                    </span>
-                                                </c:if>
-                                                <c:if test="${page != state.getPagination().currentPage}">
-                                                    <span class ="radioDecorator">
-                                                        <input id="radioPageCount_${page}"
-                                                               type="radio"
-                                                               name="page" value="${page}">
-                                                        <button type="button"  class="href-nav-item"
-                                                                onclick="
-                                                                        document.getElementById('radioPageCount_${page}').setAttribute('checked', true);
-                                                                        this.form.submit()" >
-                                                                ${page}
-                                                        </button>
-                                                    </span>
-
-                                                </c:if>
-
-                                            </c:when>
-                                            <c:otherwise>
-                                                <button type="button" class="href-nav-item"> ... </button>
-                                            </c:otherwise>
-                                        </c:choose>
-
-                                    </c:forEach>
-
-                                    <span class ="radioDecorator">
-                                        <input id="radioPageNext"
-                                               type="radio"
-                                               name="page" value="${(state.getPagination().currentPage != state.getPagination().totalPages)? state.getPagination().currentPage+1 : state.getPagination().currentPage }">
-                                        <button type="button"  class="href-nav-item"
-                                                onclick="
-                                      document.getElementById('radioPageNext').setAttribute('checked', true);
-                                      this.form.submit()" >
-                                            ->
-                                        </button>
-                                    </span>
-                                    <span class ="radioDecorator">
-                                        <input id="radioPageLast"
-                                               type="radio"
-                                               name="page" value="${state.getPagination().totalPages}">
-                                        <button type="button"  class="href-nav-item"
-                                                onclick="
-                                      document.getElementById('radioPageLast').setAttribute('checked', true);
-                                      this.form.submit()" >
-                                            >>
-                                        </button>
-                                    </span>
-
-                                </c:if>
-                            </div>
-                        </td>
-                        <td style="text-align: right">
-                            <div id="selectMaxResult">
-                                Показывать по :
-                                <select type="text" name="maxResult"
-                                        onchange="
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
-                                    this.form.submit()"
-                                ><%--multiple="true"--%>
-                                    <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">
-                                        <c:choose>
-                                            <c:when test="${tempMaxResult.equals(state.getPagination().maxResult)}">
-                                                <option selected
-                                                        value ="${tempMaxResult}">${tempMaxResult}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value ="${tempMaxResult}">${tempMaxResult}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </td>
-                    </table>
-                </div>
+                <jsp:include page="/WEB-INF/templates/common_pagination.jsp" />
 
                 <div id="list_actions">
                     <table>
@@ -395,7 +272,7 @@
                                             onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=actionType&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=actionType&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
@@ -412,7 +289,7 @@
                                             onclick="
                                 document.getElementById('radio-orderFieldName-orderFieldName=actionType&desc=false').setAttribute('checked', true);
                                 document.getElementById('radio-desc-orderFieldName=actionType&desc=false').setAttribute('checked', true);
-                                document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
                                     </button>
@@ -431,7 +308,7 @@
                                             onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=content&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=content&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
@@ -448,7 +325,7 @@
                                             onclick="
                                 document.getElementById('radio-orderFieldName-orderFieldName=content&desc=false').setAttribute('checked', true);
                                 document.getElementById('radio-desc-orderFieldName=content&desc=false').setAttribute('checked', true);
-                                document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
                                     </button>
@@ -467,7 +344,7 @@
                                             onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=date&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=date&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
@@ -484,7 +361,7 @@
                                             onclick="
                                 document.getElementById('radio-orderFieldName-orderFieldName=date&desc=false').setAttribute('checked', true);
                                 document.getElementById('radio-desc-orderFieldName=date&desc=false').setAttribute('checked', true);
-                                document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
                                     </button>
@@ -503,7 +380,7 @@
                                             onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=userByIdImplementor.lastName&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=userByIdImplementor.lastName&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
@@ -520,7 +397,7 @@
                                             onclick="
                                 document.getElementById('radio-orderFieldName-orderFieldName=userByIdImplementor.lastName&desc=false').setAttribute('checked', true);
                                 document.getElementById('radio-desc-orderFieldName=userByIdImplementor.lastName&desc=false').setAttribute('checked', true);
-                                document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
                                     </button>
@@ -540,7 +417,7 @@
                                             onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=userByIdImplementor.organization.name&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=userByIdImplementor.organization.name&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
@@ -557,7 +434,7 @@
                                             onclick="
                                 document.getElementById('radio-orderFieldName-orderFieldName=userByIdImplementor.organization.name&desc=false').setAttribute('checked', true);
                                 document.getElementById('radio-desc-orderFieldName=userByIdImplementor.organization.name&desc=false').setAttribute('checked', true);
-                                document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
                                     </button>
@@ -576,7 +453,7 @@
                                             onclick="
                                     document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing&desc=true').setAttribute('checked', true);
                                     document.getElementById('radio-desc-orderFieldName=statusAfterProcessing&desc=true').setAttribute('checked', true);
-                                    document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                    document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                     this.form.submit()" >
                                         /\
                                     </button>
@@ -593,16 +470,19 @@
                                             onclick="
                                 document.getElementById('radio-orderFieldName-orderFieldName=statusAfterProcessing&desc=false').setAttribute('checked', true);
                                 document.getElementById('radio-desc-orderFieldName=statusAfterProcessing&desc=false').setAttribute('checked', true);
-                                document.getElementById('selectedNewResultAndNeedSetFirstPage').setAttribute('value', true);
+                                document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                 this.form.submit()" >
                                         \/
                                     </button>
                                 </span>
                         </tr>
-                        <c:forEach var="tempAction" items="${state.getPagination().getList()}" varStatus="actionLoopCount" >
+                        <c:forEach var="tempAction" items="${state.getPageImpl().getContent()}" varStatus="loopCount" >
                             <tr>
                                 <td><input type="checkbox"></td>
-                                <td>${actionLoopCount.count + (state.getPagination().currentPage-1)*state.getPagination().maxResult}</td>
+                                <%--<td>${actionLoopCount.count + (state.getPagination().currentPage-1)*state.getPagination().maxResult}</td>--%>
+                                <td>
+                                        ${loopCount.count + state.getPageImpl().getNumber() * state.getPageImpl().getPageable().getPageSize() }
+                                </td>
                                 <td>${tempAction.actionType.name}</td>
                                 <td>${tempAction.content}</td>
                                 <td>${tempAction.date.toString()}</td>
@@ -614,13 +494,12 @@
                     </table>
                 </div>
 
-                <input id="selectedNewResultAndNeedSetFirstPage"
-                       type="hidden"
-                       name="selectedNewResultAndNeedSetFirstPage" value="false"></input>
-
             </div>
         </div>
 
+        <input id="flagNeedSetFirstPage"
+               type="hidden"
+               name="flagNeedSetFirstPage" value="false"></input>
     </form>
 
 </div>
@@ -659,12 +538,12 @@
 
 
     document.getElementById("orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").classList.add('href-nav-item-current');
-
-    document.getElementById("radio-orderFieldName-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', true);
-    document.getElementById("radio-desc-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', true);
-
+    //
+    document.getElementById("radio-orderFieldName-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', 'true');
+    document.getElementById("radio-desc-orderFieldName=${state.getDto().getOrderFieldName()}&desc=${state.getDto().isDesc()}").setAttribute('checked', 'true');
+    //
     //todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last
-    document.getElementById("radioPageCount_${state.getPagination().currentPage}").setAttribute('checked', true);
+    document.getElementById("radioPageCount_${state.getPageImpl().getPageable().getPageNumber()}").setAttribute('checked', 'true');
 
 </script>
 </body>

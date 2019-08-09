@@ -1,17 +1,14 @@
 package com.lanit.satonin18.app.controller.crud;
 
-import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
-import com.lanit.satonin18.app.service.entities_service.CrudService;
 import com.lanit.satonin18.app.service.entities_service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller("actionController")
 @RequestMapping("/crud/action")
@@ -20,31 +17,25 @@ public class ActionController {
 	@Autowired
 	private ActionService actionService;
 
-	//todo need in jsf connected in organizationService
 	@Autowired
 	private OrganizationService organizationService;
 
-	@GetMapping("/")
-	public String index(Model model) {
-		return "crud/action/index";
-	}
-
 	@GetMapping("/list")
 	public String list(Model model) {
-		model.addAttribute("list", actionService.list());
+		model.addAttribute("list", actionService.findAll());
 		return "crud/action/list";
 	}
 
-	@GetMapping("/add")
-	public String add(Model model){
-		model.addAttribute("action", new Action());
-		model.addAttribute("listOrg", organizationService.list());
-		return "crud/action/add";
-	}
-
-	@PostMapping("/add")
-	public String addAction(@ModelAttribute("action") Action action){
-		actionService.save(action);
-		return "redirect:crud/action/notific_list";
-	}
+//	@PostMapping("/search")
+//	public String searchUsers(@RequestParam("theSearchName") String theSearchName,
+//							  Model theModel) {
+//		System.out.println(theSearchName);
+//		List<Action> theActions = actionService.findByLastContentIgnoreCaseContaining(theSearchName);
+//		for(Action action : theActions) {
+//			System.out.println(action);
+//		}
+//		theModel.addAttribute("list", theActions);
+//		theModel.addAttribute("valueSearch", theSearchName);
+//		return "crud/action/list";
+//	}
 }

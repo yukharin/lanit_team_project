@@ -11,16 +11,15 @@ public interface OrganizationService extends CrudService<Organization> {
     void save(Organization organization) ;
 
     @Override
-    void update(Organization organization) ;
-
-    @Override
     void delete(Organization organization) ;
 
     @Override
-    Organization getById(int id) ;
+    Organization findById(int id) ;
 
     @Override
-    List<Organization> list() ;
+    List<Organization> findAll() ;
 
     void deleteById(int id) ;
+
+    List<Organization> findByNameIgnoreCaseContaining(String theSearchName);
 }
