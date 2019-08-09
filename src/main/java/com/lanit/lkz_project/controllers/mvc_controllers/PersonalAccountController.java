@@ -128,7 +128,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/addNotification/add/")
+    @PostMapping("/addNotification/")
     public ModelAndView addNotification(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
@@ -156,7 +156,7 @@ public class PersonalAccountController {
         }
     }
 
-    @RequestMapping("/notification_info/")
+    @GetMapping("/notification_info/")
     public ModelAndView getNotificationPage(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
@@ -176,7 +176,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/notification_info/commit/")
+    @PostMapping("/notification_info/")
     public ModelAndView addAction(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,

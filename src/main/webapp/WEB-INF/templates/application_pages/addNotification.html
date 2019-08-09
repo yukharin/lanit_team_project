@@ -28,7 +28,7 @@
     <div class="add_notification">
         <h3 class="add_notification-header">Создать уведомление</h3>
         <form class="add_notification-form" id="addNotification" method="post"
-              th:action="@{/account/addNotification/add/}" th:object="${notification}">
+              th:action="@{/account/addNotification/}" th:object="${notification}">
             <label class="add_notification-form-label" for="input1">Введите тип уведомления
                 <input class="add_notification-form-input" id="input1" name=notificationType
                        required th:field="*{notificationType}" type="text"/>
