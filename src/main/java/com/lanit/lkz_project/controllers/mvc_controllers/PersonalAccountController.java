@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.EnumSet;
 import java.util.List;
@@ -77,13 +76,12 @@ public class PersonalAccountController {
     @RequestMapping("/")
     public ModelAndView getPage(@SessionAttribute String login,
                                 @SessionAttribute String password,
-                                @ModelAttribute PersonalAccountPageDto<Notification> pageDTO,
-                                ModelAndView modelAndView, HttpServletRequest request) {
+                                @ModelAttribute PersonalAccountPageDto<Notification> pageDTO) {
         @NonNull User user = userAuthorization.authorize(login, password);
+        ModelAndView modelAndView = new ModelAndView(account_page);
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
         modelAndView.addObject("user", user);
-        modelAndView.setViewName(account_page);
         logger.trace("added 2 attributes to model: pageDTO - "
                 + pageDTO + " and user - " + user + " , then sending to personalAccount.html");
         return modelAndView;
@@ -93,10 +91,10 @@ public class PersonalAccountController {
     public ModelAndView getNotificationActions(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
-            @NonNull @RequestParam String id,
+            @NonNull @RequestParam Long id,
             ModelAndView modelAndView) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        Notification notification = notificationService.getNotification(Long.valueOf(id));
+        Notification notification = notificationService.getNotification(id);
         Set<Action> actions = notification.getActions();
         modelAndView.addObject("user", user);
         modelAndView.addObject("actions", actions);
@@ -134,7 +132,9 @@ public class PersonalAccountController {
     public ModelAndView addNotification(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
-            @Valid @ModelAttribute Notification notification, BindingResult bindingResult, ModelAndView modelAndView) {
+            @Valid @ModelAttribute Notification notification,
+            BindingResult bindingResult,
+            ModelAndView modelAndView) {
         @NonNull User user = userAuthorization.authorize(login, password);
         if (bindingResult.hasErrors()) {
             logger.info("user: " + user + "passed wrong input to the form: "
@@ -151,7 +151,7 @@ public class PersonalAccountController {
             logger.info("user: " + user + "added notificationDTO to the database, added notificationDTO - "
                     + notification + ", then redirect to account.html");
             modelAndView.addObject("user", user);
-            modelAndView.setViewName(account_page);
+            modelAndView.setViewName("redirect:/account/");
             return modelAndView;
         }
     }
@@ -160,11 +160,11 @@ public class PersonalAccountController {
     public ModelAndView getNotificationPage(
             @NonNull @SessionAttribute String login,
             @NonNull @SessionAttribute String password,
-            @NonNull @RequestParam String id,
+            @NonNull @RequestParam Long id,
             @ModelAttribute Action action,
             ModelAndView modelAndView) {
         @NonNull User user = userAuthorization.authorize(login, password);
-        Notification notification = notificationService.getNotification(Long.valueOf(id));
+        Notification notification = notificationService.getNotification(id);
         EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
         modelAndView.addObject("user", user);
         modelAndView.addObject("notification", notification);
@@ -206,6 +206,16 @@ public class PersonalAccountController {
             return modelAndView;
         }
     }
+
+//
+//    @InitBinder("dateResponse")
+//    public void customizeBinding(WebDataBinder binder) {
+//        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+//        dateFormatter.setLenient(false);
+//        binder.registerCustomEditor(LocalDate.class, "dateResponse",
+//                new CustomDateEditor(dateFormatter, true));
+//    }
+
 
     @PostConstruct
     private void print() {
