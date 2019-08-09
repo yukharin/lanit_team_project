@@ -174,14 +174,6 @@
             <version>3.0.1.RELEASE</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.23</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -218,29 +210,7 @@
             <version>5.2.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet</artifactId>
-            <version>2.2.9.Final</version>
-        </dependency>
-
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>corp1</id>
-            <name>Corporate Repository</name>
-            <url>file:///home/myfolder/.m2</url>
-            <layout>default</layout>
-        </repository>
-    </distributionManagement>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
