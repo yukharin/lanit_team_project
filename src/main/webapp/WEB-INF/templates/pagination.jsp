@@ -9,40 +9,13 @@
 <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 
 <div id="state.PageImpl">
-    state.getPageImpl().getTotalPages()              ${state.getPageImpl().getTotalPages()}
-    <Br>
-    state.getPageImpl().getTotalElements()           ${state.getPageImpl().getTotalElements()}
-    <Br>
-    state.getPageImpl().getContent().size()               ${state.getPageImpl().getContent().size()}
-    <Br>
-    state.getPageImpl().isLast()                ${state.getPageImpl().isLast()}
-    <Br>
-    state.getPageImpl().isFirst()                ${state.getPageImpl().isFirst()}
-    <Br>
-    state.getPageImpl().toString()                ${state.getPageImpl().toString()}
-    <Br>
-    state.getPageImpl().hasNext()                ${state.getPageImpl().hasNext()}
-    <Br>
-    state.getPageImpl().getNumber()                ${state.getPageImpl().getNumber()}
-    <Br>
-    state.getPageImpl().getNumberOfElements()                ${state.getPageImpl().getNumberOfElements()}
-    <Br>
-    state.getPageImpl().getSize()                ${state.getPageImpl().getSize()}
-    <Br>
-    getPageable-----------------------------------
-
-    <Br>
-    state.getPageImpl().getPageable().getPageSize()     ${state.getPageImpl().getPageable().getPageSize()}
-    <Br>
-    state.getPageImpl().getPageable().getPageNumber()   ${state.getPageImpl().getPageable().getPageNumber()}
-
     <table>
         <td style="text-align: left">
             Найдено записей: ${state.getPageImpl().getTotalElements()}<Br>
         </td>
         <td style="text-align: center">
             <div id="page-navigator">
-                <c:if test="${state.getPageImpl().getTotalPages() > 0}">
+                <c:if test="${state.getPageImpl().getTotalPages() > 1}">
 
                             <span class ="radioDecorator">
                                 <input id="radioPageFirst"
@@ -79,7 +52,7 @@
                                         onclick="
                                                 document.getElementById('radioPageCount_${page}').setAttribute('checked', 'true');
                                                 this.form.submit()" >
-                                        ${page}
+                                        ${page+1}
                                 </button>
                                 </span>
                     </c:forEach>

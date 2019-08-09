@@ -191,7 +191,7 @@
             <%--</form>--%>
         </div>
 
-        <jsp:include page="/WEB-INF/templates/common_pagination.jsp" />
+        <jsp:include page="/WEB-INF/templates/pagination.jsp" />
 
         <div id="list_notifications">
             <table>
