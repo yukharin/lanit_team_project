@@ -21,7 +21,6 @@ public class ExceptionAdviceController {
 
     @ExceptionHandler(Throwable.class)
     public ModelAndView handle(Throwable ex) {
-        System.err.println("EXCEPTION: " + ex.getCause().getMessage());
         logger.error("exception: " + ex.getMessage());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(general_error_page);
