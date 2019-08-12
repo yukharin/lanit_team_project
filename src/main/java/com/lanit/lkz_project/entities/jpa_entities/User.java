@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +17,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -24,7 +29,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 @JsonIgnoreProperties("organization")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     private static int counter = 0;
 
@@ -32,6 +37,7 @@ public class User implements Serializable {
         counter++;
         System.err.println("Users: " + counter);
     }
+
 
     @Id
     @Column(name = "id", nullable = false)
@@ -62,8 +68,8 @@ public class User implements Serializable {
     @Size(min = 3, max = 45, message = "Login must be of length ranging from 3 to 45.")
     @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$",
             message = "Login shouldn't have any special characters other than underscore.")
-    @Column(name = "login", nullable = false, length = 45)
-    private String login;
+    @Column(name = "username", nullable = false, length = 45)
+    private String username;
 
     @NotBlank
     @Size(min = 7, max = 45,
@@ -81,4 +87,22 @@ public class User implements Serializable {
     @Column(name = "role")
     private Role role;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    @Column(name = "accountNonExpired")
+    private boolean accountNonExpired;
+
+    @Column(name = "accountNonLocked")
+    private boolean accountNonLocked;
+
+    @Column(name = "credentialsNonExpired")
+    private boolean credentialsNonExpired;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<Role> roles = new HashSet<>();
+        roles.add(this.role);
+        return roles;
+    }
 }

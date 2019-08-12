@@ -41,18 +41,22 @@ CREATE TABLE IF NOT EXISTS `lanit`.`organizations`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `lanit`.`users`
 (
-    `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_org`            INT UNSIGNED NOT NULL,
-    `first_name`        VARCHAR(45)  NOT NULL,
-    `last_name`         VARCHAR(45)  NOT NULL,
-    `login`             VARCHAR(45)  NOT NULL,
-    `password`          VARCHAR(45)  NOT NULL,
-    `registration_date` DATE         NOT NULL,
-    `role`              INT UNSIGNED NOT NULL,
+    `id`                    INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_org`                INT UNSIGNED NOT NULL,
+    `first_name`            VARCHAR(45)  NOT NULL,
+    `last_name`             VARCHAR(45)  NOT NULL,
+    `username`              VARCHAR(45)  NOT NULL,
+    `password`              VARCHAR(45)  NOT NULL,
+    `registration_date`     DATE         NOT NULL,
+    `role`                  INT UNSIGNED NOT NULL,
+    `enabled`               TINYINT      NOT NULL,
+    `accountNonExpired`     TINYINT      NOT NULL,
+    `accountNonLocked`      TINYINT      NOT NULL,
+    `credentialsNonExpired` TINYINT      NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `id_org` (`id_org` ASC) VISIBLE,
     INDEX `last_name` (`last_name` ASC) INVISIBLE,
-    UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE,
+    UNIQUE INDEX `login_UNIQUE` (`username` ASC) VISIBLE,
     CONSTRAINT `id_org`
         FOREIGN KEY (`id_org`)
             REFERENCES `lanit`.`organizations` (`id`)
@@ -180,27 +184,27 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `lanit`;
-INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `login`, `password`, `registration_date`,
-                             `role`)
-VALUES (1, 1, 'Vlad', 'Yukharin', 'yukharin', 'password7788', '2015-07-12', 0);
-INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `login`, `password`, `registration_date`,
-                             `role`)
-VALUES (2, 2, 'Slava', 'Satonin', 'satonin', 'password7788', '2016-06-21', 0);
-INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `login`, `password`, `registration_date`,
-                             `role`)
-VALUES (3, 3, 'Коля', 'Иванов', 'login1', 'password7788', '2017-03-15', 1);
-INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `login`, `password`, `registration_date`,
-                             `role`)
-VALUES (4, 3, 'Вася ', 'Пупкин', 'login2', 'password7788', '2017-04-29', 1);
-INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `login`, `password`, `registration_date`,
-                             `role`)
-VALUES (5, 10, 'Артем', 'Гринев', 'login3', 'password7788', '2017-05-05', 1);
-INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `login`, `password`, `registration_date`,
-                             `role`)
-VALUES (6, 10, 'Паша', 'Гриневич', 'login4', 'password7788', '2017-05-12', 1);
-INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `login`, `password`, `registration_date`,
-                             `role`)
-VALUES (7, 10, 'Саша', 'Вербицкий', 'login5', 'password7788', '2017-05-21', 1);
+INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
+                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+VALUES (1, 1, 'Vlad', 'Yukharin', 'yukharin', 'password7788', '2015-07-12', 0, 1, 1, 1, 1);
+INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
+                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+VALUES (2, 2, 'Slava', 'Satonin', 'satonin', 'password7788', '2016-06-21', 0, 1, 1, 1, 1);
+INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
+                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+VALUES (3, 3, 'Коля', 'Иванов', 'login1', 'password7788', '2017-03-15', 1, 1, 1, 1, 1);
+INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
+                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+VALUES (4, 3, 'Вася ', 'Пупкин', 'login2', 'password7788', '2017-04-29', 1, 1, 1, 1, 1);
+INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
+                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+VALUES (5, 10, 'Артем', 'Гринев', 'login3', 'password7788', '2017-05-05', 1, 1, 1, 1, 1);
+INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
+                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+VALUES (6, 10, 'Паша', 'Гриневич', 'login4', 'password7788', '2017-05-12', 1, 1, 1, 1, 1);
+INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
+                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+VALUES (7, 10, 'Саша', 'Вербицкий', 'login5', 'password7788', '2017-05-21', 1, 1, 1, 1, 1);
 
 COMMIT;
 
@@ -212,49 +216,49 @@ START TRANSACTION;
 USE `lanit`;
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (1, 1, 'Уведомление о получении денег', 0, '2019-07-21', '2019-08-11', '11-12-1593/2', 1);
+VALUES (1, 1, 'Уведомление о получении денег', 0, '2019-07-21', '2019-09-11', '11-12-1593/2', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (2, 1, 'Уведомление о получении кредита', 0, '2019-07-24', '2019-08-14', '16-65-1863/5', 1);
+VALUES (2, 1, 'Уведомление о получении кредита', 0, '2019-07-24', '2019-09-14', '16-65-1863/5', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (3, 1, 'Уведомление о завершении тендера', 0, '2019-07-27', '2019-08-21', '85-60-9482/9', 1);
+VALUES (3, 1, 'Уведомление о завершении тендера', 0, '2019-07-27', '2019-09-21', '85-60-9482/9', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (4, 1, 'Уведомление о премии', 0, '2019-07-29', '2019-08-03', '96-49-1836/5', 1);
+VALUES (4, 1, 'Уведомление о премии', 0, '2019-07-29', '2019-09-03', '96-49-1836/5', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (5, 1, 'Уведомление об увольнении с работы', 0, '2019-08-01', '2019-08-07', '38-97-9738/3', 1);
+VALUES (5, 1, 'Уведомление об увольнении с работы', 0, '2019-08-01', '2019-09-07', '38-97-9738/3', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (6, 1, 'Уведомление о выигрыше тендера', 0, '2019-08-04', '2019-08-11', '28-75-2374/2', 1);
+VALUES (6, 1, 'Уведомление о выигрыше тендера', 0, '2019-08-04', '2019-09-11', '28-75-2374/2', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (7, 1, 'Уведомление о закрытии счета', 0, '2019-08-06', '2019-08-14', '11-42-5426/4', 1);
+VALUES (7, 1, 'Уведомление о закрытии счета', 0, '2019-08-06', '2019-09-14', '11-42-5426/4', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (8, 1, 'Уведомление о завершении работы', 0, '2019-08-09', '2019-08-17', '25-96-2643/1', 1);
+VALUES (8, 1, 'Уведомление о завершении работы', 0, '2019-08-09', '2019-09-17', '25-96-2643/1', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (9, 1, 'Уведомление о перечислении денег', 0, '2019-08-14', '2019-08-21', '79-75-9848/9', 1);
+VALUES (9, 1, 'Уведомление о перечислении денег', 0, '2019-08-14', '2019-10-21', '79-75-9848/9', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (10, 1, 'Уведомление о получении премии', 0, '2019-08-19', '2019-08-24', '23-89-1378/5', 1);
+VALUES (10, 1, 'Уведомление о получении премии', 0, '2019-08-19', '2019-10-24', '23-89-1378/5', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (11, 1, 'Уведомление о начислении бонусов', 0, '2019-08-23', '2019-08-27', '32-43-2368/3', 1);
+VALUES (11, 1, 'Уведомление о начислении бонусов', 0, '2019-08-23', '2019-10-27', '32-43-2368/3', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (12, 1, 'Уведомление о начислении средств', 0, '2019-08-27', '2019-09-02', '87-54-0958/3', 1);
+VALUES (12, 1, 'Уведомление о начислении средств', 0, '2019-08-27', '2019-10-02', '87-54-0958/3', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (13, 1, 'Уведомление о получении прибыли', 0, '2019-09-03', '2019-09-07', '19-65-9854/1', 1);
+VALUES (13, 1, 'Уведомление о получении прибыли', 0, '2019-09-03', '2019-10-07', '19-65-9854/1', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (14, 1, 'Уведомление о получении повышения', 0, '2019-09-12', '2019-09-15', '89-96-9847/2', 1);
+VALUES (14, 1, 'Уведомление о получении повышения', 0, '2019-09-12', '2019-10-15', '89-96-9847/2', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (15, 1, 'Уведомление о выигрыше конкурса', 0, '2019-09-15', '2019-09-17', '78-39-3479/8', 1);
+VALUES (15, 1, 'Уведомление о выигрыше конкурса', 0, '2019-09-15', '2019-10-17', '78-39-3479/8', 1);
 
 COMMIT;
 

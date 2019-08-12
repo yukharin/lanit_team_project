@@ -57,7 +57,7 @@ public class Action implements Serializable {
     private LocalDateTime date;
 
     @OneToOne
-    @JoinColumn(name = "id_implementor", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_implementor", referencedColumnName = "id")
     private User implementor;
 
     @Enumerated(EnumType.ORDINAL)

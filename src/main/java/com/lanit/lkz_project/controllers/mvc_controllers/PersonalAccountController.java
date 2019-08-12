@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -74,10 +75,10 @@ public class PersonalAccountController {
 //    }
 
     @RequestMapping("/")
-    public ModelAndView getPage(@SessionAttribute String login,
-                                @SessionAttribute String password,
-                                @ModelAttribute PersonalAccountPageDto<Notification> pageDTO) {
-        @NonNull User user = userAuthorization.authorize(login, password);
+    public ModelAndView getPage(
+            @ModelAttribute PersonalAccountPageDto<Notification> pageDTO,
+            @AuthenticationPrincipal User user) {
+        System.err.println("USER: " + user);
         ModelAndView modelAndView = new ModelAndView(account_page);
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
@@ -89,11 +90,9 @@ public class PersonalAccountController {
 
     @PostMapping("/notification_actions_history/")
     public ModelAndView getNotificationActions(
-            @NonNull @SessionAttribute String login,
-            @NonNull @SessionAttribute String password,
+            @AuthenticationPrincipal User user,
             @NonNull @RequestParam Long id,
             ModelAndView modelAndView) {
-        @NonNull User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(id);
         Set<Action> actions = notification.getActions();
         modelAndView.addObject("user", user);
@@ -114,11 +113,9 @@ public class PersonalAccountController {
 
     @GetMapping("/addNotification/")
     public ModelAndView getAddNotificationPage(
-            @NonNull @SessionAttribute String login,
-            @NonNull @SessionAttribute String password,
+            @AuthenticationPrincipal User user,
             @ModelAttribute Notification notification,
             ModelAndView modelAndView) {
-        @NonNull User user = userAuthorization.authorize(login, password);
         modelAndView.addObject("user", user);
         List<Organization> organizations = organizationService.nonGovernmentOrganizations();
         modelAndView.addObject("organizations", organizations);
@@ -130,26 +127,18 @@ public class PersonalAccountController {
 
     @PostMapping("/addNotification/")
     public ModelAndView addNotification(
-            @NonNull @SessionAttribute String login,
-            @NonNull @SessionAttribute String password,
+            @AuthenticationPrincipal User user,
             @Valid @ModelAttribute Notification notification,
             BindingResult bindingResult,
             ModelAndView modelAndView) {
-        @NonNull User user = userAuthorization.authorize(login, password);
         if (bindingResult.hasErrors()) {
-            logger.info("user: " + user + "passed wrong input to the form: "
-                    + bindingResult.getAllErrors());
             modelAndView.addObject("user", user);
             List<Organization> organizations = organizationService.nonGovernmentOrganizations();
             modelAndView.addObject("organizations", organizations);
             modelAndView.setViewName(create_notification_page);
-            logger.info("added 2 attributes to model: user - "
-                    + user + " and organizations - " + organizations + " , then sending to addNotification.html");
             return modelAndView;
         } else {
             personalAccountService.addNotification(notification, user);
-            logger.info("user: " + user + "added notificationDTO to the database, added notificationDTO - "
-                    + notification + ", then redirect to account.html");
             modelAndView.addObject("user", user);
             modelAndView.setViewName("redirect:/account/");
             return modelAndView;
@@ -158,51 +147,36 @@ public class PersonalAccountController {
 
     @GetMapping("/notification_info/")
     public ModelAndView getNotificationPage(
-            @NonNull @SessionAttribute String login,
-            @NonNull @SessionAttribute String password,
+            @AuthenticationPrincipal User user,
             @NonNull @RequestParam Long id,
             @ModelAttribute Action action,
             ModelAndView modelAndView) {
-        @NonNull User user = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(id);
         EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
         modelAndView.addObject("user", user);
         modelAndView.addObject("notification", notification);
         modelAndView.addObject("actionTypes", types);
         modelAndView.setViewName(notification_info_page);
-        logger.trace("added 3 attributes to model: user - "
-                + user + " and notification - " + notification
-                + "and  actionTypes " + types + " then sending to notificationInfo.html");
         return modelAndView;
     }
 
     @PostMapping("/notification_info/")
     public ModelAndView addAction(
-            @NonNull @SessionAttribute String login,
-            @NonNull @SessionAttribute String password,
+            @AuthenticationPrincipal User user,
             @Valid @NonNull @ModelAttribute Action action,
             BindingResult bindingResult,
             ModelAndView modelAndView) {
-        @NonNull User userImplementor = userAuthorization.authorize(login, password);
         Notification notification = notificationService.getNotification(action.getNotification().getId());
-        logger.info("user: " + userImplementor + " passed input to the form");
         if (bindingResult.hasErrors()) {
-            logger.info("user: " + userImplementor + "passed wrong input to the form: "
-                    + bindingResult.getAllErrors());
             EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
-            modelAndView.addObject("user", userImplementor);
+            modelAndView.addObject("user", user);
             modelAndView.addObject("notification", notification);
             modelAndView.addObject("actionTypes", types);
             modelAndView.setViewName(notification_info_page);
-            logger.info("added 3 attributes to model: user - "
-                    + userImplementor + " and notification - " + notification
-                    + "and  actionTypes " + types + " then sending to notificationInfo.html");
             return modelAndView;
         } else {
-            personalAccountService.addAction(userImplementor, action);
+            personalAccountService.addAction(user, action);
             modelAndView.setViewName("redirect:/account/");
-            logger.info("user: " + userImplementor + " added action : "
-                    + action + " to notification: " + notification + " , then redirecting to account.html");
             return modelAndView;
         }
     }
