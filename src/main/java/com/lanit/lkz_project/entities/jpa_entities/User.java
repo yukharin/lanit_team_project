@@ -77,7 +77,7 @@ public class User implements Serializable, UserDetails {
                     "and be no longer than 45 characters")
     @Pattern(regexp = "^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$",
             message = "Password must contain at least one letter, " +
-                    "at least one number, and be longer than six charaters.")
+                    "at least one number, and be longer than six characters.")
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
