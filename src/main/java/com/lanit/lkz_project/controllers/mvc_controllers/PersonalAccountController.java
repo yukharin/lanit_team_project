@@ -1,6 +1,5 @@
 package com.lanit.lkz_project.controllers.mvc_controllers;
 
-import com.lanit.lkz_project.authorization.UserAuthorizationService;
 import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
 import com.lanit.lkz_project.entities.enums.ActionType;
 import com.lanit.lkz_project.entities.jpa_entities.Action;
@@ -21,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.util.EnumSet;
 import java.util.List;
@@ -57,8 +55,6 @@ public class PersonalAccountController {
     private OrganizationService organizationService;
     @Autowired
     private PersonalAccountService personalAccountService;
-    @Autowired
-    private UserAuthorizationService userAuthorization;
 
 //    JavaScript + JSON edition
 //    @RequestMapping("/account/")
@@ -78,7 +74,6 @@ public class PersonalAccountController {
     public ModelAndView getPage(
             @ModelAttribute PersonalAccountPageDto<Notification> pageDTO,
             @AuthenticationPrincipal User user) {
-        System.err.println("USER: " + user);
         ModelAndView modelAndView = new ModelAndView(account_page);
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
@@ -180,21 +175,5 @@ public class PersonalAccountController {
             return modelAndView;
         }
     }
-
-//
-//    @InitBinder("dateResponse")
-//    public void customizeBinding(WebDataBinder binder) {
-//        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-//        dateFormatter.setLenient(false);
-//        binder.registerCustomEditor(LocalDate.class, "dateResponse",
-//                new CustomDateEditor(dateFormatter, true));
-//    }
-
-
-    @PostConstruct
-    private void print() {
-        System.err.println("CONTROLLER!: " + this);
-    }
-
 
 }
