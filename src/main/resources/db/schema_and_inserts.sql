@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `lanit`.`users`
     `first_name`            VARCHAR(45)  NOT NULL,
     `last_name`             VARCHAR(45)  NOT NULL,
     `username`              VARCHAR(45)  NOT NULL,
-    `password`              VARCHAR(45)  NOT NULL,
+    `password`              VARCHAR(60)  NOT NULL,
     `registration_date`     DATE         NOT NULL,
     `role`                  INT UNSIGNED NOT NULL,
     `enabled`               TINYINT      NOT NULL,
@@ -186,25 +186,32 @@ START TRANSACTION;
 USE `lanit`;
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
                              `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
-VALUES (1, 1, 'Vlad', 'Yukharin', 'yukharin', 'password7788', '2015-07-12', 0, 1, 1, 1, 1);
+VALUES (1, 1, 'Vlad', 'Yukharin', 'yukharin', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
+        '2015-07-12', 0, 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
                              `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
-VALUES (2, 2, 'Slava', 'Satonin', 'satonin', 'password7788', '2016-06-21', 0, 1, 1, 1, 1);
+VALUES (2, 2, 'Slava', 'Satonin', 'satonin', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
+        '2016-06-21', 0, 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
                              `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
-VALUES (3, 3, 'Коля', 'Иванов', 'login1', 'password7788', '2017-03-15', 1, 1, 1, 1, 1);
+VALUES (3, 3, 'Коля', 'Иванов', 'login1', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS', '2017-03-15',
+        1, 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
                              `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
-VALUES (4, 3, 'Вася ', 'Пупкин', 'login2', 'password7788', '2017-04-29', 1, 1, 1, 1, 1);
+VALUES (4, 3, 'Вася ', 'Пупкин', 'login2', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS', '2017-04-29',
+        1, 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
                              `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
-VALUES (5, 10, 'Артем', 'Гринев', 'login3', 'password7788', '2017-05-05', 1, 1, 1, 1, 1);
+VALUES (5, 10, 'Артем', 'Гринев', 'login3', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
+        '2017-05-05', 1, 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
                              `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
-VALUES (6, 10, 'Паша', 'Гриневич', 'login4', 'password7788', '2017-05-12', 1, 1, 1, 1, 1);
+VALUES (6, 10, 'Паша', 'Гриневич', 'login4', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
+        '2017-05-12', 1, 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
                              `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
-VALUES (7, 10, 'Саша', 'Вербицкий', 'login5', 'password7788', '2017-05-21', 1, 1, 1, 1, 1);
+VALUES (7, 10, 'Саша', 'Вербицкий', 'login5', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
+        '2017-05-21', 1, 1, 1, 1, 1);
 
 COMMIT;
 

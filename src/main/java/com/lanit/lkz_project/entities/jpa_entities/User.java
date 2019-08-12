@@ -72,13 +72,13 @@ public class User implements Serializable, UserDetails {
     private String username;
 
     @NotBlank
-    @Size(min = 7, max = 45,
+    @Size(min = 7, max = 60,
             message = "Password should have at least 7 characters " +
                     "and be no longer than 45 characters")
     @Pattern(regexp = "^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$",
             message = "Password must contain at least one letter, " +
                     "at least one number, and be longer than six charaters.")
-    @Column(name = "password", nullable = false, length = 45)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
 
     @Column(name = "registration_date", nullable = false)

@@ -1,13 +1,6 @@
 package com.lanit.lkz_project;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 public class Main {
@@ -48,58 +41,70 @@ public class Main {
 //    }
 
     public static void main(String[] args) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH mm, dd MMM yyyy");
+//        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH mm, dd MMM yyyy");
+//
+//        ZonedDateTime localDateTime = LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"));
+//        ZonedDateTime zonedDateTime = localDateTime.withZoneSameInstant(ZoneId.of("America/Los_Angeles"));
+//
+//
+//        System.out.println(format.format(localDateTime));
+//
+//        LocalDateTime localDateTime1 = LocalDateTime.now();
+//
+//        ZonedDateTime zoned = localDateTime1.atZone(ZoneId.of("Asia/Yerevan"));
+//
+//        String instant = LocalDateTime.now().toString();
+//        System.err.println(instant);
+//
+//        LocalDateTime finalTime = LocalDateTime.ofInstant(Instant.now(), ZoneId.of("UTC"));
+//        LocalDateTime zoneddd = finalTime.atZone(ZoneId.of("America/Los_Angeles")).toLocalDateTime();
+//        System.err.println(zoneddd);
+//        System.err.println(finalTime);
+//
+//        ZonedDateTime greenwich = LocalDateTime.now().atZone(ZoneId.of("UTC"));
+//
+//        System.err.println(localDateTime1);
+//        System.err.println(zoned);
+//        System.err.println(greenwich);
+//
+//        LocalDateTime localDateTime2 = LocalDateTime.now().atZone(ZoneId.of("Asia/Yekaterinburg")).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+////        System.err.println(instant.atZone(ZoneId.of("UTC")));
+//        System.err.println(localDateTime2);
+//
+//        Locale[] locales = Locale.getAvailableLocales();
+//
+//        List<Locale> list = Arrays.asList(locales);
+//        System.err.println(list.size());
+//
+////        Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
+//
+//        Locale localee = Locale.getDefault();
+//        System.err.println(localee.getCountry());
+//        System.err.println(localee.getLanguage());
+//
+//        Locale.setDefault(Locale.CHINESE);
+//
+//        for (Locale locale : list) {
+//            System.err.println("Country: " + locale.getCountry());
+//            System.out.println("Locale: " + locale);
+//            System.out.println("Language: " + locale.getLanguage());
+//            System.out.println("Variant: " + locale.getVariant());
+//            System.out.println("Display name: " + locale.getDisplayName());
+//            System.out.println("Display Language: " + locale.getDisplayLanguage());
+//            System.out.println("Display Country: " + locale.getDisplayCountry());
+//            System.out.println("ISO3 Language: " + locale.getISO3Language());
+//        }
 
-        ZonedDateTime localDateTime = LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"));
-        ZonedDateTime zonedDateTime = localDateTime.withZoneSameInstant(ZoneId.of("America/Los_Angeles"));
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String password = "password7788";
+        String encoded = bCryptPasswordEncoder.encode(password);
+        System.err.println(encoded);
+        System.err.println(encoded.length());
 
-        System.out.println(format.format(localDateTime));
-
-        LocalDateTime localDateTime1 = LocalDateTime.now();
-
-        ZonedDateTime zoned = localDateTime1.atZone(ZoneId.of("Asia/Yerevan"));
-
-        String instant = LocalDateTime.now().toString();
-        System.err.println(instant);
-
-        LocalDateTime finalTime = LocalDateTime.ofInstant(Instant.now(), ZoneId.of("UTC"));
-        LocalDateTime zoneddd = finalTime.atZone(ZoneId.of("America/Los_Angeles")).toLocalDateTime();
-        System.err.println(zoneddd);
-        System.err.println(finalTime);
-
-        ZonedDateTime greenwich = LocalDateTime.now().atZone(ZoneId.of("UTC"));
-
-        System.err.println(localDateTime1);
-        System.err.println(zoned);
-        System.err.println(greenwich);
-
-        LocalDateTime localDateTime2 = LocalDateTime.now().atZone(ZoneId.of("Asia/Yekaterinburg")).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
-//        System.err.println(instant.atZone(ZoneId.of("UTC")));
-        System.err.println(localDateTime2);
-
-        Locale[] locales = Locale.getAvailableLocales();
-
-        List<Locale> list = Arrays.asList(locales);
-        System.err.println(list.size());
-
-//        Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
-
-        Locale localee = Locale.getDefault();
-        System.err.println(localee.getCountry());
-        System.err.println(localee.getLanguage());
-
-        Locale.setDefault(Locale.CHINESE);
-
-        for (Locale locale : list) {
-            System.err.println("Country: " + locale.getCountry());
-            System.out.println("Locale: " + locale);
-            System.out.println("Language: " + locale.getLanguage());
-            System.out.println("Variant: " + locale.getVariant());
-            System.out.println("Display name: " + locale.getDisplayName());
-            System.out.println("Display Language: " + locale.getDisplayLanguage());
-            System.out.println("Display Country: " + locale.getDisplayCountry());
-            System.out.println("ISO3 Language: " + locale.getISO3Language());
+        for (int i = 0; i < 100; i++) {
+            String passEncoded = bCryptPasswordEncoder.encode(password);
+            System.err.println(bCryptPasswordEncoder.matches(password, encoded));
         }
 
     }
