@@ -56,6 +56,7 @@ public class PersonalAccountController {
     @Autowired
     private PersonalAccountService personalAccountService;
 
+
 //    JavaScript + JSON edition
 //    @RequestMapping("/account/")
 //    public String getPage(@SessionAttribute String login,
@@ -70,7 +71,7 @@ public class PersonalAccountController {
 //        return "personalAccount";
 //    }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public ModelAndView getPage(
             @ModelAttribute PersonalAccountPageDto<Notification> pageDTO,
             @AuthenticationPrincipal User user) {
@@ -83,7 +84,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/notification_actions_history/")
+    @GetMapping("/notification_actions_history/")
     public ModelAndView getNotificationActions(
             @AuthenticationPrincipal User user,
             @NonNull @RequestParam Long id,

@@ -27,7 +27,7 @@
 <nav class="not_info-navigation">
     <ul class="not_info-navigation-list">
         <li class="not_info-navigation-list-element">
-            <form class="not_info-navigation-list-form" method="post" th:action="@{/account/notification_info/}">
+            <form class="not_info-navigation-list-form" method="get" th:action="@{/account/notification_info/}">
                 <label class="not_info-navigation-list-form-label-hidden" for="hidden1">
                     <input class="not_info-navigation-list-form-input-hidden" id="hidden1" name="id"
                            th:value="${notification.id}" type="hidden"/>
@@ -39,7 +39,7 @@
             </form>
         </li>
         <li class="not_info-navigation-list-element">
-            <form class="not_info-navigation-list-form" method="post"
+            <form class="not_info-navigation-list-form" method="get"
                   th:action="@{/account/notification_actions_history/}">
                 <label class="not_info-navigation-list-form-label-hidden" for="hidden2">
                     <input class="not_info-navigation-list-form-input-hidden" id="hidden2" name="id"
