@@ -64,7 +64,7 @@ public class User implements Serializable, UserDetails {
     @Size(min = 3, max = 45, groups = UserValidationGroup.class)
     @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$",
             groups = UserValidationGroup.class)
-    @Column(name = "username", nullable = false, length = 45)
+    @Column(name = "username", nullable = false, length = 45, unique = true)
     private String username;
 
     @NotBlank(groups = UserValidationGroup.class)

@@ -18,10 +18,12 @@
         </div>
         <form class="login-form" method="post" th:action="@{/doLogin}">
             <label class="login-form-label" for="input-userName"> Имя пользователя:
-                <input class="login-form-input" id="input-userName" name="username" required type="text"/>
+                <input autocomplete="on" class="login-form-input" id="input-userName" name="username" required
+                       type="text"/>
             </label>
             <label class="login-form-label" for="input-password"> Пароль:
-                <input class="login-form-input" id="input-password" name="password" required type="password"/>
+                <input autocomplete="on" class="login-form-input" id="input-password" name="password" required
+                       type="password"/>
             </label>
             <label class="login-form-label" for="login-submit-button">
                 <button id="login-submit-button" type="submit">Логин</button>

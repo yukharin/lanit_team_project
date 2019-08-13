@@ -30,7 +30,8 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputLogin">
-                    Логин<input id="inputLogin" name="username" required th:field="*{username}" type="text"/>
+                    Логин<input autocomplete="on" id="inputLogin" name="username" required th:field="*{username}"
+                                type="text"/>
                 </label>
                 <div class="error-div" th:errors="*{username}" th:if="${#fields.hasErrors('username')}">Login
                     Error
@@ -38,7 +39,8 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputPassword">
-                    Пароль<input id="inputPassword" name="password" required th:field="*{password}" type="text"/>
+                    Пароль<input autocomplete="on" id="inputPassword" name="password" required th:field="*{password}"
+                                 type="password"/>
                 </label>
                 <div class="error-div" th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password
                     Error

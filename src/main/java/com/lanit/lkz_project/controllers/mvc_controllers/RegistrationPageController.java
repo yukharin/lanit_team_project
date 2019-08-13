@@ -10,8 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +32,8 @@ public class RegistrationPageController {
     UserService userService;
     @Autowired
     OrganizationService organizationService;
+    @Autowired
+    UserDetailsService userDetailsService;
 
     private static Logger logger = LoggerFactory.getLogger(PersonalAccountController.class);
 
@@ -41,7 +46,15 @@ public class RegistrationPageController {
     public ModelAndView add(@Validated(value = UserValidationGroup.class) @ModelAttribute User user,
                             BindingResult bindingResult,
                             ModelAndView modelAndView) {
+        UserDetails userToCheck = userDetailsService.loadUserByUsername(user.getUsername());
+        if (userToCheck != null) {
+            bindingResult.rejectValue("username", "error.user", "Логин должен быть уникальным");
+        }
         if (bindingResult.hasErrors()) {
+            List<ObjectError> objectErrors = bindingResult.getAllErrors();
+            for (ObjectError error : objectErrors) {
+                System.err.println(error.getObjectName() + " , " + error.getDefaultMessage());
+            }
             List<Organization> organizations = organizationService.organizations();
             modelAndView.addObject("organizations", organizations);
             modelAndView.setViewName(registration_page);
