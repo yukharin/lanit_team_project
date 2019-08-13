@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -17,7 +18,7 @@ public class OrganizationService {
     private OrganizationRepository organizationRepository;
 
     @Transactional
-    public void addOrganization(@NonNull Organization organization) {
+    public void addOrganization(@Valid @NonNull Organization organization) {
         organizationRepository.save(organization);
     }
 

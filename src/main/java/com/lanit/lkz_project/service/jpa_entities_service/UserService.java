@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -17,7 +18,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional
-    public void addUser(@NonNull User user) {
+    public void addUser(@Valid @NonNull User user) {
         userRepository.save(user);
     }
 

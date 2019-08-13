@@ -6,6 +6,8 @@ import com.lanit.lkz_project.entities.jpa_entities.Action;
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
 import com.lanit.lkz_project.entities.jpa_entities.Organization;
 import com.lanit.lkz_project.entities.jpa_entities.User;
+import com.lanit.lkz_project.entities.validation_groups.ActionValidationGroup;
+import com.lanit.lkz_project.entities.validation_groups.NotificationValidationGroup;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
@@ -17,10 +19,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -124,7 +126,7 @@ public class PersonalAccountController {
     @PostMapping("/addNotification/")
     public ModelAndView addNotification(
             @AuthenticationPrincipal User user,
-            @Valid @ModelAttribute Notification notification,
+            @Validated(value = NotificationValidationGroup.class) @ModelAttribute Notification notification,
             BindingResult bindingResult,
             ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
@@ -159,7 +161,7 @@ public class PersonalAccountController {
     @PostMapping("/notification_info/")
     public ModelAndView addAction(
             @AuthenticationPrincipal User user,
-            @Valid @NonNull @ModelAttribute Action action,
+            @Validated(value = ActionValidationGroup.class) @NonNull @ModelAttribute Action action,
             BindingResult bindingResult,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(action.getNotification().getId());

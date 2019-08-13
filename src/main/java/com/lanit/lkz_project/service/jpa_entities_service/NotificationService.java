@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+
 @Service
 public class NotificationService {
 
@@ -14,7 +16,7 @@ public class NotificationService {
     private NotificationRepository notificationRepository;
 
     @Transactional
-    public void addNotification(@NonNull Notification notification) {
+    public void addNotification(@Valid @NonNull Notification notification) {
         notificationRepository.save(notification);
     }
 
