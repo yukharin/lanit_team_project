@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,10 +50,6 @@ public class RegistrationPageController {
             bindingResult.rejectValue("username", "error.user", "Логин должен быть уникальным");
         }
         if (bindingResult.hasErrors()) {
-            List<ObjectError> objectErrors = bindingResult.getAllErrors();
-            for (ObjectError error : objectErrors) {
-                System.err.println(error.getObjectName() + " , " + error.getDefaultMessage());
-            }
             List<Organization> organizations = organizationService.organizations();
             modelAndView.addObject("organizations", organizations);
             modelAndView.setViewName(registration_page);
