@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller("addActionController")
-@RequestMapping("/cabinet/about_the_notification/addAction")
+@RequestMapping("/cabinet/the_notification/addAction")
 public class AddAction {
     @Autowired
     private NotificationService notificationService;
@@ -45,7 +45,7 @@ public class AddAction {
         model.addAttribute("currentNotification", currentNotification);
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
         model.addAttribute("listStatus",Arrays.asList(Status.values()));
-        return "cabinet/about_the_notification/add_action";
+        return "cabinet/the_notification/add_action";
     }
 
     @PostMapping("/save")
@@ -83,6 +83,6 @@ public class AddAction {
 
         notificationService.save(currentNotification);//update
 
-        return "redirect:/cabinet/about_the_notification/actions";
+        return "redirect:/cabinet/the_notification/actions";
     }
 }

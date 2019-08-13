@@ -9,54 +9,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Notification CRUD Application</title>
+    <%--<link rel="stylesheet" href="/css/common.css" type="text/css" />--%>
     <style type="text/css">
-        div{
-            margin: 9px 8px;
-        }
-
-        TABLE {
-            border-collapse: collapse; /* Убираем двойные линии между ячейками */
-            width: 100%;/*  width: 300px; Ширина таблицы */
-        }
-        TH, TD {
-            border: 1px solid black; /* Параметры рамки */
-            text-align: center; /* Выравнивание по центру */
-            padding: 1px; /* Поля вокруг текста */
-        }
-        TH {
-            background: #fc0; /* Цвет фона ячейки */
-            height: 40px; /* Высота ячеек */
-            /*vertical-align: bottom;  Выравнивание по нижнему краю */
-            padding: 0; /* Убираем поля вокруг текста */
-        }
-        #header_table th{
-            background: #ffccff;
-        }
-        #attention_in_header_table{
-            color: blue;
-        }
-
-        .href-nav-item {
-            background:#eaeaea; /*фон*/
-
-            border:1px solid #ccc;  /*рамка*/
-            padding: .2em .2em; /*отступы внутри*/
-            text-decoration: none; /*убрать подчеркивание ссылки*/
-        }
-        .href-nav-item-current {
-            background:#ff0000; /*фон*/
-            color: white;
-
-            border:1px solid #ccc;  /*рамка*/
-            padding: .2em .2em; /*отступы внутри*/
-            text-decoration: none; /*убрать подчеркивание ссылки*/
-        }
-
-        .green_button{
-            background-color: #4CAF50;
-            color: white;
-            display: inline-block;
-        }
+        <%@ include file="/css/common.css" %>
     </style>
 </head>
 <body>

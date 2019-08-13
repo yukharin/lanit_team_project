@@ -1,8 +1,10 @@
 package com.lanit.satonin18.app.service.app_service;
 
 //import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationDto;
-import com.lanit.satonin18.app.dto.notification_app.AboutTheNotificationState;
+import com.lanit.satonin18.app.dto.OrderByDto;
+import com.lanit.satonin18.app.dto.PaginationDto;
+import com.lanit.satonin18.app.objects.the_notification.TheNotificationState;
+import com.lanit.satonin18.app.objects.the_notification.TheNotification4renderHtml;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
@@ -17,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service("notificationAppService")
-public class AboutTheNotificationService {
+public class TheNotificationService {
     @Autowired
     private NotificationService notificationService;
     @Autowired
@@ -27,27 +29,29 @@ public class AboutTheNotificationService {
     @Autowired
     private OrganizationService organizationService;
 
-    public void executeQuery(AboutTheNotificationState state, Notification currentNotification) {
-        AboutTheNotificationDto dto = state.getDto();
+    public void executeQuery(TheNotification4renderHtml render, Notification currentNotification) {
+        TheNotificationState state = render.getState();
+        PaginationDto paginationDto = state.getPaginationDto();
+        OrderByDto orderByDto = state.getOrderByDto();
 
-        state.setPageImpl(
+        render.setPageImpl(
                 actionService.filter_Notific_Order_Pagination(
                         currentNotification,
-                        dto.getOrderFieldName(), dto.isDesc(),
+                        orderByDto.getOrderFieldName(), orderByDto.getDesc(),
                         PageRequest.of(
-                                dto.getPage(),
-                                dto.getMaxResult()
-//                                , state.getPageImpl().getMaxNavigationPage()
+                                paginationDto.getPage(),
+                                paginationDto.getMaxResult()
+//                                , render.getPageImpl().getMaxNavigationPage()
                         )
                 )
         );
-        List<Action> list = state.getPageImpl().getContent();
+        List<Action> list = render.getPageImpl().getContent();
         if( ! list.isEmpty()) {
             //todo need go in db
-            state.setLatestAction(
+            render.setLatestAction(
                     Collections.max(list, (o1, o2) -> o1.getDate().compareTo(o2.getDate()))
             );
         }
-        state.calcNavigationPages();
+//        render.calcNavigationPages();
     }
 }

@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.dto;
+package com.lanit.satonin18.app.property_in_future;
 
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public interface CommonDefaultVar {
+public interface COMMON_DEFAULT_VARS {
     public static final boolean DESC = true;
     public static final int FIRST_PAGE = 0;
     public static final int MAX_RESULT = 10;
@@ -21,8 +21,8 @@ public interface CommonDefaultVar {
     }));
 
     public static final Pageable PAGEABLE = PageRequest.of(
-            CommonDefaultVar.FIRST_PAGE,
-            CommonDefaultVar.MAX_RESULT
+            COMMON_DEFAULT_VARS.FIRST_PAGE,
+            COMMON_DEFAULT_VARS.MAX_RESULT
 //            ,
 //            MAX_NAVIGATION_PAGES
     );

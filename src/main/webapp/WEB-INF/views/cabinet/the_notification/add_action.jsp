@@ -9,81 +9,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Notification CRUD Application</title>
+    <%--<link rel="stylesheet" href="/css/common.css" type="text/css" />--%>
     <style type="text/css">
-        div{
-            margin: 9px 8px;
-        }
-
-        TABLE {
-            border-collapse: collapse; /* Убираем двойные линии между ячейками */
-            width: 100%;/*  width: 300px; Ширина таблицы */
-        }
-        TABLE.table4input_data {
-            width: auto/*  width: 300px; Ширина таблицы */
-        }
-        TH, TD {
-            border: 1px solid black; /* Параметры рамки */
-            text-align: center; /* Выравнивание по центру */
-            padding: 1px; /* Поля вокруг текста */
-        }
-        TABLE.table4input_data TH, TD {
-            text-align: left; /* Выравнивание по центру */
-        }
-        TH {
-            background: #fc0; /* Цвет фона ячейки */
-            height: 40px; /* Высота ячеек */
-            /*vertical-align: bottom;  Выравнивание по нижнему краю */
-            padding: 0; /* Убираем поля вокруг текста */
-        }
-        TABLE.table4input_data TH {
-            background: #a9ff78; /* Цвет фона ячейки */
-        }
-        #header_table th{
-            background: #ffccff;
-        }
-        #attention_in_header_table{
-            color: blue;
-        }
-
-        .href-nav-item {
-            background:#eaeaea; /*фон*/
-
-            border:1px solid #ccc;  /*рамка*/
-            padding: .2em .2em; /*отступы внутри*/
-            text-decoration: none; /*убрать подчеркивание ссылки*/
-        }
-        .href-nav-item-current {
-            background:#ff0000; /*фон*/
-            color: white;
-
-            border:1px solid #ccc;  /*рамка*/
-            padding: .2em .2em; /*отступы внутри*/
-            text-decoration: none; /*убрать подчеркивание ссылки*/
-        }
-
-        .green_button{
-            background-color: #4CAF50;
-            color: white;
-            display: inline-block;
-        }
-
-        span.radioDecorator > input{ /* HIDE RADIO */
-            visibility: hidden; /* Makes input not-clickable */
-            position: absolute; /* Remove input from document flow */
-        }
-        span.radioDecorator > input + button{ /* IMAGE STYLES */
-            cursor:pointer;
-            border:2px solid transparent;
-        }
-        span.radioDecorator> input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */
-            border:2px solid #f00;
-        }
-
+        <%@ include file="/css/common.css" %>
     </style>
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/templates/common_header_user.jsp" />
+<jsp:include page="/templates/common_header_user.jsp" />
 
 <div id="content">
 
@@ -91,7 +24,7 @@
 
         <form action="save"  method="post">
 
-            <table class="table4input_data">
+            <table class="table4input_data" style="width: auto">
                 <tr>
                     <th>
                         Ответственный исполнитель заказчика:
@@ -173,7 +106,7 @@
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
                     onclick="
-                            window.location.href='${pageContext.request.contextPath}/cabinet/about_the_notification/actions'
+                            window.location.href='${pageContext.request.contextPath}/cabinet/the_notification/actions'
                             "
             >
                 ОТМЕНА
@@ -185,7 +118,7 @@
 </div>
 
 <%--<div id="return">--%>
-    <%--<a href="${pageContext.request.contextPath}/cabinet/about_the_notification/actions"> Back to "about the notification_app" </a>--%>
+    <%--<a href="${pageContext.request.contextPath}/cabinet/the_notification/actions"> Back to "about the the_notification" </a>--%>
 <%--</div>--%>
 
 <script>

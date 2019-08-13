@@ -1,10 +1,12 @@
 package com.lanit.satonin18.app.service.app_service;
 
 //import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dto.cabinet.CabinetDto;
+import com.lanit.satonin18.app.dto.FilterDto;
+import com.lanit.satonin18.app.dto.OrderByDto;
+import com.lanit.satonin18.app.dto.PaginationDto;
+import com.lanit.satonin18.app.objects.cabinet.*;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.User;
-import com.lanit.satonin18.app.dto.cabinet.CabinetState;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,34 +28,38 @@ public class CabinetService {
     @Autowired
     private OrganizationService organizationService;
 
-    public void executeQuery(CabinetState state, User currentUser) {
-        CabinetDto dto = state.getDto();
+    public void executeQuery(Cabinet4renderHtml render, User currentUser) {
+        CabinetState state = render.getState();
+        FilterDto filterDto = state.getFilterDto();
+        PaginationDto paginationDto = state.getPaginationDto();
+        OrderByDto orderByDto = state.getOrderByDto();
+
         Pageable pageable = PageRequest.of(
-                dto.getPage(),
-                dto.getMaxResult()
-//              , state.getPageImpl().getMaxNavigationPage()
+                paginationDto.getPage(),
+                paginationDto.getMaxResult()
+//              , render.getPageImpl().getMaxNavigationPage()
         );
 
-        if ( ! dto.getIdFilterStatus().isEmpty()) {
-            state.setCheckedMainListNotificStatuses(
-                    Status.getByIds(dto.getIdFilterStatus())
+        if ( ! filterDto.getIdFilterStatus().isEmpty()) {
+            render.setCheckedMainListNotificStatuses(
+                    Status.getByIds(filterDto.getIdFilterStatus())
             );
-            state.setPageImpl(
+            render.setPageImpl(
                     notificationService._CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
                             currentUser.getOrganization(),
-                            state.getCheckedMainListNotificStatuses(),
-                            dto.getShowArchive(), state.getListArchiveStatus(),
-                            dto.getOrderFieldName(), dto.getDesc(),
+                            render.getCheckedMainListNotificStatuses(),
+                            filterDto.getShowArchive(), render.getListArchiveStatus(),
+                            orderByDto.getOrderFieldName(), orderByDto.getDesc(),
                             pageable
                     )
             );
         }else{
-            state.setCheckedMainListNotificStatuses(Collections.EMPTY_LIST);
-            state.setPageImpl(
+            render.setCheckedMainListNotificStatuses(Collections.EMPTY_LIST);
+            render.setPageImpl(
                     new PageImpl(Collections.EMPTY_LIST, pageable, 0)
             );
         }
-        state.calcNavigationPages();
+//        render.calcNavigationPages();
     }
 
     public void editStatus(Integer idNotification, Integer idNewStatus) {
