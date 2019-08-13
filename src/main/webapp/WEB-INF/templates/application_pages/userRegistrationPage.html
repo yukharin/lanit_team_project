@@ -30,9 +30,9 @@
             </li>
             <li class="registration-form-list-element">
                 <label class="registration-form-label" for="inputLogin">
-                    Логин<input id="inputLogin" name="login" required th:field="*{login}" type="text"/>
+                    Логин<input id="inputLogin" name="username" required th:field="*{username}" type="text"/>
                 </label>
-                <div class="error-div" th:errors="*{login}" th:if="${#fields.hasErrors('login')}">Login
+                <div class="error-div" th:errors="*{username}" th:if="${#fields.hasErrors('username')}">Login
                     Error
                 </div>
             </li>

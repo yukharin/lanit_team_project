@@ -5,8 +5,8 @@ import com.lanit.lkz_project.entities.jpa_entities.Organization;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import com.lanit.lkz_project.service.jpa_entities_service.UserService;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,27 +16,31 @@ import java.time.LocalDateTime;
 public class RegistrationPageService {
 
     @Autowired
-    private OrganizationService organizationService;
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrganizationService organizationService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public User registerUser(User user) {
         user.setRegistrationDate(LocalDateTime.now());
         Organization organization = organizationService.getOrganization(user.getOrganization().getId());
-        user.setOrganization(organization);
-        user.setRole(defineUserRole(organization));
+        if (organization.isGovernment()) {
+            user.setRole(Role.AUTHORITY);
+        } else {
+            user.setRole(Role.EMPLOYEE);
+        }
+        user.setEnabled(true);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.addUser(user);
         return user;
     }
-
-
-    private Role defineUserRole(@NonNull Organization organization) {
-        if (organization.isGovernment()) {
-            return Role.AUTHORITY;
-        } else {
-            return Role.EMPLOYEE;
-        }
-    }
-
 }
+
+

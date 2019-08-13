@@ -15,10 +15,10 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "organizations")
-@EqualsAndHashCode(exclude = {"id", "notifications"})
-@ToString(exclude = {"notifications"})
+@EqualsAndHashCode(exclude = {"id", "notifications", "users"})
+@ToString(exclude = {"notifications", "users"})
 @NoArgsConstructor
-@JsonIgnoreProperties({"notifications"})
+@JsonIgnoreProperties({"notifications", "users"})
 public class Organization implements Serializable {
 
     private static int counter = 0;
@@ -46,6 +46,9 @@ public class Organization implements Serializable {
     private Organization government_org;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
-    private List<Notification> notifications;
+    private transient List<Notification> notifications;
+
+    @OneToMany(mappedBy = "organization")
+    private transient List<User> users;
 
 }

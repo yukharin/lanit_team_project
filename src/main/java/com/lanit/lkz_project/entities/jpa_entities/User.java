@@ -3,6 +3,7 @@ package com.lanit.lkz_project.entities.jpa_entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lanit.lkz_project.entities.enums.Role;
+import com.lanit.lkz_project.entities.validation_groups.UserValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -44,46 +42,42 @@ public class User implements Serializable, UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @NotNull(groups = UserValidationGroup.class)
     @JoinColumn(name = "id_org", referencedColumnName = "id", nullable = false)
+    @ManyToOne
     private Organization organization;
 
-    @NotBlank
-    @Size(min = 3, max = 45, message = "First name must be of length ranging from 3 to 45.")
-    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$",
-            message = "First name shouldn't have any special characters other than underscore.")
+    @NotBlank(groups = UserValidationGroup.class)
+    @Size(min = 3, max = 45, groups = UserValidationGroup.class)
+    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$", groups = UserValidationGroup.class)
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
-    @NotBlank
-    @Size(min = 3, max = 45, message = "Last name must be of length ranging from 3 to 45.")
-    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$",
-            message = "Last name shouldn't have any special characters other than underscore.")
+    @NotBlank(groups = UserValidationGroup.class)
+    @Size(min = 3, max = 45, groups = UserValidationGroup.class)
+    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$", groups = UserValidationGroup.class)
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
 
-    @NotBlank
-    @Size(min = 3, max = 45, message = "Login must be of length ranging from 3 to 45.")
+    @NotBlank(groups = UserValidationGroup.class)
+    @Size(min = 3, max = 45, groups = UserValidationGroup.class)
     @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$",
-            message = "Login shouldn't have any special characters other than underscore.")
+            groups = UserValidationGroup.class)
     @Column(name = "username", nullable = false, length = 45)
     private String username;
 
-    @NotBlank
-    @Size(min = 7, max = 60,
-            message = "Password should have at least 7 characters " +
-                    "and be no longer than 45 characters")
-    @Pattern(regexp = "^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$",
-            message = "Password must contain at least one letter, " +
-                    "at least one number, and be longer than six characters.")
+    @NotBlank(groups = UserValidationGroup.class)
+    @Size(min = 7, max = 60, groups = UserValidationGroup.class)
+    @Pattern(regexp = "^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$", groups = UserValidationGroup.class)
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
+    @PastOrPresent
     @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate;
 
+    @NotNull
     @Column(name = "role")
     private Role role;
 

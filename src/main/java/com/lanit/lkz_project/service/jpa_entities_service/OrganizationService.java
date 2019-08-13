@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class OrganizationService {
 
     @Transactional
     public Organization getOrganization(long id) {
-        return organizationRepository.getOne(id);
+        return organizationRepository.findById(id).get();
     }
 
     @Transactional
@@ -47,13 +46,4 @@ public class OrganizationService {
         return organizationRepository.findAll();
     }
 
-    @Transactional
-    public List<Organization> nonGovernmentOrganizations() {
-        return organizationRepository.findAll();
-    }
-
-    @PostConstruct
-    private void p() {
-        System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    }
 }

@@ -115,7 +115,7 @@ public class PersonalAccountController {
             @ModelAttribute Notification notification,
             ModelAndView modelAndView) {
         modelAndView.addObject("user", user);
-        List<Organization> organizations = organizationService.nonGovernmentOrganizations();
+        List<Organization> organizations = organizationService.organizations();
         modelAndView.addObject("organizations", organizations);
         modelAndView.setViewName(create_notification_page);
         logger.trace("added 2 attributes to model: user - "
@@ -131,7 +131,7 @@ public class PersonalAccountController {
             ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("user", user);
-            List<Organization> organizations = organizationService.nonGovernmentOrganizations();
+            List<Organization> organizations = organizationService.organizations();
             modelAndView.addObject("organizations", organizations);
             modelAndView.setViewName(create_notification_page);
             return modelAndView;

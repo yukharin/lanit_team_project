@@ -24,18 +24,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests().antMatchers("/css/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout");
+    @Bean
+    public static BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 
@@ -44,10 +35,28 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationManager();
     }
 
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests().antMatchers(
+                "/css/**",
+                "/image/**",
+                "/js/**",
+                "/registration/",
+                "/registerUser/").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .loginProcessingUrl("/doLogin")
+                .and()
+                .logout().permitAll()
+                .logoutUrl("/logout");
+    }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
-
 
 }
