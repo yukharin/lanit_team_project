@@ -13,7 +13,7 @@
         </div>
         <div class="account-header-personal-data">
             <div class="account-header-user_info">
-                <p th:text="${user.firstName}+' '+${user.lastName}"></p>
+                <p th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.lastName}"></p>
             </div>
             <div class="account-header-logout-button">
                 <a th:href="@{/logout}">Выход</a>
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="account-header-organization-name">
-        <p th:text="${user.organization.name}"></p>
+        <p th:text="${#authentication.principal.organization.name}"></p>
     </div>
 </header>
 <main class="account-main">

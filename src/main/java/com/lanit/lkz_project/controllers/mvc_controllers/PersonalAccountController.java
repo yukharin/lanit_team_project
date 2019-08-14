@@ -80,18 +80,15 @@ public class PersonalAccountController {
         ModelAndView modelAndView = new ModelAndView(account_page);
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
-        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
     @GetMapping("/notification_actions_history/")
     public ModelAndView getNotificationActions(
-            @AuthenticationPrincipal User user,
             @NonNull @RequestParam Long id,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
         Set<Action> actions = notification.getActions();
-        modelAndView.addObject("user", user);
         modelAndView.addObject("actions", actions);
         modelAndView.addObject("notification", notification);
         modelAndView.setViewName(actions_history_page);
@@ -106,10 +103,8 @@ public class PersonalAccountController {
 
     @GetMapping("/addNotification/")
     public ModelAndView getAddNotificationPage(
-            @AuthenticationPrincipal User user,
             @ModelAttribute Notification notification,
             ModelAndView modelAndView) {
-        modelAndView.addObject("user", user);
         List<Organization> organizations = organizationService.organizations();
         modelAndView.addObject("organizations", organizations);
         modelAndView.setViewName(create_notification_page);
@@ -117,20 +112,17 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/addNotification/")
-    public ModelAndView addNotification(
-            @AuthenticationPrincipal User user,
-            @Validated(value = NotificationValidationGroup.class) @ModelAttribute Notification notification,
-            BindingResult bindingResult,
-            ModelAndView modelAndView) {
+    public ModelAndView addNotification(@AuthenticationPrincipal User user,
+                                        @Validated(value = NotificationValidationGroup.class) @ModelAttribute Notification notification,
+                                        BindingResult bindingResult,
+                                        ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("user", user);
             List<Organization> organizations = organizationService.organizations();
             modelAndView.addObject("organizations", organizations);
             modelAndView.setViewName(create_notification_page);
             return modelAndView;
         } else {
             personalAccountService.addNotification(notification, user);
-            modelAndView.addObject("user", user);
             modelAndView.setViewName("redirect:/account/");
             return modelAndView;
         }
@@ -138,13 +130,11 @@ public class PersonalAccountController {
 
     @GetMapping("/notification_info/")
     public ModelAndView getNotificationPage(
-            @AuthenticationPrincipal User user,
             @NonNull @RequestParam Long id,
             @ModelAttribute Action action,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
         EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
-        modelAndView.addObject("user", user);
         modelAndView.addObject("notification", notification);
         modelAndView.addObject("actionTypes", types);
         modelAndView.setViewName(notification_info_page);
@@ -160,7 +150,6 @@ public class PersonalAccountController {
         Notification notification = notificationService.getNotification(action.getNotification().getId());
         if (bindingResult.hasErrors()) {
             EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
-            modelAndView.addObject("user", user);
             modelAndView.addObject("notification", notification);
             modelAndView.addObject("actionTypes", types);
             modelAndView.setViewName(notification_info_page);

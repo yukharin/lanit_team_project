@@ -76,7 +76,7 @@ public class Notification implements Serializable {
     private User userNotificationAuthor;
 
     @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER)
-    private transient Set<Action> actions;
+    private Set<Action> actions;
 
 
 }
