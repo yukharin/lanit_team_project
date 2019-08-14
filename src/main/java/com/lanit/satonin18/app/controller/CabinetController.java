@@ -20,10 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
-//@Scope("session")
-//@SessionAttributes(value = "showListNotifications")
-//@SessionAttributes(value = "currentUser")
-
 @Controller("cabinetController")
 @RequestMapping("/cabinet")
 public class CabinetController {
@@ -31,6 +27,8 @@ public class CabinetController {
     private UserService userService;
     @Autowired
     private CabinetService cabinetService;
+    @Autowired
+    private NotificationService notificationService;
 
     private void addAttributes_Notification(Model model, User currentUser, Cabinet4renderHtml render) {
         model.addAttribute("render", render);
@@ -69,10 +67,11 @@ public class CabinetController {
     }
 
     @PostMapping("/filters")
-    public String filters(HttpServletRequest request,
-                                HttpSession session,
-                                @ModelAttribute(value = "filterDto") FilterDto dto,
-                                Model model){
+    public String filters(
+            HttpServletRequest request,
+            HttpSession session,
+            @ModelAttribute(value = "filterDto") FilterDto dto,
+            Model model){
         validateAndSetDefaultVars(dto);
         
         CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
@@ -85,10 +84,11 @@ public class CabinetController {
     }
 
     @PostMapping("/pagination")
-    public String pagination(HttpServletRequest request,
-                          HttpSession session,
-                          @ModelAttribute(value = "paginationDto") PaginationDto dto,
-                          Model model){
+    public String pagination(
+            HttpServletRequest request,
+            HttpSession session,
+            @ModelAttribute(value = "paginationDto") PaginationDto dto,
+            Model model){
         validateAndSetDefaultVars(dto);
 
         CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
@@ -103,10 +103,11 @@ public class CabinetController {
 
 
     @PostMapping("/orderby")
-    public String orderby(HttpServletRequest request,
-                             HttpSession session,
-                             @ModelAttribute(value = "orderByDto") OrderByDto dto,
-                             Model model){
+    public String orderby(
+            HttpServletRequest request,
+            HttpSession session,
+            @ModelAttribute(value = "orderByDto") OrderByDto dto,
+            Model model){
         validateAndSetDefaultVars(dto);
 
         CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
@@ -119,21 +120,26 @@ public class CabinetController {
     }
 
     @PostMapping("/editStatus")
-    public String editStatus(HttpServletRequest request,
-                             HttpSession session,
-                             Boolean flagNeedReplaceStatus,
-                             Integer selectedIdNotification4editStatus,
-                             Integer selectedNewIdStatus,
-                             Model model){
+    public String editStatus(
+            Boolean flagNeedReplaceStatus,
+            Integer selectedIdNotification4editStatus,
+            Integer selectedNewIdStatus){
         if(flagNeedReplaceStatus)
             cabinetService.editStatus(selectedIdNotification4editStatus, selectedNewIdStatus);
+        return "redirect:/cabinet/notifications";
+    }
+    //todo heed POST
+    @GetMapping("/deleteTheNotification")
+    public String deleteTheNotification(
+            Integer notificationId){
+        notificationService.deleteById(notificationId); //todo not validate
         return "redirect:/cabinet/notifications";
     }
     
     @GetMapping("/notifications")
     public String notifications(
-                          HttpSession session,
-                          Model model){
+            HttpSession session,
+            Model model){
         Integer userId = (Integer) session.getAttribute("user");
         if( userId == null) return "redirect:/";
         User currentUser = userService.findById(userId);
@@ -145,12 +151,6 @@ public class CabinetController {
         addAttributes_Notification(model, currentUser, render);
         return "cabinet/notifications";
     }
-
-    
-
-
-
-
 
     private void validateAndSetDefaultVars(FilterDto dto) {
         if(dto.getIdFilterStatus() == null) dto.setIdFilterStatus(Collections.EMPTY_LIST);//если ничего передали, значит пусто
@@ -164,5 +164,4 @@ public class CabinetController {
         if(dto.getDesc() == null) dto.setDesc(COMMON_DEFAULT_VARS.DESC);
         if(dto.getOrderFieldName() == null) dto.setOrderFieldName(DEFAULT_CABINET_VARS.ORDER_FIELD_NAME);
     }
-
 }

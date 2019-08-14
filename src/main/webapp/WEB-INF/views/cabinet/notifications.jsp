@@ -135,8 +135,6 @@
         <%--name="flagNeedSetFirstPage" value="false"></input>--%>
     </form>
 
-    <%--<form action="notifications"  method="get" &lt;%&ndash;modelAttribute="cabinetDtoOnInput"&ndash;%&gt; >--%>
-
     <jsp:include page="/templates/pagination.jsp" />
 
     <div id="list_notifications">
@@ -485,6 +483,21 @@
                             >
                                 Подробнее
                             </button>
+                            <c:if test="${user.organization.government}">
+                                <c:url var="deleteLink" value="deleteTheNotification">
+                                    <c:param name="notificationId" value="${tempNotification.id}"/>
+                                    <%--<c:param name="userId" value="${user.id}"/>--%>
+                                </c:url>
+                                <button type="button"<%--type="form.submit"--%>
+                                        style="background-color: #af1b14; color: white; display: inline-block;" <%--class="green_button"--%>
+                                        onclick="
+                                                if (!(confirm('Are you sure?'))) return false
+                                                window.location.href='${deleteLink}'
+                                                "
+                                >
+                                    Delete
+                                </button>
+                            </c:if>
                             <Br>
                         </td>
                     </tr>
@@ -496,17 +509,8 @@
             </form>
 
         </table>
+        (Mock-для чиновника возможность создать уведомление-тригер уже стоит)
     </div>
-
-
-    <%--<input id="flagUseParameters"--%>
-    <%--type="hidden"--%>
-    <%--name="flagUseParameters" value="true"></input>--%>
-
-    <%--<input id="flagNeedSetFirstPage"--%>
-    <%--type="hidden"--%>
-    <%--name="flagNeedSetFirstPage" value="false"></input>--%>
-    <%--</form>--%>
 
 </div>
 

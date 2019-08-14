@@ -65,7 +65,8 @@ public class CabinetService {
     public void editStatus(Integer idNotification, Integer idNewStatus) {
         Notification notification = notificationService.findById(idNotification);
         notification.setStatus(Status.getById(idNewStatus));
-
+        
         notificationService.save(notification);//update
+
     }
 }
