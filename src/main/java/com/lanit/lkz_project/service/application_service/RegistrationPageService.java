@@ -28,11 +28,7 @@ public class RegistrationPageService {
     public User registerUser(User user) {
         user.setRegistrationDate(LocalDateTime.now());
         Organization organization = organizationService.getOrganization(user.getOrganization().getId());
-        if (organization.isGovernment()) {
-            user.setRole(Role.AUTHORITY);
-        } else {
-            user.setRole(Role.EMPLOYEE);
-        }
+        user.setRole(defineRole(organization));
         user.setEnabled(true);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
@@ -40,6 +36,14 @@ public class RegistrationPageService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.addUser(user);
         return user;
+    }
+
+    private Role defineRole(Organization organization) {
+        if (organization.isGovernment()) {
+            return Role.AUTHORITY;
+        } else {
+            return Role.EMPLOYEE;
+        }
     }
 }
 

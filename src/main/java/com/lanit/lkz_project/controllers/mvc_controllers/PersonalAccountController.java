@@ -81,8 +81,6 @@ public class PersonalAccountController {
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
         modelAndView.addObject("user", user);
-        logger.trace("added 2 attributes to model: pageDTO - "
-                + pageDTO + " and user - " + user + " , then sending to personalAccount.html");
         return modelAndView;
     }
 
@@ -97,15 +95,12 @@ public class PersonalAccountController {
         modelAndView.addObject("actions", actions);
         modelAndView.addObject("notification", notification);
         modelAndView.setViewName(actions_history_page);
-        logger.trace("added 3 attributes to model: user - " + user
-                + ", actions: " + actions + ", notification - " + notification);
         return modelAndView;
     }
 
     @PostMapping("/delete/")
     public String deleteNotification(@NonNull @RequestParam String id) {
         notificationService.removeNotification(Long.valueOf(id));
-        logger.info("Removed notification with id: " + id + " , then sending to account.html");
         return "redirect:/account/";
     }
 
@@ -118,8 +113,6 @@ public class PersonalAccountController {
         List<Organization> organizations = organizationService.organizations();
         modelAndView.addObject("organizations", organizations);
         modelAndView.setViewName(create_notification_page);
-        logger.trace("added 2 attributes to model: user - "
-                + user + " and organizations - " + organizations + " , then sending to addNotification.html");
         return modelAndView;
     }
 

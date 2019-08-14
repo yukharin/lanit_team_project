@@ -68,8 +68,8 @@ public class User implements Serializable, UserDetails {
     private String username;
 
     @NotBlank(groups = UserValidationGroup.class)
-    @Size(min = 7, max = 60, groups = UserValidationGroup.class)
-    @Pattern(regexp = "^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$", groups = UserValidationGroup.class)
+    @Size(min = 8, max = 60, groups = UserValidationGroup.class)
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Пароль должен иметь как минимум одну заглавную букву, одну строчную и одну цифру", groups = UserValidationGroup.class)
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
