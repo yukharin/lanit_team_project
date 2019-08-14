@@ -53,7 +53,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                 .logoutUrl("/logout")
                 .and()
-                .rememberMe().tokenValiditySeconds(604800).key("lssAppKey").rememberMeCookieName("cookie-me").rememberMeParameter("remember");
+                .rememberMe()
+                .tokenValiditySeconds(604800)
+                .key("lssAppKey")
+                .rememberMeCookieName("cookie-me")
+                .rememberMeParameter("remember");
     }
 
     @Autowired
