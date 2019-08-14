@@ -2,6 +2,12 @@ package com.lanit.lkz_project;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 
 public class Main {
 //    public static void main(String[] args) {
@@ -40,7 +46,10 @@ public class Main {
 //        System.out.println("nextMeeting: " + nextMeeting);
 //    }
 
-    public static void main(String[] args) {
+    @Resource(lookup = "java:comp/DefaultDataSource")
+    private DataSource dataSource;
+
+    public static void main(String[] args) throws NamingException {
 //        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH mm, dd MMM yyyy");
 //
 //        ZonedDateTime localDateTime = LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"));
@@ -106,5 +115,7 @@ public class Main {
             String passEncoded = bCryptPasswordEncoder.encode(password);
             System.err.println(bCryptPasswordEncoder.matches(password, encoded));
         }
+
+        Context namingComtext = new InitialContext();
     }
 }

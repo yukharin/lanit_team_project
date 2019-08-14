@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -45,16 +44,18 @@ public class RegistrationPageController {
     public ModelAndView add(@Validated(value = UserValidationGroup.class) @ModelAttribute User user,
                             BindingResult bindingResult,
                             ModelAndView modelAndView) {
-        UserDetails userToCheck = userDetailsService.loadUserByUsername(user.getUsername());
-        if (userToCheck != null) {
-            bindingResult.rejectValue("username", "error.user", "Логин должен быть уникальным");
-        }
+//        UserDetails userToCheck = userDetailsService.loadUserByUsername(user.getUsername());
+//        if (userToCheck != null) {
+//            FieldError usernameError = new FieldError("error.user", "username", "Логин должен быть уникальным");
+//            bindingResult.addError(usernameError);
+//        }
         if (bindingResult.hasErrors()) {
             List<Organization> organizations = organizationService.organizations();
             modelAndView.addObject("organizations", organizations);
             modelAndView.setViewName(registration_page);
             return modelAndView;
         } else {
+            System.err.println("USER!: " + user);
             registrationPageService.registerUser(user);
             modelAndView.setViewName(login_page);
             return modelAndView;
