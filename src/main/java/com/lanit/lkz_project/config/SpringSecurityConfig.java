@@ -51,7 +51,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/doLogin")
                 .and()
                 .logout().permitAll()
-                .logoutUrl("/logout");
+                .logoutUrl("/logout")
+                .and()
+                .rememberMe().tokenValiditySeconds(604800).key("lssAppKey").rememberMeCookieName("cookie-me").rememberMeParameter("remember");
     }
 
     @Autowired

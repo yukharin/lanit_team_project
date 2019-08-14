@@ -106,6 +106,5 @@ public class Main {
             String passEncoded = bCryptPasswordEncoder.encode(password);
             System.err.println(bCryptPasswordEncoder.matches(password, encoded));
         }
-
     }
 }
