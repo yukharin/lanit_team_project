@@ -8,6 +8,7 @@ import com.lanit.lkz_project.entities.jpa_entities.Organization;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.entities.validation_groups.ActionValidationGroup;
 import com.lanit.lkz_project.entities.validation_groups.NotificationValidationGroup;
+import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
@@ -53,6 +54,8 @@ public class PersonalAccountController {
     private String notification_info_page;
     @Value("${admin_page}")
     private String admin_page;
+    @Value("application_pages/userPage")
+    private String user_page;
 
     @Autowired
     private NotificationService notificationService;
@@ -60,6 +63,8 @@ public class PersonalAccountController {
     private OrganizationService organizationService;
     @Autowired
     private PersonalAccountService personalAccountService;
+    @Autowired
+    private UserRepository userRepository;
 
 
 //    JavaScript + JSON edition
@@ -168,7 +173,18 @@ public class PersonalAccountController {
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView getAdminPage(ModelAndView modelAndView) {
+        List<User> users = userRepository.findAll();
+        modelAndView.addObject("users", users);
         modelAndView.setViewName(admin_page);
+        return modelAndView;
+    }
+
+
+    @GetMapping("/admin/user{id}")
+    public ModelAndView getUserInfo(ModelAndView modelAndView, @PathVariable("id") Long id) {
+        User user = userRepository.findById(id).get();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName(user_page);
         return modelAndView;
     }
 

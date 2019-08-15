@@ -5,8 +5,38 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
 </head>
-<body>
+<body id="body">
 <div th:insert="~{/fragments/Header :: account_header}"></div>
-
+<main>
+    <h3 class="admin-users_header">Список пользователей</h3>
+    <table class="admin-users_table">
+        <tr>
+            <th>№</th>
+            <th>Логин</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Дата регистрации</th>
+            <th>Аккаунт активирован</th>
+            <th>Роль</th>
+        </tr>
+        <tr class="admin-users_table_data-row" th:each="user,iterator : ${users}"
+            th:onclick="'javascript:rowClicked(\'' + ${user.id} + '\');'">
+            <td th:text="${iterator.index+1}">1</td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${#temporals.format(user.registrationDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${user.enabled}"></td>
+            <td>
+                <span th:each="authority : ${user.authorities}" th:text="${authority.getAuthority()+' '}"></span>
+            </td>
+        </tr>
+    </table>
+</main>
 </body>
+<script>
+    function rowClicked(value) {
+        location.href = "/lkz_project/account/admin/user" + value;
+    }
+</script>
 </html>
