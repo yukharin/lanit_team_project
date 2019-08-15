@@ -48,7 +48,6 @@ CREATE TABLE IF NOT EXISTS `lanit`.`users`
     `username`              VARCHAR(45)  NOT NULL,
     `password`              VARCHAR(60)  NOT NULL,
     `registration_date`     DATE         NOT NULL,
-    `role`                  INT UNSIGNED NOT NULL,
     `enabled`               TINYINT      NOT NULL,
     `accountNonExpired`     TINYINT      NOT NULL,
     `accountNonLocked`      TINYINT      NOT NULL,
@@ -126,6 +125,42 @@ CREATE TABLE IF NOT EXISTS `lanit`.`actions`
 )
     ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `lanit`.`roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `lanit`.`roles`
+(
+    `id`   INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `role` VARCHAR(50)  NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `role_UNIQUE` (`role` ASC) VISIBLE
+)
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `lanit`.`users_roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `lanit`.`users_roles`
+(
+    `id_user` INT UNSIGNED NOT NULL,
+    `id_role` INT UNSIGNED NOT NULL,
+    INDEX `id_user_idx` (`id_user` ASC) VISIBLE,
+    INDEX `id_role_idx` (`id_role` ASC) VISIBLE,
+    CONSTRAINT `id_user`
+        FOREIGN KEY (`id_user`)
+            REFERENCES `lanit`.`users` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `id_role`
+        FOREIGN KEY (`id_role`)
+            REFERENCES `lanit`.`roles` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB;
+
 USE `lanit`;
 
 DELIMITER $$
@@ -185,33 +220,33 @@ COMMIT;
 START TRANSACTION;
 USE `lanit`;
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
-                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+                             `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
 VALUES (1, 1, 'Vlad', 'Yukharin', 'yukharin', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
-        '2015-07-12', 0, 1, 1, 1, 1);
+        '2015-07-12', 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
-                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+                             `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
 VALUES (2, 2, 'Slava', 'Satonin', 'satonin', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
-        '2016-06-21', 0, 1, 1, 1, 1);
+        '2016-06-21', 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
-                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+                             `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
 VALUES (3, 3, 'Коля', 'Иванов', 'login1', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS', '2017-03-15',
-        1, 1, 1, 1, 1);
+        1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
-                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+                             `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
 VALUES (4, 3, 'Вася ', 'Пупкин', 'login2', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS', '2017-04-29',
-        1, 1, 1, 1, 1);
+        1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
-                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+                             `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
 VALUES (5, 10, 'Артем', 'Гринев', 'login3', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
-        '2017-05-05', 1, 1, 1, 1, 1);
+        '2017-05-05', 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
-                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+                             `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
 VALUES (6, 10, 'Паша', 'Гриневич', 'login4', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
-        '2017-05-12', 1, 1, 1, 1, 1);
+        '2017-05-12', 1, 1, 1, 1);
 INSERT INTO `lanit`.`users` (`id`, `id_org`, `first_name`, `last_name`, `username`, `password`, `registration_date`,
-                             `role`, `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
+                             `enabled`, `accountNonExpired`, `accountNonLocked`, `credentialsNonExpired`)
 VALUES (7, 10, 'Саша', 'Вербицкий', 'login5', '$2a$10$zXPjDMCKkU16WS0bD1ZuCOgGxE3.GjL0rYswij5KLwHx7J7bkFXdS',
-        '2017-05-21', 1, 1, 1, 1, 1);
+        '2017-05-21', 1, 1, 1, 1);
 
 COMMIT;
 
@@ -266,6 +301,44 @@ VALUES (14, 1, 'Уведомление о получении повышения'
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
 VALUES (15, 1, 'Уведомление о выигрыше конкурса', 0, '2019-09-15', '2019-10-17', '78-39-3479/8', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `lanit`.`roles`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `lanit`;
+INSERT INTO `lanit`.`roles` (`id`, `role`)
+VALUES (1, 'EMPLOYEE');
+INSERT INTO `lanit`.`roles` (`id`, `role`)
+VALUES (2, 'AUTHORITY');
+INSERT INTO `lanit`.`roles` (`id`, `role`)
+VALUES (3, 'ADMIN');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `lanit`.`users_roles`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `lanit`;
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (1, 2);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (2, 2);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (3, 1);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (4, 1);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (5, 1);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (6, 1);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (7, 1);
 
 COMMIT;
 

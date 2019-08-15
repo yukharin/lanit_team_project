@@ -1,7 +1,8 @@
 package com.lanit.lkz_project.service.application_service;
 
-import com.lanit.lkz_project.entities.enums.Role;
+import com.lanit.lkz_project.entities.enums.RoleValue;
 import com.lanit.lkz_project.entities.jpa_entities.Organization;
+import com.lanit.lkz_project.entities.jpa_entities.Role;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import com.lanit.lkz_project.service.jpa_entities_service.UserService;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class RegistrationPageService {
@@ -28,7 +31,9 @@ public class RegistrationPageService {
     public User registerUser(User user) {
         user.setRegistrationDate(LocalDateTime.now());
         Organization organization = organizationService.getOrganization(user.getOrganization().getId());
-        user.setRole(defineRole(organization));
+        Set<Role> roles = new HashSet<>();
+        roles.add(defineRole(organization));
+        user.setRoles(roles);
         user.setEnabled(true);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
@@ -40,9 +45,9 @@ public class RegistrationPageService {
 
     private Role defineRole(Organization organization) {
         if (organization.isGovernment()) {
-            return Role.AUTHORITY;
+            return new Role(RoleValue.AUTHORITY);
         } else {
-            return Role.EMPLOYEE;
+            return new Role(RoleValue.EMPLOYEE);
         }
     }
 }

@@ -43,7 +43,7 @@ public class Organization implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_gos_org", referencedColumnName = "id")
-    private Organization government_org;
+    private Organization governmentOrg;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
     private transient List<Notification> notifications;

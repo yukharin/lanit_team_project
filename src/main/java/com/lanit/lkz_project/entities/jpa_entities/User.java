@@ -2,7 +2,7 @@ package com.lanit.lkz_project.entities.jpa_entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.lanit.lkz_project.entities.enums.Role;
+import com.lanit.lkz_project.entities.enums.RoleValue;
 import com.lanit.lkz_project.entities.validation_groups.UserValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,6 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -69,7 +68,9 @@ public class User implements Serializable, UserDetails {
 
     @NotBlank(groups = UserValidationGroup.class)
     @Size(min = 8, max = 60, groups = UserValidationGroup.class)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Пароль должен иметь как минимум одну заглавную букву, одну строчную и одну цифру", groups = UserValidationGroup.class)
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
+            message = "Пароль должен иметь как минимум одну заглавную букву, одну строчную и одну цифру",
+            groups = UserValidationGroup.class)
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
@@ -78,8 +79,14 @@ public class User implements Serializable, UserDetails {
     private LocalDateTime registrationDate;
 
     @NotNull
-    @Column(name = "role")
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "id_user", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "id_role", referencedColumnName = "id"))
+    private Set<Role> roles;
 
     @Column(name = "enabled")
     private boolean enabled;
@@ -95,8 +102,15 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(this.role);
         return roles;
+    }
+
+    public boolean hasRole(RoleValue role) {
+        for (Role temp : roles) {
+            if (temp.getAuthority().equals(role.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

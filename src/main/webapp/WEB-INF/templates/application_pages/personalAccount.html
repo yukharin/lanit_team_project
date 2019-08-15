@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html id="main-element" xmlns:th="http://www.thymeleaf.org">
+<html id="main-element" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Notifications</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
@@ -125,7 +126,7 @@
                 <th>Дата получения уведомления</th>
                 <th>Срок предоставления ответа</th>
                 <th>Номер письма</th>
-                <th>Удалить</th>
+                <th sec:authorize="hasAuthority('AUTHORITY')">Удалить</th>
             </tr>
             <tr class="account-main-notifications-table-rows_data"
                 th:each="notification,iterator : ${pageDTO.page.content}"
@@ -137,7 +138,7 @@
                 <td th:text="${#temporals.format(notification.dateReceived, 'dd-MM-yyyy')}"></td>
                 <td th:text="${#temporals.format(notification.dateResponse, 'dd-MM-yyyy')}"></td>
                 <td th:text="${notification.letterNumber}">letter_number</td>
-                <td>
+                <td sec:authorize="hasAuthority('AUTHORITY')">
                     <form class="account-main-notifications-table-delete_form" method="post"
                           th:action="@{/account/delete/}">
                         <label class="account-main-notifications-table-delete_form-label" for="hidden3">
@@ -149,7 +150,7 @@
                 </td>
             </tr>
         </table>
-        <section class="account-main-manager">
+        <section class="account-main-manager" sec:authorize="hasAuthority('AUTHORITY')">
             <div class="account-main-notifications-manager-add_notification">
                 <a th:href="@{/account/addNotification/}">Добавить уведомление</a>
             </div>

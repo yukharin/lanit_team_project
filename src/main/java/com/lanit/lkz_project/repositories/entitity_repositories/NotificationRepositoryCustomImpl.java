@@ -3,7 +3,7 @@ package com.lanit.lkz_project.repositories.entitity_repositories;
 
 import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
 import com.lanit.lkz_project.entities.enums.NotificationStatus;
-import com.lanit.lkz_project.entities.enums.Role;
+import com.lanit.lkz_project.entities.enums.RoleValue;
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
 import com.lanit.lkz_project.entities.jpa_entities.Notification_;
 import com.lanit.lkz_project.entities.jpa_entities.User;
@@ -66,7 +66,7 @@ public class NotificationRepositoryCustomImpl implements NotificationRepositoryC
 
 
         // defining amount of notification depending on role
-        if (user.getRole() == Role.EMPLOYEE) {
+        if (user.hasRole(RoleValue.EMPLOYEE)) {
             orgPredicate = builder.equal(table.get(Notification_.organization), user.getOrganization());
         }
 

@@ -1,5 +1,6 @@
 package com.lanit.lkz_project;
 
+import com.lanit.lkz_project.entities.enums.RoleValue;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
@@ -117,5 +118,7 @@ public class Main {
         }
 
         Context namingComtext = new InitialContext();
+
+        System.out.println(RoleValue.EMPLOYEE.toString());
     }
 }

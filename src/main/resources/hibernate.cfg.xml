@@ -21,6 +21,6 @@
         <mapping class="com.lanit.lkz_project.entities.jpa_entities.Notification"/>
         <mapping class="com.lanit.lkz_project.entities.enums.ActionType"/>
         <mapping class="com.lanit.lkz_project.entities.jpa_entities.Action"/>
-        <mapping class="com.lanit.lkz_project.entities.enums.Role"/>
+        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Role"/>
     </session-factory>
 </hibernate-configuration>
