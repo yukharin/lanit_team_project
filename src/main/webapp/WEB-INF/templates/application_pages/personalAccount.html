@@ -6,24 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
 </head>
 <body id="body">
-<header class="account-header">
-    <div class="account-header-personal_info">
-        <div class="account-header-account-href">
-            <a th:href="@{/account/}"><h2>Личный кабинет</h2></a>
-        </div>
-        <div class="account-header-personal-data">
-            <div class="account-header-user_info">
-                <p th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.lastName}"></p>
-            </div>
-            <div class="account-header-logout-button">
-                <a th:href="@{/logout}">Выход</a>
-            </div>
-        </div>
-    </div>
-    <div class="account-header-organization-name">
-        <p th:text="${#authentication.principal.organization.name}"></p>
-    </div>
-</header>
+<div th:insert="~{/fragments/Header :: account_header}"></div>
 <main class="account-main">
     <section class="account-filter">
         <form class="account-filter-form" id="filter-form" method="get" th:action="@{/account/}"
