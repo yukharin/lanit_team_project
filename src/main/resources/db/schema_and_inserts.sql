@@ -339,6 +339,10 @@ INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
 VALUES (6, 1);
 INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
 VALUES (7, 1);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (1, 3);
+INSERT INTO `lanit`.`users_roles` (`id_user`, `id_role`)
+VALUES (1, 1);
 
 COMMIT;
 

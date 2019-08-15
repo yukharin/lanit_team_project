@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -50,6 +51,8 @@ public class PersonalAccountController {
     private String create_notification_page;
     @Value("${notification_info_page}")
     private String notification_info_page;
+    @Value("${admin_page}")
+    private String admin_page;
 
     @Autowired
     private NotificationService notificationService;
@@ -83,7 +86,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @GetMapping("/actions_history/")
+    @GetMapping("/actions_history")
     public ModelAndView getNotificationActions(
             @NonNull @RequestParam Long id,
             ModelAndView modelAndView) {
@@ -95,13 +98,13 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/delete/")
+    @PostMapping("/delete")
     public String deleteNotification(@NonNull @RequestParam Long id) {
         notificationService.removeNotification(id);
         return "redirect:/account/";
     }
 
-    @GetMapping("/addNotification/")
+    @GetMapping("/addNotification")
     public ModelAndView getAddNotificationPage(
             @ModelAttribute Notification notification,
             ModelAndView modelAndView) {
@@ -111,7 +114,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/addNotification/")
+    @PostMapping("/addNotification")
     public ModelAndView addNotification(@AuthenticationPrincipal User user,
                                         @Validated(value = NotificationValidationGroup.class) @NonNull @ModelAttribute Notification notification,
                                         BindingResult bindingResult,
@@ -128,7 +131,7 @@ public class PersonalAccountController {
         }
     }
 
-    @GetMapping("/notification_info/")
+    @GetMapping("/notification_info")
     public ModelAndView getNotificationPage(
             @NonNull @RequestParam Long id,
             @ModelAttribute Action action,
@@ -141,7 +144,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/notification_info/")
+    @PostMapping("/notification_info")
     public ModelAndView addAction(
             @AuthenticationPrincipal User user,
             @Validated(value = ActionValidationGroup.class) @NonNull @ModelAttribute Action action,
@@ -160,6 +163,13 @@ public class PersonalAccountController {
             modelAndView.setViewName("redirect:/account/");
             return modelAndView;
         }
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ModelAndView getAdminPage(ModelAndView modelAndView) {
+        modelAndView.setViewName(admin_page);
+        return modelAndView;
     }
 
 }

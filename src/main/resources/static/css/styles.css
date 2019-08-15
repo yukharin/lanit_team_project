@@ -482,6 +482,21 @@ body {
 }
 
 
+.account-main-manager-admin_link a {
+    padding: 15px;
+    border: 1px solid black;
+    background-color: blue;
+    color: white;
+    margin: 20px 10px 10px;
+    border-radius: 8px;
+}
+
+.account-main-manager-admin_link {
+    padding: 30px;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
 /*Notification info styles*/
 
 

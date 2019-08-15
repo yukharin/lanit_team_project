@@ -140,7 +140,7 @@
                 <td th:text="${notification.letterNumber}">letter_number</td>
                 <td sec:authorize="hasAuthority('AUTHORITY')">
                     <form class="account-main-notifications-table-delete_form" method="post"
-                          th:action="@{/account/delete/}">
+                          th:action="@{/account/delete}">
                         <label class="account-main-notifications-table-delete_form-label" for="hidden3">
                             <input id="hidden3" name="id" th:value="${notification.id}" type="hidden">
                             <input class="account-main-notifications-table-delete_form-input" id="delete_form"
@@ -152,7 +152,10 @@
         </table>
         <section class="account-main-manager" sec:authorize="hasAuthority('AUTHORITY')">
             <div class="account-main-notifications-manager-add_notification">
-                <a th:href="@{/account/addNotification/}">Добавить уведомление</a>
+                <a th:href="@{/account/addNotification}">Добавить уведомление</a>
+            </div>
+            <div class="account-main-manager-admin_link" sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/account/admin}">Панель админа</a>
             </div>
         </section>
     </section>
@@ -161,7 +164,7 @@
 <script th:src="@{/js/account.js}"></script>
 <script>
     function rowClicked(value) {
-        location.href = "/lkz_project/account/notification_info/?id=" + value;
+        location.href = "/lkz_project/account/notification_info?id=" + value;
     }
 </script>
 </html>

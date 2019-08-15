@@ -42,7 +42,7 @@ public class RegistrationPageController {
     private String registration_page;
 
 
-    @GetMapping("/registration/")
+    @GetMapping("/registration")
     public ModelAndView toRegistrationPage(ModelAndView modelAndView,
                                            @ModelAttribute User user) {
         List<Organization> organizations = organizationService.organizations();
@@ -51,7 +51,7 @@ public class RegistrationPageController {
         return modelAndView;
     }
 
-    @PostMapping("/registration/")
+    @PostMapping("/registration")
     public ModelAndView add(@Validated(value = UserValidationGroup.class) @ModelAttribute User user,
                             BindingResult bindingResult,
                             ModelAndView modelAndView) {

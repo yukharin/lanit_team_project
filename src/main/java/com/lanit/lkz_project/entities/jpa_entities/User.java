@@ -98,9 +98,9 @@ public class User implements Serializable, UserDetails {
     @Column(name = "credentialsNonExpired")
     private boolean credentialsNonExpired;
 
-    public boolean hasAuthority(AuthorityValue role) {
+    public boolean hasAuthority(AuthorityValue authority) {
         for (Authority temp : authorities) {
-            if (temp.getAuthority().equals(role.toString())) {
+            if (temp.getAuthority().equals(authority.toString())) {
                 return true;
             }
         }
