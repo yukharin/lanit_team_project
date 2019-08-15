@@ -1,8 +1,8 @@
 package com.lanit.lkz_project.service.application_service;
 
-import com.lanit.lkz_project.entities.enums.RoleValue;
+import com.lanit.lkz_project.entities.enums.AuthorityValue;
+import com.lanit.lkz_project.entities.jpa_entities.Authority;
 import com.lanit.lkz_project.entities.jpa_entities.Organization;
-import com.lanit.lkz_project.entities.jpa_entities.Role;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import com.lanit.lkz_project.service.jpa_entities_service.UserService;
@@ -31,9 +31,9 @@ public class RegistrationPageService {
     public User registerUser(User user) {
         user.setRegistrationDate(LocalDateTime.now());
         Organization organization = organizationService.getOrganization(user.getOrganization().getId());
-        Set<Role> roles = new HashSet<>();
-        roles.add(defineRole(organization));
-        user.setRoles(roles);
+        Set<Authority> authorities = new HashSet<>();
+        authorities.add(defineRole(organization));
+        user.setAuthorities(authorities);
         user.setEnabled(true);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
@@ -43,11 +43,11 @@ public class RegistrationPageService {
         return user;
     }
 
-    private Role defineRole(Organization organization) {
+    private Authority defineRole(Organization organization) {
         if (organization.isGovernment()) {
-            return new Role(RoleValue.AUTHORITY);
+            return new Authority(AuthorityValue.AUTHORITY);
         } else {
-            return new Role(RoleValue.EMPLOYEE);
+            return new Authority(AuthorityValue.EMPLOYEE);
         }
     }
 }

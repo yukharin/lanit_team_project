@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.entities.jpa_entities;
 
-import com.lanit.lkz_project.entities.enums.RoleValue;
+import com.lanit.lkz_project.entities.enums.AuthorityValue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(exclude = {"id", "users"})
 @ToString(exclude = {"id", "users"})
-public class Role implements GrantedAuthority {
+public class Authority implements GrantedAuthority {
 
 
     @Id
@@ -23,16 +23,16 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private RoleValue role;
+    private AuthorityValue role;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "authorities")
     private List<User> users;
 
-    public Role() {
+    public Authority() {
 
     }
 
-    public Role(RoleValue role) {
+    public Authority(AuthorityValue role) {
         this.role = role;
     }
 

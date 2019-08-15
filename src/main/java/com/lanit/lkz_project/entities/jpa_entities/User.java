@@ -2,20 +2,18 @@ package com.lanit.lkz_project.entities.jpa_entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.lanit.lkz_project.entities.enums.RoleValue;
+import com.lanit.lkz_project.entities.enums.AuthorityValue;
 import com.lanit.lkz_project.entities.validation_groups.UserValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Set;
 
 
@@ -86,7 +84,7 @@ public class User implements Serializable, UserDetails {
                     name = "id_user", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "id_role", referencedColumnName = "id"))
-    private Set<Role> roles;
+    private Set<Authority> authorities;
 
     @Column(name = "enabled")
     private boolean enabled;
@@ -100,13 +98,8 @@ public class User implements Serializable, UserDetails {
     @Column(name = "credentialsNonExpired")
     private boolean credentialsNonExpired;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
-    }
-
-    public boolean hasRole(RoleValue role) {
-        for (Role temp : roles) {
+    public boolean hasAuthority(AuthorityValue role) {
+        for (Authority temp : authorities) {
             if (temp.getAuthority().equals(role.toString())) {
                 return true;
             }

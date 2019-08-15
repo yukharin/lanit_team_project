@@ -1,6 +1,6 @@
 package com.lanit.lkz_project.entities.enums;
 
-public enum RoleValue {
+public enum AuthorityValue {
 
     EMPLOYEE, AUTHORITY, ADMIN
 
