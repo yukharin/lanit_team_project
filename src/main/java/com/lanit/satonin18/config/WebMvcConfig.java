@@ -51,11 +51,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp().prefix("/WEB-INF/views/").suffix(".jsp");
+        registry
+                .jsp()
+                .prefix("/WEB-INF/views/")
+                .suffix(".jsp");
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
+        registry
+                .addViewController("/login")
+                .setViewName("login");
     }
 }

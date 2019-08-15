@@ -13,12 +13,12 @@ import java.util.Set;
 @Entity
 @Table(name = "accounts")
 
-@Data //get and set
+@Data
 //@ToString //can be loop
 @EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
-public class Account implements Serializable {
+public class UserAccount implements Serializable {
 //    @Id
 //    @Column(name = "id", nullable = false)
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,12 +47,12 @@ public class Account implements Serializable {
 
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "userAccount")
     private List<Authority> authorities;
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "UserAccount{" +
 //                "id=" + id +
                 ", id=" + id +
 //                ", user=" + user +
@@ -63,11 +63,11 @@ public class Account implements Serializable {
                 '}';
     }
 
-    public Account() {
+    public UserAccount() {
         System.out.println("44444444444444444444444444444");
     }
 
-//    public Account(int id, String username, String password, boolean enabled, Set<Authority> authorities) {
+//    public UserAccount(int id, String username, String password, boolean enabled, Set<Authority> authorities) {
 //        this();
 //
 //        this.id = id;

@@ -1,16 +1,11 @@
 package com.lanit.satonin18.app.objects.the_notification;
 
-//import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.property_in_future.COMMON_DEFAULT_VARS;
 import com.lanit.satonin18.app.entity.Action;
-import lombok.*;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 
-@Data
-//@NoArgsConstructor
-@AllArgsConstructor
 public class TheNotification4renderHtml {
 
     private PageImpl<Action> pageImpl = COMMON_DEFAULT_VARS.EMPTY_PAGE_IMPL_ACTION;
@@ -23,7 +18,39 @@ public class TheNotification4renderHtml {
         this.state = state;
     }
 
-//    public List<Integer> navigationPages;
+    public PageImpl<Action> getPageImpl() {
+        return pageImpl;
+    }
+
+    public void setPageImpl(PageImpl<Action> pageImpl) {
+        this.pageImpl = pageImpl;
+    }
+
+    public List<Action> getShowListActions() {
+        return showListActions;
+    }
+
+    public void setShowListActions(List<Action> showListActions) {
+        this.showListActions = showListActions;
+    }
+
+    public Action getLatestAction() {
+        return latestAction;
+    }
+
+    public void setLatestAction(Action latestAction) {
+        this.latestAction = latestAction;
+    }
+
+    public TheNotificationState getState() {
+        return state;
+    }
+
+    public void setState(TheNotificationState state) {
+        this.state = state;
+    }
+
+    //    public List<Integer> navigationPages;
 //
 //    public void calcNavigationPages() {
 //        navigationPages = new ArrayList<Integer>();

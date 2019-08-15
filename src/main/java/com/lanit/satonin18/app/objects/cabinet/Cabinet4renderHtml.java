@@ -1,20 +1,23 @@
 package com.lanit.satonin18.app.objects.cabinet;
 
-//import com.lanit.satonin18.app.Pagination;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
-import lombok.*;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class Cabinet4renderHtml {
-    @Getter private static final List<Status> statuses4selectFilter = Arrays.asList(Status.values());
-    @Getter private static final List<Status> listArchiveStatus = Status.getArchiveStatuses();
+    private static final List<Status> statuses4selectFilter = Arrays.asList(Status.values());
+    private static final List<Status> listArchiveStatus = Status.getArchiveStatuses();
+
+    public static List<Status> getStatuses4selectFilter() {
+        return statuses4selectFilter;
+    }
+
+    public static List<Status> getListArchiveStatus() {
+        return listArchiveStatus;
+    }
     //--------------------------------------------------------------------
     private PageImpl<Notification> pageImpl ;//= COMMON_DEFAULT_VARS.EMPTY_PAGE_IMPL_NOTIFICATION; //
     private List<Status> checkedMainListNotificStatuses = Arrays.asList(Status.values());
@@ -24,6 +27,29 @@ public class Cabinet4renderHtml {
         this.state = state;
     }
 
+    public PageImpl<Notification> getPageImpl() {
+        return pageImpl;
+    }
+
+    public void setPageImpl(PageImpl<Notification> pageImpl) {
+        this.pageImpl = pageImpl;
+    }
+
+    public List<Status> getCheckedMainListNotificStatuses() {
+        return checkedMainListNotificStatuses;
+    }
+
+    public void setCheckedMainListNotificStatuses(List<Status> checkedMainListNotificStatuses) {
+        this.checkedMainListNotificStatuses = checkedMainListNotificStatuses;
+    }
+
+    public CabinetState getState() {
+        return state;
+    }
+
+    public void setState(CabinetState state) {
+        this.state = state;
+    }
 //    public List<Integer> navigationPages;
 //
 //    public void calcNavigationPages() {
@@ -54,4 +80,5 @@ public class Cabinet4renderHtml {
 //        // The last temp_page.
 //        navigationPages.add(totalPages);
 //    }
+
 }

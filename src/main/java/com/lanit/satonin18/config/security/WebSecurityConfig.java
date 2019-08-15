@@ -1,4 +1,4 @@
-package com.lanit.satonin18.config;
+package com.lanit.satonin18.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,20 +28,38 @@ public class WebSecurityConfig
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+//        auth.authenticationProvider(authProvider());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+        http
+                .authorizeRequests()
+                .anyRequest()
+                .hasAnyRole("ADMIN", "USER")
+
                 .and()
-                .authorizeRequests().antMatchers("/login**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/login**")
+                .permitAll()
+
                 .and()
-                .formLogin().loginPage("/login").loginProcessingUrl("/loginAction").permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/loginAction")
+                .permitAll()
+
                 .and()
-                .logout().logoutSuccessUrl("/login").permitAll()
+                .logout()
+                .logoutSuccessUrl("/login")
+                .permitAll()
+
                 .and()
-                .csrf().disable();
+                .csrf()
+                .disable();
     }
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) {
@@ -55,7 +73,6 @@ public class WebSecurityConfig
 //            e.printStackTrace();
 //        }
 //    }
-//
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http
@@ -81,7 +98,6 @@ public class WebSecurityConfig
 //                .csrf().disable();
 //        //csrfTokenRepository(repo());
 //    }
-//
 //    //@Bean
 //    public CsrfTokenRepository repo() {
 //        HttpSessionCsrfTokenRepository repo = new HttpSessionCsrfTokenRepository();

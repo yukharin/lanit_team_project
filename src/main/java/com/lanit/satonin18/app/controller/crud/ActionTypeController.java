@@ -24,7 +24,7 @@ public class ActionTypeController {
 
 	@GetMapping("/")
 	public String index(Model model) {
-		return "crud/actionType/index";
+		return "crud/actionType/afterLogin";
 	}
 
 	@GetMapping("/list")

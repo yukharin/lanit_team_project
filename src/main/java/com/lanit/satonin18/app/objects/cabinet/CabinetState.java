@@ -3,30 +3,33 @@ package com.lanit.satonin18.app.objects.cabinet;
 import com.lanit.satonin18.app.dto.FilterDto;
 import com.lanit.satonin18.app.dto.OrderByDto;
 import com.lanit.satonin18.app.dto.PaginationDto;
-import lombok.Data;
 
-@Data
 public class CabinetState {
     FilterDto filterDto;
     PaginationDto paginationDto;
     OrderByDto orderByDto;
 
-//    PaginationDto
-//    private Integer maxResult;
-//    private Integer page;
+    public FilterDto getFilterDto() {
+        return filterDto;
+    }
 
-//    OrderByDto
-//    private Boolean desc;
-//    private String orderFieldName;
+    public void setFilterDto(FilterDto filterDto) {
+        this.filterDto = filterDto;
+    }
 
-//    FilterDto
-//    private List<Integer> idFilterStatus;
-//    private Boolean showArchive;
+    public PaginationDto getPaginationDto() {
+        return paginationDto;
+    }
 
-//    private Boolean flagNeedSetFirstPage;
+    public void setPaginationDto(PaginationDto paginationDto) {
+        this.paginationDto = paginationDto;
+    }
 
+    public OrderByDto getOrderByDto() {
+        return orderByDto;
+    }
 
-//    private Boolean flagNeedReplaceStatus;
-//    private Integer selectedIdNotification4editStatus;
-//    private Integer selectedNewIdStatus;
+    public void setOrderByDto(OrderByDto orderByDto) {
+        this.orderByDto = orderByDto;
+    }
 }

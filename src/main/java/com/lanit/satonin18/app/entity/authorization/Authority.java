@@ -3,7 +3,6 @@ package com.lanit.satonin18.app.entity.authorization;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "accounts_authorities")
@@ -21,7 +20,7 @@ public class Authority {
 
     @ManyToOne
     @JoinColumn(name = "id_account", referencedColumnName = "id_user", nullable = false)
-    private Account account;
+    private UserAccount userAccount;
 
     @Basic
     @Column(name = "authority", nullable = false, length = 50)
@@ -31,7 +30,7 @@ public class Authority {
     public String toString() {
         return "Authority{" +
                 "id=" + id +
-//                ", account=" + account +
+//                ", userAccount=" + userAccount +
                 ", authority='" + authority + '\'' +
                 '}';
     }
