@@ -2,7 +2,6 @@ package com.lanit.lkz_project.controllers.mvc_controllers;
 
 import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
-import com.lanit.lkz_project.entities.jpa_entities.Organization;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @Controller
 public class HomePageController {
@@ -42,14 +39,12 @@ public class HomePageController {
     private PersonalAccountService personalAccountService;
 
 
-    @RequestMapping(path = {"/"})
+    @RequestMapping("/")
     public ModelAndView toAccountPage(ModelAndView modelAndView,
                                       @AuthenticationPrincipal User user,
                                       @ModelAttribute PersonalAccountPageDto<Notification> pageDTO) {
-        logger.trace("sending loginPage.html");
         personalAccountService.setAccountPageState(pageDTO, user);
         modelAndView.addObject("pageDTO", pageDTO);
-        modelAndView.addObject("user", user);
         modelAndView.setViewName(account_page);
         return modelAndView;
     }
@@ -60,15 +55,6 @@ public class HomePageController {
         return modelAndView;
     }
 
-    @GetMapping("/registration/")
-    public ModelAndView toRegistrationPage(ModelAndView modelAndView,
-                                           @ModelAttribute User user) {
-        List<Organization> organizations = organizationService.organizations();
-        modelAndView.addObject("organizations", organizations);
-        modelAndView.setViewName(registration_page);
-        logger.trace("Adding model attribute - list of all organizations, then sending userRegistrationPage.html");
-        return modelAndView;
-    }
 
     @RequestMapping("/logout")
     public ModelAndView logout(ModelAndView modelAndView, Authentication authentication, HttpServletRequest request, HttpServletResponse response) {

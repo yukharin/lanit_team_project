@@ -83,7 +83,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @GetMapping("/notification_actions_history/")
+    @GetMapping("/actions_history/")
     public ModelAndView getNotificationActions(
             @NonNull @RequestParam Long id,
             ModelAndView modelAndView) {
@@ -96,8 +96,8 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/delete/")
-    public String deleteNotification(@NonNull @RequestParam String id) {
-        notificationService.removeNotification(Long.valueOf(id));
+    public String deleteNotification(@NonNull @RequestParam Long id) {
+        notificationService.removeNotification(id);
         return "redirect:/account/";
     }
 
@@ -113,7 +113,7 @@ public class PersonalAccountController {
 
     @PostMapping("/addNotification/")
     public ModelAndView addNotification(@AuthenticationPrincipal User user,
-                                        @Validated(value = NotificationValidationGroup.class) @ModelAttribute Notification notification,
+                                        @Validated(value = NotificationValidationGroup.class) @NonNull @ModelAttribute Notification notification,
                                         BindingResult bindingResult,
                                         ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
@@ -145,9 +145,10 @@ public class PersonalAccountController {
     public ModelAndView addAction(
             @AuthenticationPrincipal User user,
             @Validated(value = ActionValidationGroup.class) @NonNull @ModelAttribute Action action,
+            @RequestParam("notification.id") Long id,
             BindingResult bindingResult,
             ModelAndView modelAndView) {
-        Notification notification = notificationService.getNotification(action.getNotification().getId());
+        Notification notification = notificationService.getNotification(id);
         if (bindingResult.hasErrors()) {
             EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
             modelAndView.addObject("notification", notification);

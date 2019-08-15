@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,7 +41,17 @@ public class RegistrationPageController {
     @Value("${registration_page}")
     private String registration_page;
 
-    @PostMapping("/registerUser/")
+
+    @GetMapping("/registration/")
+    public ModelAndView toRegistrationPage(ModelAndView modelAndView,
+                                           @ModelAttribute User user) {
+        List<Organization> organizations = organizationService.organizations();
+        modelAndView.addObject("organizations", organizations);
+        modelAndView.setViewName(registration_page);
+        return modelAndView;
+    }
+
+    @PostMapping("/registration/")
     public ModelAndView add(@Validated(value = UserValidationGroup.class) @ModelAttribute User user,
                             BindingResult bindingResult,
                             ModelAndView modelAndView) {
