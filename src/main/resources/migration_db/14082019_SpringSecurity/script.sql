@@ -126,48 +126,6 @@ CREATE INDEX `id_notification_idx` ON `lanit`.`actions` (`id_notification` ASC) 
 
 CREATE INDEX `idx_datetime` ON `lanit`.`actions` (`date` ASC) VISIBLE;
 
-
--- -----------------------------------------------------
--- Table `lanit`.`accounts`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `lanit`.`accounts` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_user` INT UNSIGNED NOT NULL,
-  `username` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(100) NOT NULL,
-  `enabled` TINYINT(0) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `id_user`
-    FOREIGN KEY (`id_user`)
-    REFERENCES `lanit`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE UNIQUE INDEX `username_id_user` ON `lanit`.`accounts` (`id_user` ASC, `username` ASC) INVISIBLE;
-
-CREATE INDEX `id_user_idx` ON `lanit`.`accounts` (`id_user` ASC) INVISIBLE;
-
-
--- -----------------------------------------------------
--- Table `lanit`.`accounts_authorities`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `lanit`.`accounts_authorities` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_account` INT UNSIGNED NOT NULL,
-  `authority` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `id_account`
-    FOREIGN KEY (`id_account`)
-    REFERENCES `lanit`.`accounts` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `id_account_idx` ON `lanit`.`accounts_authorities` (`id_account` ASC) INVISIBLE;
-
-CREATE UNIQUE INDEX `authority_id_account` ON `lanit`.`accounts_authorities` (`id_account` ASC, `authority` ASC) VISIBLE;
-
 USE `lanit`;
 
 DELIMITER $$
@@ -245,26 +203,6 @@ INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_no
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`, `date_response`, `letter_number`, `id_user_curator_gos`, `id_user_implementor`) VALUES (2, 11, 'Уведомление о незакрытии контракта', 2, '2015-07-05', '2015-07-05', '1', 8, 6);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`, `date_response`, `letter_number`, `id_user_curator_gos`, `id_user_implementor`) VALUES (3, 12, 'Уведомление о невключении поставщика в реестр недобросовестных поставщиков', 1, '2016-06-06', '2016-06-07', '2', 10, 6);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `id_notification_status`, `date_received`, `date_response`, `letter_number`, `id_user_curator_gos`, `id_user_implementor`) VALUES (4, 11, 'Уведомление о заключении контракта с ед. поставщиком по п. 6 ч.1 ст.93', 1, '2014-07-05', '2014-07-06', '3', 9, 7);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `lanit`.`accounts`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `lanit`;
-INSERT INTO `lanit`.`accounts` (`id`, `id_user`, `username`, `password`, `enabled`) VALUES (1, 1, 'admin', '$2a$10$hbxecwitQQ.dDT4JOFzQAulNySFwEpaFLw38jda6Td.Y/cOiRzDFu', true);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `lanit`.`accounts_authorities`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `lanit`;
-INSERT INTO `lanit`.`accounts_authorities` (`id`, `id_account`, `authority`) VALUES (1, 1, 'ROLE_ADMIN');
 
 COMMIT;
 

@@ -131,12 +131,11 @@ CREATE INDEX `idx_datetime` ON `lanit`.`actions` (`date` ASC) VISIBLE;
 -- Table `lanit`.`accounts`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `lanit`.`accounts` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_user` INT UNSIGNED NOT NULL,
   `username` VARCHAR(50) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `enabled` TINYINT(0) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id_user`),
   CONSTRAINT `id_user`
     FOREIGN KEY (`id_user`)
     REFERENCES `lanit`.`users` (`id`)
@@ -144,9 +143,7 @@ CREATE TABLE IF NOT EXISTS `lanit`.`accounts` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `username_id_user` ON `lanit`.`accounts` (`id_user` ASC, `username` ASC) INVISIBLE;
-
-CREATE INDEX `id_user_idx` ON `lanit`.`accounts` (`id_user` ASC) INVISIBLE;
+CREATE UNIQUE INDEX `username_UNIQUE` ON `lanit`.`accounts` (`username` ASC) INVISIBLE;
 
 
 -- -----------------------------------------------------
@@ -159,14 +156,12 @@ CREATE TABLE IF NOT EXISTS `lanit`.`accounts_authorities` (
   PRIMARY KEY (`id`),
   CONSTRAINT `id_account`
     FOREIGN KEY (`id_account`)
-    REFERENCES `lanit`.`accounts` (`id`)
+    REFERENCES `lanit`.`accounts` (`id_user`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `id_account_idx` ON `lanit`.`accounts_authorities` (`id_account` ASC) INVISIBLE;
-
-CREATE UNIQUE INDEX `authority_id_account` ON `lanit`.`accounts_authorities` (`id_account` ASC, `authority` ASC) VISIBLE;
+CREATE UNIQUE INDEX `authority_id_account` ON `lanit`.`accounts_authorities` (`id_account` ASC, `authority` ASC) INVISIBLE;
 
 USE `lanit`;
 
@@ -254,7 +249,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `lanit`;
-INSERT INTO `lanit`.`accounts` (`id`, `id_user`, `username`, `password`, `enabled`) VALUES (1, 1, 'admin', '$2a$10$hbxecwitQQ.dDT4JOFzQAulNySFwEpaFLw38jda6Td.Y/cOiRzDFu', true);
+INSERT INTO `lanit`.`accounts` (`id_user`, `username`, `password`, `enabled`) VALUES (1, 'user1', '$2a$10$aI2YkjH3eUZcCdn.9cH0Qu8ZUQAxwKWaprhAniiCwDVFcvmqRO8X.', true);
+INSERT INTO `lanit`.`accounts` (`id_user`, `username`, `password`, `enabled`) VALUES (2, 'user2', '$2a$10$aI2YkjH3eUZcCdn.9cH0Qu8ZUQAxwKWaprhAniiCwDVFcvmqRO8X.', true);
 
 COMMIT;
 
@@ -265,6 +261,7 @@ COMMIT;
 START TRANSACTION;
 USE `lanit`;
 INSERT INTO `lanit`.`accounts_authorities` (`id`, `id_account`, `authority`) VALUES (1, 1, 'ROLE_ADMIN');
+INSERT INTO `lanit`.`accounts_authorities` (`id`, `id_account`, `authority`) VALUES (2, 2, 'ROLE_USER');
 
 COMMIT;
 

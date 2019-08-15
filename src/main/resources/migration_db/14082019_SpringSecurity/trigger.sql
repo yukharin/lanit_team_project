@@ -126,48 +126,6 @@ CREATE INDEX `id_notification_idx` ON `lanit`.`actions` (`id_notification` ASC) 
 
 CREATE INDEX `idx_datetime` ON `lanit`.`actions` (`date` ASC) VISIBLE;
 
-
--- -----------------------------------------------------
--- Table `lanit`.`accounts`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `lanit`.`accounts` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_user` INT UNSIGNED NOT NULL,
-  `username` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(100) NOT NULL,
-  `enabled` TINYINT(0) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `id_user`
-    FOREIGN KEY (`id_user`)
-    REFERENCES `lanit`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE UNIQUE INDEX `username_id_user` ON `lanit`.`accounts` (`id_user` ASC, `username` ASC) INVISIBLE;
-
-CREATE INDEX `id_user_idx` ON `lanit`.`accounts` (`id_user` ASC) INVISIBLE;
-
-
--- -----------------------------------------------------
--- Table `lanit`.`accounts_authorities`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `lanit`.`accounts_authorities` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_account` INT UNSIGNED NOT NULL,
-  `authority` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `id_account`
-    FOREIGN KEY (`id_account`)
-    REFERENCES `lanit`.`accounts` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `id_account_idx` ON `lanit`.`accounts_authorities` (`id_account` ASC) INVISIBLE;
-
-CREATE UNIQUE INDEX `authority_id_account` ON `lanit`.`accounts_authorities` (`id_account` ASC, `authority` ASC) VISIBLE;
-
 USE `lanit`;
 
 DELIMITER $$
@@ -250,21 +208,13 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `lanit`.`accounts`
+-- Data for table `lanit`.`actions`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `lanit`;
-INSERT INTO `lanit`.`accounts` (`id`, `id_user`, `username`, `password`, `enabled`) VALUES (1, 1, 'admin', '$2a$10$hbxecwitQQ.dDT4JOFzQAulNySFwEpaFLw38jda6Td.Y/cOiRzDFu', true);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `lanit`.`accounts_authorities`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `lanit`;
-INSERT INTO `lanit`.`accounts_authorities` (`id`, `id_account`, `authority`) VALUES (1, 1, 'ROLE_ADMIN');
+INSERT INTO `lanit`.`actions` (`id`, `id_notification`, `id_action_type`, `content`, `date`, `id_implementor`, `id_notification_status`) VALUES (1, 1, 1, 'content1', '2008-10-23 10:37:22', 4, 1);
+INSERT INTO `lanit`.`actions` (`id`, `id_notification`, `id_action_type`, `content`, `date`, `id_implementor`, `id_notification_status`) VALUES (2, 2, 2, 'Куратор ГРБС: Захарова Александра Владимировна', '2012-01-01 01:01:01', 8, 1);
+INSERT INTO `lanit`.`actions` (`id`, `id_notification`, `id_action_type`, `content`, `date`, `id_implementor`, `id_notification_status`) VALUES (3, 2, 1, 'Запрос в ГРБС: Прошу предоставить сведения о лимитах по статье бюджета. Сканированная копия ', '2012-01-01 02:01:01', 9, 1);
 
 COMMIT;
 
