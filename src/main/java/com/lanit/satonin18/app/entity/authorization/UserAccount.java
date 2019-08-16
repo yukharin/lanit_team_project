@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -33,18 +36,19 @@ public class UserAccount implements Serializable {
 //    private User user;
 
     //уникалбное поле //+уникальный индекс
-    @Basic
+    @NotBlank
+    @Size(min = 2, max = 50)
     @Column(name = "username", nullable = false, length = 50)
     private String username;
 
-    @Basic
+    @NotBlank //HEX
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Basic
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
+    @NotEmpty
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "userAccount")

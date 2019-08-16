@@ -3,8 +3,8 @@ package com.lanit.satonin18.app.entity;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -21,40 +21,47 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Basic
     @Column(name = "notification_type", nullable = true, length = 150)
     private String notificationType;
 
-    @Basic
+    @NotNull
+    @PastOrPresent
     @Column(name = "date_received", nullable = false)
-    private Date dateReceived;
+    private java.sql.Date dateReceived;
 
-    @Basic
+    @NotNull
+    @PastOrPresent
     @Column(name = "date_response", nullable = false)
-    private Date dateResponse;
+    private java.sql.Date dateResponse;
 
-    @Basic
+    @NotBlank
+    @Size(min = 12, max = 12)
     @Column(name = "letter_number", nullable = true, length = 12)
     private String letterNumber;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_org")//, referencedColumnName = "id", nullable = false)
     private Organization organization;
 
 //    @ManyToOne
 //    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "id_notification_status")
     private Status status;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_user_curator_gos", referencedColumnName = "id", nullable = false)
     private User userByIdUserCuratorGos;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userByIdUserImplementor;
 
+    @NotEmpty
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "notification")//, fetch = FetchType.EAGER)

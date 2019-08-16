@@ -4,6 +4,10 @@ import com.lanit.satonin18.app.entity.no_in_db.ActionType;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -21,29 +25,36 @@ public class Action implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Basic
+    @NotBlank
+    @Size(min = 2, max = 300)
     @Column(name = "content", nullable = true, length = 300)
     private String content;
 
+    @NotNull
+    @PastOrPresent
     @Column(name = "date", nullable = false)
     private Timestamp date;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_notification", referencedColumnName = "id", nullable = false)
     private Notification notification;
 
 //    @ManyToOne
 //    @JoinColumn(name = "id_action_type", referencedColumnName = "id", nullable = false)
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "id_action_type")
     private ActionType actionType;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_implementor", referencedColumnName = "id", nullable = false)
     private User userByIdImplementor;
 
 //    @ManyToOne
 //    @JoinColumn(name = "id_notification_status", referencedColumnName = "id", nullable = false)
+    @NotNull
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "id_notification_status")
     private Status statusAfterProcessing;

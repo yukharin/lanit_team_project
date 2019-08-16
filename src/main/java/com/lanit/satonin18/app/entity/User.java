@@ -3,6 +3,8 @@ package com.lanit.satonin18.app.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -19,11 +21,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Basic
+    @NotBlank
+    @Size(min = 2, max = 45)
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
-    @Basic
+    @NotBlank
+    @Size(min = 2, max = 45)
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
