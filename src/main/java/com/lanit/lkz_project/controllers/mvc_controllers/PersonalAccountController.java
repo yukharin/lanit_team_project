@@ -153,11 +153,10 @@ public class PersonalAccountController {
     public ModelAndView addAction(
             @AuthenticationPrincipal User user,
             @Validated(value = ActionValidationGroup.class) @NonNull @ModelAttribute Action action,
-            @RequestParam("notification.id") Long id,
             BindingResult bindingResult,
-            ModelAndView modelAndView) {
-        Notification notification = notificationService.getNotification(id);
+            @RequestParam("notification.id") Long id, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
+            Notification notification = notificationService.getNotification(id);
             EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
             modelAndView.addObject("notification", notification);
             modelAndView.addObject("actionTypes", types);

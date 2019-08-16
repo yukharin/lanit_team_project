@@ -75,7 +75,7 @@
     <div class="not_info-add_action"
          th:remove="${(#strings.toString(notification.status) eq 'APPROVED') ||(#strings.toString(notification.status)eq'REJECTED')}? all : none">
         <h3 class="not_info-add_action-header">Добавить действие</h3>
-        <form class="not_info-add_action-form" method="post" th:action="@{/account/notification_info/}"
+        <form class="not_info-add_action-form" method="post" th:action="@{/account/notification_info}"
               th:object="${action}">
             <label class="not_info-add_action-form-label" for="select1"> Выберите действие
                 <select class="not_info-add_action-form-select" id="select1" name="actionTypeParam"
