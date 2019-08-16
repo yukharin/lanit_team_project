@@ -180,6 +180,7 @@ public class PersonalAccountController {
 
 
     @GetMapping("/admin/user{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView getUserInfo(ModelAndView modelAndView, @PathVariable("id") Long id) {
         User user = userRepository.findById(id).get();
         modelAndView.addObject("user", user);

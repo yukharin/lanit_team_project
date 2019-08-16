@@ -4,7 +4,6 @@ import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageD
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
-import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,6 @@ public class HomePageController {
     @Value("${login_page}")
     private String login_page;
 
-    @Autowired
-    private OrganizationService organizationService;
 
     @Autowired
     private PersonalAccountService personalAccountService;

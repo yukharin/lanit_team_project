@@ -1,6 +1,7 @@
 package com.lanit.lkz_project;
 
-import com.lanit.lkz_project.entities.enums.AuthorityValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
@@ -11,6 +12,9 @@ import javax.sql.DataSource;
 
 
 public class Main {
+
+    Logger logger = LoggerFactory.getLogger(Main.class);
+
 //    public static void main(String[] args) {
 //        ZonedDateTime apollo11launch = ZonedDateTime.of(1969, 7, 16, 9, 32, 0, 0,
 //                ZoneId.of("America/New_York"));
@@ -119,6 +123,5 @@ public class Main {
 
         Context namingComtext = new InitialContext();
 
-        System.out.println(AuthorityValue.EMPLOYEE.toString());
     }
 }

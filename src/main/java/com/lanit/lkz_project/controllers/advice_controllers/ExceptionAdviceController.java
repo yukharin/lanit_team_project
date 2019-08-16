@@ -3,6 +3,7 @@ package com.lanit.lkz_project.controllers.advice_controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +19,8 @@ public class ExceptionAdviceController {
     private String general_error_page;
     @Value("${error_404_page}")
     private String error_404_page;
+    @Value("${error_403_page}")
+    private String error_403_page;
 
     @ExceptionHandler(Throwable.class)
     public ModelAndView handle(Throwable ex) {
@@ -33,6 +36,12 @@ public class ExceptionAdviceController {
     public String handleError404(Exception e) {
         logger.error("404 error: " + e.getMessage());
         return error_404_page;
+    }
+
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public String handleError403(Exception e) {
+        return error_403_page;
     }
 
 }
