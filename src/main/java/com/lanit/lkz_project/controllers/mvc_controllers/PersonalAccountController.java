@@ -136,9 +136,9 @@ public class PersonalAccountController {
         }
     }
 
-    @GetMapping("/notification_info")
+    @GetMapping("/notification{id}")
     public ModelAndView getNotificationPage(
-            @NonNull @RequestParam Long id,
+            @NonNull @PathVariable Long id,
             @ModelAttribute Action action,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
