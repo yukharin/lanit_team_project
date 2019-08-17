@@ -123,5 +123,9 @@ public class Main {
 
         Context namingComtext = new InitialContext();
 
+        String name;
+        Logger logger = LoggerFactory.getLogger(Main.class);
+
+        Context context = new InitialContext();
     }
 }
