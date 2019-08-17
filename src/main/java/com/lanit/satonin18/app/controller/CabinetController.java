@@ -11,7 +11,6 @@ import com.lanit.satonin18.app.property_in_future.DEFAULT_CABINET_VARS;
 import com.lanit.satonin18.app.service.app_service.CabinetService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +36,8 @@ public class CabinetController {
         model.addAttribute("user", currentUser);
         model.addAttribute("selectShowListMaxResult", COMMON_DEFAULT_VARS.selectShowListMaxResult);
         model.addAttribute("listFastFilter", DEFAULT_CABINET_VARS.list4FastFilter);
+
+        model.addAttribute("columnTable", ColumnCabinetTable.values());
     }
 
     @GetMapping("/selectUser")
@@ -47,24 +48,27 @@ public class CabinetController {
         session.setAttribute("user", idSelectUser); //todo добавляем без проверки
 
         CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
-        if(state == null){
-            FilterDto filterDto = new FilterDto();
-            PaginationDto paginationDto = new PaginationDto();
-            OrderByDto orderByDto = new OrderByDto();
+        if(state == null)
+            session.setAttribute("cabinetState", getNewDefault4watchCabinetState());
 
-            validateAndSetDefaultVars(filterDto);
-            filterDto.setIdFilterStatus(Status.getAllId());
-            validateAndSetDefaultVars(paginationDto);
-            validateAndSetDefaultVars(orderByDto);
-
-            state = new CabinetState();
-            state.setFilterDto(filterDto);
-            state.setPaginationDto(paginationDto);
-            state.setOrderByDto(orderByDto);
-
-            session.setAttribute("cabinetState", state);
-        }
         return "redirect:/cabinet/notifications";
+    }
+
+    private CabinetState getNewDefault4watchCabinetState() {
+        FilterDto filterDto = new FilterDto();
+        PaginationDto paginationDto = new PaginationDto();
+        OrderByDto orderByDto = new OrderByDto();
+
+        validateAndSetDefaultVars(filterDto);
+        filterDto.setIdFilterStatus(Status.getAllId());
+        validateAndSetDefaultVars(paginationDto);
+        validateAndSetDefaultVars(orderByDto);
+
+        CabinetState state = new CabinetState();
+        state.setFilterDto(filterDto);
+        state.setPaginationDto(paginationDto);
+        state.setOrderByDto(orderByDto);
+        return state;
     }
 
     @PostMapping("/filters")
@@ -102,7 +106,6 @@ public class CabinetController {
         return "redirect:/cabinet/notifications";
     }
 
-
     @PostMapping("/orderby")
     public String orderby(
             HttpServletRequest request,
@@ -129,7 +132,7 @@ public class CabinetController {
             cabinetService.editStatus(selectedIdNotification4editStatus, selectedNewIdStatus);
         return "redirect:/cabinet/notifications";
     }
-    //todo heed POST
+    //todo need post
     @GetMapping("/deleteTheNotification")
     public String deleteTheNotification(
             Integer notificationId){

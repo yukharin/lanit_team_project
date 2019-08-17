@@ -6,6 +6,4 @@ import lombok.Data;
 public class OrderByDto {
     private Boolean desc;
     private String orderFieldName;
-
-//    private Boolean flagChangedStateAndNeedSetFirstPage;
 }

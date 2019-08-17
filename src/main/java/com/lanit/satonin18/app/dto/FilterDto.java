@@ -8,6 +8,4 @@ import java.util.List;
 public class FilterDto {
     private List<Integer> idFilterStatus;
     private Boolean showArchive;
-
-//    private Boolean flagChangedStateAndNeedSetFirstPage;
 }

@@ -22,18 +22,14 @@ import java.util.Set;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class UserAccount implements Serializable {
-//    @Id
-//    @Column(name = "id", nullable = false)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
 
     @Id
     @Column(name = "id_user", nullable = false)
     private int id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
-//    private User user;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
+    private User user;
 
     //уникалбное поле //+уникальный индекс
     @NotBlank
@@ -57,7 +53,6 @@ public class UserAccount implements Serializable {
     @Override
     public String toString() {
         return "UserAccount{" +
-//                "id=" + id +
                 ", id=" + id +
 //                ", user=" + user +
                 ", username='" + username + '\'' +

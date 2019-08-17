@@ -23,86 +23,46 @@
 
     <form action="filters"  method="post" <%--modelAttribute="cabinetDtoOnInput"--%> >
         <div id="filters">
-            <%--<form action="filterByNotificStatus"  method="get">--%>
             Фильтры:<Br>
             <table>
                 <td style="text-align: left; width: 30%;">
                     <c:forEach items="${render.getStatuses4selectFilter()}" var="tempStatus">
-                        <c:choose>
-                            <c:when test="${render.getCheckedMainListNotificStatuses().contains(tempStatus)}">
-                                <input checked
-                                       class= "checkboxStatuses4select"
-                                       type="checkbox"
-                                       name="idFilterStatus"  value="${tempStatus.id}"
-                                       onchange="
+
+                        <input ${render.getCheckedMainListNotificStatuses().contains(tempStatus) ? 'checked' : ''}
+                                class= "checkboxStatuses4select"
+                                type="checkbox"
+                                name="idFilterStatus"  value="${tempStatus.id}"
+                                onchange="
                                        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                        this.form.submit()"
-                                >
-                                        ${tempStatus.name}
-                                </input>
-                                <Br>
-                            </c:when>
-                            <c:otherwise>
-                                <input class= "checkboxStatuses4select"
-                                       type="checkbox"
-                                       name="idFilterStatus" value="${tempStatus.id}"
-                                       onchange="
-                                       // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-                                       this.form.submit()"
-                                >
-                                        ${tempStatus.name}
-                                </input>
-                                <Br>
-                            </c:otherwise>
-                        </c:choose>
+                        >
+                                ${tempStatus.name}
+                        </input>
+                        <Br>
                     </c:forEach>
                 </td>
                 <td>
-                    <c:choose>
-                        <c:when test="${render.state.filterDto.getShowArchive()}">
-                            <input checked
-                                   class= "checkboxshowArchive"
-                                   type="checkbox"
-                                   name="showArchive" value="true"
-                                   onchange="
+                    <input ${render.state.filterDto.getShowArchive() ? 'checked' : ''}
+                            class= "checkboxshowArchive"
+                            type="checkbox"
+                            name="showArchive" value="true"
+                            onchange="
                                    // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
                                    this.form.submit()"
-                            >
-                            Показывать архивные уведомления
-                            </input>
-                            <Br>
-                        </c:when>
-                        <c:otherwise>
-                            <input class= "checkboxshowArchive"
-                                   type="checkbox"
-                                   name="showArchive" value="true"
-                                   onchange="
-                                   // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-                                   this.form.submit()"
-                            >
-                            Показывать архивные уведомления
-                            </input>
-                            <Br>
-                        </c:otherwise>
-                    </c:choose>
+                    >
+                    Показывать архивные уведомления
+                    </input>
+                    <Br>
                 </td>
                 <td>
                     <input type="checkbox">(Mock)Быстрый фильтр<Br>
                     <select type="text" name="selectFastFilter" ><%--multiple="true"--%>
                         <c:forEach items="${listFastFilter}" var="tempFilter">
-                            <%--<c:choose>--%>
-                            <%--<c:when test="${currentFastFilter.id.equals(tempFilter.id)}">--%>
-                            <%--<option &lt;%&ndash;selected&ndash;%&gt;--%>
-                            <%--value = "${tempFilter.id}">--%>
-                            <%--${tempFilter.description}--%>
-                            <%--</option>--%>
-                            <%--</c:when>--%>
-                            <%--<c:otherwise>--%>
-                            <option value = "${tempFilter.id}">
+                            <option
+                                <%--${currentFastFilter.id.equals(tempFilter.id) ? 'selected' : ''}--%>
+                                    value = "${tempFilter.id}">
                                     ${tempFilter.description}
                             </option>
-                            <%--</c:otherwise>--%>
-                            <%--</c:choose>--%>
                         </c:forEach>
                     </select>
                     ///
@@ -129,303 +89,49 @@
             </button>
             <%--</form>--%>
         </div>
-
-        <%--<input id="flagNeedSetFirstPage"--%>
-        <%--type="hidden"--%>
-        <%--name="flagNeedSetFirstPage" value="false"></input>--%>
     </form>
 
     <jsp:include page="/templates/pagination.jsp" />
 
+    (Mock-для чиновника возможность создать новое уведомление-тригер уже стоит)
+
     <div id="list_notifications">
         <table>
-            <form action="orderby"  method="post" <%--modelAttribute="cabinetDtoOnInput"--%> >
+            <tr>
+                <th>(Mock)
+                    <Br><input type="checkbox"></th>
+                <th>№</th>
 
-                <tr>
-                    <th>(Mock)
-                        <Br><input type="checkbox"></th>
-                    <th>№</th>
-                    <th>Вид уведомления<%--notificationType--%>
-                        <Br>
-                        <span class ="radioDecorator radio-notificationType">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=notificationType&desc=true"
-                                   name="orderFieldName" value="notificationType"
-                            <%--onchange="this.form.submit()" --%> >
-                            <input type="radio" id="radio-desc-orderFieldName=notificationType&desc=true"
-                                   name="desc" value="true"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=notificationType&desc=true"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=notificationType&desc=true').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=notificationType&desc=true').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                /\
-                            </button>
-                        </span>
-                        <Br>
-                        <span class ="radioDecorator radio-notificationType">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=notificationType&desc=false"
-                                   name="orderFieldName" value="notificationType"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=notificationType&desc=false"
-                                   name="desc" value="false"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=notificationType&desc=false"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=notificationType&desc=false').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=notificationType&desc=false').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                \/
-                            </button>
-                        </span>
-                    </th>
-                    <th>Заказчик<%--organization.NAME--%>
-                        <Br>
-                        <span class ="radioDecorator radio-organization.name">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=organization.name&desc=true"
-                                   name="orderFieldName" value="organization.name"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=organization.name&desc=true"
-                                   name="desc" value="true"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=organization.name&desc=true"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=organization.name&desc=true').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=organization.name&desc=true').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                /\
-                            </button>
-                        </span>
-                        <Br>
-                        <span class ="radioDecorator radio-organization.name">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=organization.name&desc=false"
-                                   name="orderFieldName" value="organization.name"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=organization.name&desc=false"
-                                   name="desc" value="false"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=organization.name&desc=false"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=organization.name&desc=false').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=organization.name&desc=false').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                \/
-                            </button>
-                        </span>
-                    </th>
-                    <th>Срок предоставления ответа<%--dateResponse--%>
-                        <Br>
-                        <span class ="radioDecorator radio-dateResponse">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=dateResponse&desc=true"
-                                   name="orderFieldName" value="dateResponse"
-                            <%--onchange="this.form.submit()" --%> >
-                            <input type="radio" id="radio-desc-orderFieldName=dateResponse&desc=true"
-                                   name="desc" value="true"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=dateResponse&desc=true"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=dateResponse&desc=true').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=dateResponse&desc=true').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                /\
-                            </button>
-                        </span>
-                        <Br>
-                        <span class ="radioDecorator radio-dateResponse">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=dateResponse&desc=false"
-                                   name="orderFieldName" value="dateResponse"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=dateResponse&desc=false"
-                                   name="desc" value="false"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=dateResponse&desc=false"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=dateResponse&desc=false').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=dateResponse&desc=false').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                \/
-                            </button>
-                        </span>
-                    </th>
-                    <th>Статус обработки уведомления<%--status--%>
-                        <Br>
-                        <span class ="radioDecorator radio-status">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=status&desc=true"
-                                   name="orderFieldName" value="status"
-                            <%--onchange="this.form.submit()" --%> >
-                            <input type="radio" id="radio-desc-orderFieldName=status&desc=true"
-                                   name="desc" value="true"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=status&desc=true"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=status&desc=true').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=status&desc=true').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                /\
-                            </button>
-                        </span>
-                        <Br>
-                        <span class ="radioDecorator radio-status">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=status&desc=false"
-                                   name="orderFieldName" value="status"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=status&desc=false"
-                                   name="desc" value="false"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=status&desc=false"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=status&desc=false').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=status&desc=false').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                \/
-                            </button>
-                        </span>
-                    </th>
-                    <th>Номер уведомления<%--Id--%>
-                        <Br>
-                        <span class ="radioDecorator radio-id">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=id&desc=true"
-                                   name="orderFieldName" value="id"
-                            <%--onchange="this.form.submit()" --%> >
-                            <input type="radio" id="radio-desc-orderFieldName=id&desc=true"
-                                   name="desc" value="true"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=id&desc=true"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=id&desc=true').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=id&desc=true').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                /\
-                            </button>
-                        </span>
-                        <Br>
-                        <span class ="radioDecorator radio-id">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=id&desc=false"
-                                   name="orderFieldName" value="id"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=id&desc=false"
-                                   name="desc" value="false"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=id&desc=false"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=id&desc=false').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=id&desc=false').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                \/
-                            </button>
-                        </span>
-                    </th>
-                    <th>Дата получения уведомления<%--dateReceived--%>
-                        <Br>
-                        <span class ="radioDecorator radio-dateReceived">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=dateReceived&desc=true"
-                                   name="orderFieldName" value="dateReceived"
-                            <%--onchange="this.form.submit()" --%> >
-                            <input type="radio" id="radio-desc-orderFieldName=dateReceived&desc=true"
-                                   name="desc" value="true"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=dateReceived&desc=true"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=dateReceived&desc=true').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=dateReceived&desc=true').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                /\
-                            </button>
-                        </span>
-                        <Br>
-                        <span class ="radioDecorator radio-dateReceived">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=dateReceived&desc=false"
-                                   name="orderFieldName" value="dateReceived"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=dateReceived&desc=false"
-                                   name="desc" value="false"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=dateReceived&desc=false"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=dateReceived&desc=false').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=dateReceived&desc=false').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                \/
-                            </button>
-                        </span>
-                    </th>
-                    <th>Номер письма<%--letterNumber--%>
-                        <Br>
-                        <span class ="radioDecorator radio-letterNumber">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=letterNumber&desc=true"
-                                   name="orderFieldName" value="letterNumber"
-                            <%--onchange="this.form.submit()" --%> >
-                            <input type="radio" id="radio-desc-orderFieldName=letterNumber&desc=true"
-                                   name="desc" value="true"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=letterNumber&desc=true"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=letterNumber&desc=true').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=letterNumber&desc=true').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                /\
-                            </button>
-                        </span>
-                        <Br>
-                        <span class ="radioDecorator radio-letterNumber">
-                            <input type="radio" id="radio-orderFieldName-orderFieldName=letterNumber&desc=false"
-                                   name="orderFieldName" value="letterNumber"
-                            <%--onchange="this.form.submit()"--%> >
-                            <input type="radio" id="radio-desc-orderFieldName=letterNumber&desc=false"
-                                   name="desc" value="false"
-                            <%--onchange="this.form.submit()"--%> >
-                            <button type="button" class="href-nav-item" id="orderFieldName=letterNumber&desc=false"
-                                    onclick="
-        document.getElementById('radio-orderFieldName-orderFieldName=letterNumber&desc=false').setAttribute('checked', true);
-        document.getElementById('radio-desc-orderFieldName=letterNumber&desc=false').setAttribute('checked', true);
-        // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);
-        this.form.submit()" >
-                                \/
-                            </button>
-                        </span>
-                    </th>
-                    <th>Действия</th>
-                </tr>
+                <jsp:include page="/templates/generHeadColumnWithOrder_ByEnum.jsp" />
 
-            </form>
+                <th>Действия</th>
+            </tr>
 
             <form action="editStatus"  method="post" <%--modelAttribute="cabinetDtoOnInput"--%> >
 
                 <c:forEach var="tempNotification" items="${render.getPageImpl().getContent()}" varStatus="loopCount" >
+
                     <tr>
                         <td><input type="checkbox"></td>
                             <%--<td>${notificLoopCount.count + (render.getPageImpl().getPageable().getPageNumber()-1)*render.getPageImpl().maxResult}--%>
-                        <td>
-                                ${loopCount.count + render.getPageImpl().getNumber() * render.getPageImpl().getPageable().getPageSize() }
+                        <td>${loopCount.count + render.getPageImpl().getNumber() * render.getPageImpl().getPageable().getPageSize() }
                         </td>
+
                         <td>${tempNotification.notificationType}</td>
                         <td>${tempNotification.organization.name}</td>
                         <td>${tempNotification.dateResponse.toString()}</td>
                         <td>
                             <c:choose>
                                 <c:when test="${user.organization.government}">
-                                    <%--<form action="editStatus" method="get">--%>
+
                                     <input type="checkbox" class="hidden_input"
                                            id="idNotification4editStatus=${tempNotification.id}"
                                            name="selectedIdNotification4editStatus" value="${tempNotification.id}"></input>
-                                    <%----%>
+
                                     <input type="checkbox" class="hidden_input"
                                            id="idStatus_WithIdNotification=${tempNotification.id}"
                                            name="selectedNewIdStatus" value="${tempNotification.status.id}"></input>
-                                    <%----%>
+
                                     <select type="text" id="selectElement_NewActionId_WithIdNotification=${tempNotification.id}"<%--name="idStatus_With_idNotification=${tempNotification.id}"--%>
                                             onchange="
                                                     document.getElementById('flagNeedReplaceStatus').setAttribute('value', 'true');
@@ -442,8 +148,8 @@
                                                     status.setAttribute('checked', 'true');
                                                     //
                                                     this.form.submit()" >
+
                                         <c:forEach items="${render.getStatuses4selectFilter()}" var="status">
-                                            <%----%>
                                             <c:choose>
                                                 <c:when test="${tempNotification.status.id.equals(status.id)}">
                                                     <option selected
@@ -453,13 +159,10 @@
                                                     <option value ="${status.id}">${status.name}</option>
                                                 </c:otherwise>
                                             </c:choose>
-                                            <%----%>
                                         </c:forEach>
                                     </select>
                                     <%--<input type="submit" value="Применить изменения" class="save" />--%>
-                                    <%--</form>--%>
                                 </c:when>
-                                <%----%>
                                 <c:otherwise>
                                     ${tempNotification.status.name}
                                 </c:otherwise>
@@ -468,9 +171,11 @@
                         <td>${tempNotification.id}</td>
                         <td>${tempNotification.dateReceived.toString()}</td>
                         <td>${tempNotification.letterNumber}</td>
+
                         <td>
                             Кол-во: ${tempNotification.actions.size()}
                             <Br>
+
                             <c:url var="moreLink" value="the_notification/selectTheNotification">
                                 <c:param name="notificationId" value="${tempNotification.id}"/>
                                 <c:param name="userId" value="${user.id}"/>
@@ -483,24 +188,29 @@
                             >
                                 Подробнее
                             </button>
+
                             <c:if test="${user.organization.government}">
-                                <c:url var="deleteLink" value="deleteTheNotification">
+
+                                <%--<form action="deleteTheNotification"  method="post" >--%>
+                                <%--<input type="hidden"--%>
+                                <%--name="notificationId" value="${tempNotification.id}"></input>--%>
+                                <c:url var="deleteLink" value="the_notification/deleteTheNotification">
                                     <c:param name="notificationId" value="${tempNotification.id}"/>
-                                    <%--<c:param name="userId" value="${user.id}"/>--%>
                                 </c:url>
                                 <button type="button"<%--type="form.submit"--%>
                                         style="background-color: #af1b14; color: white; display: inline-block;" <%--class="green_button"--%>
                                         onclick="
                                                 if (!(confirm('Are you sure?'))) return false
+                                                // this.form.submit()
                                                 window.location.href='${deleteLink}'
                                                 "
                                 >
                                     Delete
                                 </button>
                             </c:if>
-                            <Br>
                         </td>
                     </tr>
+
                 </c:forEach>
 
                 <input id="flagNeedReplaceStatus"
@@ -509,7 +219,6 @@
             </form>
 
         </table>
-        (Mock-для чиновника возможность создать уведомление-тригер уже стоит)
     </div>
 
 </div>

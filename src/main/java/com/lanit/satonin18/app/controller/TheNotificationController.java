@@ -2,6 +2,7 @@ package com.lanit.satonin18.app.controller;
 
 import com.lanit.satonin18.app.dto.OrderByDto;
 import com.lanit.satonin18.app.dto.PaginationDto;
+import com.lanit.satonin18.app.objects.the_notification.ColumnTheNotificationTable;
 import com.lanit.satonin18.app.property_in_future.COMMON_DEFAULT_VARS;
 import com.lanit.satonin18.app.objects.the_notification.TheNotification4renderHtml;
 import com.lanit.satonin18.app.entity.*;
@@ -41,6 +42,8 @@ public class TheNotificationController {
         model.addAttribute("selectShowListMaxResult", COMMON_DEFAULT_VARS.selectShowListMaxResult);
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()) );
         model.addAttribute("listStatus", Arrays.asList(Status.values()) );
+
+        model.addAttribute("columnTable", ColumnTheNotificationTable.values());
     }
 
     @GetMapping("/selectTheNotification")

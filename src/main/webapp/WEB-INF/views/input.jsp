@@ -14,6 +14,7 @@
 <h1 style="text-align: center;">Вход АСКД ЛКЗ</h1>
 <h4 style="text-align: center;">Login Form</h4>
 
+<%--<form action='<spring:url value="/loginAction"/>' method="post">--%>
 <form action='<spring:url value="/loginAction"/>' method="post">
     <table style="margin: auto;">
         <tr>

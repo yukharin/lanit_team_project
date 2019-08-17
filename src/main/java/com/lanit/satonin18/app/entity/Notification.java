@@ -25,12 +25,13 @@ public class Notification implements Serializable {
     private String notificationType;
 
     @NotNull
-    @PastOrPresent
+//    @PastOrPresent
     @Column(name = "date_received", nullable = false)
     private java.sql.Date dateReceived;
 
     @NotNull
-    @PastOrPresent
+//    @PastOrPresent
+//    @Future
     @Column(name = "date_response", nullable = false)
     private java.sql.Date dateResponse;
 

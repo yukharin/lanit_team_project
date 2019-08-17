@@ -59,7 +59,13 @@ public class WebSecurityConfig
 
                 .and()
                 .csrf()
-                .disable();
+                .disable()
+
+//                .and()
+//                .rememberMe().tokenValiditySeconds(604800)
+//                .key("lssAppKey").rememberMeCookieName("cookie-me")
+//                .rememberMeParameter("remember")
+                ;
     }
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) {

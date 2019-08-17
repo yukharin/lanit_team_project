@@ -30,7 +30,7 @@
 
             <Br><Br>
             <a class="href-nav-item"
-               href="${pageContext.request.contextPath}/logout"> Выйти </a>
+               href="${pageContext.request.contextPath}/output"> Выйти </a>
             <Br>
             <%--</form>--%>
         </th>
