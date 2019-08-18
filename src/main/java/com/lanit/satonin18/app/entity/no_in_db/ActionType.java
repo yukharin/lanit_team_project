@@ -1,7 +1,5 @@
 package com.lanit.satonin18.app.entity.no_in_db;
 
-import lombok.Getter;
-
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -118,11 +116,10 @@ public enum ActionType{
     CONFORM_ANSWER(1,"Согласовать ответ"),
     REJECT_ANSWER(2, "Отклонить ответ");
 
-    private static int count=0;
+//    private static int count=0;
 
-    @Getter
     private int id; //todo нужна проверка на уникальность
-    @Getter
+
     private String name;
 
     private ActionType(int id, String name) throws RuntimeException {
@@ -166,5 +163,12 @@ public enum ActionType{
                 '}';
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
 

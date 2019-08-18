@@ -13,7 +13,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 import static org.hibernate.cfg.AvailableSettings.*;
@@ -49,15 +53,21 @@ public class DbConfig {
 	}
 
 	@Bean //no DataSource
-	public DriverManagerDataSource dataSource() {
+//	public DriverManagerDataSource dataSource() throws NamingException {
+	public DataSource dataSource() throws NamingException {
 		System.out.println("ddddddddddddddddddddddddddddddddddddd");
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
-		dataSource.setUrl(env.getProperty("jdbc.url"));
-		dataSource.setUsername(env.getProperty("jdbc.user"));
-		dataSource.setPassword(env.getProperty("jdbc.password"));
-		return dataSource;
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
+//		dataSource.setUrl(env.getProperty("jdbc.url"));
+//		dataSource.setUsername(env.getProperty("jdbc.user"));
+//		dataSource.setPassword(env.getProperty("jdbc.password"));
+//		return dataSource;
+
+		Context context = new InitialContext();
+		DataSource ds = (DataSource) context.lookup("jdbc/dataSource");
+		System.err.println("DATASOURCE: " + ds);
+		return ds;
 	}
 
 	private Properties hibernateProperties() {
@@ -74,17 +84,18 @@ public class DbConfig {
 		props.put(SHOW_SQL, env.getProperty("hibernate.show_sql"));
 		props.put(FORMAT_SQL, env.getProperty("hibernate.format_sql"));
 		props.put(HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
+
 		// Setting C3P0 properties
-		props.put(C3P0_MIN_SIZE,
-				env.getProperty("hibernate.c3p0.min_size"));
-		props.put(C3P0_MAX_SIZE,
-				env.getProperty("hibernate.c3p0.max_size"));
-		props.put(C3P0_ACQUIRE_INCREMENT,
-				env.getProperty("hibernate.c3p0.acquire_increment"));
-		props.put(C3P0_TIMEOUT,
-				env.getProperty("hibernate.c3p0.timeout"));
-		props.put(C3P0_MAX_STATEMENTS,
-				env.getProperty("hibernate.c3p0.max_statements"));
+//		props.put(C3P0_MIN_SIZE,
+//				env.getProperty("hibernate.c3p0.min_size"));
+//		props.put(C3P0_MAX_SIZE,
+//				env.getProperty("hibernate.c3p0.max_size"));
+//		props.put(C3P0_ACQUIRE_INCREMENT,
+//				env.getProperty("hibernate.c3p0.acquire_increment"));
+//		props.put(C3P0_TIMEOUT,
+//				env.getProperty("hibernate.c3p0.timeout"));
+//		props.put(C3P0_MAX_STATEMENTS,
+//				env.getProperty("hibernate.c3p0.max_statements"));
 
 		return props;
 	}
@@ -106,8 +117,8 @@ public class DbConfig {
 //	}
 
 	@Bean
-//	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-	public EntityManagerFactory entityManagerFactory() {
+//	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
+	public EntityManagerFactory entityManagerFactory() throws NamingException {
 		LocalContainerEntityManagerFactoryBean em_fb = new LocalContainerEntityManagerFactoryBean();
 
 		em_fb.setDataSource(dataSource());
@@ -118,15 +129,17 @@ public class DbConfig {
 		em_fb.afterPropertiesSet();//
 
 		return em_fb.getNativeEntityManagerFactory();
+//		return em_fb;
 	}
 
 	//for working @Transactional
 	@Bean
-	public PlatformTransactionManager transactionManager() throws IOException {
+	public PlatformTransactionManager transactionManager() throws IOException, NamingException {
 		System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
 //		return new HibernateTransactionManager(getSessionFactory().getObject());
 //		return new JpaTransactionManager(getSessionFactory().getObject());
 
-		return new JpaTransactionManager(entityManagerFactory()); //.getObject());
+		return new JpaTransactionManager(entityManagerFactory());
+//		return new JpaTransactionManager(entityManagerFactory().getObject());
 	}
 }

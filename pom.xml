@@ -15,6 +15,7 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <java.version>1.8</java.version>
         <spring.version>5.1.4.RELEASE</spring.version>
+        <!--<hibernate.version>4.3.11.Final</hibernate.version>-->
         <hibernate.version>5.2.11.Final</hibernate.version>
         <hibernate.validator>6.0.2.Final</hibernate.validator>
         <c3p0.version>0.9.5.2</c3p0.version>
@@ -26,6 +27,17 @@
     </properties>
 
     <dependencies>
+        <!--GlassFish 4-->
+        <!--https://tassioauad.com/2018/01/05/nosuchmethoderror-org-jboss-logging-logger-debugfljava-lang-stringi/-->
+
+        <!--GlassFish 5-->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.0.pr1</version>
+        </dependency>
+
         <!-- Validator -->
         <dependency>
             <groupId>org.hibernate</groupId>
