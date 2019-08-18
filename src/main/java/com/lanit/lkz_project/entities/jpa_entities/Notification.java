@@ -63,12 +63,10 @@ public class Notification implements Serializable {
     @Column(name = "date_response")
     private LocalDate dateResponse;
 
-
     @NotBlank
     @Size(min = 12, max = 12, message = "Length must be exactly 12 characters.")
     @Column(name = "letter_number")
     private String letterNumber;
-
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
