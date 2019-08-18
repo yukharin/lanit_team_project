@@ -13,8 +13,7 @@ import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import lombok.NonNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +28,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-
+@Slf4j
 @Controller
 @RequestMapping("/account")
 public class PersonalAccountController {
@@ -42,7 +41,6 @@ public class PersonalAccountController {
         System.err.println("PersonalAccountController: " + counter);
     }
 
-    private static Logger logger = LoggerFactory.getLogger(PersonalAccountController.class);
 
     @Value("${account_page}")
     private String account_page;
@@ -104,8 +102,10 @@ public class PersonalAccountController {
     }
 
     @PostMapping("/delete")
-    public String deleteNotification(@NonNull @RequestParam Long id) {
+    public String deleteNotification(@AuthenticationPrincipal User user,
+                                     @NonNull @RequestParam Long id) {
         notificationService.removeNotification(id);
+        log.info("user id: " + user.getId() + "deleted notification with id: " + id);
         return "redirect:/account/";
     }
 
@@ -125,12 +125,15 @@ public class PersonalAccountController {
                                         BindingResult bindingResult,
                                         ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
+            log.info("user with id: " + user.getId() + " passed wrong args: " + bindingResult);
             List<Organization> organizations = organizationService.organizations();
             modelAndView.addObject("organizations", organizations);
             modelAndView.setViewName(create_notification_page);
             return modelAndView;
         } else {
             personalAccountService.addNotification(notification, user);
+            log.info("user with id: " + user.getId()
+                    + " added notification with id: " + notification.getId());
             modelAndView.setViewName("redirect:/account/");
             return modelAndView;
         }
@@ -156,6 +159,7 @@ public class PersonalAccountController {
             BindingResult bindingResult,
             @RequestParam("notification.id") Long id, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
+            log.info("user with id: " + user.getId() + " passed wrong args: " + bindingResult);
             Notification notification = notificationService.getNotification(id);
             EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
             modelAndView.addObject("notification", notification);
@@ -164,6 +168,8 @@ public class PersonalAccountController {
             return modelAndView;
         } else {
             personalAccountService.addAction(user, action);
+            log.info("user with id: " + user.getId()
+                    + " added notification with id: " + action.getId());
             modelAndView.setViewName("redirect:/account/");
             return modelAndView;
         }
@@ -171,7 +177,10 @@ public class PersonalAccountController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ModelAndView getAdminPage(ModelAndView modelAndView) {
+    public ModelAndView getAdminPage(
+            @AuthenticationPrincipal User user,
+            ModelAndView modelAndView) {
+        log.info("user with id: " + user.getId() + " requested admin page");
         List<User> users = userRepository.findAll();
         modelAndView.addObject("users", users);
         modelAndView.setViewName(admin_page);

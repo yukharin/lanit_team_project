@@ -10,10 +10,10 @@
 <main class="login-main">
     <div class="login-element">
         <h2>Добро пожаловать на страничку авторизации, пожалуйста введите ваши регистрационные данные</h2>
-        <div th:if="${param.error}">
+        <div class="login-input-error" th:if="${param.error}">
             Invalid username and password.
         </div>
-        <div th:if="${param.logout}">
+        <div class="login-input-error" th:if="${param.logout}">
             You have been logged out.
         </div>
         <form class="login-form" method="post" th:action="@{/doLogin}">

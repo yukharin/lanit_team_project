@@ -1,16 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Configuration status="info">
     <Properties>
+        <Property name="logdir">${com.sun.aas.instanceRoot}/logs</Property>
         <Property name="layout">%d [%t] %-5p %c- %m%n</Property>
     </Properties>
     <Appenders>
         <Console name="CONSOLE" target="SYSTEM_OUT">
             <PatternLayout pattern="${layout}"/>
         </Console>
+        <RollingFile name="CATALINA"
+                     fileName="${logdir}/catalina.log"
+                     filePattern="${logdir}/catalina.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${layout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="LOCALHOST"
+                     fileName="${logdir}/localhost.log"
+                     filePattern="${logdir}/localhost.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${layout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="MANAGER"
+                     fileName="${logdir}/manager.log"
+                     filePattern="${logdir}/manager.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${layout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="HOST-MANAGER"
+                     fileName="${logdir}/host-manager.log"
+                     filePattern="${logdir}/host-manager.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${layout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="OFF">
-            <AppenderRef ref="CONSOLE"/>
+        <Root level="info">
+            <AppenderRef ref="CATALINA"/>
         </Root>
+        <Logger name="org.apache.catalina.core.ContainerBase.[Catalina].[localhost]"
+                level="info" additivity="false">
+            <AppenderRef ref="LOCALHOST"/>
+        </Logger>
+        <Logger name="org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/manager]"
+                level="info" additivity="false">
+            <AppenderRef ref="MANAGER"/>
+        </Logger>
+        <Logger name="org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/host-manager]"
+                level="info" additivity="false">
+            <AppenderRef ref="HOST-MANAGER"/>
+        </Logger>
     </Loggers>
 </Configuration>

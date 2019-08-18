@@ -17,7 +17,9 @@
                 <p th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.lastName}"></p>
             </div>
             <div class="account-header-logout-button">
-                <a th:href="@{/logout}">Выход</a>
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" value="выйти">
+                </form>
             </div>
         </div>
     </div>

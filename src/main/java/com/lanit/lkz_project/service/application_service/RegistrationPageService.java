@@ -1,9 +1,9 @@
 package com.lanit.lkz_project.service.application_service;
 
-import com.lanit.lkz_project.entities.enums.AuthorityValue;
 import com.lanit.lkz_project.entities.jpa_entities.Authority;
 import com.lanit.lkz_project.entities.jpa_entities.Organization;
 import com.lanit.lkz_project.entities.jpa_entities.User;
+import com.lanit.lkz_project.service.jpa_entities_service.AuthorityService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
 import com.lanit.lkz_project.service.jpa_entities_service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,8 @@ public class RegistrationPageService {
 
     @Autowired
     private OrganizationService organizationService;
+    @Autowired
+    private AuthorityService authorityService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -45,9 +47,9 @@ public class RegistrationPageService {
 
     private Authority defineRole(Organization organization) {
         if (organization.isGovernment()) {
-            return new Authority(AuthorityValue.AUTHORITY);
+            return authorityService.getAuthority(2L);
         } else {
-            return new Authority(AuthorityValue.EMPLOYEE);
+            return authorityService.getAuthority(1L);
         }
     }
 }

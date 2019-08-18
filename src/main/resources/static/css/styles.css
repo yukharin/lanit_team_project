@@ -60,18 +60,22 @@ body {
     font-family: "Bauhaus 93", sans-serif;
 }
 
-.account-header-logout-button a {
+.account-header-logout-button input {
     text-decoration: none;
     color: white;
+    font-size: larger;
     background-color: maroon;
     padding: 10px;
     border-radius: 8px;
 }
 
-.account-header-logout-button a:hover {
-    color: maroon;
-    background-color: white;
+.account-header-logout-button input:hover {
+    cursor: pointer;
+    background-color: green;
 }
+
+
+
 
 .account-header-user_info {
     margin: 5px;
@@ -84,6 +88,11 @@ body {
 
 /*loginPage styles*/
 
+
+.login-input-error {
+    color: red;
+    font-size: larger;
+}
 
 .login-form label,
 .login-form input,
