@@ -178,7 +178,7 @@
 
                             <c:url var="moreLink" value="the_notification/selectTheNotification">
                                 <c:param name="notificationId" value="${tempNotification.id}"/>
-                                <c:param name="userId" value="${user.id}"/>
+                                <%--<c:param name="userId" value="${user.id}"/>--%>
                             </c:url>
                             <button type="button"<%--type="form.submit"--%>
                                     style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
@@ -194,7 +194,7 @@
                                 <%--<form action="deleteTheNotification"  method="post" >--%>
                                 <%--<input type="hidden"--%>
                                 <%--name="notificationId" value="${tempNotification.id}"></input>--%>
-                                <c:url var="deleteLink" value="the_notification/deleteTheNotification">
+                                <c:url var="deleteLink" value="deleteTheNotification">
                                     <c:param name="notificationId" value="${tempNotification.id}"/>
                                 </c:url>
                                 <button type="button"<%--type="form.submit"--%>

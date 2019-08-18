@@ -17,22 +17,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 //   @Transactional(readOnly = true)
    @Override
-   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+   public UserAccount loadUserByUsername(String username) throws UsernameNotFoundException {
 
       UserAccount userAccount = userAccountRepository.findByUsername(username);
-      org.springframework.security.core.userdetails.User.UserBuilder builder = null;
-      if (userAccount != null) {
-
-         builder = org.springframework.security.core.userdetails.User.withUsername(username);
-         builder.disabled(!userAccount.isEnabled());
-         builder.password(userAccount.getPassword());
-         String[] authorities = userAccount.getAuthorities()
-                 .stream().map(a -> a.getAuthority()).toArray(String[]::new);
-
-         builder.authorities(authorities);
-      } else {
-         throw new UsernameNotFoundException("UserAccount not found.");
-      }
-      return builder.build();
+//      org.springframework.security.core.userdetails.User.UserBuilder builder = null;
+//      if (userAccount != null) {
+//
+//         builder = org.springframework.security.core.userdetails.User.withUsername(username);
+//         builder.disabled(!userAccount.isEnabled());
+//         builder.password(userAccount.getPassword());
+//         String[] authorities = userAccount.getAuthorities()
+//                 .stream().map(a -> a.getAuthority()).toArray(String[]::new);
+//
+//         builder.authorities(authorities);
+//      } else {
+//         throw new UsernameNotFoundException("UserAccount not found.");
+//      }
+//      return builder.build();
+      return userAccount;
    }
 }

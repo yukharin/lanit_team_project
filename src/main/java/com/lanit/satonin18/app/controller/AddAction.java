@@ -1,11 +1,13 @@
 package com.lanit.satonin18.app.controller;
 
 import com.lanit.satonin18.app.entity.*;
+import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.entity.no_in_db.ActionType;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.Arrays;
 
 @Controller("addActionController")
@@ -31,15 +34,13 @@ public class AddAction {
     @GetMapping("/formPage")
     public String formPage(
             @RequestParam int notificationId,
-            @RequestParam int userId,
-            HttpSession session,
+            @AuthenticationPrincipal UserAccount userAccount,
             Model model) {
-        User currentUser = userService.findById(userId);
+        User currentUser = userAccount.getUser();
         Notification currentNotification = notificationService.findById(notificationId);
-        if(currentUser == null || currentNotification == null) return "redirect:/"; //todo add alert(error)
 
-        session.setAttribute("user", userId);
-        session.setAttribute("notification", notificationId);
+        if(currentUser == null ||
+                currentNotification == null) return "redirect:/"; //todo add alert(error)
 
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
@@ -50,16 +51,11 @@ public class AddAction {
 
     @PostMapping("/save")
     public String save(
+            @RequestParam int notificationId,
             @RequestParam int idActionType,
             @RequestParam String content,
             @RequestParam int idUserImplementor,
-            @RequestParam int idNotificationStatus,
-            HttpSession session,
-            Model model) {
-        Integer userId = (Integer) session.getAttribute("user");
-        Integer notificationId = (Integer) session.getAttribute("notification");
-        if(userId == null || notificationId == null) return "redirect:/"; //todo add alert( IT DONT SAVE)
-        User currentUser = userService.findById(userId);
+            @RequestParam int idNotificationStatus) {
         Notification currentNotification = notificationService.findById(notificationId);
 //------------------------------------------------
         ActionType actionType = ActionType.getById(idActionType);
@@ -67,13 +63,14 @@ public class AddAction {
         Status status = Status.getById(idNotificationStatus);
 
         long timeNow = System.currentTimeMillis();
+        Timestamp now = new Timestamp(timeNow);
 
         Action actionNew = new Action();
         actionNew.setNotification(currentNotification);//can be add in inside: notification.getActions().add(THIS);
         actionNew.setActionType(actionType);
         actionNew.setUserByIdImplementor(userImplementor);
         actionNew.setStatusAfterProcessing(status);
-        actionNew.setDate(new java.sql.Timestamp(timeNow));
+        actionNew.setDate(now);
         actionNew.setContent(content);
 
         actionService.save(actionNew);

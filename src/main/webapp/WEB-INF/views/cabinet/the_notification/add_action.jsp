@@ -23,6 +23,8 @@
     <div id="add_action">
 
         <form action="save"  method="post">
+            <input type="hidden"
+                   name="notificationId" value="${currentNotification.id}"></input>
 
             <table class="table4input_data" style="width: auto">
                 <tr>
@@ -118,18 +120,18 @@
 </div>
 
 <%--<div id="return">--%>
-    <%--<a href="${pageContext.request.contextPath}/cabinet/the_notification/actions"> Back to "about the the_notification" </a>--%>
+<%--<a href="${pageContext.request.contextPath}/cabinet/the_notification/actions"> Back to "about the the_notification" </a>--%>
 <%--</div>--%>
 
 <script>
     <%--function changeVisibilityById(idDivVisibility, idButton) {--%>
-        <%--var divVisibility = document.getElementById(idDivVisibility);--%>
-        <%--var button = document.getElementById(idButton);--%>
+    <%--var divVisibility = document.getElementById(idDivVisibility);--%>
+    <%--var button = document.getElementById(idButton);--%>
 
-        <%--divVisibility.style.display = (divVisibility.style.display=='none')? '' : 'none'--%>
-        <%--button.innerHTML  = (button.innerHTML == "/\\") ? "\\/" : "/\\";--%>
+    <%--divVisibility.style.display = (divVisibility.style.display=='none')? '' : 'none'--%>
+    <%--button.innerHTML  = (button.innerHTML == "/\\") ? "\\/" : "/\\";--%>
 
-        <%--button.className = (button.className == "href-nav-item" ? "href-nav-item-current" : "href-nav-item");--%>
+    <%--button.className = (button.className == "href-nav-item" ? "href-nav-item-current" : "href-nav-item");--%>
     <%--}--%>
 
     <%--document.getElementById("orderFieldName=${orderFieldNameAction}&desc=${descAction}").classList.add('href-nav-item-current');--%>

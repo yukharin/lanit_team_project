@@ -167,7 +167,7 @@
 
                 <c:url var="addLink" value="addAction/formPage">
                     <c:param name="notificationId" value="${currentNotification.id}"/>
-                    <c:param name="userId" value="${user.id}"/>
+                    <%--<c:param name="userId" value="${user.id}"/>--%>
                 </c:url>
                 <button type="button"  <%--type="form.submit"--%>
                         style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>

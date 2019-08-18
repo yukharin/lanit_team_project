@@ -1,9 +1,7 @@
 package com.lanit.satonin18.app.entity.authorization;
 
-import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.User;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,17 +9,18 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "user_accounts")
 
-@Data
+//@Data
 //@ToString //can be loop
-@EqualsAndHashCode
+//@EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
-public class UserAccount implements Serializable {
+public class UserAccount
+        implements UserDetails, Serializable {
 
     @Id
     @Column(name = "id_user", nullable = false)
@@ -50,29 +49,106 @@ public class UserAccount implements Serializable {
     @OneToMany(mappedBy = "userAccount")
     private List<Authority> authorities;
 
+    @Column(name = "accountNonExpired")
+    private boolean accountNonExpired;
+
+    @Column(name = "accountNonLocked")
+    private boolean accountNonLocked;
+
+    @Column(name = "credentialsNonExpired")
+    private boolean credentialsNonExpired;
+
+//    public enum AuthorityValue {EMPLOYEE, AUTHORITY, ADMIN}
+//    public boolean hasAuthority(AuthorityValue authority) {
+//        for (Authority temp : authorities) {
+//            if (temp.getAuthority().equals(authority.toString())) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+
     @Override
     public String toString() {
         return "UserAccount{" +
-                ", id=" + id +
-//                ", user=" + user +
+                "id=" + id +
+                ", user=" + user +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 ", authorities=" + authorities +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserAccount that = (UserAccount) o;
+        return id == that.id &&
+                enabled == that.enabled &&
+                accountNonExpired == that.accountNonExpired &&
+                accountNonLocked == that.accountNonLocked &&
+                credentialsNonExpired == that.credentialsNonExpired &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(authorities, that.authorities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, username, password, enabled, authorities, accountNonExpired, accountNonLocked, credentialsNonExpired);
     }
 
     public UserAccount() {
         System.out.println("44444444444444444444444444444");
     }
 
-//    public UserAccount(int id, String username, String password, boolean enabled, Set<Authority> authorities) {
-//        this();
-//
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//        this.enabled = enabled;
-//        this.authorities = authorities;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public List<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
 }
