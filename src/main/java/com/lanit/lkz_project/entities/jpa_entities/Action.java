@@ -28,13 +28,6 @@ import java.time.LocalDateTime;
 public class Action implements Serializable {
 
 
-    private static int counter = 0;
-
-    {
-        counter++;
-        System.err.println("Actions: " + counter);
-    }
-
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

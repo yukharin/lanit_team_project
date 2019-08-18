@@ -21,12 +21,6 @@ import java.util.List;
 @JsonIgnoreProperties({"notifications", "users"})
 public class Organization implements Serializable {
 
-    private static int counter = 0;
-
-    {
-        counter++;
-        System.err.println("Organizations: " + counter);
-    }
 
     @Id
     @Column(name = "id", nullable = false)

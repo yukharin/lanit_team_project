@@ -25,14 +25,7 @@ import java.util.Set;
 @Table(name = "users")
 @JsonIgnoreProperties("organization")
 public class User implements Serializable, UserDetails {
-
-    private static int counter = 0;
-
-    {
-        counter++;
-        System.err.println("Users: " + counter);
-    }
-
+    
 
     @Id
     @Column(name = "id", nullable = false)
