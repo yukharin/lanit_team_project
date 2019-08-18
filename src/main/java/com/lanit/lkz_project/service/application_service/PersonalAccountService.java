@@ -11,6 +11,7 @@ import com.lanit.lkz_project.service.jpa_entities_service.ActionService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +24,7 @@ import java.util.Random;
 @Service
 public class PersonalAccountService {
 
-
     private static final int BOUND_TO_GENERATE_NUMBER = 10;
-
 
     @Autowired
     private NotificationService notificationService;
@@ -34,9 +33,27 @@ public class PersonalAccountService {
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Value("${page_size}")
+    private int page_size;
+
+    @Value("${page_number}")
+    private int page_number;
+
     @Transactional
     public void setAccountPageState(PersonalAccountPageDto<Notification> page,
                                     User user) {
+        if (page.getNumber() == 0) {
+            page.setNumber(page_number);
+        }
+        if (page.getSize() == 0) {
+            page.setSize(page_size);
+        }
+        if (page.getTimeFilter() == null) {
+            page.setTimeFilter(PersonalAccountPageDto.TimeFilter.NO_FILTER);
+        }
+        if (page.getSortParameter() == null) {
+            page.setSortParameter(PersonalAccountPageDto.SortParameter.BY_DATE_RECEIVED);
+        }
         PageImpl<Notification> accountPage = notificationRepository.getAccountPage(page, user);
         page.setPage(accountPage);
     }

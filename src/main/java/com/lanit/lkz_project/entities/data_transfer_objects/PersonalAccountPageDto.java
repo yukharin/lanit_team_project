@@ -3,41 +3,30 @@ package com.lanit.lkz_project.entities.data_transfer_objects;
 
 import lombok.Data;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-
-import java.util.Collections;
 
 
 @Data
 public class PersonalAccountPageDto<Notification> {
 
+    private TimeFilter timeFilter;
 
-    private static final int DEFAULT_TOTAL_ELEMENTS = 0;
+    private boolean newFilter;
 
-    private static final int DEFAULT_PAGE_NUMBER = 1;
+    private boolean inProcessingFilter;
 
-    private static final int DEFAULT_PAGE_SIZE = 10;
+    private boolean approvedFilter;
 
-    private TimeFilter timeFilter = TimeFilter.NO_FILTER;
+    private boolean rejectedFilter;
 
-    private boolean newFilter = false;
+    private int number;
 
-    private boolean inProcessingFilter = false;
+    private int size;
 
-    private boolean approvedFilter = false;
+    private PageImpl<Notification> page;
 
-    private boolean rejectedFilter = false;
+    private SortParameter sortParameter;
 
-    private int number = DEFAULT_PAGE_NUMBER;
-
-    private int size = DEFAULT_PAGE_SIZE;
-
-    private SortParameter sortParameter = SortParameter.BY_DATE_RECEIVED;
-
-    private boolean reversedOrder = false;
-
-    private PageImpl<Notification> page = new PageImpl<>(Collections.emptyList(),
-            PageRequest.of(DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE), DEFAULT_TOTAL_ELEMENTS);
+    private boolean reversedOrder;
 
     public enum TimeFilter {
         THREE_DAYS(3, "3 дня"), TEN_DAYS(10, "10 дней"),

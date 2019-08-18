@@ -55,6 +55,7 @@ public class PersonalAccountController {
     @Value("application_pages/userPage")
     private String user_page;
 
+
     @Autowired
     private NotificationService notificationService;
     @Autowired
