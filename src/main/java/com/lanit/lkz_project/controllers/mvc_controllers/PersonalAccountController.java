@@ -159,16 +159,16 @@ public class PersonalAccountController {
             BindingResult bindingResult,
             @PathVariable long id,
             ModelAndView modelAndView) {
+        Notification notification = notificationService.getNotification(id);
         if (bindingResult.hasErrors()) {
             log.info("user with id: " + user.getId() + " passed wrong args: " + bindingResult);
-            Notification notification = notificationService.getNotification(id);
             EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
             modelAndView.addObject("notification", notification);
             modelAndView.addObject("actionTypes", types);
             modelAndView.setViewName(notification_info_page);
             return modelAndView;
         } else {
-            personalAccountService.addAction(user, action);
+            personalAccountService.addAction(user, action, notification);
             log.info("user with id: " + user.getId()
                     + " added notification with id: " + action.getId());
             modelAndView.setViewName("redirect:/account/");
