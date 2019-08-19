@@ -13,6 +13,9 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE =
 -- Schema lanit
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `lanit` DEFAULT CHARACTER SET utf8;
+-- -----------------------------------------------------
+-- Schema new_schema1
+-- -----------------------------------------------------
 USE `lanit`;
 
 -- -----------------------------------------------------
@@ -258,49 +261,49 @@ START TRANSACTION;
 USE `lanit`;
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (1, 1, 'Уведомление о получении денег', 0, '2019-07-21', '2019-09-11', '11-12-1593/2', 1);
+VALUES (1, 1, 'Уведомление о получении денег', 0, '2018-07-21', '2019-09-11', '11-12-1593/2', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (2, 1, 'Уведомление о получении кредита', 0, '2019-07-24', '2019-09-14', '16-65-1863/5', 1);
+VALUES (2, 1, 'Уведомление о получении кредита', 0, '2018-07-24', '2019-09-14', '16-65-1863/5', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (3, 1, 'Уведомление о завершении тендера', 0, '2019-07-27', '2019-09-21', '85-60-9482/9', 1);
+VALUES (3, 1, 'Уведомление о завершении тендера', 0, '2018-07-27', '2019-09-21', '85-60-9482/9', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (4, 1, 'Уведомление о премии', 0, '2019-07-29', '2019-09-03', '96-49-1836/5', 1);
+VALUES (4, 1, 'Уведомление о премии', 0, '2018-07-29', '2019-09-03', '96-49-1836/5', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (5, 1, 'Уведомление об увольнении с работы', 0, '2019-08-01', '2019-09-07', '38-97-9738/3', 1);
+VALUES (5, 1, 'Уведомление об увольнении с работы', 0, '2018-08-01', '2019-09-07', '38-97-9738/3', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (6, 1, 'Уведомление о выигрыше тендера', 0, '2019-08-04', '2019-09-11', '28-75-2374/2', 1);
+VALUES (6, 1, 'Уведомление о выигрыше тендера', 0, '2018-08-04', '2019-09-11', '28-75-2374/2', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (7, 1, 'Уведомление о закрытии счета', 0, '2019-08-06', '2019-09-14', '11-42-5426/4', 1);
+VALUES (7, 1, 'Уведомление о закрытии счета', 0, '2018-08-06', '2019-09-14', '11-42-5426/4', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (8, 1, 'Уведомление о завершении работы', 0, '2019-08-09', '2019-09-17', '25-96-2643/1', 1);
+VALUES (8, 1, 'Уведомление о завершении работы', 0, '2018-08-09', '2019-09-17', '25-96-2643/1', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (9, 1, 'Уведомление о перечислении денег', 0, '2019-08-14', '2019-10-21', '79-75-9848/9', 1);
+VALUES (9, 1, 'Уведомление о перечислении денег', 0, '2018-08-14', '2019-10-21', '79-75-9848/9', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (10, 1, 'Уведомление о получении премии', 0, '2019-08-19', '2019-10-24', '23-89-1378/5', 1);
+VALUES (10, 1, 'Уведомление о получении премии', 0, '2018-08-19', '2019-10-24', '23-89-1378/5', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (11, 1, 'Уведомление о начислении бонусов', 0, '2019-08-23', '2019-10-27', '32-43-2368/3', 1);
+VALUES (11, 1, 'Уведомление о начислении бонусов', 0, '2018-08-23', '2019-10-27', '32-43-2368/3', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (12, 1, 'Уведомление о начислении средств', 0, '2019-08-27', '2019-10-02', '87-54-0958/3', 1);
+VALUES (12, 1, 'Уведомление о начислении средств', 0, '2018-08-27', '2019-10-02', '87-54-0958/3', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (13, 1, 'Уведомление о получении прибыли', 0, '2019-09-03', '2019-10-07', '19-65-9854/1', 1);
+VALUES (13, 1, 'Уведомление о получении прибыли', 0, '2018-09-03', '2019-10-07', '19-65-9854/1', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (14, 1, 'Уведомление о получении повышения', 0, '2019-09-12', '2019-10-15', '89-96-9847/2', 1);
+VALUES (14, 1, 'Уведомление о получении повышения', 0, '2018-09-12', '2019-10-15', '89-96-9847/2', 1);
 INSERT INTO `lanit`.`notifications` (`id`, `id_org`, `notification_type`, `notification_status`, `date_received`,
                                      `date_response`, `letter_number`, `id_user_notification_author`)
-VALUES (15, 1, 'Уведомление о выигрыше конкурса', 0, '2019-09-15', '2019-10-17', '78-39-3479/8', 1);
+VALUES (15, 1, 'Уведомление о выигрыше конкурса', 0, '2018-09-15', '2019-10-17', '78-39-3479/8', 1);
 
 COMMIT;
 
