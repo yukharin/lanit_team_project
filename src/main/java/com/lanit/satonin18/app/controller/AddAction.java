@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.controller;
 
+import com.lanit.satonin18.app.dto.ActionPortionForm;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.entity.no_in_db.ActionType;
@@ -10,18 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
 @Controller("addActionController")
-@RequestMapping("/cabinet/the_notification/addAction")
+@RequestMapping("/cabinet/the_notification/add_action")
 public class AddAction {
+    
     @Autowired
     private NotificationService notificationService;
     @Autowired
@@ -32,35 +34,51 @@ public class AddAction {
     private OrganizationService organizationService;
 
     @GetMapping("/formPage")
-    public String formPage(
+    public ModelAndView formPage(
             @RequestParam int notificationId,
             @AuthenticationPrincipal UserAccount userAccount,
             Model model) {
         User currentUser = userAccount.getUser();
         Notification currentNotification = notificationService.findById(notificationId);
 
-        if(currentUser == null ||
-                currentNotification == null) return "redirect:/"; //todo add alert(error)
+        if(currentNotification == null) return new ModelAndView("redirect:/"); //todo add alert(error)
 
         model.addAttribute("user", currentUser);
         model.addAttribute("currentNotification", currentNotification);
         model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
         model.addAttribute("listStatus",Arrays.asList(Status.values()));
-        return "cabinet/the_notification/add_action";
+        return new ModelAndView(
+                "cabinet/the_notification/add_action",
+                "actionPortionForm",
+                new ActionPortionForm());
     }
 
     @PostMapping("/save")
-    public String save(
-            @RequestParam int notificationId,
-            @RequestParam int idActionType,
-            @RequestParam String content,
-            @RequestParam int idUserImplementor,
-            @RequestParam int idNotificationStatus) {
-        Notification currentNotification = notificationService.findById(notificationId);
-//------------------------------------------------
-        ActionType actionType = ActionType.getById(idActionType);
-        User userImplementor = userService.findById(idUserImplementor);
-        Status status = Status.getById(idNotificationStatus);
+    public ModelAndView save(
+            Model model,
+            @AuthenticationPrincipal UserAccount userAccount,
+            @Valid @ModelAttribute(name = "actionPortionForm") ActionPortionForm actionPortionForm,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            User currentUser = userAccount.getUser();
+            Notification currentNotification = notificationService.findById(actionPortionForm.getNotificationId());
+
+            model.addAttribute("user", currentUser);
+            model.addAttribute("currentNotification", currentNotification);
+            model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
+            model.addAttribute("listStatus",Arrays.asList(Status.values()));
+
+            return new ModelAndView(
+                    "cabinet/the_notification/add_action",
+                    "actionPortionForm",
+                    actionPortionForm);
+
+        }
+        Notification currentNotification = notificationService.findById(actionPortionForm.getNotificationId());
+
+        ActionType actionType = ActionType.getById(actionPortionForm.getIdActionType());
+        User userImplementor = userService.findById(actionPortionForm.getIdUserImplementor());
+        Status status = Status.getById(actionPortionForm.getIdNotificationStatus());
 
         long timeNow = System.currentTimeMillis();
         Timestamp now = new Timestamp(timeNow);
@@ -71,7 +89,7 @@ public class AddAction {
         actionNew.setUserByIdImplementor(userImplementor);
         actionNew.setStatusAfterProcessing(status);
         actionNew.setDate(now);
-        actionNew.setContent(content);
+        actionNew.setContent(actionPortionForm.getContent());
 
         actionService.save(actionNew);
 
@@ -80,6 +98,9 @@ public class AddAction {
 
         notificationService.save(currentNotification);//update
 
-        return "redirect:/cabinet/the_notification/actions";
+        return new ModelAndView(
+                "redirect:/cabinet/the_notification/actions",
+                "actionPortionForm",
+                actionPortionForm);
     }
 }

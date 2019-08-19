@@ -165,7 +165,7 @@
         <div class="controlled_visibility" id="controlled_visibility-actions">
             <div id="add_action">
 
-                <c:url var="addLink" value="addAction/formPage">
+                <c:url var="addLink" value="add_action/formPage">
                     <c:param name="notificationId" value="${currentNotification.id}"/>
                     <%--<c:param name="userId" value="${user.id}"/>--%>
                 </c:url>

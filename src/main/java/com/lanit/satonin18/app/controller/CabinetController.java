@@ -101,11 +101,17 @@ public class CabinetController {
     //todo need post
     @GetMapping("/deleteTheNotification")
     public String deleteTheNotification(
-            Integer notificationId){
+            int notificationId){
         notificationService.deleteById(notificationId); //todo not validate
         return "redirect:/cabinet/notifications";
     }
-    
+
+
+//    @GetMapping("{firstname}/{lastname}")
+//    public String greeting(@PathVariable String firstname, @PathVariable String lastname) {
+//        return "Hello, " + firstname + " " + lastname + "!";
+//    }
+
     @GetMapping("/notifications")
     public String notifications(
             HttpSession session,

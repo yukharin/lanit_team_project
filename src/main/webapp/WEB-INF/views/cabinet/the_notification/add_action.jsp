@@ -22,84 +22,85 @@
 
     <div id="add_action">
 
-        <form action="save"  method="post">
-            <input type="hidden"
-                   name="notificationId" value="${currentNotification.id}"></input>
+        <%--@elvariable id="actionPortionForm" type="ActionPortionForm"--%>
+        <form:form  action="save" method="POST" modelAttribute="actionPortionForm"> <%--modelAttribute="actionPortionForm"--%>
+
+            <form:label path="notificationId"></form:label>
+            <form:input type="hidden"
+                        path="notificationId" value="${currentNotification.id}"></form:input>
+            <form:errors path="notificationId"/>
 
             <table class="table4input_data" style="width: auto">
                 <tr>
                     <th>
-                        Ответственный исполнитель заказчика:
+                        <form:label path="idUserImplementor">Ответственный исполнитель заказчика:</form:label>
                     </th>
                     <td>
-                        <select type="text" name="idUserImplementor" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
+                        <form:select type="text" path="idUserImplementor"> <%--onchange="this.form.submit()"--%><%--multiple="true"--%>
                             <c:forEach items="${currentNotification.organization.users}" var="tempUser">
-                                <c:choose>
-                                    <c:when test="${user.id.equals(tempUser.id)}">
-                                        <option selected
-                                                value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value ="${tempUser.id}">${tempUser.firstName} ${tempUser.lastName}</option>
-                                    </c:otherwise>
-                                </c:choose>
+                                <option ${user.id.equals(tempUser.id) ? 'selected' : ''}
+                                        value ="${tempUser.id}" label="${tempUser.firstName} ${tempUser.lastName}" />
                             </c:forEach>
-                        </select>
+                        </form:select>
+
+                        <form:errors path="idUserImplementor"/>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        Действие:
+                        <form:label path="idActionType">Действие:</form:label>
                     </th>
                     <td>
-                        <select type="text" name="idActionType" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
+                        <form:select type="text" path="idActionType"> <%--onchange="this.form.submit()"--%><%--multiple="true"--%>
                             <c:forEach items="${listActionType}" var="tempActionType">
-                                <option value ="${tempActionType.id}">${tempActionType.name}</option>
+                                <option value ="${tempActionType.id}" label="${tempActionType.name}" />
+                                <%--selected="${user.id.equals(tempUser.id)}--%>
                             </c:forEach>
-                        </select>
+                        </form:select>
+
+                        <form:errors path="idActionType"/>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        Статус:
+                        <form:label path="idNotificationStatus">Статус:</form:label>
                     </th>
                     <td>
                         <select type="text" name="idNotificationStatus" <%--onchange="this.form.submit()"--%> ><%--multiple="true"--%>
                             <c:forEach items="${listStatus}" var="tempStatus">
-                                <c:choose>
-                                    <c:when test="${currentNotification.status.id.equals(tempStatus.id)}">
-                                        <option selected
-                                                value ="${tempStatus.id}">${tempStatus.name}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value ="${tempStatus.id}">${tempStatus.name}</option>
-                                    </c:otherwise>
-                                </c:choose>
+                                <option ${currentNotification.status.id.equals(tempStatus.id) ? 'selected' : ''}
+                                        value ="${tempStatus.id}" label="${tempStatus.name}" />
                             </c:forEach>
                         </select>
+
+                        <form:errors path="idNotificationStatus"/>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        Комментарий:
+                        <form:label path="content">Комментарий:</form:label>
                     </th>
                     <td>
-                                <textarea id="comment" name="content" maxlength="300"
-                                          rows="4" cols="50"></textarea>
+                        <form:textarea id="comment" path="content" maxlength="300"
+                                       rows="4" cols="50" />
+
+                        <form:errors path="content"/>
+                        <Br>
                     </td>
                 </tr>
             </table>
 
             <Br>
+            <%--${bindingResult.getFieldError("content").getDefaultMessage()}--%>
+            <Br>
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
                     onclick="
-                    if(document.getElementById('comment').value == '') {
-                        alert('поле - Комментарий пустое');
-                    }else {
-                        //alert('bag');
-                        this.form.submit()
-                    }
+                    // if(document.getElementById('comment').value == '') {
+                    //     alert('поле - Комментарий пустое');
+                    // }else {
+                        this.form.submit();
+                    // }
                     "
             >
                 СОХРАНИТЬ
@@ -114,34 +115,10 @@
                 ОТМЕНА
             </button>
 
-        </form>
+        </form:form>
     </div>
 
 </div>
 
-<%--<div id="return">--%>
-<%--<a href="${pageContext.request.contextPath}/cabinet/the_notification/actions"> Back to "about the the_notification" </a>--%>
-<%--</div>--%>
-
-<script>
-    <%--function changeVisibilityById(idDivVisibility, idButton) {--%>
-    <%--var divVisibility = document.getElementById(idDivVisibility);--%>
-    <%--var button = document.getElementById(idButton);--%>
-
-    <%--divVisibility.style.display = (divVisibility.style.display=='none')? '' : 'none'--%>
-    <%--button.innerHTML  = (button.innerHTML == "/\\") ? "\\/" : "/\\";--%>
-
-    <%--button.className = (button.className == "href-nav-item" ? "href-nav-item-current" : "href-nav-item");--%>
-    <%--}--%>
-
-    <%--document.getElementById("orderFieldName=${orderFieldNameAction}&desc=${descAction}").classList.add('href-nav-item-current');--%>
-
-    <%--document.getElementById("radio-orderFieldName-orderFieldName=${orderFieldNameAction}&desc=${descAction}").setAttribute('checked', true);--%>
-    <%--document.getElementById("radio-desc-orderFieldName=${orderFieldNameAction}&desc=${descAction}").setAttribute('checked', true);--%>
-
-    <%--//todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last--%>
-    <%--document.getElementById("radioPageCount_${paginationAction.currentPage}").setAttribute('checked', true); --%>
-
-</script>
 </body>
 </html>
