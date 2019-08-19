@@ -12,7 +12,6 @@ import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -92,7 +91,7 @@ public class PersonalAccountController {
 
     @GetMapping("/notification{id}/history")
     public ModelAndView getNotificationActions(
-            @NonNull @PathVariable Long id,
+            @PathVariable long id,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
         Set<Action> actions = notification.getActions();
@@ -104,7 +103,7 @@ public class PersonalAccountController {
 
     @PostMapping("/delete")
     public String deleteNotification(@AuthenticationPrincipal User user,
-                                     @NonNull @RequestParam Long id) {
+                                     @RequestParam long id) {
         notificationService.removeNotification(id);
         log.info("user id: " + user.getId() + "deleted notification with id: " + id);
         return "redirect:/account/";
@@ -122,7 +121,7 @@ public class PersonalAccountController {
 
     @PostMapping("/addNotification")
     public ModelAndView addNotification(@AuthenticationPrincipal User user,
-                                        @Validated(value = NotificationValidationGroup.class) @NonNull @ModelAttribute Notification notification,
+                                        @Validated(value = NotificationValidationGroup.class) @ModelAttribute Notification notification,
                                         BindingResult bindingResult,
                                         ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
@@ -142,7 +141,7 @@ public class PersonalAccountController {
 
     @GetMapping("/notification{id}")
     public ModelAndView getNotificationPage(
-            @NonNull @PathVariable Long id,
+            @PathVariable long id,
             @ModelAttribute Action action,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
@@ -153,12 +152,13 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/notification")
+    @PostMapping("/notification{id}")
     public ModelAndView addAction(
             @AuthenticationPrincipal User user,
-            @Validated(value = ActionValidationGroup.class) @NonNull @ModelAttribute Action action,
+            @Validated(value = ActionValidationGroup.class) @ModelAttribute Action action,
             BindingResult bindingResult,
-            @RequestParam("notification.id") Long id, ModelAndView modelAndView) {
+            @PathVariable long id,
+            ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             log.info("user with id: " + user.getId() + " passed wrong args: " + bindingResult);
             Notification notification = notificationService.getNotification(id);
@@ -191,7 +191,7 @@ public class PersonalAccountController {
 
     @GetMapping("/admin/user{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ModelAndView getUserInfo(ModelAndView modelAndView, @PathVariable("id") Long id) {
+    public ModelAndView getUserInfo(ModelAndView modelAndView, @PathVariable long id) {
         User user = userRepository.findById(id).get();
         modelAndView.addObject("user", user);
         modelAndView.setViewName(user_page);
