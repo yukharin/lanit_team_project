@@ -523,36 +523,19 @@ body {
     display: inline-block;
 }
 
-.not_info-navigation-list-form {
-
-}
-
-.not_info-navigation-list-form-label {
-    padding: 8px;
-    color: black;
-    box-sizing: border-box;
-    width: auto;
-}
-
-
-.not_info-navigation-list-form-input-hidden {
-
-}
-
-.not_info-navigation-list-form-input {
-    color: white;
-    background-color: green;
+.not_info-navigation-list-element a {
+    margin: 10px;
+    padding: 12px;
+    border: 1px solid black;
     border-radius: 8px;
-    padding: 8px;
-    border: black 1px solid;
-    margin-bottom: 8px;
-    height: 40px;
+    background-color: green;
+    color: white;
 }
 
-.not_info-navigation-list-form-input:hover {
-    background-color: slategray;
-    color: black;
+.not_info-navigation-list-element a:hover {
+    background-color: blue;
 }
+
 
 .not_info-notification-data-header {
     margin: 5px 5px 5px 30px;

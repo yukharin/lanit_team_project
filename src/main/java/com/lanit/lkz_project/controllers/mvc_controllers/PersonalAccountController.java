@@ -52,7 +52,7 @@ public class PersonalAccountController {
     private String notification_info_page;
     @Value("${admin_page}")
     private String admin_page;
-    @Value("application_pages/userPage")
+    @Value("${user_page}")
     private String user_page;
 
 
@@ -90,9 +90,9 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @GetMapping("/actions_history")
+    @GetMapping("/notification{id}/history")
     public ModelAndView getNotificationActions(
-            @NonNull @RequestParam Long id,
+            @NonNull @PathVariable Long id,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
         Set<Action> actions = notification.getActions();
@@ -153,7 +153,7 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/notification_info")
+    @PostMapping("/notification")
     public ModelAndView addAction(
             @AuthenticationPrincipal User user,
             @Validated(value = ActionValidationGroup.class) @NonNull @ModelAttribute Action action,
