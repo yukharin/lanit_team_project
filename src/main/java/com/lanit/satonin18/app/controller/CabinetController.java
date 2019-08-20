@@ -1,23 +1,24 @@
 package com.lanit.satonin18.app.controller;
 
-import com.lanit.satonin18.app.dto.FilterDto;
-import com.lanit.satonin18.app.dto.OrderByDto;
-import com.lanit.satonin18.app.dto.PaginationDto;
+import com.lanit.satonin18.app.objects.input.form.FilterForm;
+import com.lanit.satonin18.app.objects.input.form.OrderByForm;
+import com.lanit.satonin18.app.objects.input.form.PaginationForm;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
-import com.lanit.satonin18.app.property_in_future.COMMON_DEFAULT_VARS;
-import com.lanit.satonin18.app.objects.cabinet.*;
+import com.lanit.satonin18.app.objects.output.Cabinet4renderHtml;
+import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
-import com.lanit.satonin18.app.property_in_future.DEFAULT_CABINET_VARS;
+import com.lanit.satonin18.app.objects.property_in_future.DEFAULT_CABINET_VARS;
+import com.lanit.satonin18.app.objects.state4session.CabinetState;
 import com.lanit.satonin18.app.service.app_service.CabinetService;
 import com.lanit.satonin18.app.service.entities_service.*;
+import com.lanit.satonin18.app.objects.value_object.cabinet.ColumnCabinetTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -45,13 +46,13 @@ public class CabinetController {
     @PostMapping("/filters")
     public String filters(
             HttpSession session,
-            @ModelAttribute(value = "filterDto") FilterDto dto){
-        validateAndSetDefaultVars(dto);
+            @ModelAttribute(value = "filterForm") FilterForm form){
+        validateAndSetDefaultVars(form);
         
         CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
 
-        state.setFilterDto(dto);
-        state.getPaginationDto().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+        state.setFilterForm(form);
+        state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
 
         session.setAttribute("cabinetState", state);
         return "redirect:/cabinet/notifications";
@@ -60,14 +61,14 @@ public class CabinetController {
     @PostMapping("/pagination")
     public String pagination(
             HttpSession session,
-            @ModelAttribute(value = "paginationDto") PaginationDto dto){
-        validateAndSetDefaultVars(dto);
+            @ModelAttribute(value = "paginationForm") PaginationForm form){
+        validateAndSetDefaultVars(form);
 
         CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
 
-        state.setPaginationDto(dto);
-        if(state.getPaginationDto().getMaxResult() != dto.getMaxResult())
-            state.getPaginationDto().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+        state.setPaginationForm(form);
+        if(state.getPaginationForm().getMaxResult() != form.getMaxResult())
+            state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
 
         session.setAttribute("cabinetState", state);
         return "redirect:/cabinet/notifications";
@@ -76,13 +77,13 @@ public class CabinetController {
     @PostMapping("/orderby")
     public String orderby(
             HttpSession session,
-            @ModelAttribute(value = "orderByDto") OrderByDto dto){
-        validateAndSetDefaultVars(dto);
+            @ModelAttribute(value = "OrderByForm") OrderByForm form){
+        validateAndSetDefaultVars(form);
 
         CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
 
-        state.setOrderByDto(dto);
-        state.getPaginationDto().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+        state.setOrderByForm(form);
+        state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
 
         session.setAttribute("cabinetState", state);
         return "redirect:/cabinet/notifications";
@@ -132,33 +133,33 @@ public class CabinetController {
     }
 
     private CabinetState createNewDefault4watchCabinetState() {
-        FilterDto filterDto = new FilterDto();
-        PaginationDto paginationDto = new PaginationDto();
-        OrderByDto orderByDto = new OrderByDto();
+        FilterForm filterForm = new FilterForm();
+        PaginationForm paginationForm = new PaginationForm();
+        OrderByForm orderByForm = new OrderByForm();
 
-        validateAndSetDefaultVars(filterDto);
-        filterDto.setIdFilterStatus(Status.getAllId());
-        validateAndSetDefaultVars(paginationDto);
-        validateAndSetDefaultVars(orderByDto);
+        validateAndSetDefaultVars(filterForm);
+        filterForm.setIdFilterStatus(Status.getAllId());
+        validateAndSetDefaultVars(paginationForm);
+        validateAndSetDefaultVars(orderByForm);
 
         CabinetState state = new CabinetState();
-        state.setFilterDto(filterDto);
-        state.setPaginationDto(paginationDto);
-        state.setOrderByDto(orderByDto);
+        state.setFilterForm(filterForm);
+        state.setPaginationForm(paginationForm);
+        state.setOrderByForm(orderByForm);
         return state;
     }
 
 
-    private void validateAndSetDefaultVars(FilterDto dto) {
-        if(dto.getIdFilterStatus() == null) dto.setIdFilterStatus(Collections.EMPTY_LIST);//если ничего передали, значит пусто
-        if(dto.getShowArchive() == null) dto.setShowArchive(DEFAULT_CABINET_VARS.SHOW_ARCHIVE);//если параметр не пришел, то false, если пришел( то приходит только true)
+    private void validateAndSetDefaultVars(FilterForm form) {
+        if(form.getIdFilterStatus() == null) form.setIdFilterStatus(Collections.EMPTY_LIST);//если ничего передали, значит пусто
+        if(form.getShowArchive() == null) form.setShowArchive(DEFAULT_CABINET_VARS.SHOW_ARCHIVE);//если параметр не пришел, то false, если пришел( то приходит только true)
     }
-    private void validateAndSetDefaultVars(PaginationDto dto) {
-        if(dto.getMaxResult() == null) dto.setMaxResult(COMMON_DEFAULT_VARS.MAX_RESULT);
-        if(dto.getPage() == null) dto.setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+    private void validateAndSetDefaultVars(PaginationForm form) {
+        if(form.getMaxResult() == null) form.setMaxResult(COMMON_DEFAULT_VARS.MAX_RESULT);
+        if(form.getPage() == null) form.setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
     }
-    private void validateAndSetDefaultVars(OrderByDto dto) {
-        if(dto.getDesc() == null) dto.setDesc(COMMON_DEFAULT_VARS.DESC);
-        if(dto.getOrderFieldName() == null) dto.setOrderFieldName(DEFAULT_CABINET_VARS.ORDER_FIELD_NAME);
+    private void validateAndSetDefaultVars(OrderByForm form) {
+        if(form.getDesc() == null) form.setDesc(COMMON_DEFAULT_VARS.DESC);
+        if(form.getOrderFieldName() == null) form.setOrderFieldName(DEFAULT_CABINET_VARS.ORDER_FIELD_NAME);
     }
 }

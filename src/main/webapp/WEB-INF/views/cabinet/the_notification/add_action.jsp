@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Notification CRUD Application</title>
+    <title>Add Action</title>
     <%--<link rel="stylesheet" href="/css/common.css" type="text/css" />--%>
     <style type="text/css">
         <%@ include file="/css/common.css" %>
@@ -22,13 +22,13 @@
 
     <div id="add_action">
 
-        <%--@elvariable id="actionPortionForm" type="ActionPortionForm"--%>
-        <form:form  action="save" method="POST" modelAttribute="actionPortionForm"> <%--modelAttribute="actionPortionForm"--%>
+        <%--@elvariable id="actionPortionDtoValid" type="ActionPortionForm"--%>
+        <form:form  action="save" method="POST" modelAttribute="actionPortionDtoValid">
 
             <form:label path="notificationId"></form:label>
             <form:input type="hidden"
                         path="notificationId" value="${currentNotification.id}"></form:input>
-            <form:errors path="notificationId"/>
+            <form:errors class="error" path="notificationId"/>
 
             <table class="table4input_data" style="width: auto">
                 <tr>
@@ -42,8 +42,8 @@
                                         value ="${tempUser.id}" label="${tempUser.firstName} ${tempUser.lastName}" />
                             </c:forEach>
                         </form:select>
-
-                        <form:errors path="idUserImplementor"/>
+                        <Br>
+                        <form:errors class="error" path="idUserImplementor"/>
                     </td>
                 </tr>
                 <tr>
@@ -57,8 +57,8 @@
                                 <%--selected="${user.id.equals(tempUser.id)}--%>
                             </c:forEach>
                         </form:select>
-
-                        <form:errors path="idActionType"/>
+                        <Br>
+                        <form:errors class="error" path="idActionType"/>
                     </td>
                 </tr>
                 <tr>
@@ -72,8 +72,8 @@
                                         value ="${tempStatus.id}" label="${tempStatus.name}" />
                             </c:forEach>
                         </select>
-
-                        <form:errors path="idNotificationStatus"/>
+                        <Br>
+                        <form:errors class="error" path="idNotificationStatus"/>
                     </td>
                 </tr>
                 <tr>
@@ -83,15 +83,12 @@
                     <td>
                         <form:textarea id="comment" path="content" maxlength="300"
                                        rows="4" cols="50" />
-
-                        <form:errors path="content"/>
                         <Br>
+                        <form:errors class="error" path="content"/>
                     </td>
                 </tr>
             </table>
 
-            <Br>
-            <%--${bindingResult.getFieldError("content").getDefaultMessage()}--%>
             <Br>
             <button type="button"<%--type="form.submit"--%>
                     style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>

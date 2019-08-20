@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.objects.cabinet;
+package com.lanit.satonin18.app.objects.value_object.cabinet;
 
 //MOCK
 public enum FastFilter {

@@ -42,7 +42,7 @@
                     </c:forEach>
                 </td>
                 <td>
-                    <input ${render.state.filterDto.getShowArchive() ? 'checked' : ''}
+                    <input ${render.state.filterForm.showArchive ? 'checked' : ''}
                             class= "checkboxshowArchive"
                             type="checkbox"
                             name="showArchive" value="true"
@@ -161,7 +161,7 @@
                                             </c:choose>
                                         </c:forEach>
                                     </select>
-                                    <%--<input type="submit" value="Применить изменения" class="save" />--%>
+                                    <%--<input type="submit" value="Применить изменения" class="register" />--%>
                                 </c:when>
                                 <c:otherwise>
                                     ${tempNotification.status.name}
@@ -235,10 +235,10 @@
         }
     }
 
-    document.getElementById("orderFieldName=${render.state.orderByDto.getOrderFieldName()}&desc=${render.state.orderByDto.getDesc()}").classList.add('href-nav-item-current');
+    document.getElementById("orderFieldName=${render.state.orderByForm.getOrderFieldName()}&desc=${render.state.orderByForm.getDesc()}").classList.add('href-nav-item-current');
     //
-    document.getElementById("radio-orderFieldName-orderFieldName=${render.state.orderByDto.getOrderFieldName()}&desc=${render.state.orderByDto.getDesc()}").setAttribute('checked', 'true');
-    document.getElementById("radio-desc-orderFieldName=${render.state.orderByDto.getOrderFieldName()}&desc=${render.state.orderByDto.getDesc()}").setAttribute('checked', 'true');
+    document.getElementById("radio-orderFieldName-orderFieldName=${render.state.orderByForm.getOrderFieldName()}&desc=${render.state.orderByForm.getDesc()}").setAttribute('checked', 'true');
+    document.getElementById("radio-desc-orderFieldName=${render.state.orderByForm.getOrderFieldName()}&desc=${render.state.orderByForm.getDesc()}").setAttribute('checked', 'true');
     //
     //todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last
     document.getElementById("radioPageCount_${render.getPageImpl().getPageable().getPageNumber()}").setAttribute('checked', 'true');

@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.property_in_future;
+package com.lanit.satonin18.app.objects.property_in_future;
 
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;

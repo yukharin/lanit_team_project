@@ -1,16 +1,16 @@
 package com.lanit.satonin18.app.controller;
 
-import com.lanit.satonin18.app.dto.OrderByDto;
-import com.lanit.satonin18.app.dto.PaginationDto;
+import com.lanit.satonin18.app.objects.input.form.OrderByForm;
+import com.lanit.satonin18.app.objects.input.form.PaginationForm;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
-import com.lanit.satonin18.app.objects.the_notification.ColumnTheNotificationTable;
-import com.lanit.satonin18.app.property_in_future.COMMON_DEFAULT_VARS;
-import com.lanit.satonin18.app.objects.the_notification.TheNotification4renderHtml;
+import com.lanit.satonin18.app.objects.output.TheNotification4renderHtml;
+import com.lanit.satonin18.app.objects.value_object.the_notification.ColumnTheNotificationTable;
+import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.no_in_db.ActionType;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
-import com.lanit.satonin18.app.objects.the_notification.TheNotificationState;
-import com.lanit.satonin18.app.property_in_future.DEFAULT_THE_NOTIFICATION_VARS;
+import com.lanit.satonin18.app.objects.state4session.TheNotificationState;
+import com.lanit.satonin18.app.objects.property_in_future.DEFAULT_THE_NOTIFICATION_VARS;
 import com.lanit.satonin18.app.service.app_service.TheNotificationService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.*;
@@ -21,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
@@ -56,29 +55,29 @@ public class TheNotificationController {
             final RedirectAttributes redirectAttributes) {
         session.setAttribute("notificationId", notificationId); //todo добавляем без проверки
 
-        PaginationDto paginationDto = new PaginationDto();
-        OrderByDto orderByDto = new OrderByDto();
+        PaginationForm paginationForm = new PaginationForm();
+        OrderByForm orderByForm = new OrderByForm();
 
-        validateAndSetDefaultVars(paginationDto);
-        validateAndSetDefaultVars(orderByDto);
+        validateAndSetDefaultVars(paginationForm);
+        validateAndSetDefaultVars(orderByForm);
 
         TheNotificationState state = new TheNotificationState();
-        state.setPaginationDto(paginationDto);
-        state.setOrderByDto(orderByDto);
+        state.setPaginationForm(paginationForm);
+        state.setOrderByForm(orderByForm);
 
         session.setAttribute("theNotificationState", state);//remove prev
         return "redirect:/cabinet/the_notification/actions";
     }
     @PostMapping("/pagination")
     public String pagination(HttpSession session,
-                             @ModelAttribute(value = "paginationDto") PaginationDto dto){
+                             @ModelAttribute(value = "paginationDto") PaginationForm dto){
         validateAndSetDefaultVars(dto);
 
         TheNotificationState state = (TheNotificationState)  session.getAttribute("theNotificationState");
 
-        state.setPaginationDto(dto);
-        if(state.getPaginationDto().getMaxResult() != dto.getMaxResult())
-            state.getPaginationDto().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+        state.setPaginationForm(dto);
+        if(state.getPaginationForm().getMaxResult() != dto.getMaxResult())
+            state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
 
         session.setAttribute("theNotificationState", state);
         return "redirect:/cabinet/the_notification/actions";
@@ -86,13 +85,13 @@ public class TheNotificationController {
 
     @PostMapping("/orderby")
     public String orderby(HttpSession session,
-                          @ModelAttribute(value = "orderByDto") OrderByDto dto){
+                          @ModelAttribute(value = "orderByDto") OrderByForm dto){
         validateAndSetDefaultVars(dto);
 
         TheNotificationState state = (TheNotificationState)  session.getAttribute("theNotificationState");
 
-        state.setOrderByDto(dto);
-        state.getPaginationDto().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+        state.setOrderByForm(dto);
+        state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
 
         session.setAttribute("theNotificationState", state);
         return "redirect:/cabinet/the_notification/actions";
@@ -117,11 +116,11 @@ public class TheNotificationController {
         return "cabinet/the_notification/actions";
     }
 
-    private void validateAndSetDefaultVars(PaginationDto dto) {
+    private void validateAndSetDefaultVars(PaginationForm dto) {
         if(dto.getMaxResult() == null) dto.setMaxResult(COMMON_DEFAULT_VARS.MAX_RESULT);
         if(dto.getPage() == null) dto.setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
     }
-    private void validateAndSetDefaultVars(OrderByDto dto) {
+    private void validateAndSetDefaultVars(OrderByForm dto) {
         if(dto.getDesc() == null) dto.setDesc(COMMON_DEFAULT_VARS.DESC);
         if(dto.getOrderFieldName() == null) dto.setOrderFieldName(DEFAULT_THE_NOTIFICATION_VARS.ORDER_FIELD_NAME);
     }

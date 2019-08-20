@@ -1,13 +1,14 @@
 package com.lanit.satonin18.app.service.app_service;
 
-//import com.lanit.satonin18.app.Pagination;
-import com.lanit.satonin18.app.dto.FilterDto;
-import com.lanit.satonin18.app.dto.OrderByDto;
-import com.lanit.satonin18.app.dto.PaginationDto;
-import com.lanit.satonin18.app.objects.cabinet.*;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.User;
 import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.objects.input.form.FilterForm;
+import com.lanit.satonin18.app.objects.input.form.OrderByForm;
+import com.lanit.satonin18.app.objects.input.form.PaginationForm;
+import com.lanit.satonin18.app.objects.output.Cabinet4renderHtml;
+import com.lanit.satonin18.app.objects.state4session.CabinetState;
+
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
@@ -30,26 +31,26 @@ public class CabinetService {
 
     public void executeQuery(Cabinet4renderHtml render, User currentUser) {
         CabinetState state = render.getState();
-        FilterDto filterDto = state.getFilterDto();
-        PaginationDto paginationDto = state.getPaginationDto();
-        OrderByDto orderByDto = state.getOrderByDto();
+        FilterForm filterForm = state.getFilterForm();
+        PaginationForm paginationForm = state.getPaginationForm();
+        OrderByForm orderByForm = state.getOrderByForm();
 
         Pageable pageable = PageRequest.of(
-                paginationDto.getPage(),
-                paginationDto.getMaxResult()
+                paginationForm.getPage(),
+                paginationForm.getMaxResult()
 //              , render.getPageImpl().getMaxNavigationPage()
         );
 
-        if ( ! filterDto.getIdFilterStatus().isEmpty()) {
+        if ( ! filterForm.getIdFilterStatus().isEmpty()) {
             render.setCheckedMainListNotificStatuses(
-                    Status.getByIds(filterDto.getIdFilterStatus())
+                    Status.getByIds(filterForm.getIdFilterStatus())
             );
             render.setPageImpl(
                     notificationService._CRITERIA_filter_Org_NotificStatuses_Archive_Order_Pagination(
                             currentUser.getOrganization(),
                             render.getCheckedMainListNotificStatuses(),
-                            filterDto.getShowArchive(), render.getListArchiveStatus(),
-                            orderByDto.getOrderFieldName(), orderByDto.getDesc(),
+                            filterForm.getShowArchive(), render.getListArchiveStatus(),
+                            orderByForm.getOrderFieldName(), orderByForm.getDesc(),
                             pageable
                     )
             );

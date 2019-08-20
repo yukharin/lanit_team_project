@@ -41,18 +41,18 @@ public class DispatcherServletInit extends AbstractAnnotationConfigDispatcherSer
       dispatcher.setLoadOnStartup(1);
       dispatcher.addMapping("/");
 
-      FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encoding-filter", new CharacterEncodingFilter());
+      FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encoding-filterForm", new CharacterEncodingFilter());
       encodingFilter.setInitParameter("encoding", "UTF-8");
       encodingFilter.setInitParameter("forceEncoding", "true");
       encodingFilter.addMappingForUrlPatterns(null, true, "/*");
    }
 
 //   @Override
-//   protected Filter[] getServletFilters() {
+//   protected FilterForm[] getServletFilters() {
 //      CharacterEncodingFilter cef = new CharacterEncodingFilter();
 //      cef.setEncoding("UTF-8");
 //      cef.setForceEncoding(true);
-//      return new Filter[]{new HiddenHttpMethodFilter(), cef};
+//      return new FilterForm[]{new HiddenHttpMethodFilter(), cef};
 //   }
 
    @Override

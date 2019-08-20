@@ -165,18 +165,21 @@
         <div class="controlled_visibility" id="controlled_visibility-actions">
             <div id="add_action">
 
-                <c:url var="addLink" value="add_action/formPage">
-                    <c:param name="notificationId" value="${currentNotification.id}"/>
+                <form:form action="add_action/formPage" method="POST">
+                    <%--<c:url var="addLink" value="add_action/formPage">--%>
+                    <%--<c:param name="notificationId" value="${currentNotification.id}"/>--%>
                     <%--<c:param name="userId" value="${user.id}"/>--%>
-                </c:url>
-                <button type="button"  <%--type="form.submit"--%>
-                        style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
-                        onclick="
-                                window.location.href='${addLink}'
-                                "
-                >
-                    Добавить
-                </button>
+                    <%--</c:url>--%>
+                    <button type="button"  <%--type="form.submit"--%>
+                            style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>
+                            onclick="
+                                    <%--window.location.href='${addLink}'--%>
+                                    this.form.submit()
+                                    "
+                    >
+                        Добавить
+                    </button>
+                </form:form>
             </div>
 
             <jsp:include page="/templates/pagination.jsp" />
@@ -248,10 +251,10 @@
     // };
 
 
-    document.getElementById("orderFieldName=${render.state.orderByDto.orderFieldName}&desc=${render.state.orderByDto.desc}").classList.add('href-nav-item-current');
+    document.getElementById("orderFieldName=${render.state.orderByForm.orderFieldName}&desc=${render.state.orderByForm.desc}").classList.add('href-nav-item-current');
     //
-    document.getElementById("radio-orderFieldName-orderFieldName=${render.state.orderByDto.orderFieldName}&desc=${render.state.orderByDto.desc}").setAttribute('checked', 'true');
-    document.getElementById("radio-desc-orderFieldName=${render.state.orderByDto.orderFieldName}&desc=${render.state.orderByDto.desc}").setAttribute('checked', 'true');
+    document.getElementById("radio-orderFieldName-orderFieldName=${render.state.orderByForm.orderFieldName}&desc=${render.state.orderByForm.desc}").setAttribute('checked', 'true');
+    document.getElementById("radio-desc-orderFieldName=${render.state.orderByForm.orderFieldName}&desc=${render.state.orderByForm.desc}").setAttribute('checked', 'true');
     //
     //todo; trows Excpetion if element=null //JavaScript simple do not run next command line, ПОЭТОМУ this line is last
     document.getElementById("radioPageCount_${render.getPageImpl().getPageable().getPageNumber()}").setAttribute('checked', 'true');

@@ -149,7 +149,7 @@
                             </c:choose>
                         </c:forEach>
                     </select>
-                    <%--<input type="submit" value="Войти на страницу" class="save" />--%>
+                    <%--<input type="submit" value="Войти на страницу" class="register" />--%>
                 </div>
             </td>
         </table>

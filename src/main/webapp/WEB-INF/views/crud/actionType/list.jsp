@@ -27,7 +27,7 @@
 			   class="add-button"
 		/>
 
-		<!--  save a search box -->
+		<!--  register a search box -->
 		<form:form action="search" method="POST">
 			Search actionType: <input type="text" name="theSearchName" value="${valueSearch}" />
 

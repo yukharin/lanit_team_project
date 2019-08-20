@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.objects.the_notification;
+package com.lanit.satonin18.app.objects.value_object.the_notification;
 
 public enum ColumnTheNotificationTable {
     actionType("Тип действия ", "actionType"),

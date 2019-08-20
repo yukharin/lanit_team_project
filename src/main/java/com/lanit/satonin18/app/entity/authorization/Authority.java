@@ -60,12 +60,24 @@ public class Authority
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public UserAccount getUserAccount() {
         return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     @Override
     public String getAuthority() {
         return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 }

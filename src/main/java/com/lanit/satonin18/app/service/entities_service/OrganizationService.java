@@ -1,6 +1,7 @@
 package com.lanit.satonin18.app.service.entities_service;
 
 import com.lanit.satonin18.app.entity.Organization;
+import com.lanit.satonin18.app.service.CrudService;
 
 import java.util.List;
 

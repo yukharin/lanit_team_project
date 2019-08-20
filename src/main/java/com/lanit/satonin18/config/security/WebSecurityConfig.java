@@ -22,7 +22,7 @@ public class WebSecurityConfig
     private UserDetailsService userDetailsService;
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     };
 
@@ -37,14 +37,16 @@ public class WebSecurityConfig
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+//                .authorizeRequests()
+//                .anyRequest()
+//                .hasAnyRole("ADMIN", "USER")
+//
+//                .and()
                 .authorizeRequests()
-                .anyRequest()
-                .hasAnyRole("ADMIN", "USER")
-
-                .and()
-                .authorizeRequests()
-                .antMatchers("/login**")
+                .antMatchers("/login**", "/registration")
                 .permitAll()
+
+                .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
@@ -58,13 +60,13 @@ public class WebSecurityConfig
                 .permitAll()
 
                 .and()
+                .rememberMe().tokenValiditySeconds(604800)
+                .key("lssAppKey").rememberMeCookieName("cookie-me")
+                .rememberMeParameter("remember")
+
+                .and()
                 .csrf()
                 .disable()
-
-//                .and()
-//                .rememberMe().tokenValiditySeconds(604800)
-//                .key("lssAppKey").rememberMeCookieName("cookie-me")
-//                .rememberMeParameter("remember")
                 ;
     }
 //    @Autowired

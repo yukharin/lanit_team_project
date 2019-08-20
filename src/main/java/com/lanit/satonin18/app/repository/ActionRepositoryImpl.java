@@ -1,6 +1,6 @@
 package com.lanit.satonin18.app.repository;
 
-//import com.lanit.satonin18.app.Pagination;
+//import com.lanit.satonin18.app.PaginationForm;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 

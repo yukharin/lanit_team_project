@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.property_in_future;
+package com.lanit.satonin18.app.objects.property_in_future;
 
 
 public interface DEFAULT_THE_NOTIFICATION_VARS {

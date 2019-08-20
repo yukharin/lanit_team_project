@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.service.entities_service;
+package com.lanit.satonin18.app.service;
 
 import java.util.List;
 

@@ -43,7 +43,7 @@ public class UserAccount
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @NotEmpty
+//    @NotEmpty
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "userAccount")
@@ -105,16 +105,20 @@ public class UserAccount
         return Objects.hash(id, user, username, password, enabled, authorities, accountNonExpired, accountNonLocked, credentialsNonExpired);
     }
 
-    public UserAccount() {
-        System.out.println("44444444444444444444444444444");
-    }
-
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -122,9 +126,17 @@ public class UserAccount
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -132,9 +144,17 @@ public class UserAccount
         return enabled;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public List<Authority> getAuthorities() {
         return authorities;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override
@@ -142,13 +162,25 @@ public class UserAccount
         return accountNonExpired;
     }
 
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
     @Override
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
     }
 }

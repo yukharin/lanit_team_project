@@ -1,7 +1,8 @@
-package com.lanit.satonin18.app.objects.the_notification;
+package com.lanit.satonin18.app.objects.output;
 
-import com.lanit.satonin18.app.property_in_future.COMMON_DEFAULT_VARS;
 import com.lanit.satonin18.app.entity.Action;
+import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
+import com.lanit.satonin18.app.objects.state4session.TheNotificationState;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;

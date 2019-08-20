@@ -2,7 +2,7 @@ package com.lanit.satonin18.app.controller.crud;
 
 import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.User;
-import com.lanit.satonin18.app.service.entities_service.CrudService;
+import com.lanit.satonin18.app.service.CrudService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

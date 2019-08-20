@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>q</title>
+    <title>Answer</title>
 </head>
 <body>
-q
+    Регистрация прошла успешна
 </body>
 </html>
