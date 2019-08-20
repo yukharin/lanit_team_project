@@ -12,6 +12,7 @@ import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -91,7 +92,7 @@ public class PersonalAccountController {
 
     @GetMapping("/notification{id}/history")
     public ModelAndView getNotificationActions(
-            @PathVariable long id,
+            @NonNull @PathVariable long id,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
         Set<Action> actions = notification.getActions();
@@ -121,7 +122,7 @@ public class PersonalAccountController {
 
     @PostMapping("/addNotification")
     public ModelAndView addNotification(@AuthenticationPrincipal User user,
-                                        @Validated(value = NotificationValidationGroup.class) @ModelAttribute Notification notification,
+                                        @Validated(value = NotificationValidationGroup.class) @NonNull @ModelAttribute Notification notification,
                                         BindingResult bindingResult,
                                         ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
@@ -152,23 +153,22 @@ public class PersonalAccountController {
         return modelAndView;
     }
 
-    @PostMapping("/notification{id}")
+    @PostMapping("/notification")
     public ModelAndView addAction(
             @AuthenticationPrincipal User user,
-            @Validated(value = ActionValidationGroup.class) @ModelAttribute Action action,
+            @Validated(value = ActionValidationGroup.class) @NonNull @ModelAttribute Action action,
             BindingResult bindingResult,
-            @PathVariable long id,
-            ModelAndView modelAndView) {
-        Notification notification = notificationService.getNotification(id);
+            @RequestParam("notification.id") long id, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             log.info("user with id: " + user.getId() + " passed wrong args: " + bindingResult);
+            Notification notification = notificationService.getNotification(id);
             EnumSet<ActionType> types = personalAccountService.getAppropriateActions(notification);
             modelAndView.addObject("notification", notification);
             modelAndView.addObject("actionTypes", types);
             modelAndView.setViewName(notification_info_page);
             return modelAndView;
         } else {
-            personalAccountService.addAction(user, action, notification);
+            personalAccountService.addAction(user, action);
             log.info("user with id: " + user.getId()
                     + " added notification with id: " + action.getId());
             modelAndView.setViewName("redirect:/account/");

@@ -174,7 +174,7 @@ CREATE DEFINER = CURRENT_USER TRIGGER `lanit`.`notifications_AFTER_INSERT`
     FOR EACH ROW
 BEGIN
     INSERT INTO actions (id_notification, action_type, content, date, id_implementor, notification_status)
-    values (new.id, 3, 'Уведомление создано', now(), new.id_user_notification_author, 1);
+    values (new.id, 3, 'Уведомление создано', now(), new.id_user_notification_author, 0);
 END$$
 
 
