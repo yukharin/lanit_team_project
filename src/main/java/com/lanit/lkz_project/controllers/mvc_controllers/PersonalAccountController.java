@@ -92,7 +92,7 @@ public class PersonalAccountController {
 
     @GetMapping("/notification{id}/history")
     public ModelAndView getNotificationActions(
-            @NonNull @PathVariable long id,
+            @PathVariable long id,
             ModelAndView modelAndView) {
         Notification notification = notificationService.getNotification(id);
         Set<Action> actions = notification.getActions();

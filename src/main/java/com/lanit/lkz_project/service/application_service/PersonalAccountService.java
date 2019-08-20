@@ -74,16 +74,15 @@ public class PersonalAccountService {
     }
 
     public void addAction(@NonNull User userImplementor,
-                          @NonNull Action action,
-                          @NonNull Notification notification) {
+                          @NonNull Action action) {
+        Notification notification = notificationService.getNotification(action.getNotification().getId());
         action.setDate(LocalDateTime.now());
         action.setImplementor(userImplementor);
         NotificationStatus status = defineStatus(action.getActionType());
         action.setStatusAfterAction(status);
         notification.setStatus(status);
-        notification.getActions().add(action);
-        action.setNotification(notification);
-        notificationService.updateNotification(notification);
+        notificationService.addNotification(notification);
+        actionService.addAction(action);
     }
 
     private NotificationStatus defineStatus(@NonNull ActionType actionType) {

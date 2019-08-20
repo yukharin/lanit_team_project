@@ -67,7 +67,7 @@ public class Notification implements Serializable {
     @JoinColumn(name = "id_user_notification_author")
     private User userNotificationAuthor;
 
-    @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "notification", fetch = FetchType.EAGER)
     private Set<Action> actions;
 
 
