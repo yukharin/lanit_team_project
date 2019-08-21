@@ -57,17 +57,17 @@ public class DbConfig {
 	public DataSource dataSource() throws NamingException {
 		System.out.println("ddddddddddddddddddddddddddddddddddddd");
 
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
-//		dataSource.setUrl(env.getProperty("jdbc.url"));
-//		dataSource.setUsername(env.getProperty("jdbc.user"));
-//		dataSource.setPassword(env.getProperty("jdbc.password"));
-//		return dataSource;
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
+		dataSource.setUrl(env.getProperty("jdbc.url"));
+		dataSource.setUsername(env.getProperty("jdbc.user"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
+		return dataSource;
 
-		Context context = new InitialContext();
-		DataSource ds = (DataSource) context.lookup("jdbc/dataSource");
-		System.err.println("DATASOURCE: " + ds);
-		return ds;
+//		Context context = new InitialContext();
+//		DataSource ds = (DataSource) context.lookup("jdbc/dataSource");
+//		System.err.println("DATASOURCE: " + ds);
+//		return ds;
 	}
 
 	private Properties hibernateProperties() {
