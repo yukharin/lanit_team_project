@@ -1,6 +1,8 @@
 package com.lanit.satonin18.app.entity.authorization;
 
 import com.lanit.satonin18.app.entity.User;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -15,8 +17,8 @@ import java.util.Objects;
 @Table(name = "user_accounts")
 
 //@Data
-//@ToString //can be loop
-//@EqualsAndHashCode
+@ToString //can be loop
+@EqualsAndHashCode(exclude = {"authorities"})
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class UserAccount
@@ -69,41 +71,42 @@ public class UserAccount
 //    }
 
 
-    @Override
-    public String toString() {
-        return "UserAccount{" +
-                "id=" + id +
-                ", user=" + user +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", authorities=" + authorities +
-                ", accountNonExpired=" + accountNonExpired +
-                ", accountNonLocked=" + accountNonLocked +
-                ", credentialsNonExpired=" + credentialsNonExpired +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserAccount that = (UserAccount) o;
-        return id == that.id &&
-                enabled == that.enabled &&
-                accountNonExpired == that.accountNonExpired &&
-                accountNonLocked == that.accountNonLocked &&
-                credentialsNonExpired == that.credentialsNonExpired &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(authorities, that.authorities);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user, username, password, enabled, authorities, accountNonExpired, accountNonLocked, credentialsNonExpired);
-    }
+//    @Override
+//    public String toString() {
+//        return "UserAccount{" +
+//                "id=" + id +
+//                ", user=" + user +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", enabled=" + enabled +
+//                ", authorities=" + authorities +
+//                ", accountNonExpired=" + accountNonExpired +
+//                ", accountNonLocked=" + accountNonLocked +
+//                ", credentialsNonExpired=" + credentialsNonExpired +
+//                '}';
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        UserAccount that = (UserAccount) o;
+//        return id == that.id &&
+//                enabled == that.enabled &&
+//                accountNonExpired == that.accountNonExpired &&
+//                accountNonLocked == that.accountNonLocked &&
+//                credentialsNonExpired == that.credentialsNonExpired &&
+//                Objects.equals(user, that.user) &&
+//                Objects.equals(username, that.username) &&
+//                Objects.equals(password, that.password) &&
+//                Objects.equals(authorities, that.authorities)
+//                ;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, user, username, password, enabled, authorities, accountNonExpired, accountNonLocked, credentialsNonExpired);
+//    }
 
     public int getId() {
         return id;
