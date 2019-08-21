@@ -12,6 +12,7 @@
     <name>lkz_project</name>
 
     <properties>
+        <hibernate.validator>6.0.2.Final</hibernate.validator>
         <hibernate-validator-annotation-processor>6.0.2.Final</hibernate-validator-annotation-processor>
         <hibernate.version>4.3.11.Final</hibernate.version>
         <!--<hibernate.version>5.2.11.Final</hibernate.version>-->
@@ -43,11 +44,12 @@
         <!--</dependency>-->
 
         <!-- Validator -->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-validator</artifactId>-->
-            <!--<version>${hibernate.validator}</version>-->
-        <!--</dependency>-->
+        <!-- true Valid param Controller-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator}</version>
+        </dependency>
         <dependency>
             <!--<groupId>org.hibernate</groupId>-->
             <groupId>org.hibernate.validator</groupId>
