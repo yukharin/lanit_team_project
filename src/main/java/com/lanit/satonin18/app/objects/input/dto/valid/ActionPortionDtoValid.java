@@ -3,9 +3,11 @@ package com.lanit.satonin18.app.objects.input.dto.valid;
 import lombok.Data;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 @Data
-public class ActionPortionDtoValid {
+public class ActionPortionDtoValid
+        implements Serializable {
 
     @NotNull
     private Integer notificationId;

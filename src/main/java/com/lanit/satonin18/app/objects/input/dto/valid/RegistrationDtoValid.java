@@ -3,9 +3,11 @@ package com.lanit.satonin18.app.objects.input.dto.valid;
 import lombok.Data;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 @Data
-public class RegistrationDtoValid {
+public class RegistrationDtoValid
+        implements Serializable {
 
     @NotBlank
     @Size(min = 2, max = 45)
