@@ -27,16 +27,17 @@
     </properties>
 
     <dependencies>
-        <!--GlassFish 4-->
-        <!--https://tassioauad.com/2018/01/05/nosuchmethoderror-org-jboss-logging-logger-debugfljava-lang-stringi/-->
-
-        <!--GlassFish 5-->
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.0.pr1</version>
-        </dependency>
+        <!-- log4j2 -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.logging.log4j</groupId>-->
+            <!--<artifactId>log4j-api</artifactId>-->
+            <!--<version>2.11.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.logging.log4j</groupId>-->
+            <!--<artifactId>log4j-core</artifactId>-->
+            <!--<version>2.11.2</version>-->
+        <!--</dependency>-->
 
         <!-- Validator -->
         <dependency>
@@ -49,22 +50,34 @@
             <artifactId>hibernate-validator-annotation-processor</artifactId>
             <version>${hibernate.validator}</version>
         </dependency>
+
+        <!-- Hibernate ORM -->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.0.Final</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.glassfish.web</groupId>-->
-            <!--<artifactId>javax.el</artifactId>-->
-            <!--<version>2.2.6</version>-->
-        <!--</dependency>-->
-        <!-- Validator -> jsp -> win error -->
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>3.0.0</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
+
+        <!-- Hibernate-C3P0 Integration -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!-- c3p0 -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+        </dependency>
+
+
 
 
         <dependency>
@@ -117,33 +130,23 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- Hibernate ORM -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
 
-        <!-- Hibernate-C3P0 Integration -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>${hibernate.version}</version>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.0.Final</version>
         </dependency>
-
-        <!-- c3p0 -->
+        <!--<dependency>-->
+        <!--<groupId>org.glassfish.web</groupId>-->
+        <!--<artifactId>javax.el</artifactId>-->
+        <!--<version>2.2.6</version>-->
+        <!--</dependency>-->
+        <!-- Validator -> jsp -> win error -->
         <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>${c3p0.version}</version>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
         </dependency>
-
-
         <!-- JSTL Dependency -->
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
@@ -180,18 +183,19 @@
             <version>8.0.11</version>
         </dependency>
 
-        <!-- log4j2 -->
+        <!--GlassFish 4-->
+        <!--https://tassioauad.com/2018/01/05/nosuchmethoderror-org-jboss-logging-logger-debugfljava-lang-stringi/-->
+
+        <!--GlassFish 5-->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.11.2</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.0.pr1</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.11.2</version>
-        </dependency>
-        
+
+
+
         <!-- templates -->
         <dependency>
             <groupId>org.projectlombok</groupId>
