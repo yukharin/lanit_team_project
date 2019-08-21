@@ -14,8 +14,12 @@
     <properties>
         <hibernate.validator>6.0.2.Final</hibernate.validator>
         <hibernate-validator-annotation-processor>6.0.2.Final</hibernate-validator-annotation-processor>
-        <hibernate.version>4.3.11.Final</hibernate.version>
+        <!--<hibernate.version>4.3.11.Final</hibernate.version>-->
         <!--<hibernate.version>5.2.11.Final</hibernate.version>-->
+
+        <hibernate.entitymanager.version>4.3.11.Final</hibernate.entitymanager.version>
+        <!--<hibernate.entitymanager.version>5.2.11.Final</hibernate.entitymanager.version>-->
+
         <!--<c3p0.version>0.9.5.2</c3p0.version>-->
 
         <spring.version>5.1.4.RELEASE</spring.version>
@@ -58,15 +62,15 @@
         </dependency>
 
         <!-- Hibernate ORM -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.hibernate</groupId>-->
+            <!--<artifactId>hibernate-core</artifactId>-->
+            <!--<version>${hibernate.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
+            <version>${hibernate.entitymanager.version}</version>
         </dependency>
 
         <!-- Hibernate-C3P0 Integration -->
@@ -195,11 +199,11 @@
 
         <!--GlassFish 5-->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.0.pr1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+            <!--<artifactId>jackson-databind</artifactId>-->
+            <!--<version>2.10.0.pr1</version>-->
+        <!--</dependency>-->
 
 
 

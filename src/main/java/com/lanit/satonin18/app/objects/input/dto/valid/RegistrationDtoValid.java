@@ -24,6 +24,7 @@ public class RegistrationDtoValid
     @Size(min = 2, max = 50)
     private String username;
 
+//    TODO no true regexp
     @NotBlank
     @Size(min = 8, max = 60)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",

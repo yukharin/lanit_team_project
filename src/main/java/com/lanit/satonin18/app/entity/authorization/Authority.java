@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.entity.authorization;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Objects;
 
 //@Data
 //@ToString //can be loop
-//@EqualsAndHashCode
+@EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class Authority
@@ -41,19 +42,6 @@ public class Authority
 //                ", userAccount=" + userAccount +
                 ", authority='" + authority + '\'' +
                 '}';
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Authority authority1 = (Authority) o;
-        return id == authority1.id &&
-                Objects.equals(userAccount, authority1.userAccount) &&
-                Objects.equals(authority, authority1.authority);
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userAccount, authority);
     }
 
     public int getId() {
