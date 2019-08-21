@@ -1,17 +1,16 @@
 package com.lanit.satonin18.app.service.entities_service;
 
-//import com.lanit.satonin18.app.PaginationForm;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.entity.enum_type.Status;
 import com.lanit.satonin18.app.service.CrudService;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-//CRUD - Create Read_by _id Update Delete
-public interface NotificationService extends CrudService<Notification> {
+public interface NotificationService
+        extends CrudService<Notification> {
 
     @Override
     void save(Notification notification) ;

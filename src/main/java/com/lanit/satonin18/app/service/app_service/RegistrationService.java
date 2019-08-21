@@ -1,17 +1,19 @@
 package com.lanit.satonin18.app.service.app_service;
 
+import com.lanit.satonin18.app.entity.Organization;
 import com.lanit.satonin18.app.entity.User;
 import com.lanit.satonin18.app.entity.authorization.Authority;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
+import com.lanit.satonin18.app.entity.enum_type.gener_value4field.Role;
 import com.lanit.satonin18.app.objects.input.dto.valid.RegistrationDtoValid;
 import com.lanit.satonin18.app.repository.authorization.AuthorityRepository;
-import com.lanit.satonin18.app.service.authorization.UserAccountService;
+import com.lanit.satonin18.app.service.entities_service.authorization.AuthorityService;
+import com.lanit.satonin18.app.service.entities_service.authorization.UserAccountService;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.OrganizationService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,35 +36,49 @@ public class RegistrationService {
     private OrganizationService organizationService;
 
     @Autowired
-    private AuthorityRepository authorityRepository;
+    private AuthorityService authorityService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Transactional
     public void register(RegistrationDtoValid registrationDtoValid) {
-        User user = saveUser(registrationDtoValid);
+        Organization org = organizationService.findById(registrationDtoValid.getOrganizationId());
+
+        //TODO пока такое деление не имеет никакого смысла для программы
+        //TODO при смене организации нужно потом поменять его роль
+        String role = defineRole(org.isGovernment());
+
+        User user = saveUser(registrationDtoValid, org);
         UserAccount account = saveAccount(registrationDtoValid, user);
-        Authority authority = saveAuthority(account);
+        Authority authority = saveAuthority(account, role);
     }
 
-    @Transactional
-    public Authority saveAuthority(UserAccount account) {
+    private User saveUser(RegistrationDtoValid registrationDtoValid, Organization org) {
+        User user = new User();
+        user.setFirstName(registrationDtoValid.getFirstName());
+        user.setLastName(registrationDtoValid.getLastName());
+        user.setOrganization(org);
+
+        userService.save(user);
+        return user;
+    }
+
+    private Authority saveAuthority(UserAccount account, String role) {
         Authority authority = new Authority();
         authority.setUserAccount(account);
-        authority.setAuthority("ROLE_USER"); //defineRole(Organization organization)
+        authority.setAuthority(role);
 
         List<Authority> list = new ArrayList<>();
         list.add(authority);
         account.setAuthorities(list);
 
-        authorityRepository.save(authority);
+        authorityService.save(authority);
 
         return authority;
     }
 
-    @Transactional
-    public UserAccount saveAccount(RegistrationDtoValid registrationDtoValid, User user) {
+    private UserAccount saveAccount(RegistrationDtoValid registrationDtoValid, User user) {
         UserAccount account = new UserAccount();
         account.setId(user.getId());
         account.setUsername(registrationDtoValid.getUsername());
@@ -81,22 +97,11 @@ public class RegistrationService {
         return account;
     }
 
-    @Transactional
-    public User saveUser(RegistrationDtoValid registrationDtoValid) {
-        User user = new User();
-        user.setFirstName(registrationDtoValid.getFirstName());
-        user.setLastName(registrationDtoValid.getLastName());
-        user.setOrganization(organizationService.findById(registrationDtoValid.getOrganizationId()));
-
-        userService.save(user);
-        return user;
+    private String defineRole(boolean isGovernment) {
+        if (isGovernment) {
+            return Role.USER_GOVERNMENT.toString();
+        } else {
+            return Role.USER_WORKER.toString();
+        }
     }
-
-//    private Authority defineRole(Organization organization) {
-//        if (organization.isGovernment()) {
-//            return authorityService.getAuthority(2L);
-//        } else {
-//            return authorityService.getAuthority(1L);
-//        }
-//    }
 }

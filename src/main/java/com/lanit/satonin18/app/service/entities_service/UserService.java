@@ -5,8 +5,9 @@ import com.lanit.satonin18.app.service.CrudService;
 
 import java.util.List;
 
-//CRUD - Create Read_by _id Update Delete
-public interface UserService extends CrudService<User> {
+public interface UserService
+        extends CrudService<User> {
+
     @Override
     void save(User organization) ;
 

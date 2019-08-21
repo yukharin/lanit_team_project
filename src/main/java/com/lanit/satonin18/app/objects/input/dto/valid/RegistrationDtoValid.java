@@ -25,7 +25,7 @@ public class RegistrationDtoValid {
     @NotBlank
     @Size(min = 8, max = 60)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
-            message = "Пароль должен иметь как минимум одну заглавную букву, одну строчную и одну цифру")
+            message = "Пароль должен состоять из латинских букв и иметь как минимум одну заглавную букву, одну строчную и одну цифру")
     private String password;
 
 //    @NotEmpty

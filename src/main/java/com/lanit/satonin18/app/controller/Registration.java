@@ -3,7 +3,7 @@ package com.lanit.satonin18.app.controller;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.objects.input.dto.valid.RegistrationDtoValid;
 import com.lanit.satonin18.app.service.app_service.RegistrationService;
-import com.lanit.satonin18.app.service.authorization.UserAccountService;
+import com.lanit.satonin18.app.service.entities_service.authorization.UserAccountService;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.OrganizationService;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller("registrationController")
-//@RequestMapping("/add_user_account")
+//@RequestMapping("")
 public class Registration {
 
     @Autowired
@@ -72,8 +72,8 @@ public class Registration {
         registrationService.register(registrationDtoValid);
 
         return new ModelAndView(
-//                "redirect:/"
-                "/q"
+                "redirect:/login?messageRegistrationSuccess"
+//                "/q"
         );
     }
 

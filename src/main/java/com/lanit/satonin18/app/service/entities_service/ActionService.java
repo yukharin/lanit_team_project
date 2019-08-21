@@ -1,6 +1,5 @@
 package com.lanit.satonin18.app.service.entities_service;
 
-//import com.lanit.satonin18.app.PaginationForm;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.service.CrudService;
@@ -9,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-//CRUD - Create Read_by _id Update Delete
-public interface ActionService extends CrudService<Action> {
+public interface ActionService
+        extends CrudService<Action> {
 
     @Override
     void save(Action action) ;

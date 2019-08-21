@@ -14,6 +14,9 @@
         .error {
             color: red;
         }
+        .success {
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -22,10 +25,15 @@
 <h4 style="text-align: center;">Login Form</h4>
 
 <form action='<spring:url value="/loginAction"/>' method="post">
-    <c:if test="<%= request.getParameter("error") != null %>" >
-
+    <c:if test="${error != null}" >
         <div class="error" style="text-align: center;">
             Invalid username and password.
+        </div>
+    </c:if>
+
+    <c:if test="${messageRegistrationSuccess != null}" >
+        <div class="success" style="text-align: center;">
+            Регистрация прошла успешна
         </div>
     </c:if>
 

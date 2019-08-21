@@ -65,4 +65,7 @@ span.radioDecorator > input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */
 .error {
     color: red;
 }
+.success {
+    color: green;
+}
 

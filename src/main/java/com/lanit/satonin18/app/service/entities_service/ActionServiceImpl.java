@@ -8,21 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service("actionService")
-public class ActionServiceImpl implements ActionService {
+public class ActionServiceImpl
+        implements ActionService {
+
    @Autowired
    private ActionRepository actionRepository;
 
    @Override
+   @Transactional
    public void save(Action action) {
       actionRepository.save(action);
    }
 
    @Override
+   @Transactional
    public void delete(Action action) {
       actionRepository.delete(action);
    }
@@ -38,6 +43,7 @@ public class ActionServiceImpl implements ActionService {
    }
 
    @Override
+   @Transactional
    public void deleteById(int id) {
       actionRepository.deleteById(id);
    }

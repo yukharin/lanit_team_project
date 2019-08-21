@@ -1,6 +1,6 @@
 package com.lanit.satonin18.app.entity;
 
-import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.entity.enum_type.Status;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;

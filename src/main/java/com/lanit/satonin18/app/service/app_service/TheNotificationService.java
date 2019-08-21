@@ -47,7 +47,7 @@ public class TheNotificationService {
         );
         List<Action> list = render.getPageImpl().getContent();
         if( ! list.isEmpty()) {
-            //todo need go in db
+            //todo need go in db (+ 1 query) or in table store lastActionId
             render.setLatestAction(
                     Collections.max(list, (o1, o2) -> o1.getDate().compareTo(o2.getDate()))
             );

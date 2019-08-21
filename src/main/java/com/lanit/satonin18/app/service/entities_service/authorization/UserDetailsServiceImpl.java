@@ -1,10 +1,9 @@
-package com.lanit.satonin18.app.service.authorization;
+package com.lanit.satonin18.app.service.entities_service.authorization;
 
 
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.repository.authorization.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

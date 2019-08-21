@@ -5,20 +5,25 @@ import com.lanit.satonin18.app.repository.OrganizationRepository;
 import com.lanit.satonin18.app.entity.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service("organizationService")
-public class OrganizationServiceImpl implements OrganizationService {
+public class OrganizationServiceImpl
+        implements OrganizationService {
+
     @Autowired
     private OrganizationRepository organizationRepository;
 
     @Override
+    @Transactional
     public void save(Organization organization) {
         organizationRepository.save(organization);
     }
 
     @Override
+    @Transactional
     public void delete(Organization organization) {
         organizationRepository.delete(organization);
     }
@@ -34,6 +39,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    @Transactional
     public void deleteById(int id) {
         organizationRepository.deleteById(id);
     }

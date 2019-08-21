@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.entity.no_in_db;
+package com.lanit.satonin18.app.entity.enum_type;
 
 import lombok.Getter;
 

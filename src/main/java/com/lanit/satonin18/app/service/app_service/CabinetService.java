@@ -2,7 +2,7 @@ package com.lanit.satonin18.app.service.app_service;
 
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.User;
-import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.entity.enum_type.Status;
 import com.lanit.satonin18.app.objects.input.form.FilterForm;
 import com.lanit.satonin18.app.objects.input.form.OrderByForm;
 import com.lanit.satonin18.app.objects.input.form.PaginationForm;
@@ -15,11 +15,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 
 @Service("cabinetService")
 public class CabinetService {
+
     @Autowired
     private NotificationService notificationService;
     @Autowired
@@ -63,6 +65,7 @@ public class CabinetService {
 //        render.calcNavigationPages();
     }
 
+    @Transactional
     public void editStatus(Integer idNotification, Integer idNewStatus) {
         Notification notification = notificationService.findById(idNotification);
         notification.setStatus(Status.getById(idNewStatus));

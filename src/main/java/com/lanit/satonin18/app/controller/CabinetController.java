@@ -7,7 +7,7 @@ import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.objects.output.Cabinet4renderHtml;
 import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
-import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.entity.enum_type.Status;
 import com.lanit.satonin18.app.objects.property_in_future.DEFAULT_CABINET_VARS;
 import com.lanit.satonin18.app.objects.state4session.CabinetState;
 import com.lanit.satonin18.app.service.app_service.CabinetService;

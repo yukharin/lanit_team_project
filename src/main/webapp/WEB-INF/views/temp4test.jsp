@@ -11,6 +11,6 @@
     <title>Answer</title>
 </head>
 <body>
-    Регистрация прошла успешна
+    return answer
 </body>
 </html>

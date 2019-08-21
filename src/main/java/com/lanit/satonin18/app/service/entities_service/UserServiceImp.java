@@ -6,19 +6,23 @@ import com.lanit.satonin18.app.repository.UserRepository;
 import com.lanit.satonin18.app.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("userService")
-public class UserServiceImp implements UserService  {
+public class UserServiceImp
+        implements UserService  {
 
    @Autowired
    private UserRepository userRepository;
 
    @Override
+   @Transactional
    public void save(User user) {
       userRepository.save(user);
    }
 
    @Override
+   @Transactional
    public void delete(User user) {
       userRepository.delete(user);
    }
@@ -34,6 +38,7 @@ public class UserServiceImp implements UserService  {
    }
 
    @Override
+   @Transactional
    public void deleteById(int id) {
       userRepository.deleteById(id);
    }

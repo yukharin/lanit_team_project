@@ -3,10 +3,9 @@ package com.lanit.satonin18.app.repository;
 //import com.lanit.satonin18.app.PaginationForm;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.entity.enum_type.Status;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

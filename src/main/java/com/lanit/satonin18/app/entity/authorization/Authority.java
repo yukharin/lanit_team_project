@@ -1,12 +1,10 @@
 package com.lanit.satonin18.app.entity.authorization;
 
-import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -32,6 +30,8 @@ public class Authority
 
     @NotBlank
     @Column(name = "authority", nullable = false, length = 50)
+//    @Enumerated(EnumType.STRING)
+//    private Role authority; // implements GrantedAuthority //String getAuthority();
     private String authority;
 
     @Override

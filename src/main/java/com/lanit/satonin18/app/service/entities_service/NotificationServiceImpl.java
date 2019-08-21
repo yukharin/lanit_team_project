@@ -6,7 +6,7 @@ import java.util.List;
 import com.lanit.satonin18.app.repository.NotificationRepository;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.Organization;
-import com.lanit.satonin18.app.entity.no_in_db.Status;
+import com.lanit.satonin18.app.entity.enum_type.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Service("notificationService")
-public class NotificationServiceImpl implements NotificationService {
+public class NotificationServiceImpl
+        implements NotificationService {
+
     @Autowired
     private NotificationRepository notificationRepository;
 
@@ -25,12 +27,13 @@ public class NotificationServiceImpl implements NotificationService {
     EntityManager em;
 
     @Override
-//    @Transactional
+    @Transactional
     public void save(Notification notification) {
         notificationRepository.save(notification);
     }
 
     @Override
+    @Transactional
     public void delete(Notification notification) {
         notificationRepository.delete(notification);
     }
@@ -46,6 +49,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    @Transactional
     public void deleteById(int id) {
         notificationRepository.deleteById(id);
     }

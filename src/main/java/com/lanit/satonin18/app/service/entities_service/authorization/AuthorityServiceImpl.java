@@ -1,9 +1,10 @@
-package com.lanit.satonin18.app.service.authorization;
+package com.lanit.satonin18.app.service.entities_service.authorization;
 
 import com.lanit.satonin18.app.entity.authorization.Authority;
 import com.lanit.satonin18.app.repository.authorization.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ public class AuthorityServiceImpl
     AuthorityRepository authorityRepository;
 
     @Override
+    @Transactional
     public void save(Authority authority){
         authorityRepository.save(authority);
     }
 
     @Override
+    @Transactional
     public void delete(Authority authority) {
         authorityRepository.delete(authority);
     }
@@ -35,6 +38,7 @@ public class AuthorityServiceImpl
     }
 
     @Override
+    @Transactional
     public void deleteById(int id){
         authorityRepository.deleteById(id);
     }

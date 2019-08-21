@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.service.authorization;
+package com.lanit.satonin18.app.service.entities_service.authorization;
 
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.service.CrudService;
