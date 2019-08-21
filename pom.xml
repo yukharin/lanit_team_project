@@ -12,10 +12,9 @@
     <name>lkz_project</name>
 
     <properties>
-
-        <!--<hibernate.version>4.3.11.Final</hibernate.version>-->
-        <hibernate.version>5.2.11.Final</hibernate.version>
         <hibernate-validator-annotation-processor>6.0.2.Final</hibernate-validator-annotation-processor>
+        <hibernate.version>4.3.11.Final</hibernate.version>
+        <!--<hibernate.version>5.2.11.Final</hibernate.version>-->
         <!--<c3p0.version>0.9.5.2</c3p0.version>-->
 
         <spring.version>5.1.4.RELEASE</spring.version>
