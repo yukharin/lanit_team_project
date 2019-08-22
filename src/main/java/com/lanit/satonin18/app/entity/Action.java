@@ -4,9 +4,9 @@ import com.lanit.satonin18.app.entity.enum_type.ActionType;
 import com.lanit.satonin18.app.entity.enum_type.Status;
 import lombok.*;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+//import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -19,19 +19,21 @@ import java.sql.Timestamp;
 @EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
-public class Action implements Serializable {
+public class Action
+        implements Serializable {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
+//    @NotBlank
     @Size(min = 2, max = 300)
     @Column(name = "content", nullable = true, length = 300)
     private String content;
 
     @NotNull
-    @PastOrPresent
+//    @PastOrPresent
     @Column(name = "date", nullable = false)
     private Timestamp date;
 

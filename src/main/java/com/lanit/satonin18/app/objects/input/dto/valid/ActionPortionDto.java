@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Data
-public class ActionPortionDtoValid
+public class ActionPortionDto
         implements Serializable {
 
     @NotNull

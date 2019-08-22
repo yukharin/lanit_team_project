@@ -2,7 +2,7 @@ package com.lanit.satonin18.app.objects.output;
 
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.enum_type.Status;
-import com.lanit.satonin18.app.objects.state4session.CabinetState;
+import com.lanit.satonin18.app.objects.state4session.CabinetSessionState;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.Arrays;
@@ -22,9 +22,9 @@ public class Cabinet4renderHtml {
     //--------------------------------------------------------------------
     private PageImpl<Notification> pageImpl ;//= COMMON_DEFAULT_VARS.EMPTY_PAGE_IMPL_NOTIFICATION; //
     private List<Status> checkedMainListNotificStatuses = Arrays.asList(Status.values());
-    private CabinetState state;
+    private CabinetSessionState state;
 
-    public Cabinet4renderHtml(CabinetState state) {
+    public Cabinet4renderHtml(CabinetSessionState state) {
         this.state = state;
     }
 
@@ -44,11 +44,11 @@ public class Cabinet4renderHtml {
         this.checkedMainListNotificStatuses = checkedMainListNotificStatuses;
     }
 
-    public CabinetState getState() {
+    public CabinetSessionState getState() {
         return state;
     }
 
-    public void setState(CabinetState state) {
+    public void setState(CabinetSessionState state) {
         this.state = state;
     }
 //    public List<Integer> navigationPages;

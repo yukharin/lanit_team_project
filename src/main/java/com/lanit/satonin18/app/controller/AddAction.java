@@ -1,6 +1,6 @@
 package com.lanit.satonin18.app.controller;
 
-import com.lanit.satonin18.app.objects.input.dto.valid.ActionPortionDtoValid;
+import com.lanit.satonin18.app.objects.input.dto.valid.ActionPortionDto;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.entity.enum_type.ActionType;
@@ -44,9 +44,9 @@ public class AddAction {
 
         addAttribute(model, currentUser, currentNotification);
         return new ModelAndView(
-                "cabinet/the_notification/add_action",
-                "actionPortionDtoValid",
-                new ActionPortionDtoValid());
+                "cabinet/the_notification/add_actionForm",
+                "actionPortionDto",
+                new ActionPortionDto());
     }
 
     @PostMapping("/save")
@@ -54,10 +54,10 @@ public class AddAction {
             Model model, HttpSession session,
 //            RedirectAttributes redir,
             @AuthenticationPrincipal UserAccount userAccount,
-            @Valid @ModelAttribute(name = "actionPortionDtoValid") ActionPortionDtoValid actionPortionDtoValid,
+            @Valid @ModelAttribute(name = "actionPortionDto") ActionPortionDto actionPortionDto,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-//            redir.addAttribute("actionPortionDtoValid", actionPortionDtoValid);
+//            redir.addAttribute("actionPortionDto", actionPortionDto);
             User currentUser = userAccount.getUser();
             Integer notificationId = (Integer) session.getAttribute("notificationId");
             Notification currentNotification = notificationService.findById(notificationId);
@@ -65,16 +65,16 @@ public class AddAction {
             addAttribute(model, currentUser, currentNotification);
             return new ModelAndView(
 //                    "redirect:/cabinet/the_notification/add_action/register",
-                    "cabinet/the_notification/add_action",
-                    "actionPortionDtoValid",
-                    actionPortionDtoValid
+                    "cabinet/the_notification/add_actionForm",
+                    "actionPortionDto",
+                    actionPortionDto
             );
         }
-        Notification currentNotification = notificationService.findById(actionPortionDtoValid.getNotificationId());
+        Notification currentNotification = notificationService.findById(actionPortionDto.getNotificationId());
 
-        ActionType actionType = ActionType.getById(actionPortionDtoValid.getIdActionType());
-        User userImplementor = userService.findById(actionPortionDtoValid.getIdUserImplementor());
-        Status status = Status.getById(actionPortionDtoValid.getIdNotificationStatus());
+        ActionType actionType = ActionType.getById(actionPortionDto.getIdActionType());
+        User userImplementor = userService.findById(actionPortionDto.getIdUserImplementor());
+        Status status = Status.getById(actionPortionDto.getIdNotificationStatus());
 
         long timeNow = System.currentTimeMillis();
         Timestamp now = new Timestamp(timeNow);
@@ -85,7 +85,7 @@ public class AddAction {
         actionNew.setUserByIdImplementor(userImplementor);
         actionNew.setStatusAfterProcessing(status);
         actionNew.setDate(now);
-        actionNew.setContent(actionPortionDtoValid.getContent());
+        actionNew.setContent(actionPortionDto.getContent());
 
         actionService.save(actionNew);
 

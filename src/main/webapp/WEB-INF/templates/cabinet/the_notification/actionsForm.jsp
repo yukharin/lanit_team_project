@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<jsp:include page="/templates/common_header_user.jsp" />
+<jsp:include page="/fragments/common_header_user.jsp" />
 
 <div id="content">
 
@@ -182,7 +182,7 @@
                 </form:form>
             </div>
 
-            <jsp:include page="/templates/pagination.jsp" />
+            <jsp:include page="/fragments/pagination.jsp" />
 
             <div id="list_actions">
                 <table>
@@ -193,7 +193,7 @@
                         </th>
                         <th>№</th>
 
-                        <jsp:include page="/templates/generHeadColumnWithOrder_ByEnum.jsp" />
+                        <jsp:include page="/fragments/generHeadColumnWithOrder_ByEnum.jsp" />
 
                     </tr>
 

@@ -1,6 +1,7 @@
 package com.lanit.satonin18.config;
 
 import com.lanit.satonin18.config.security.WebSecurityConfig;
+
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -9,7 +10,9 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.*;
 
-public class DispatcherServletInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class DispatcherServletInit
+        extends AbstractAnnotationConfigDispatcherServletInitializer {
+
    @Override
    public void onStartup(ServletContext servletContext) throws ServletException {
       //create the root Spring application context

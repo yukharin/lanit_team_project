@@ -1,7 +1,7 @@
 package com.lanit.satonin18.app.controller;
 
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
-import com.lanit.satonin18.app.objects.input.dto.valid.RegistrationDtoValid;
+import com.lanit.satonin18.app.objects.input.dto.valid.RegistrationDto;
 import com.lanit.satonin18.app.service.app_service.RegistrationService;
 import com.lanit.satonin18.app.service.entities_service.authorization.UserAccountService;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
@@ -44,18 +44,18 @@ public class Registration {
             Model model) {
         addAttributes(model);
         return new ModelAndView(
-                "/registration",
-                "registrationDtoValid",
-                new RegistrationDtoValid());
+                "/registrationForm",
+                "registrationDto",
+                new RegistrationDto());
     }
 
     @PostMapping("/registration")
     public ModelAndView save(
             Model model, HttpSession session,
 //            RedirectAttributes redir,
-            @Valid @ModelAttribute(name = "registrationDtoValid") RegistrationDtoValid registrationDtoValid,
+            @Valid @ModelAttribute(name = "registrationDto") RegistrationDto registrationDto,
             BindingResult bindingResult) {
-        UserAccount accountToCheck = userAccountService.findByUsername(registrationDtoValid.getUsername());
+        UserAccount accountToCheck = userAccountService.findByUsername(registrationDto.getUsername());
         if (accountToCheck != null) {
             FieldError usernameError = new FieldError("error.user", "username", "Такой логин уже существует в системе");
             bindingResult.addError(usernameError);
@@ -64,12 +64,12 @@ public class Registration {
             addAttributes(model);
             return new ModelAndView(
 //                    "redirect:/cabinet/the_notification/add_action/register",
-                    "/registration",
-                    "registrationDtoValid",
-                    registrationDtoValid
+                    "/registrationForm",
+                    "registrationDto",
+                    registrationDto
             );
         }
-        registrationService.register(registrationDtoValid);
+        registrationService.register(registrationDto);
 
         return new ModelAndView(
                 "redirect:/login?messageRegistrationSuccess"

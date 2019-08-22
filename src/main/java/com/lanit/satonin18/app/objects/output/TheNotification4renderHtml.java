@@ -2,7 +2,7 @@ package com.lanit.satonin18.app.objects.output;
 
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
-import com.lanit.satonin18.app.objects.state4session.TheNotificationState;
+import com.lanit.satonin18.app.objects.state4session.TheNotificationSessionState;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
@@ -13,9 +13,9 @@ public class TheNotification4renderHtml {
     private List<Action> showListActions;
     private Action latestAction;
 
-    private TheNotificationState state;
+    private TheNotificationSessionState state;
 
-    public TheNotification4renderHtml(TheNotificationState state) {
+    public TheNotification4renderHtml(TheNotificationSessionState state) {
         this.state = state;
     }
 
@@ -43,11 +43,11 @@ public class TheNotification4renderHtml {
         this.latestAction = latestAction;
     }
 
-    public TheNotificationState getState() {
+    public TheNotificationSessionState getState() {
         return state;
     }
 
-    public void setState(TheNotificationState state) {
+    public void setState(TheNotificationSessionState state) {
         this.state = state;
     }
 

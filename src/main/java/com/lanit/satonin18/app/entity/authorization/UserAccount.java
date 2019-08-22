@@ -6,8 +6,8 @@ import lombok.ToString;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+//import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +22,8 @@ import java.util.Objects;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class UserAccount
-        implements UserDetails, Serializable {
+        implements UserDetails,
+        Serializable {
 
     @Id
     @Column(name = "id_user", nullable = false)
@@ -33,12 +34,12 @@ public class UserAccount
     private User user;
 
     //уникалбное поле //+уникальный индекс
-    @NotBlank
+//    @NotBlank
     @Size(min = 2, max = 50)
     @Column(name = "username", nullable = false, length = 50)
     private String username;
 
-    @NotBlank //HEX
+//    @NotBlank //HEX
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 

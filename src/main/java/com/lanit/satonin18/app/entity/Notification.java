@@ -15,7 +15,9 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notification implements Serializable {
+public class Notification
+        implements Serializable {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +37,7 @@ public class Notification implements Serializable {
     @Column(name = "date_response", nullable = false)
     private java.sql.Date dateResponse;
 
-    @NotBlank
+//    @NotBlank
     @Size(min = 12, max = 12)
     @Column(name = "letter_number", nullable = true, length = 12)
     private String letterNumber;
@@ -62,7 +64,7 @@ public class Notification implements Serializable {
     @JoinColumn(name = "id_user_implementor", referencedColumnName = "id", nullable = false)
     private User userByIdUserImplementor;
 
-    @NotEmpty
+//    @NotEmpty
     @org.hibernate.annotations.LazyCollection(
             org.hibernate.annotations.LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "notification")//, fetch = FetchType.EAGER)

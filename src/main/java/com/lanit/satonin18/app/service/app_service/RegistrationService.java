@@ -5,8 +5,7 @@ import com.lanit.satonin18.app.entity.User;
 import com.lanit.satonin18.app.entity.authorization.Authority;
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.entity.enum_type.gener_value4field.Role;
-import com.lanit.satonin18.app.objects.input.dto.valid.RegistrationDtoValid;
-import com.lanit.satonin18.app.repository.authorization.AuthorityRepository;
+import com.lanit.satonin18.app.objects.input.dto.valid.RegistrationDto;
 import com.lanit.satonin18.app.service.entities_service.authorization.AuthorityService;
 import com.lanit.satonin18.app.service.entities_service.authorization.UserAccountService;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
@@ -42,49 +41,37 @@ public class RegistrationService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void register(RegistrationDtoValid registrationDtoValid) {
-        Organization org = organizationService.findById(registrationDtoValid.getOrganizationId());
+    public void register(RegistrationDto registrationDto) {
+        Organization org = organizationService.findById(registrationDto.getOrganizationId());
 
         //TODO пока такое деление не имеет никакого смысла для программы
         //TODO при смене организации нужно потом поменять его роль
         String role = defineRole(org.isGovernment());
 
-        User user = saveUser(registrationDtoValid, org);
-        UserAccount account = saveAccount(registrationDtoValid, user);
+        User user = saveUser(registrationDto, org);
+        UserAccount account = saveAccount(registrationDto, user);
         Authority authority = saveAuthority(account, role);
     }
 
-    private User saveUser(RegistrationDtoValid registrationDtoValid, Organization org) {
+    private User saveUser(RegistrationDto registrationDto, Organization org) {
         User user = new User();
-        user.setFirstName(registrationDtoValid.getFirstName());
-        user.setLastName(registrationDtoValid.getLastName());
+        //can be persist()
+        user.setFirstName(registrationDto.getFirstName());
+        user.setLastName(registrationDto.getLastName());
         user.setOrganization(org);
 
-        userService.save(user);
+        userService.save(user); //can be save(inside update)
         return user;
     }
 
-    private Authority saveAuthority(UserAccount account, String role) {
-        Authority authority = new Authority();
-        authority.setUserAccount(account);
-        authority.setAuthority(role);
-
-        List<Authority> list = new ArrayList<>();
-        list.add(authority);
-        account.setAuthorities(list);
-
-        authorityService.save(authority);
-
-        return authority;
-    }
-
-    private UserAccount saveAccount(RegistrationDtoValid registrationDtoValid, User user) {
+    private UserAccount saveAccount(RegistrationDto registrationDto, User user) {
         UserAccount account = new UserAccount();
+        //can be persist()
         account.setId(user.getId());
-        account.setUsername(registrationDtoValid.getUsername());
+        account.setUsername(registrationDto.getUsername());
         account.setPassword(
                 passwordEncoder.encode(
-                        registrationDtoValid.getPassword()
+                        registrationDto.getPassword()
                 )
         );
         account.setEnabled(true);
@@ -92,9 +79,24 @@ public class RegistrationService {
         account.setAccountNonLocked(true);
         account.setCredentialsNonExpired(true);
 
-        userAccountService.save(account);
+        userAccountService.save(account);//can be save(inside update) account and
 
         return account;
+    }
+
+    private Authority saveAuthority(UserAccount account, String role) {
+        Authority authority = new Authority();
+        //can be persist()
+        authority.setUserAccount(account);
+        authority.setAuthority(role);
+
+        List<Authority> list = new ArrayList<>();
+        list.add(authority);
+        account.setAuthorities(list);
+
+        authorityService.save(authority);//can be save(inside update)
+
+        return authority;
     }
 
     private String defineRole(boolean isGovernment) {

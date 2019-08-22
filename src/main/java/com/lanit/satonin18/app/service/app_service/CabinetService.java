@@ -7,7 +7,7 @@ import com.lanit.satonin18.app.objects.input.form.FilterForm;
 import com.lanit.satonin18.app.objects.input.form.OrderByForm;
 import com.lanit.satonin18.app.objects.input.form.PaginationForm;
 import com.lanit.satonin18.app.objects.output.Cabinet4renderHtml;
-import com.lanit.satonin18.app.objects.state4session.CabinetState;
+import com.lanit.satonin18.app.objects.state4session.CabinetSessionState;
 
 import com.lanit.satonin18.app.service.entities_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class CabinetService {
     private OrganizationService organizationService;
 
     public void executeQuery(Cabinet4renderHtml render, User currentUser) {
-        CabinetState state = render.getState();
+        CabinetSessionState state = render.getState();
         FilterForm filterForm = state.getFilterForm();
         PaginationForm paginationForm = state.getPaginationForm();
         OrderByForm orderByForm = state.getOrderByForm();

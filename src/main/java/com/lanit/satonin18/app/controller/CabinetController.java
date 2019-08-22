@@ -9,7 +9,7 @@ import com.lanit.satonin18.app.objects.output.Cabinet4renderHtml;
 import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
 import com.lanit.satonin18.app.entity.enum_type.Status;
 import com.lanit.satonin18.app.objects.property_in_future.DEFAULT_CABINET_VARS;
-import com.lanit.satonin18.app.objects.state4session.CabinetState;
+import com.lanit.satonin18.app.objects.state4session.CabinetSessionState;
 import com.lanit.satonin18.app.service.app_service.CabinetService;
 import com.lanit.satonin18.app.service.entities_service.*;
 import com.lanit.satonin18.app.objects.value_object.cabinet.ColumnCabinetTable;
@@ -49,7 +49,7 @@ public class CabinetController {
             @ModelAttribute(value = "filterForm") FilterForm form){
         validateAndSetDefaultVars(form);
         
-        CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
+        CabinetSessionState state = (CabinetSessionState)  session.getAttribute("cabinetState");
 
         state.setFilterForm(form);
         state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
@@ -64,7 +64,7 @@ public class CabinetController {
             @ModelAttribute(value = "paginationForm") PaginationForm form){
         validateAndSetDefaultVars(form);
 
-        CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
+        CabinetSessionState state = (CabinetSessionState)  session.getAttribute("cabinetState");
 
         state.setPaginationForm(form);
         if(state.getPaginationForm().getMaxResult() != form.getMaxResult())
@@ -80,7 +80,7 @@ public class CabinetController {
             @ModelAttribute(value = "OrderByForm") OrderByForm form){
         validateAndSetDefaultVars(form);
 
-        CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
+        CabinetSessionState state = (CabinetSessionState)  session.getAttribute("cabinetState");
 
         state.setOrderByForm(form);
         state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
@@ -120,7 +120,7 @@ public class CabinetController {
             Model model){
         User currentUser = userAccount.getUser();
 
-        CabinetState state = (CabinetState)  session.getAttribute("cabinetState");
+        CabinetSessionState state = (CabinetSessionState)  session.getAttribute("cabinetState");
         if(state == null){
             state = createNewDefault4watchCabinetState();
             session.setAttribute("cabinetState", state);
@@ -129,10 +129,10 @@ public class CabinetController {
         cabinetService.executeQuery(render, currentUser);
 
         addAttributes_Notification(model, currentUser, render);
-        return "cabinet/notifications";
+        return "cabinet/notificationsForm";
     }
 
-    private CabinetState createNewDefault4watchCabinetState() {
+    private CabinetSessionState createNewDefault4watchCabinetState() {
         FilterForm filterForm = new FilterForm();
         PaginationForm paginationForm = new PaginationForm();
         OrderByForm orderByForm = new OrderByForm();
@@ -142,7 +142,7 @@ public class CabinetController {
         validateAndSetDefaultVars(paginationForm);
         validateAndSetDefaultVars(orderByForm);
 
-        CabinetState state = new CabinetState();
+        CabinetSessionState state = new CabinetSessionState();
         state.setFilterForm(filterForm);
         state.setPaginationForm(paginationForm);
         state.setOrderByForm(orderByForm);

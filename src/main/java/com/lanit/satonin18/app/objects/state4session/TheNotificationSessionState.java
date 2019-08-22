@@ -10,7 +10,7 @@ import java.io.Serializable;
 // и чтоб переменные были только в одном месте(без дублирование кода при будущих изменениях),
 // и чтоб другому разрабу мое будущие решение было сразу же понятно, а не спустя 10 минут)
 @Data
-public class TheNotificationState
+public class TheNotificationSessionState
         implements Serializable {
 
     PaginationForm paginationForm;

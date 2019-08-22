@@ -10,6 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Notification CRUD Application</title>
     <%--<link rel="stylesheet" href="/css/common.css" type="text/css" />--%>
+    <%--<link rel="stylesheet" href="<c:url value="/css/common.css" />" type="text/css" />--%>
     <style type="text/css">
         <%@ include file="/css/common.css" %>
     </style>
@@ -17,7 +18,7 @@
 </head>
 <body>
 
-<jsp:include page="/templates/common_header_user.jsp" />
+<jsp:include page="/fragments/common_header_user.jsp" />
 
 <div id="content">
 
@@ -91,7 +92,7 @@
         </div>
     </form>
 
-    <jsp:include page="/templates/pagination.jsp" />
+    <jsp:include page="/fragments/pagination.jsp" />
 
     (Mock-для чиновника возможность создать новое уведомление-тригер уже стоит)
 
@@ -102,7 +103,7 @@
                     <Br><input type="checkbox"></th>
                 <th>№</th>
 
-                <jsp:include page="/templates/generHeadColumnWithOrder_ByEnum.jsp" />
+                <jsp:include page="/fragments/generHeadColumnWithOrder_ByEnum.jsp" />
 
                 <th>Действия</th>
             </tr>

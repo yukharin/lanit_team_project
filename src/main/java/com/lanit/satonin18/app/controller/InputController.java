@@ -35,7 +35,7 @@ public class InputController {
         model.addAttribute("error", request.getParameter("error"));
         model.addAttribute("messageRegistrationSuccess", request.getParameter("messageRegistrationSuccess"));
 
-        return new ModelAndView("input");
+        return new ModelAndView("inputForm");
     }
 
     @GetMapping("/output")

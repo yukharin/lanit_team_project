@@ -16,14 +16,14 @@
 </head>
 <body>
 
-<jsp:include page="/templates/common_header_user.jsp" />
+<jsp:include page="/fragments/common_header_user.jsp" />
 
 <div id="content">
 
     <div id="add_action">
 
-        <%--@elvariable id="actionPortionDtoValid" type="ActionPortionForm"--%>
-        <form:form  action="save" method="POST" modelAttribute="actionPortionDtoValid">
+        <%--@elvariable id="actionPortionDto" type="ActionPortionForm"--%>
+        <form:form  action="save" method="POST" modelAttribute="actionPortionDto">
 
             <form:label path="notificationId"></form:label>
             <form:input type="hidden"

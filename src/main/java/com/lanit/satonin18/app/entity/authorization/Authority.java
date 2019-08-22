@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -16,8 +16,11 @@ import java.util.Objects;
 @EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
+
+//TODO replace
 public class Authority
         implements GrantedAuthority {
+//    todo serializable
 
     @Id
     @Column(name = "id", nullable = false)
@@ -29,7 +32,7 @@ public class Authority
     @JoinColumn(name = "id_account", referencedColumnName = "id_user", nullable = false)
     private UserAccount userAccount;
 
-    @NotBlank
+//    @NotBlank
     @Column(name = "authority", nullable = false, length = 50)
 //    @Enumerated(EnumType.STRING)
 //    private Role authority; // implements GrantedAuthority //String getAuthority();

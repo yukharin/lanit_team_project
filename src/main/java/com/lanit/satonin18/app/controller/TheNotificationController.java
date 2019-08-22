@@ -9,7 +9,7 @@ import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
 import com.lanit.satonin18.app.entity.*;
 import com.lanit.satonin18.app.entity.enum_type.ActionType;
 import com.lanit.satonin18.app.entity.enum_type.Status;
-import com.lanit.satonin18.app.objects.state4session.TheNotificationState;
+import com.lanit.satonin18.app.objects.state4session.TheNotificationSessionState;
 import com.lanit.satonin18.app.objects.property_in_future.DEFAULT_THE_NOTIFICATION_VARS;
 import com.lanit.satonin18.app.service.app_service.TheNotificationService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
@@ -61,7 +61,7 @@ public class TheNotificationController {
         validateAndSetDefaultVars(paginationForm);
         validateAndSetDefaultVars(orderByForm);
 
-        TheNotificationState state = new TheNotificationState();
+        TheNotificationSessionState state = new TheNotificationSessionState();
         state.setPaginationForm(paginationForm);
         state.setOrderByForm(orderByForm);
 
@@ -73,7 +73,7 @@ public class TheNotificationController {
                              @ModelAttribute(value = "paginationDto") PaginationForm dto){
         validateAndSetDefaultVars(dto);
 
-        TheNotificationState state = (TheNotificationState)  session.getAttribute("theNotificationState");
+        TheNotificationSessionState state = (TheNotificationSessionState)  session.getAttribute("theNotificationState");
 
         state.setPaginationForm(dto);
         if(state.getPaginationForm().getMaxResult() != dto.getMaxResult())
@@ -88,7 +88,7 @@ public class TheNotificationController {
                           @ModelAttribute(value = "orderByDto") OrderByForm dto){
         validateAndSetDefaultVars(dto);
 
-        TheNotificationState state = (TheNotificationState)  session.getAttribute("theNotificationState");
+        TheNotificationSessionState state = (TheNotificationSessionState)  session.getAttribute("theNotificationState");
 
         state.setOrderByForm(dto);
         state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
@@ -108,12 +108,12 @@ public class TheNotificationController {
 
         Notification currentNotification = notificationService.findById(notificationId);
 
-        TheNotificationState state = (TheNotificationState)  session.getAttribute("theNotificationState");
+        TheNotificationSessionState state = (TheNotificationSessionState)  session.getAttribute("theNotificationState");
         TheNotification4renderHtml render = new TheNotification4renderHtml(state);
         theNotificationService.executeQuery(render, currentNotification);
 
         addAttributes_Action(model, render, currentUser, currentNotification);
-        return "cabinet/the_notification/actions";
+        return "cabinet/the_notification/actionsForm";
     }
 
     private void validateAndSetDefaultVars(PaginationForm dto) {

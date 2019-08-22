@@ -3,7 +3,7 @@ package com.lanit.satonin18.app.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -15,18 +15,20 @@ import java.io.Serializable;
 @EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
-public class User implements Serializable {
+public class User
+        implements Serializable {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
+//    @NotBlank
     @Size(min = 2, max = 45)
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
-    @NotBlank
+//    @NotBlank
     @Size(min = 2, max = 45)
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;

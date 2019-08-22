@@ -21,8 +21,8 @@
     <h1>АСКД ЛКЗ</h1>
     <h4>Registration Form</h4>
 
-    <%--@elvariable id="registrationDtoValid" type="AddUserAccountForm"--%>
-    <form:form  action="registration" method="POST" modelAttribute="registrationDtoValid">
+    <%--@elvariable id="registrationDto" type="AddUserAccountForm"--%>
+    <form:form  action="registration" method="POST" modelAttribute="registrationDto">
 
         <table class="table4input_data" style="width: auto;">
             <tr>

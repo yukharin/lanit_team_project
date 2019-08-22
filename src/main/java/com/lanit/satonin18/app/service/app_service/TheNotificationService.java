@@ -4,7 +4,7 @@ package com.lanit.satonin18.app.service.app_service;
 import com.lanit.satonin18.app.objects.input.form.OrderByForm;
 import com.lanit.satonin18.app.objects.input.form.PaginationForm;
 import com.lanit.satonin18.app.objects.output.TheNotification4renderHtml;
-import com.lanit.satonin18.app.objects.state4session.TheNotificationState;
+import com.lanit.satonin18.app.objects.state4session.TheNotificationSessionState;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.service.entities_service.ActionService;
@@ -30,7 +30,7 @@ public class TheNotificationService {
     private OrganizationService organizationService;
 
     public void executeQuery(TheNotification4renderHtml render, Notification currentNotification) {
-        TheNotificationState state = render.getState();
+        TheNotificationSessionState state = render.getState();
         PaginationForm paginationForm = state.getPaginationForm();
         OrderByForm orderByForm = state.getOrderByForm();
 

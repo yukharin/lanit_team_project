@@ -12,7 +12,9 @@
     <name>lkz_project</name>
 
     <properties>
-        <hibernate.validator>6.0.2.Final</hibernate.validator>
+        <hibernate.validator>5.4.2.Final</hibernate.validator>
+        <!--<hibernate.validator>6.0.2.Final</hibernate.validator>-->
+        <!--<hibernate.validator>4.2.0.Final</hibernate.validator>-->
         <hibernate-validator-annotation-processor>6.0.2.Final</hibernate-validator-annotation-processor>
         <!--<hibernate.version>4.3.11.Final</hibernate.version>-->
         <!--<hibernate.version>5.2.11.Final</hibernate.version>-->
@@ -23,39 +25,56 @@
         <!--<c3p0.version>0.9.5.2</c3p0.version>-->
 
         <spring.version>5.1.4.RELEASE</spring.version>
+        <!--<spring.version>4.0.1.RELEASE</spring.version>-->
 
         <jstl.version>1.2.1</jstl.version>
         <tld.version>1.1.2</tld.version>
         <servlets.version>3.1.0</servlets.version>
         <jsp.version>2.3.1</jsp.version>
 
-        <java.version>1.8</java.version>
+        <!--<java.version>1.8</java.version>-->
+        <java.version>8</java.version>
         <!--<hsqldb.version>1.8.0.10</hsqldb.version>-->
         <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
     </properties>
 
     <dependencies>
-        <!-- Hibernate -->
 
-        <!--<dependency>-->
-        <!--<groupId>org.hibernate</groupId>-->
-        <!--<artifactId>hibernate-core</artifactId>-->
-        <!--<version>${hibernate.version}</version>-->
-        <!--</dependency>-->
+        <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <!--<version>${hibernate.entitymanager.version4}</version>-->
             <version>${hibernate.entitymanager.version5}</version>
             <exclusions>
-                        <exclusion>
-                            <artifactId>jboss-logging</artifactId>
-                            <groupId>org.jboss.logging</groupId>
-                        </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
-        <!--GlassFish 4-->
-        <!--https://tassioauad.com/2018/01/05/nosuchmethoderror-org-jboss-logging-logger-debugfljava-lang-stringi/-->
+        <!--этоа библеотека добавлена на сервер глассФиш -->
+        <!-- если запускать через томкат по пригодиться эта зависимость -->
+        <dependency>
+            <artifactId>jboss-logging</artifactId>
+            <groupId>org.jboss.logging</groupId>
+            <!--<version>3.3.1.Final</version>-->
+            <version>3.3.0.Final</version>
+
+            <!--default-->
+            <!--<scope>compile</scope>-->
+            <!--servlet-api-->
+            <!--<scope>provided</scope>-->
+            <!--log4j-->
+            <!--<scope>runtime</scope>-->
+            <!--(следует избегать)-->
+            <!--<scope>system</scope>-->
+
+            <!--default = необязательная зависимость-->
+            <!--<optional>false</optional>-->
+            <!--<optional>true</optional>-->
+        </dependency>
+
         <!--GlassFish 5-->
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
@@ -63,15 +82,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.10.0.pr1</version>
         </dependency>
-
-        <!--этоа библеотека добавлена на сервер глассФиш -->
-        <!-- если запускать через томкат по пригодиться эта зависимость -->
-        <dependency>
-            <artifactId>jboss-logging</artifactId>
-            <groupId>org.jboss.logging</groupId>
-            <version>3.3.1.Final</version>
-        </dependency>
-
         <!-- log4j2 -->
         <!--<dependency>-->
         <!--<groupId>org.apache.logging.log4j</groupId>-->
@@ -92,9 +102,14 @@
             <version>${hibernate.validator}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>jboss-logging</artifactId>
                     <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
                 </exclusion>
+
+                <!--<exclusion>-->
+                    <!--<artifactId>validation-api</artifactId>-->
+                    <!--<groupId>javax.validation</groupId>-->
+                <!--</exclusion>-->
             </exclusions>
         </dependency>
         <dependency>
@@ -109,7 +124,8 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.0.Final</version>
+            <!--<version>2.0.0.Final</version>-->
+            <version>1.1.0.Final</version>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
@@ -167,9 +183,9 @@
         </dependency>
         <!-- test -->
         <!--<dependency>-->
-            <!--<groupId>junit</groupId>-->
-            <!--<artifactId>junit</artifactId>-->
-            <!--<version>4.12</version>-->
+        <!--<groupId>junit</groupId>-->
+        <!--<artifactId>junit</artifactId>-->
+        <!--<version>4.12</version>-->
         <!--</dependency>-->
 
         <!-- Hibernate-C3P0 Integration -->
@@ -196,6 +212,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jboss-logging</artifactId>
+                    <groupId>org.jboss.logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Spring Security -->
         <dependency>
@@ -224,13 +246,26 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
             <version>2.1.3.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jboss-logging</artifactId>
+                    <groupId>org.jboss.logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>2.1.8.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jboss-logging</artifactId>
+                    <groupId>org.jboss.logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
@@ -238,8 +273,10 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
@@ -251,12 +288,12 @@
             <!-- NO WORK ! -->
             <!-- Embedded Apache Tomcat required for testing war -->
             <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.2</version>-->
-                <!--<configuration>-->
-                    <!--<path>/</path>-->
-                <!--</configuration>-->
+            <!--<groupId>org.apache.tomcat.maven</groupId>-->
+            <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+            <!--<version>2.2</version>-->
+            <!--<configuration>-->
+            <!--<path>/</path>-->
+            <!--</configuration>-->
             <!--</plugin>-->
         </plugins>
     </build>
