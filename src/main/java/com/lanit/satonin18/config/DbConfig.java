@@ -57,6 +57,7 @@ public class DbConfig {
 	public DataSource dataSource() throws NamingException {
 		System.out.println("ddddddddddddddddddddddddddddddddddddd");
 
+//		for TOMCAT
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driver"));
 		dataSource.setUrl(env.getProperty("jdbc.url"));
@@ -64,6 +65,7 @@ public class DbConfig {
 		dataSource.setPassword(env.getProperty("jdbc.password"));
 		return dataSource;
 
+//		for GlasFish by JNDI
 //		Context context = new InitialContext();
 //		DataSource ds = (DataSource) context.lookup("jdbc/dataSource");
 //		System.err.println("DATASOURCE: " + ds);
