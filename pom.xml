@@ -44,8 +44,8 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <!--<version>${hibernate.entitymanager.version4}</version>-->
-            <version>${hibernate.entitymanager.version5}</version>
+            <version>${hibernate.entitymanager.version4}</version>
+            <!--<version>${hibernate.entitymanager.version5}</version>-->
             <exclusions>
                 <exclusion>
                     <groupId>org.jboss.logging</groupId>

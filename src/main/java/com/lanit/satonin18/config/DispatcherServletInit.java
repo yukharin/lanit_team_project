@@ -1,6 +1,6 @@
 package com.lanit.satonin18.config;
 
-import com.lanit.satonin18.config.security.WebSecurityConfig;
+//import com.lanit.satonin18.config.security.WebSecurityConfig;
 
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -18,7 +18,10 @@ public class DispatcherServletInit
       //create the root Spring application context
 
       AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-      rootContext.register(DbConfig.class, WebSecurityConfig.class);
+      rootContext.register(DbConfig.class
+//              ,
+//              WebSecurityConfig.class
+      );
 
       //Where CentralServerConfigurationEntryPoint.class must only scan components that must work in the server side
       // (@Service, @Repository, @Configuration for Transaction, Hibernate, DataSource etc)
@@ -60,7 +63,10 @@ public class DispatcherServletInit
 
    @Override
    protected Class<?>[] getRootConfigClasses() {
-      return new Class[] {DbConfig.class, WebSecurityConfig.class};
+      return new Class[] {DbConfig.class
+//              ,
+//              WebSecurityConfig.class
+      };
    }
 
    @Override
