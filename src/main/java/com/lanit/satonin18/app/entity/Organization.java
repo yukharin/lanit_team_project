@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import javax.persistence.*;
 //import javax.validation.constraints.NotBlank;
@@ -16,6 +17,8 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+
+@JsonIgnoreProperties({"government_org", "users", "notifications"})
 public class Organization
         implements Serializable {
 

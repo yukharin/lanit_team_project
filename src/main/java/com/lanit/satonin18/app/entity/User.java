@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,8 @@ import java.io.Serializable;
 @EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
+
+//@JsonIgnoreProperties("organization")
 public class User
         implements Serializable {
 

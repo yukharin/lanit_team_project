@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lanit.satonin18.app.entity.enum_type.Status;
 import lombok.*;
 import javax.persistence.*;
@@ -15,6 +16,8 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+
+@JsonIgnoreProperties({"actions"})
 public class Notification
         implements Serializable {
 

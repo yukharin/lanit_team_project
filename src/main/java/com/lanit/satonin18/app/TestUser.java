@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Data //get and set
 @AllArgsConstructor
-public class UserJson {
+public class TestUser {
     String name;
     int age;
 }
