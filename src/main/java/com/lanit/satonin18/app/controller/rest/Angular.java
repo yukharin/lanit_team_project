@@ -18,9 +18,7 @@ import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -39,6 +37,29 @@ public class Angular {
     private CabinetService cabinetService;
     @Autowired
     private NotificationService notificationService;
+
+    @PostMapping("/filters")
+    public Cabinet4renderHtml filters(
+            HttpSession session,
+            @RequestBody FilterForm form) throws JsonProcessingException {
+
+        validateAndSetDefaultVars(form);
+
+        CabinetSessionState state = (CabinetSessionState)  session.getAttribute("cabinetState");
+        if(state == null){
+            state = createNewDefault4watchCabinetState();
+//            session.setAttribute("cabinetState", state);
+        }
+        state.setFilterForm(form);
+        state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+
+        session.setAttribute("cabinetState", state);
+
+        Integer userId = (Integer) session.getAttribute("userId");
+//        return cabinet4renderHtml(userId, session);
+        return cabinet4renderHtml(1, session);
+//        return "OK";
+    }
 
     @RequestMapping("/test_user")
     public /*@ResponseBody*/ TestUser test_user() throws JsonProcessingException {
@@ -72,14 +93,14 @@ public class Angular {
 
         return user;
     }
-//    @RequestMapping("/user")
-//    public /*@ResponseBody*/ User user(int id) throws JsonProcessingException {
-//        User user = userService.findById(id);
-//
-//        testOnBuildJson(user);
-//
-//        return user;
-//    }
+    @RequestMapping("/get_user")
+    public /*@ResponseBody*/ User get_user(int id) throws JsonProcessingException {
+        User user = userService.findById(id);
+
+        testOnBuildJson(user);
+
+        return user;
+    }
 
     @RequestMapping("/users")
     public /*@ResponseBody*/ List<User> users() throws JsonProcessingException {
@@ -111,29 +132,56 @@ public class Angular {
 
         return notifications;
     }
-//    @RequestMapping("/notifications")
-//    public /*@ResponseBody*/ List<Notification> notifications(
-//                int userId,
-//                HttpSession session) throws JsonProcessingException {
-//        User currentUser = userService.findById(userId);
-////
-//        CabinetSessionState state = (CabinetSessionState)  session.getAttribute("cabinetState4" + userId);
-//        if(state == null){
-//            state = createNewDefault4watchCabinetState();
-//            session.setAttribute("cabinetState4" + userId, state);
-//        }
-//        Cabinet4renderHtml render = new Cabinet4renderHtml(state);
-//        cabinetService.executeQuery(render, currentUser);
-//
+
+    @RequestMapping("/user_notifications")
+    public /*@ResponseBody*/ List<Notification> user_notifications(
+                int userId,
+                HttpSession session) throws JsonProcessingException {
+        User currentUser = userService.findById(userId);
+
+        CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
+        if(state == null){
+            state = createNewDefault4watchCabinetState();
+//            session.setAttribute("cabinetState", state);
+        }
+        Cabinet4renderHtml render = new Cabinet4renderHtml(state);
+        cabinetService.executeQuery(render, currentUser);
+
+        List<Notification> notifications = render.getPageImpl().getContent();
+
+//        addAttributes_Notification(model, currentUser, render);
+//        return "cabinet/notificationsForm";
+
+        testOnBuildJson(notifications);
+
+        return notifications;
+    }
+
+    @RequestMapping("/cabinet4renderHtml")
+    public /*@ResponseBody*/ Cabinet4renderHtml cabinet4renderHtml(
+            int userId,
+            HttpSession session) throws JsonProcessingException {
+        User currentUser = userService.findById(userId);
+        session.setAttribute("userId", userId);
+
+        CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
+        if(state == null){
+            state = createNewDefault4watchCabinetState();
+//            session.setAttribute("cabinetState", state);
+        }
+        Cabinet4renderHtml render = new Cabinet4renderHtml(state);
+        cabinetService.executeQuery(render, currentUser);
+
 //        List<Notification> notifications = render.getPageImpl().getContent();
-//
-////        addAttributes_Notification(model, currentUser, render);
-////        return "cabinet/notificationsForm";
-//
-//        testOnBuildJson(notifications);
-//
-//        return notifications;
-//    }
+
+//        addAttributes_Notification(model, currentUser, render);
+//        return "cabinet/notificationsForm";
+
+
+        testOnBuildJson(render);
+
+        return render;
+    }
 
     private void testOnBuildJson(Object obj) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();

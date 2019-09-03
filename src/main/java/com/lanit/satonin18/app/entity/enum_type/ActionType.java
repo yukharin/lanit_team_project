@@ -1,5 +1,7 @@
 package com.lanit.satonin18.app.entity.enum_type;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -110,6 +112,7 @@ class ActionTypeStoreMapHelper {
 }
 
 //todo move f(x) in other class
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ActionType{
     //i don't init var here and add in constructor HashMap<Integer, ActionType>.put(id,this)
     SENDING_ANSWER(0,"Направление ответа"),

@@ -9,14 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Cabinet4renderHtml {
-    private static final List<Status> statuses4selectFilter = Arrays.asList(Status.values());
-    private static final List<Status> listArchiveStatus = Status.getArchiveStatuses();
+    private final List<Status> statuses4selectFilter = Arrays.asList(Status.values());
+    private final List<Status> listArchiveStatus = Status.getArchiveStatuses();
 
-    public static List<Status> getStatuses4selectFilter() {
+    public List<Status> getStatuses4selectFilter() {
         return statuses4selectFilter;
     }
 
-    public static List<Status> getListArchiveStatus() {
+    public List<Status> getListArchiveStatus() {
         return listArchiveStatus;
     }
     //--------------------------------------------------------------------

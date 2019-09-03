@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.entity.enum_type;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 import java.util.*;
@@ -112,6 +113,7 @@ class NotificStatusStoreMapHelper {
 }
 
 //todo move f(x) in other class
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Status {
     NEW(0, "Новое"),
     IN_WORK(1, "В работе"),
