@@ -61,6 +61,31 @@ public class Angular {
 //        return "OK";
     }
 
+    @PostMapping("/pagination")
+    public Cabinet4renderHtml pagination(
+            HttpSession session,
+            @RequestBody PaginationForm form) throws JsonProcessingException {
+        validateAndSetDefaultVars(form);
+
+        CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
+        if (state == null) {
+            state = createNewDefault4watchCabinetState();
+//            session.setAttribute("cabinetState", state);
+        }
+        state.setPaginationForm(form);
+        if (state.getPaginationForm().getMaxResult() != form.getMaxResult())
+            state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+
+        session.setAttribute("cabinetState", state);
+
+        Integer userId = (Integer) session.getAttribute("userId");
+//        return cabinet4renderHtml(userId, session);
+        return cabinet4renderHtml(1, session);
+//        return "OK";
+    }
+
+
+
     @RequestMapping("/test_user")
     public /*@ResponseBody*/ TestUser test_user() throws JsonProcessingException {
         TestUser testUser = new TestUser("ht", 3);
@@ -177,6 +202,11 @@ public class Angular {
 //        addAttributes_Notification(model, currentUser, render);
 //        return "cabinet/notificationsForm";
 
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Status status:render.getCheckedMainListNotificStatuses()) {
+            ids.add(status.getId());
+        }
+        render.setNewCheckedMainListNotificStatusesId(ids);
 
         testOnBuildJson(render);
 

@@ -22,6 +22,7 @@ public class Cabinet4renderHtml {
     //--------------------------------------------------------------------
     private PageImpl<Notification> pageImpl ;//= COMMON_DEFAULT_VARS.EMPTY_PAGE_IMPL_NOTIFICATION; //
     private List<Status> checkedMainListNotificStatuses = Arrays.asList(Status.values());
+    private List<Integer> newCheckedMainListNotificStatusesId;
     private CabinetSessionState state;
 
     public Cabinet4renderHtml(CabinetSessionState state) {
@@ -82,4 +83,12 @@ public class Cabinet4renderHtml {
 //        navigationPages.add(totalPages);
 //    }
 
+
+    public List<Integer> getNewCheckedMainListNotificStatusesId() {
+        return newCheckedMainListNotificStatusesId;
+    }
+
+    public void setNewCheckedMainListNotificStatusesId(List<Integer> newCheckedMainListNotificStatusesId) {
+        this.newCheckedMainListNotificStatusesId = newCheckedMainListNotificStatusesId;
+    }
 }
