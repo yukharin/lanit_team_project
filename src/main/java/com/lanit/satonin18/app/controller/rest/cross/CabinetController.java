@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.rest;
+package com.lanit.satonin18.app.controller.rest.cross;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,10 +26,10 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@Controller("angularController")
+@Controller("angularCabinetController")
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/angular")
-public class Angular {
+@RequestMapping("/angular/cabinet")
+public class CabinetController {
 
     @Autowired
     private UserService userService;
@@ -37,6 +37,28 @@ public class Angular {
     private CabinetService cabinetService;
     @Autowired
     private NotificationService notificationService;
+
+//    @RequestMapping("/notification")
+//    public /*@ResponseBody*/ Notification notification() throws JsonProcessingException {
+//        Notification notification = notificationService.findById(1);
+//
+//        testOnBuildJson(notification);
+//
+//        return notification;
+//    }
+//
+//    @RequestMapping("/notifications")
+//    public /*@ResponseBody*/ List<Notification> notifications(
+////            int userId,
+////            HttpSession session
+//    ) throws JsonProcessingException {
+////        User currentUser = userService.findById(userId);
+//        List<Notification> notifications = notificationService.findAll();
+//
+//        testOnBuildJson(notifications);
+//
+//        return notifications;
+//    }
 
     @PostMapping("/filters")
     public Cabinet4renderHtml filters(
@@ -57,7 +79,7 @@ public class Angular {
 
         Integer userId = (Integer) session.getAttribute("userId");
 //        return cabinet4renderHtml(userId, session);
-        return cabinet4renderHtml(1, session);
+        return cabinet4renderHtml(session);
 //        return "OK";
     }
 
@@ -80,121 +102,100 @@ public class Angular {
 
         Integer userId = (Integer) session.getAttribute("userId");
 //        return cabinet4renderHtml(userId, session);
-        return cabinet4renderHtml(1, session);
+        return cabinet4renderHtml(session);
 //        return "OK";
     }
+//    @RequestMapping("/user_notifications")
+//    public /*@ResponseBody*/ List<Notification> user_notifications(
+//                int userId,
+//                HttpSession session) throws JsonProcessingException {
+//        User currentUser = userService.findById(userId);
+//
+//        CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
+//        if(state == null){
+//            state = createNewDefault4watchCabinetState();
+////            session.setAttribute("cabinetState", state);
+//        }
+//        Cabinet4renderHtml render = new Cabinet4renderHtml(state);
+//        cabinetService.executeQuery(render, currentUser);
+//
+//        List<Notification> notifications = render.getPageImpl().getContent();
+//
+////        addAttributes_Notification(model, currentUser, render);
+////        return "cabinet/notificationsForm";
+//
+//        testOnBuildJson(notifications);
+//
+//        return notifications;
+//    }
 
+//    @RequestMapping("/get_user")
+//    public /*@ResponseBody*/ User get_user(int id) throws JsonProcessingException {
+//        User user = userService.findById(id);
+//
+//        testOnBuildJson(user);
+//
+//        return user;
+//    }
+//
+//    @RequestMapping("/cabinet4renderHtml")
+//    public /*@ResponseBody*/ Cabinet4renderHtml cabinet4renderHtml(
+//            int userId,
+//            HttpSession session) throws JsonProcessingException {
+//        User currentUser = userService.findById(userId);
+//        session.setAttribute("userId", userId);
+//
+//        CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
+//        if(state == null){
+//            state = createNewDefault4watchCabinetState();
+////            session.setAttribute("cabinetState", state);
+//        }
+//        Cabinet4renderHtml render = new Cabinet4renderHtml(state);
+//        cabinetService.executeQuery(render, currentUser);
+//
+////        List<Notification> notifications = render.getPageImpl().getContent();
+//
+////        addAttributes_Notification(model, currentUser, render);
+////        return "cabinet/notificationsForm";
+//
+//        ArrayList<Integer> ids = new ArrayList<>();
+//        for (Status status:render.getCheckedMainListNotificStatuses()) {
+//            ids.add(status.getId());
+//        }
+//        render.setNewCheckedMainListNotificStatusesId(ids);
+//
+//        testOnBuildJson(render);
+//
+//        return render;
+//    }
+//
+//    private void testOnBuildJson(Object obj) throws JsonProcessingException {
+//        ObjectMapper mapper = new ObjectMapper();
+//        String str = mapper.writeValueAsString(obj);
+//        System.err.println("JSON: " + str);
+//    }
 
-
-    @RequestMapping("/test_user")
-    public /*@ResponseBody*/ TestUser test_user() throws JsonProcessingException {
-        TestUser testUser = new TestUser("ht", 3);
-
-        testOnBuildJson(testUser);
-
-        return testUser;
-    }
-
-    @RequestMapping("/test_users")
-    public /*@ResponseBody*/ List<TestUser> test_users() throws JsonProcessingException {
-        TestUser testUser1 = new TestUser("111", 1);
-        TestUser testUser2 = new TestUser("22", 22);
-        TestUser testUser3 = new TestUser("вагон", 33);
-        ArrayList<TestUser> testUsers = new ArrayList<>();
-        testUsers.add(testUser1);
-        testUsers.add(testUser2);
-        testUsers.add(testUser3);
-
-        testOnBuildJson(testUsers);
-
-        return testUsers;
-    }
-
-    @RequestMapping("/user")
-    public /*@ResponseBody*/ User user() throws JsonProcessingException {
+    @RequestMapping("/get_user")
+    public /*@ResponseBody*/ User get_user() throws JsonProcessingException {
         User user = userService.findById(1);
 
         testOnBuildJson(user);
 
         return user;
     }
-    @RequestMapping("/get_user")
-    public /*@ResponseBody*/ User get_user(int id) throws JsonProcessingException {
-        User user = userService.findById(id);
-
-        testOnBuildJson(user);
-
-        return user;
-    }
-
-    @RequestMapping("/users")
-    public /*@ResponseBody*/ List<User> users() throws JsonProcessingException {
-        List<User> users = userService.findAll();
-
-        testOnBuildJson(users);
-
-        return users;
-    }
-
-    @RequestMapping("/notification")
-    public /*@ResponseBody*/ Notification notification() throws JsonProcessingException {
-        Notification notification = notificationService.findById(1);
-
-        testOnBuildJson(notification);
-
-        return notification;
-    }
-
-    @RequestMapping("/notifications")
-    public /*@ResponseBody*/ List<Notification> notifications(
-//            int userId,
-//            HttpSession session
-    ) throws JsonProcessingException {
-//        User currentUser = userService.findById(userId);
-        List<Notification> notifications = notificationService.findAll();
-
-        testOnBuildJson(notifications);
-
-        return notifications;
-    }
-
-    @RequestMapping("/user_notifications")
-    public /*@ResponseBody*/ List<Notification> user_notifications(
-                int userId,
-                HttpSession session) throws JsonProcessingException {
-        User currentUser = userService.findById(userId);
-
-        CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
-        if(state == null){
-            state = createNewDefault4watchCabinetState();
-//            session.setAttribute("cabinetState", state);
-        }
-        Cabinet4renderHtml render = new Cabinet4renderHtml(state);
-        cabinetService.executeQuery(render, currentUser);
-
-        List<Notification> notifications = render.getPageImpl().getContent();
-
-//        addAttributes_Notification(model, currentUser, render);
-//        return "cabinet/notificationsForm";
-
-        testOnBuildJson(notifications);
-
-        return notifications;
-    }
 
     @RequestMapping("/cabinet4renderHtml")
     public /*@ResponseBody*/ Cabinet4renderHtml cabinet4renderHtml(
-            int userId,
             HttpSession session) throws JsonProcessingException {
-        User currentUser = userService.findById(userId);
-        session.setAttribute("userId", userId);
+        User currentUser = userService.findById(1);
+//        session.setAttribute("userId", userId);
 
         CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
         if(state == null){
             state = createNewDefault4watchCabinetState();
 //            session.setAttribute("cabinetState", state);
         }
-        Cabinet4renderHtml render = new Cabinet4renderHtml(state);
+        Cabinet4renderHtml render = new Cabinet4renderHtml(state, currentUser);
         cabinetService.executeQuery(render, currentUser);
 
 //        List<Notification> notifications = render.getPageImpl().getContent();

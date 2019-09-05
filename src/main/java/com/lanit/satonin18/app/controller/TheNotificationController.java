@@ -109,7 +109,7 @@ public class TheNotificationController {
         Notification currentNotification = notificationService.findById(notificationId);
 
         TheNotificationSessionState state = (TheNotificationSessionState)  session.getAttribute("theNotificationState");
-        TheNotification4renderHtml render = new TheNotification4renderHtml(state);
+        TheNotification4renderHtml render = new TheNotification4renderHtml(state, currentUser, currentNotification);
         theNotificationService.executeQuery(render, currentNotification);
 
         addAttributes_Action(model, render, currentUser, currentNotification);

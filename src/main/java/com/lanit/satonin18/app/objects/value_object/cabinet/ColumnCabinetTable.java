@@ -1,5 +1,8 @@
 package com.lanit.satonin18.app.objects.value_object.cabinet;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ColumnCabinetTable {
     notificationType("Вид уведомления", "notificationType"),
     organization("Заказчик", "organization.name"),

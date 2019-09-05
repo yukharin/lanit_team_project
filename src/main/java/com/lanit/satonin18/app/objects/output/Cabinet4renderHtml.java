@@ -1,14 +1,25 @@
 package com.lanit.satonin18.app.objects.output;
 
 import com.lanit.satonin18.app.entity.Notification;
+import com.lanit.satonin18.app.entity.User;
 import com.lanit.satonin18.app.entity.enum_type.Status;
+import com.lanit.satonin18.app.objects.property_in_future.COMMON_DEFAULT_VARS;
+import com.lanit.satonin18.app.objects.property_in_future.DEFAULT_CABINET_VARS;
 import com.lanit.satonin18.app.objects.state4session.CabinetSessionState;
+import com.lanit.satonin18.app.objects.value_object.cabinet.ColumnCabinetTable;
 import org.springframework.data.domain.PageImpl;
+
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Cabinet4renderHtml {
+    private User user;
+    private final List<Integer> selectShowListMaxResult = COMMON_DEFAULT_VARS.selectShowListMaxResult;
+//        model.addAttribute("listFastFilter", DEFAULT_CABINET_VARS.list4FastFilter);
+
+    private final ColumnCabinetTable[] columnTable = ColumnCabinetTable.values();
+    //------------------------------------------------------------------------------------------
     private final List<Status> statuses4selectFilter = Arrays.asList(Status.values());
     private final List<Status> listArchiveStatus = Status.getArchiveStatuses();
 
@@ -25,8 +36,13 @@ public class Cabinet4renderHtml {
     private List<Integer> newCheckedMainListNotificStatusesId;
     private CabinetSessionState state;
 
+    //todo delete
     public Cabinet4renderHtml(CabinetSessionState state) {
         this.state = state;
+    }
+    public Cabinet4renderHtml(CabinetSessionState state, User user) {
+        this.state = state;
+        this.user = user;
     }
 
     public PageImpl<Notification> getPageImpl() {
@@ -90,5 +106,21 @@ public class Cabinet4renderHtml {
 
     public void setNewCheckedMainListNotificStatusesId(List<Integer> newCheckedMainListNotificStatusesId) {
         this.newCheckedMainListNotificStatusesId = newCheckedMainListNotificStatusesId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Integer> getSelectShowListMaxResult() {
+        return selectShowListMaxResult;
+    }
+
+    public ColumnCabinetTable[] getColumnTable() {
+        return columnTable;
     }
 }
