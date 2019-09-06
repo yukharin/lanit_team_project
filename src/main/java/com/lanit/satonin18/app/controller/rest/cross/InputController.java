@@ -26,8 +26,9 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@Controller("angularInputController")
 @CrossOrigin(origins = "http://localhost:4200")
+
+@Controller("angularInputController")
 @RequestMapping("/angular/input")
 public class InputController {
 

@@ -28,8 +28,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 @RestController
-@Controller("angularTheNotificationController")
 @CrossOrigin(origins = "http://localhost:4200")
+
+@Controller("angularTheNotificationController")
 @RequestMapping("/angular/cabinet/the_notification")
 public class TheNotificationController {
 

@@ -12,11 +12,13 @@ public class ActionPortionDto
     @NotNull
     private Integer notificationId;
     @NotNull
+    private Integer idUserImplementor;
+    @NotNull
     private Integer idActionType;
     @NotNull
     private Integer idNotificationStatus;
+
+    @NotNull //todo size (dont check on NULL)on Tomcat, on old ver validation
     @Size(min = 2, max = 300)
     private String content;
-    @NotNull
-    private Integer idUserImplementor;
 }

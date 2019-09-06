@@ -26,8 +26,9 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@Controller("angularCabinetController")
 @CrossOrigin(origins = "http://localhost:4200")
+
+@Controller("angularCabinetController")
 @RequestMapping("/angular/cabinet")
 public class CabinetController {
 
