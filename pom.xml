@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>LKZ</artifactId>
+    <groupId>com.lanit</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <organization>
+        <name>Lanit</name>
+        <url>http://www.lanit.ru</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>yukharin</id>
+            <name>Yukharin Vlad</name>
+            <email>yukharinvlad@gmail.com</email>
+            <url>http://www.lanit.ru</url>
+            <organization>${project.organization.name}</organization>
+            <organizationUrl>${project.organization.url}</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <properties>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <repository.url>file://C:/Users/user/.m2/repository</repository.url>
+    </properties>
+
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>TestWebApp_Repository</id>
+            <name>TestWebApp Applications Repository Internal</name>
+            <url>${repository.url}</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>TestWebApp_Repository</id>
+            <name>TestWebApp Applications Repository Internal</name>
+            <url>${repository.url}</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <modules>
+        <module>Frontend</module>
+        <module>Backend</module>
+    </modules>
+
+</project>
