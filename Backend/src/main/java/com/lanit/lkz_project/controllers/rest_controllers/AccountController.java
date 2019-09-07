@@ -7,6 +7,7 @@ import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
 import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,36 +22,34 @@ public class AccountController {
 
     @PostMapping("/")
     public PersonalAccountPageDto<Notification> getPage(
-            @RequestBody PersonalAccountPageDto<Notification> page) {
-        User user = userRepository.findByUsername("yukharin");
+            @RequestBody PersonalAccountPageDto<Notification> page,
+            @AuthenticationPrincipal User user) {
         personalAccountService.setAccountPageState(page, user);
         return page;
     }
 
     @GetMapping("/")
-    public PersonalAccountPageDto<Notification> getPage() {
-        User user = userRepository.findByUsername("yukharin");
+    public PersonalAccountPageDto<Notification> getPage(@AuthenticationPrincipal User user) {
         PersonalAccountPageDto<Notification> page = new PersonalAccountPageDto<>();
         personalAccountService.setAccountPageState(page, user);
         return page;
     }
 
     @GetMapping("/principal")
-    public User getUser() {
-        User user = userRepository.findByUsername("yukharin");
+    public User getUser(@AuthenticationPrincipal User user) {
         return user;
     }
 
 
     @PostMapping("/addNotification")
-    public void addNotification(@RequestBody Notification notification) {
-        User user = userRepository.findByUsername("yukharin");
+    public void addNotification(@RequestBody Notification notification,
+                                @AuthenticationPrincipal User user) {
         personalAccountService.addNotification(notification, user);
     }
 
     @PostMapping("/addAction")
-    public void addAction(@RequestBody Action action) {
-        User user = userRepository.findByUsername("yukharin");
+    public void addAction(@RequestBody Action action,
+                          @AuthenticationPrincipal User user) {
         personalAccountService.addAction(user, action);
     }
 }
