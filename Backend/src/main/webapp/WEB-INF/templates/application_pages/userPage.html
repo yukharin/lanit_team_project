@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html id="main-element"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body id="body">
+<div th:insert="~{/fragments/Header :: account_header}"></div>
+<main>
+    <form class="user-form">
+        <p>
+            <label class="user-form-label" for="user-firstName">Имя
+                <input class="user-form-input" disabled id="user-firstName" th:value="${user.firstName}" type="text">
+            </label>
+        </p>
+        <p>
+            <label class="user-form-label" for="user-lastName">Фамилия
+                <input class="user-form-input" disabled id="user-lastName" th:value="${user.lastName}" type="text">
+            </label>
+        </p>
+        <p>
+            <label class="user-form-label" for="user-login">Логин
+                <input class="user-form-input" disabled id="user-login" th:value="${user.username}" type="text">
+            </label>
+        </p>
+        <p>
+            <label class="user-form-label" for="user-registration-date">Дата регистрации
+                <input class="user-form-input" disabled
+                       id="user-registration-date" th:value="${#temporals.format(user.registrationDate, 'dd-MM-yyyy')}"
+                       type="text">
+            </label>
+        </p>
+    </form>
+</main>
+
+</body>
+</html>

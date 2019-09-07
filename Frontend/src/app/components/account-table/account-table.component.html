@@ -1,0 +1,86 @@
+<section class="account-filter">
+  <form *ngIf="filtersForm" class="account-filter-form" id="filter-form" (ngSubmit)="applyFilters()"
+        [formGroup]="filtersForm">
+    <div class="account-filter-form-first_part">
+      <label class="account-filter-form-checkbox-label" for="checkbox1">
+        <input class="account-filter-form-checkbox" id="checkbox1" name="inProcessingFilter" type="checkbox"
+               value="true" formControlName="newFilter">
+        <span>Новое</span>
+      </label>
+      <label class="account-filter-form-checkbox-label" for="checkbox2">
+        <input class="account-filter-form-checkbox" id="checkbox2" name="inProcessingFilter" type="checkbox"
+               value="true" formControlName="inProcessingFilter">
+        <span>В обработке</span>
+      </label>
+      <label class="account-filter-form-checkbox-label" for="checkbox3">
+        <input class="account-filter-form-checkbox" id="checkbox3" name="rejectedFilter" type="checkbox" value="true"
+               formControlName="rejectedFilter">
+        <span>Отклонено</span>
+      </label>
+      <label class="account-filter-form-checkbox-label" for="checkbox4">
+        <input class="account-filter-form-checkbox" id="checkbox4" name="approvedFilter" type="checkbox" value="true"
+               formControlName="approvedFilter">
+        <span>Одобрено</span>
+      </label>
+      <label class="account-filter-form-sorting-label">
+        Сортировка по:
+        <select class="account-filter-form-sorting-select" id="select1" formControlName="sortParameter">
+          <option *ngFor="let sortParameter of sortParameters" [value]="sortParameter">{{sortParameter | sortParameterPipe}}</option>
+        </select>
+        <label class="account-filter-form-checkbox-label-sorting" for="checkbox5">
+          <input class="sorting-order-radio" id="checkbox5" type="checkbox" formControlName="reversedOrder">
+          <span>Инвертирование</span>
+        </label>
+      </label>
+    </div>
+    <div class="account-filter-form-second_part">
+      <button class="account-filter-form-button-submit" id="apply_filters"
+              type="submit" value="Применить фильтр">ПРИМЕНИТЬ ФИЛЬТР
+      </button>
+      <button class="account-filter-form-button-reset" id="clean_filters" type="reset">ОЧИСТИТЬ ФИЛЬТР
+      </button>
+      <label class="account-filter-form-select-time_filter" for="select1">Срок предоставления ответа
+        <select id="select2" name="timeFilter" formControlName="timeFilter">
+          <option *ngFor="let timeFilter of timeFilters" [value]="timeFilter">{{timeFilter | timeFilterPipe }}</option>
+        </select>
+      </label>
+    </div>
+  </form>
+</section>
+<div class="pagination_div">
+  <pagination-controls class="pagination_div-component" (pageChange)="pageChanged($event)"></pagination-controls>
+</div>
+<table *ngIf="personalAccount" class="account-table">
+  <tr>
+    <th>№</th>
+    <th>Вид уведомления</th>
+    <th>Заказчик</th>
+    <th>Статус обработки уведомления</th>
+    <th>Дата получения уведомления</th>
+    <th>Срок предоставления ответа</th>
+    <th>Номер письма</th>
+    <th>Удалить</th>
+  </tr>
+  <tr class="account-table-rows_data"
+      *ngFor="let notification of personalAccount.page.content | paginate: { itemsPerPage: personalAccount.page.size, currentPage: personalAccount.page.number, totalItems : personalAccount.page.totalElements }; let i= index;">
+    <td [routerLink]="['notifications', notification.id]">{{i + 1}}</td>
+    <td [routerLink]="['notifications', notification.id]">{{notification.notificationType}}</td>
+    <td [routerLink]="['notifications', notification.id]">{{notification.organization.name}}</td>
+    <td [routerLink]="['notifications', notification.id]">{{notification.status | notificationStatusPipe}}</td>
+    <td [routerLink]="['notifications', notification.id]">{{notification.dateReceived}}</td>
+    <td [routerLink]="['notifications', notification.id]">{{notification.dateResponse}}</td>
+    <td [routerLink]="['notifications', notification.id]">{{notification.letterNumber}}</td>
+    <td>
+      <button class="account-table-delete_button" [routerLink]="['/']"
+              (click)="deleteNotification(notification.id)"
+              type="button"> Удалить
+      </button>
+    </td>
+  </tr>
+</table>
+<div class="account-main-notifications-manager-add_notification">
+  <a [routerLink]="['add']">Добавить уведомление</a>
+</div>
+
+
+

@@ -1,0 +1,3 @@
+export enum ActionType {
+  SEND_TO_PROCESSING, APPROVE, REJECT, CREATE
+}

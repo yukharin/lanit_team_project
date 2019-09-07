@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link href="https://fonts.google.com/specimen/Grenze?selection.family=Grenze" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body>
+<main class="login-main">
+    <div class="login-element">
+        <h2>Добро пожаловать на страничку авторизации, пожалуйста введите ваши регистрационные данные</h2>
+        <div class="login-input-error" th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div class="login-input-error" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form class="login-form" method="post" th:action="@{/doLogin}">
+            <label class="login-form-label" for="input-userName"> Имя пользователя:
+                <input autocomplete="on" class="login-form-input" id="input-userName" name="username" required
+                       type="text"/>
+            </label>
+            <label class="login-form-label" for="input-password"> Пароль:
+                <input autocomplete="on" class="login-form-input" id="input-password" name="password" required
+                       type="password"/>
+            </label>
+            <label class="login-form-label" for="input-remember_me">Запомнить меня?
+                <input class="login-form-checkbox" id="input-remember_me" name="remember" type="checkbox"
+                       value="true">
+            </label>
+            <label class="login-form-label" for="login-submit-button">
+                <button id="login-submit-button" type="submit">Логин</button>
+            </label>
+            <p>Еще не зарегестрированы?</p>
+            <div class="registration-href">
+                <a th:href="@{/registration}">Регистрация</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

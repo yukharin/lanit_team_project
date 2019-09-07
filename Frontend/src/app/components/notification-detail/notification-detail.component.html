@@ -1,0 +1,84 @@
+<nav class="not_info-navigation" *ngIf="notification">
+  <ul class="not_info-navigation-list">
+    <li class="not_info-navigation-list-element">
+      <a [routerLink]="['/notifications/', notification.id]">Работа с уведомлением</a>
+    </li>
+    <li class="not_info-navigation-list-element">
+      <a [routerLink]="['/notifications/',notification.id,'actions']"> Журнал действий</a>
+    </li>
+  </ul>
+</nav>
+<main *ngIf="notification">
+  <div class="not_info-notification-data">
+    <h3 class="not_info-notification-data-header">Данные уведомления</h3>
+    <form class="not_info-notification-data-form">
+      <div class="not_info-notification-data-form-first">
+        <label class="not_info-notification-data-form-label" for="input3">Тип уведомления
+          <input class="not_info-notification-data-form-input" disabled
+                 id="input3" placeholder="{{notification.notificationType}}" type="text">
+        </label>
+        <label class="not_info-notification-data-form-label" for="input4">Статус уведомления
+          <input class="not_info-notification-data-form-input" disabled
+                 id="input4" placeholder="{{notification.status | notificationStatusPipe}}" type="text">
+        </label>
+        <label class="not_info-notification-data-form-label" for="input5">Дата получения уведомления
+          <input class="not_info-notification-data-form-input" disabled id="input5"
+                 placeholder="{{notification.dateReceived}}" type="text">
+        </label>
+      </div>
+      <div class="not_info-notification-data-form-second">
+        <label class="not_info-notification-data-form-label" for="input6">Дата, когда необходимо предоставить
+          ответ
+          <input class="not_info-notification-data-form-input" disabled id="input6"
+                 placeholder="{{notification.dateResponse}}" type="text">
+        </label>
+        <label class="not_info-notification-data-form-label" for="input7">Номер письма
+          <input class="not_info-notification-data-form-input" disabled id="input7"
+                 placeholder="{{notification.letterNumber}}" type="text">
+        </label>
+        <label class="not_info-notification-data-form-label" for="input8">Автор уведомления
+          <input class="not_info-notification-data-form-input" disabled id="input8"
+                 placeholder="{{notification.userNotificationAuthor.firstName}} {{notification.userNotificationAuthor.lastName}}"
+                 type="text">
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="not_info-add_action" *ngIf="notification.status.valueOf() == 0 ||notification.status.valueOf()==1">
+    <h3 class="not_info-add_action-header">Добавить действие</h3>
+    <form class="not_info-add_action-form" [formGroup]="actionForm" (ngSubmit)="addAction()">
+      <label class="not_info-add_action-form-label" for="select1"> Выберите действие
+        <select class="not_info-add_action-form-select" id="select1" name="actionType" formControlName="actionType"
+                id="actionType">
+          <option *ngFor="let actionType of actionTypes" [value]="actionType" class="not_info-add_action-form-option">
+            {{actionType | actionTypePipe}}
+          </option>
+        </select>
+        <div
+          *ngIf="actionForm.get('actionType').invalid && (actionForm.get('actionType').dirty || actionForm.get('actionType').touched)"
+          class="alert alert-danger">
+        <span *ngIf="actionForm.get('actionType').errors?.required" class="is-invalid">
+              Действие, должно быть выбрано.
+            </span>
+        </div>
+      </label>
+      <label class="not_info-add_action-form-label" for="input1">Комментарий
+        <input class="not_info-add_action-form-input-comment" id="input1" name="content"
+               type="text" formControlName="content"/>
+        <div
+          *ngIf="actionForm.get('content').invalid && (actionForm.get('content').dirty || actionForm.get('content').touched)"
+          class="alert alert-danger">
+        <span *ngIf="actionForm.get('content').errors?.required" class="is-invalid">
+              Данная строка должна быть заполнена.
+            </span>
+          <span *ngIf="actionForm.get('content').errors?.minlength" class="is-invalid">
+              Строка должна иметь как минимум 5 символов.
+            </span>
+        </div>
+      </label>
+      <label class="not_info-add_action-form-label-submit" for="input2">
+        <input class="not_info-add_action-form-input-submit" id="input2" type="submit" value="Сохранить"/>
+      </label>
+    </form>
+  </div>
+</main>

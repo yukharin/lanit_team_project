@@ -1,0 +1,47 @@
+<div class="add_notification">
+  <h3 class="add_notification-header">Создать уведомление</h3>
+  <form class="add_notification-form" id="addNotification" [formGroup]="notificationForm" (ngSubmit)="submitForm()">
+    <label class="add_notification-form-label" for="input1">Укажите тип уведомления
+      <input class="add_notification-form-input" id="input1" name=notificationType required type="text"
+             formControlName="notificationType"/>
+      <div
+        *ngIf="notificationForm.get('notificationType').invalid && (notificationForm.get('notificationType').dirty || notificationForm.get('notificationType').touched)"
+        class="alert alert-danger">
+        <span *ngIf="notificationForm.get('notificationType').errors?.required" class="is-invalid">
+              Данная строка должна быть заполнена.
+            </span>
+        <span *ngIf="notificationForm.get('notificationType').errors?.minlength" class="is-invalid">
+              Строка должна иметь как минимум 7 символов.
+            </span>
+      </div>
+    </label>
+    <label class="add_notification-form-label" for="input2"> Введите дату, до которой нужно отправить ответ
+      <input class="add_notification-form-input" id="input2" name="dateResponse" type="date"
+             formControlName="dateResponse"/>
+      <div
+        *ngIf="notificationForm.get('dateResponse').invalid && (notificationForm.get('dateResponse').dirty || notificationForm.get('dateResponse').touched)"
+        class="alert alert-danger">
+        <span *ngIf="notificationForm.get('dateResponse').errors?.required" class="is-invalid">
+              Дата, должна быть определена.
+            </span>
+      </div>
+    </label>
+    <label class="add_notification-form-label" for="select1">
+      Выберите организацию, которой вы хотите предоставить уведомление
+      <select class="add_notification-form-select" id="select1" name="orgId" formControlName="organization">
+        <option class="add_notification-form-option" *ngFor="let organization of organizations"
+                [value]="organization.id">{{organization.name}}</option>
+      </select>
+      <div
+        *ngIf="notificationForm.get('organization').invalid && (notificationForm.get('organization').dirty || notificationForm.get('organization').touched)"
+        class="alert alert-danger">
+        <span *ngIf="notificationForm.get('organization').errors?.required" class="is-invalid">
+              Организация должна быть выбрана.
+            </span>
+      </div>
+    </label>
+    <label class="add_notification-form-label" for="submit1">
+      <input class="add_notification-form-input-submit" id="submit1" type="submit" value="Отправить"/>
+    </label>
+  </form>
+</div>

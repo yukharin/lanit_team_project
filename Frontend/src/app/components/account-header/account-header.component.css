@@ -1,0 +1,76 @@
+.account-header {
+  margin: 0px;
+  padding: 0px;
+}
+
+.account-header-personal_info {
+  padding: 10px;
+  background-color: silver;
+  opacity: 50%;
+}
+
+.account-header-personal_info div {
+  display: inline-block;
+}
+
+.account-header-personal-data {
+
+}
+
+.account-header-account-href {
+  width: 88%;
+}
+
+.account-header-account-href a {
+  text-decoration: none;
+  color: black;
+}
+
+.account-header-account-href a:hover {
+  text-decoration: none;
+  color: maroon;
+}
+
+.account-header-organization-name {
+  padding: 10px;
+  vertical-align: center;
+  text-align: center;
+  background-color: maroon;
+  height: 75px;
+  max-width: 100%;
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.account-header-organization-name p {
+  color: white;
+  height: 20px;
+  font-family: "Bauhaus 93", sans-serif;
+}
+
+.account-header-logout-button input {
+  text-decoration: none;
+  color: white;
+  font-size: larger;
+  background-color: maroon;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.account-header-logout-button input:hover {
+  cursor: pointer;
+  background-color: green;
+}
+
+
+
+
+.account-header-user_info {
+  margin: 5px;
+}
+
+.account-header-user_info p {
+  font-family: sans-serif;
+  color: black;
+}

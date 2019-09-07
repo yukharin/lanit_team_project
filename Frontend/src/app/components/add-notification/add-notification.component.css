@@ -1,0 +1,53 @@
+.add_notification {
+  padding: 15px;
+  border: black solid 1px;
+  margin-top: 15px;
+}
+
+.add_notification-header {
+  padding: 10px;
+  margin-left: 15px;
+}
+
+.add_notification-form {
+  width: 50%;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  display: block;
+}
+
+.add_notification-form-label {
+  display: block;
+  border: black 1px solid;
+  padding: 15px;
+}
+
+.add_notification-form-input {
+
+}
+
+
+.add_notification-form-select {
+
+}
+
+.add_notification-form-option {
+
+}
+
+.add_notification-form-input-submit {
+  border: 1px solid black;
+  background-color: green;
+  color: white;
+  height: 40px;
+  width: 90px;
+  border-radius: 8px;
+  margin: 5px;
+}
+
+.is-invalid {
+  color: red
+}
+
+
