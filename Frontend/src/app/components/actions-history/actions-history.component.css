@@ -1,0 +1,63 @@
+.not_info-navigation {
+  padding: 5px;
+  background-color: maroon;
+}
+
+
+.not_info-navigation-list {
+  display: inline-block;
+}
+
+.not_info-navigation-list-element {
+  display: inline-block;
+}
+
+.not_info-navigation-list-element a {
+  margin: 10px;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: green;
+  color: white;
+}
+
+.not_info-navigation-list-element a:hover {
+  background-color: blue;
+}
+
+/*Actions history*/
+
+.not_info-actions_history {
+  padding: 15px;
+  margin-top: 10px;
+  border: 1px solid black;
+}
+
+.not_info-actions_history-header {
+
+}
+
+.not_info-actions_history-table {
+  border: black solid 1px;
+  padding: 10px;
+  width: 100%;
+}
+
+.not_info-actions_history-table tr {
+  padding: 5px;
+  border: black solid 1px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.not_info-actions_history-table th {
+  border: black solid 1px;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+.not_info-actions_history-table td {
+  border: black solid 1px;
+  padding: 5px;
+
+}

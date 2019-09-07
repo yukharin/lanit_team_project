@@ -1,0 +1,26 @@
+<!--<?xml version='1.0' encoding='utf-8'?>-->
+<!--<!DOCTYPE hibernate-configuration PUBLIC-->
+<!--        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"-->
+<!--        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">-->
+<!--<hibernate-configuration>-->
+<!--    <session-factory>-->
+<!--        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
+<!--        <property name="connection.password">password7788</property>-->
+<!--        <property name="connection.username">yukharin</property>-->
+<!--        <property name="connection.url">-->
+<!--            jdbc:mysql://127.0.0.1:3306/lanit?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC-->
+<!--        </property>-->
+<!--        <property name="connection.autocommit">true</property>-->
+<!--        <property name="connection.pool_size">1</property>-->
+<!--        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>-->
+<!--        <property name="show_sql">true</property>-->
+<!--        <property name="current_session_context_class">thread</property>-->
+<!--        <mapping class="com.lanit.lkz_project.entities.jpa_entities.User"/>-->
+<!--        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Organization"/>-->
+<!--        <mapping class="com.lanit.lkz_project.entities.enums.NotificationStatus"/>-->
+<!--        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Notification"/>-->
+<!--        <mapping class="com.lanit.lkz_project.entities.enums.ActionType"/>-->
+<!--        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Action"/>-->
+<!--        <mapping class="com.lanit.lkz_project.entities.jpa_entities.Authority"/>-->
+<!--    </session-factory>-->
+<!--</hibernate-configuration>-->

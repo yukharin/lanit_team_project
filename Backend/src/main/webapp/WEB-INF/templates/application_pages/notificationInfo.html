@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body>
+<div th:insert="~{/fragments/Header :: account_header}"></div>
+<nav class="not_info-navigation">
+    <ul class="not_info-navigation-list">
+        <li class="not_info-navigation-list-element">
+            <a th:href="@{/account/notification{id}(id=${notification.id})}">Работа с уведомлением</a>
+        </li>
+        <li class="not_info-navigation-list-element">
+            <a th:href="@{/account/notification{id}/history(id=${notification.id})}">Журнал действий</a>
+        </li>
+    </ul>
+</nav>
+<main>
+    <div class="not_info-notification-data">
+        <h3 class="not_info-notification-data-header">Данные уведомления</h3>
+        <form class="not_info-notification-data-form">
+            <div class="not_info-notification-data-form-first">
+                <label class="not_info-notification-data-form-label" for="input3">Тип уведомления
+                    <input class="not_info-notification-data-form-input" disabled
+                           id="input3" th:placeholder="${notification.notificationType}" type="text">
+                </label>
+                <label class="not_info-notification-data-form-label" for="input4">Статус уведомления
+                    <input class="not_info-notification-data-form-input" disabled
+                           id="input4" th:placeholder="${notification.status.message}" type="text">
+                </label>
+                <label class="not_info-notification-data-form-label" for="input5">Дата получения уведомления
+                    <input class="not_info-notification-data-form-input" disabled id="input5"
+                           th:placeholder="${#temporals.format(notification.dateReceived, 'dd-MM-yyyy')}" type="text">
+                </label>
+            </div>
+            <div class="not_info-notification-data-form-second">
+                <label class="not_info-notification-data-form-label" for="input6">Дата, когда необходимо предоставить
+                    ответ
+                    <input class="not_info-notification-data-form-input" disabled id="input6"
+                           th:placeholder="${#temporals.format(notification.dateResponse, 'dd-MM-yyyy')}" type="text">
+                </label>
+                <label class="not_info-notification-data-form-label" for="input7">Номер письма
+                    <input class="not_info-notification-data-form-input" disabled id="input7"
+                           th:placeholder="${notification.letterNumber}" type="text">
+                </label>
+                <label class="not_info-notification-data-form-label" for="input8">Автор уведомления
+                    <input class="not_info-notification-data-form-input" disabled id="input8"
+                           th:placeholder="${notification.userNotificationAuthor.firstName+' '+notification.userNotificationAuthor.lastName}"
+                           type="text">
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="not_info-add_action"
+         th:remove="${(#strings.toString(notification.status) eq 'APPROVED') ||(#strings.toString(notification.status)eq'REJECTED')}? all : none">
+        <h3 class="not_info-add_action-header">Добавить действие</h3>
+        <form class="not_info-add_action-form" method="post"
+              th:action="@{/account/notification}" th:object="${action}">
+            <label class="not_info-add_action-form-label" for="select1"> Выберите действие
+                <select class="not_info-add_action-form-select" id="select1" name="actionTypeParam"
+                        required th:field="*{actionType}">
+                    <option class="not_info-add_action-form-option" th:each="actionType : ${actionTypes}"
+                            th:text="${actionType.message}"
+                            th:value="${actionType}">
+                    </option>
+                </select>
+                <div class="error-div" th:errors="*{actionType}" th:if="${#fields.hasErrors('actionType')}">ActionType
+                    Error
+                </div>
+            </label>
+            <label class="not_info-add_action-form-label" for="input1">Комментарий
+                <input class="not_info-add_action-form-input-comment" id="input1" name="content" th:field="*{content}"
+                       required type="text"/>
+                <div class="error-div" th:errors="*{content}" th:if="${#fields.hasErrors('content')}">Content
+                    Error
+                </div>
+            </label>
+            <label class="not_info-add_action-form-label-submit" for="input2">
+                <input class="not_info-add_action-form-input-hidden" th:name="notification.id"
+                       th:value="${notification.id}" type="hidden"/>
+                <input class="not_info-add_action-form-input-submit" id="input2" type="submit" value="Сохранить"/>
+            </label>
+        </form>
+    </div>
+</main>
+</body>
+</html>

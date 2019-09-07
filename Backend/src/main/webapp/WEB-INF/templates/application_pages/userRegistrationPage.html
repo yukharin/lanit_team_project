@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body>
+<main class="registration-main">
+    <h2 class="registration-header">Страничка регистрации</h2>
+    <form class="registration-form" id="register-form" method="post" th:action="@{/registration}" th:object="${user}">
+        <ul class="registration-form-list">
+            <li class="registration-form-list-element">
+                <label for="inputFirstName">
+                    Имя<input id="inputFirstName" name="firstName" required th:field="*{firstName}" type="text"/>
+                </label>
+                <div class="error-div" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}">First_name
+                    Error
+                </div>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="inputLastName">
+                    Фамилия<input class="registration-form-input" id="inputLastName" name="lastName"
+                                  th:field="*{lastName}"
+                                  required type="text"/>
+                </label>
+                <div class="error-div" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}">Last_name
+                    Error
+                </div>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="inputLogin">
+                    Логин<input autocomplete="on" id="inputLogin" name="username" required th:field="*{username}"
+                                type="text"/>
+                </label>
+                <div class="error-div" th:errors="*{username}" th:if="${#fields.hasErrors('username')}">Login
+                    Error
+                </div>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="inputPassword">
+                    Пароль<input autocomplete="on" id="inputPassword" name="password" required th:field="*{password}"
+                                 type="password"/>
+                </label>
+                <div class="error-div" th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Password
+                    Error
+                </div>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="selectOrganization">
+                    Ваша организация
+                    <select class="registration-form-select" id="selectOrganization" name="orgId"
+                            required th:field="*{organization.id}">
+                        <option class="registration-form-select-option" th:each="organization : ${organizations}"
+                                th:text="${organization.name}"
+                                th:value="${organization.id}">
+                        </option>
+                    </select>
+                </label>
+                <div class="error-div" th:errors="*{organization}" th:if="${#fields.hasErrors('organization')}">
+                    Organization
+                    Error
+                </div>
+            </li>
+            <li class="registration-form-list-element">
+                <label class="registration-form-label" for="submitRegistration">
+                    <input class="registration-form-submit" id="submitRegistration" type="submit"
+                           value="Зарегистрироваться">
+                </label>
+            </li>
+        </ul>
+    </form>
+    <script th:src="@{/js/registration.js}">
+    </script>
+</main>
+</body>
+</html>

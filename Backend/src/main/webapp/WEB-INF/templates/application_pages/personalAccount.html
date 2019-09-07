@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html id="main-element" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body id="body">
+<div th:insert="~{/fragments/Header :: account_header}"></div>
+<main class="account-main">
+    <section class="account-filter">
+        <form class="account-filter-form" id="filter-form" method="get" th:action="@{/account/}"
+              th:object="${pageDTO}">
+            <div class="account-filter-form-first_part">
+                <label class="account-filter-form-checkbox-label" for="checkbox1">
+                    <input class="account-filter-form-checkbox" id="checkbox1" name="newFilter"
+                           th:checked="*{newFilter}" th:field="*{newFilter}" type="checkbox" value="true">
+                    <span>Новое</span>
+                </label>
+                <label class="account-filter-form-checkbox-label" for="checkbox2">
+                    <input class="account-filter-form-checkbox" id="checkbox2" name="inProcessingFilter"
+                           th:checked="*{inProcessingFilter}" th:field="*{inProcessingFilter}" type="checkbox"
+                           value="true">
+                    <span>В обработке</span>
+                </label>
+                <label class="account-filter-form-checkbox-label" for="checkbox3">
+                    <input class="account-filter-form-checkbox" id="checkbox3" name="rejectedFilter"
+                           th:checked="*{rejectedFilter}"
+                           th:field="*{rejectedFilter}" type="checkbox" value="true">
+                    <span>Отклонено</span>
+                </label>
+                <label class="account-filter-form-checkbox-label" for="checkbox4">
+                    <input class="account-filter-form-checkbox" id="checkbox4" name="approvedFilter"
+                           th:checked="*{approvedFilter}"
+                           th:field="*{approvedFilter}" type="checkbox" value="true">
+                    <span>Одобрено</span>
+                </label>
+                <label class="account-filter-form-sorting-label">
+                    Сортировка по:
+                    <select class="account-filter-form-sorting-select" id="select1" th:field="*{sortParameter}">
+                        <option th:text="*{sortParameter.BY_DATE_RECEIVED.message}"
+                                id="select1-op1" th:value="*{sortParameter.BY_DATE_RECEIVED}"></option>
+                        <option th:text="*{sortParameter.BY_DATE_RESPONSE.message}"
+                                id="select1-op2" th:value="*{sortParameter.BY_DATE_RESPONSE}"></option>
+                        <option th:text="*{sortParameter.BY_STATUS.message}"
+                                id="select1-op3" th:value="*{sortParameter.BY_STATUS}"></option>
+                        <option th:text="*{sortParameter.BY_ORGANIZATION.message}"
+                                id="select1-op4" th:value="*{sortParameter.BY_ORGANIZATION}"></option>
+                    </select>
+                    <label class="account-filter-form-checkbox-label-sorting" for="checkbox5">
+                        <input class="sorting-order-radio" id="checkbox5" th:checked="*{reversedOrder}"
+                               th:field="*{reversedOrder}"
+                               type="checkbox">
+                        <span>Инвертирование</span>
+                    </label>
+                </label>
+            </div>
+            <div class="account-filter-form-second_part">
+                <button class="account-filter-form-button-submit" id="apply_filters"
+                        type="submit" value="Применить фильтр">ПРИМЕНИТЬ ФИЛЬТР
+                </button>
+                <button class="account-filter-form-button-reset" id="clean_filters"
+                        onclick="resetFilter()" type="reset">ОЧИСТИТЬ ФИЛЬТР
+                </button>
+                <label class="account-filter-form-select-time_filter" for="select1"> Срок предоставления ответа
+                    <select id="select2" name="timeFilter" th:field="*{timeFilter}">
+                        <option th:text="*{timeFilter.NO_FILTER.message()}"
+                                id="select2-op1" th:value="*{timeFilter.NO_FILTER}">Выберите промежуток времени
+                        </option>
+                        <option th:text="*{timeFilter.THREE_DAYS.message()}"
+                                id="select2-op2" th:value="*{timeFilter.THREE_DAYS}">3 дня
+                        </option>
+                        <option th:text="*{timeFilter.TEN_DAYS.message()}"
+                                id="select2-op3" th:value="*{timeFilter.TEN_DAYS}">10 дней
+                        </option>
+                        <option th:text="*{timeFilter.THIRTY_DAYS.message()}"
+                                id="select2-op4" th:value="*{timeFilter.THIRTY_DAYS}">30 дней
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="account-filter-form-third_part">
+                <div class="account-filter-form-third_part-total_elements">
+                    <p>Найдено записей: <span th:text="*{page.totalElements}"></span></p>
+                </div>
+                <nav class="pagination" th:if="*{page.totalPages gt 0}">
+                    <ul class="pagination-list">
+                        <li class="pagination-list-element" th:classappend="*{page.number eq 0} ? 'disabled'">
+                            <input class="pagination-list-element-input-left" name="number"
+                                   th:field="*{number}"
+                                   th:value="*{page.number lt 2?1:page.number}" type="submit">
+                        </li>
+                        <li class="pagination-list-element"
+                            th:classappend="${i eq pageDTO.page.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( 1, pageDTO.page.totalPages, 1)}">
+                            <input class="pagination-list-element-input" name="number" th:field="*{number}"
+                                   th:title="${'Page '+i}" th:value="${i}"
+                                   type="submit">
+                        </li>
+                        <li class="pagination-list-element"
+                            th:classappend="*{page.number + 1 eq page.totalPages} ? 'disabled'">
+                            <input class="pagination-list-element-input-right" th:name="number"
+                                   th:value="*{page.number+2}"
+                                   type="submit">
+                        </li>
+                    </ul>
+                </nav>
+                <div class="account-filter-form-third_part-select_size">
+                    <select name="size" onchange="this.form.submit()" th:field="*{size}">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </section>
+    <section class="account-main-notifications">
+        <table class="account-main-notifications-table">
+            <tr>
+                <th>№</th>
+                <th>Вид уведомления</th>
+                <th>Заказчик</th>
+                <th>Статус обработки уведомления</th>
+                <th>Дата получения уведомления</th>
+                <th>Срок предоставления ответа</th>
+                <th>Номер письма</th>
+                <th sec:authorize="hasAuthority('AUTHORITY')">Удалить</th>
+            </tr>
+            <tr class="account-main-notifications-table-rows_data"
+                th:each="notification,iterator : ${pageDTO.page.content}"
+                th:onclick="'javascript:rowClicked(\'' + ${notification.id} + '\');'">
+                <td th:text="${iterator.index+1}"></td>
+                <td th:text="${notification.notificationType}">notification_type</td>
+                <td th:text="${notification.organization.name}">org_name</td>
+                <td th:text="${notification.status.message}">notification_status</td>
+                <td th:text="${#temporals.format(notification.dateReceived, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#temporals.format(notification.dateResponse, 'dd-MM-yyyy')}"></td>
+                <td th:text="${notification.letterNumber}">letter_number</td>
+                <td sec:authorize="hasAuthority('AUTHORITY')">
+                    <form class="account-main-notifications-table-delete_form" method="post"
+                          th:action="@{/account/delete}">
+                        <label class="account-main-notifications-table-delete_form-label" for="hidden3">
+                            <input id="hidden3" name="id" th:value="${notification.id}" type="hidden">
+                            <input class="account-main-notifications-table-delete_form-input" id="delete_form"
+                                   type="submit" value="Удалить"/>
+                        </label>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <section class="account-main-manager" sec:authorize="hasAuthority('AUTHORITY')">
+            <div class="account-main-notifications-manager-add_notification">
+                <a th:href="@{/account/addNotification}">Добавить уведомление</a>
+            </div>
+            <div class="account-main-manager-admin_link" sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/account/admin}">Панель админа</a>
+            </div>
+        </section>
+    </section>
+</main>
+</body>
+<script th:src="@{/js/account.js}"></script>
+<script>
+    function rowClicked(value) {
+        location.href = "/lkz_project/account/notification" + value;
+    }
+</script>
+</html>

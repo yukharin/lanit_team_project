@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body>
+<div th:insert="~{/fragments/Header :: account_header}"></div>
+<main>
+    <div class="add_notification">
+        <h3 class="add_notification-header">Создать уведомление</h3>
+        <form class="add_notification-form" id="addNotification" method="post"
+              th:action="@{/account/addNotification}" th:object="${notification}">
+            <label class="add_notification-form-label" for="input1">Введите тип уведомления
+                <input class="add_notification-form-input" id="input1" name=notificationType
+                       required th:field="*{notificationType}" type="text"/>
+                <div class="error-div" th:errors="*{notificationType}" th:if="${#fields.hasErrors('notificationType')}">
+                    Notification_type
+                    Error
+                </div>
+            </label>
+            <label class="add_notification-form-label" for="input2"> Введите дату, до которой нужно отправить ответ
+                <input class="add_notification-form-input" id="input2" name="dateResponse" th:field="*{{dateResponse}}"
+                       required type="date"/>
+                <div class="error-div" th:errors="*{dateResponse}" th:if="${#fields.hasErrors('dateResponse')}">
+                    Date_response
+                    Error
+                </div>
+            </label>
+            <label class="add_notification-form-label" for="select1">
+                Выберите организацию, которой вы хотите предоставить уведомление
+                <select class="add_notification-form-select" id="select1" name="orgId" required
+                        th:field="*{organization.id}">
+                    <option class="add_notification-form-option" th:each="organization : ${organizations}"
+                            th:text="${organization.name}"
+                            th:value="${organization.id}">
+                    </option>
+                </select>
+                <div class="error-div" th:errors="*{organization}" th:if="${#fields.hasErrors('organization')}">
+                    Organization
+                    Error
+                </div>
+            </label>
+            <label class="add_notification-form-label" for="submit1">
+                <input class="add_notification-form-input-submit" id="submit1" type="submit" value="Отправить"/>
+            </label>
+        </form>
+    </div>
+</main>
+</body>
+</html>

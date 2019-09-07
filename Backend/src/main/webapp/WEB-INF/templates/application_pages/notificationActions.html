@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actions_list</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body>
+<div th:insert="~{/fragments/Header :: account_header}"></div>
+<nav class="not_info-navigation">
+    <ul class="not_info-navigation-list">
+        <li class="not_info-navigation-list-element">
+            <a th:href="@{/account/notification{id}(id=${notification.id})}">Работа с уведомлением</a>
+        </li>
+        <li class="not_info-navigation-list-element">
+            <a th:href="@{/account/notification{id}/history(id=${notification.id})}">Журнал действий</a>
+        </li>
+    </ul>
+</nav>
+<main class="not_info-actions_history">
+    <div class="not_info-actions_history-header">
+        <h3>Журнал Действий</h3>
+    </div>
+    <table class="not_info-actions_history-table">
+        <tr>
+            <th>№</th>
+            <th>Дата, время</th>
+            <th>Комментарий</th>
+            <th>Пользователь</th>
+            <th>Подразделение</th>
+            <th>Статус после изменения</th>
+        </tr>
+        <tr th:each="action,iterator : ${actions}">
+            <td th:text="${iterator.index+1}">id</td>
+            <td th:text="${#temporals.format(action.date, 'dd-MM-yyyy HH:mm')}">date</td>
+            <td th:text="${action.content}">content</td>
+            <td th:text="${action.implementor.firstName}+' '+${action.implementor.lastName}">implementor</td>
+            <td th:text="${action.implementor.organization.name}">organization</td>
+            <td th:text="${action.statusAfterAction.message}">status</td>
+        </tr>
+    </table>
+</main>
+</body>
+</html>

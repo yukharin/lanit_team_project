@@ -1,0 +1,226 @@
+.account-table {
+  border: solid 1px black;
+}
+
+.account-table {
+  border-bottom: black solid 1px;
+  border-left: black solid 1px;
+  border-right: black solid 1px;
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  align-content: center;
+}
+
+.account-table tr {
+  padding: 10px;
+  border: black 1px solid;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: center;
+
+}
+
+.account-table-rows_data:hover {
+  background-color: maroon;
+  color: white;
+  cursor: pointer;
+}
+
+.account-table th {
+  text-align: center;
+  padding: 10px;
+  border: black 1px solid;
+  margin: 0 auto;
+}
+
+.account-table td {
+  border: black 1px solid;
+  margin: 0 auto;
+}
+
+.account-table-delete_button {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  max-width: 100%;
+  width: 100%;
+  font-size: medium;
+}
+
+.account-table-delete_button:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+
+.pagination_div {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  padding: 10px;
+  text-align: center;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.account-main-notifications-manager-add_notification {
+  padding: 30px;
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+
+.account-main-notifications-manager-add_notification a {
+  padding: 15px;
+  border: 1px solid black;
+  background-color: green;
+  color: white;
+  margin: 20px 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.account-main-notifications-manager-add_notification a:hover {
+  background-color: maroon;
+}
+
+/*filters*/
+
+.account-filter-form {
+  border-right: solid 1px black;
+  border-left: solid 1px black;
+  border-top: solid 1px black;
+}
+
+
+.account-filter-form-first_part {
+  display: inline-block;
+  padding: 22px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.account-filter-form-second_part_part {
+  display: inline-block;
+}
+
+.account-filter-form-checkbox-label {
+}
+
+.account-filter-form-checkbox-label input {
+  all: initial;
+}
+
+.account-filter-form-checkbox-label input + span {
+  border: black 1px solid;
+  margin: 15px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.account-filter-form-checkbox-label input:checked  + span {
+  border: black 1px solid;
+  margin: 15px;
+  padding: 10px;
+  background-color: maroon;
+  border-radius: 8px;
+  color: white;
+}
+
+.account-filter-form-checkbox-label input + span:hover {
+  background-color: maroon;
+  color: white;
+}
+
+
+.account-filter-form-button-submit {
+  padding: 10px;
+  border: black 1px solid;
+  border-radius: 8px;
+  color: white;
+  background-color: green;
+  margin: 10px 10px 10px 30px;
+}
+
+.account-filter-form-button-submit:hover {
+  color: white;
+  background-color: maroon;
+}
+
+.account-filter-form-button-reset {
+  padding: 10px;
+  border: black 1px solid;
+  border-radius: 8px;
+  color: white;
+  background-color: slategray;
+  margin: 10px;
+}
+
+.account-filter-form-button-reset:hover {
+  color: white;
+  background-color: maroon;
+}
+
+.account-filter-form-select-time_filter {
+  padding: 10px;
+  border: black 1px solid;
+  border-radius: 8px;
+  background-color: slategray;
+  color: white;
+  margin: 10px 10px 10px auto;
+}
+
+.account-filter-form-third_part {
+  display: inline-block;
+  padding: 10px;
+  border-top: 1px black solid;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+.account-filter-form-third_part-total_elements {
+  display: inline-block;
+  width: 45%;
+  max-width: 45%;
+}
+
+
+.account-filter-form-sorting-label {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: slategray;
+  color: white;
+}
+
+.account-filter-form-checkbox-label-sorting input {
+  all: initial;
+}
+
+.account-filter-form-checkbox-label-sorting input + span {
+  border: black 1px solid;
+  margin: 25px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+}
+
+.account-filter-form-checkbox-label-sorting input:checked + span {
+  background-color: maroon;
+  color: white;
+}
+
+.account-filter-form-checkbox-label-sorting input + span:hover {
+  background-color: maroon;
+  color: white;
+}
+
+.is-invalid{
+  color: red;
+}
+

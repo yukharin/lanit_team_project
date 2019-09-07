@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <link href="https://fonts.google.com/specimen/Grenze?selection.family=Grenze" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css"/>
+</head>
+<body>
+<header class="account-header" th:fragment="account_header">
+    <div class="account-header-personal_info">
+        <div class="account-header-account-href">
+            <a th:href="@{/account/}"><h2>Личный кабинет</h2></a>
+        </div>
+        <div class="account-header-personal-data">
+            <div class="account-header-user_info">
+                <p th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.lastName}"></p>
+            </div>
+            <div class="account-header-logout-button">
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" value="выйти">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="account-header-organization-name">
+        <p th:text="${#authentication.principal.organization.name}"></p>
+    </div>
+</header>
+</body>
+</html>

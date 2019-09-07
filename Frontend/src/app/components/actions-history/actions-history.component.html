@@ -1,0 +1,33 @@
+<nav class="not_info-navigation" *ngIf="notification">
+  <ul class="not_info-navigation-list">
+    <li class="not_info-navigation-list-element">
+      <a [routerLink]="['/notifications/', notification.id]">Работа с уведомлением</a>
+    </li>
+    <li class="not_info-navigation-list-element">
+      <a [routerLink]="['/notifications/',notification.id,'actions']"> Журнал действий</a>
+    </li>
+  </ul>
+</nav>
+<main class="not_info-actions_history" *ngIf="actions">
+  <div class="not_info-actions_history-header">
+    <h3>Журнал Действий</h3>
+  </div>
+  <table class="not_info-actions_history-table">
+    <tr>
+      <th>№</th>
+      <th>Дата, время</th>
+      <th>Комментарий</th>
+      <th>Пользователь</th>
+      <th>Подразделение</th>
+      <th>Статус после изменения</th>
+    </tr>
+    <tr *ngFor="let action of actions let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{action.date}}</td>
+      <td>{{action.content}}</td>
+      <td>{{action.implementor.firstName}} {{action.implementor.lastName}}</td>
+      <td>{{action.implementor.organization.name}}</td>
+      <td>{{action.statusAfterAction | notificationStatusPipe}}</td>
+    </tr>
+  </table>
+</main>

@@ -1,0 +1,21 @@
+<header class="account-header">
+  <div class="account-header-personal_info">
+    <div class="account-header-account-href">
+      <a [routerLink]="['']"><h2>Личный кабинет</h2></a>
+    </div>
+    <div class="account-header-personal-data">
+      <div *ngIf="user" class="account-header-user_info">
+        <p>{{user.firstName}} {{user.lastName}}</p>
+      </div>
+      <div class="account-header-logout-button">
+        <form method="post">
+          <input type="submit" value="выйти">
+        </form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="user" class="account-header-organization-name">
+    <p>{{user.organization.name}}</p>
+  </div>
+</header>
+
