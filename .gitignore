@@ -163,5 +163,5 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/maven
 
-/node_modules
-/node
+*/node_modules
+*/node
