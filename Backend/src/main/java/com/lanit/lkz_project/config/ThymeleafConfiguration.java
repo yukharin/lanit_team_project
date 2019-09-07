@@ -17,32 +17,32 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 public class ThymeleafConfiguration {
 
-//    @Bean
-//    public SpringTemplateEngine templateEngine() {
-//        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-//        templateEngine.setEnableSpringELCompiler(true);
-//        templateEngine.setTemplateResolver(thymeleafTemplateResolver());
-//        templateEngine.addDialect(new Java8TimeDialect());
-//        templateEngine.addDialect(new SpringSecurityDialect());
-//        return templateEngine;
-//    }
-//
-//    @Bean
-//    public SpringResourceTemplateResolver thymeleafTemplateResolver() {
-//        SpringResourceTemplateResolver templateResolver
-//                = new SpringResourceTemplateResolver();
-//        templateResolver.setPrefix("/");
-//        templateResolver.setSuffix(".html");
-//        templateResolver.setTemplateMode(TemplateMode.HTML);
-//        templateResolver.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-//        return templateResolver;
-//    }
-////
-//    @Bean
-//    public InternalResourceViewResolver thymeleafViewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/");
-//        resolver.setSuffix(".html");
-//        return resolver;
-//    }
+    @Bean
+    public SpringTemplateEngine templateEngine() {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.setTemplateResolver(thymeleafTemplateResolver());
+        templateEngine.addDialect(new Java8TimeDialect());
+        templateEngine.addDialect(new SpringSecurityDialect());
+        return templateEngine;
+    }
+
+    @Bean
+    public SpringResourceTemplateResolver thymeleafTemplateResolver() {
+        SpringResourceTemplateResolver templateResolver
+                = new SpringResourceTemplateResolver();
+        templateResolver.setPrefix("/WEB-INF/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        return templateResolver;
+    }
+
+    @Bean
+    public ThymeleafViewResolver thymeleafViewResolver() {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        return viewResolver;
+    }
 }

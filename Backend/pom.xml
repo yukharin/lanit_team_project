@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lanit</groupId>
-    <artifactId>lkz_project</artifactId>
+
+    <artifactId>Backend</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>lkz_project</name>
+    <name>lkz_backend</name>
 
     <parent>
         <artifactId>LKZ</artifactId>
@@ -16,24 +16,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-        <java.version>1.8</java.version>
-        <spring.version>5.1.2.RELEASE</spring.version>
-        <hibernate.version>5.4.2.Final</hibernate.version>
-        <hibernate.validator>6.0.17.Final</hibernate.validator>
-        <c3p0.version>0.9.5.2</c3p0.version>
-        <jstl.version>1.2.1</jstl.version>
-        <tld.version>1.1.2</tld.version>
-        <servlets.version>3.1.0</servlets.version>
-        <jsp.version>2.3.1</jsp.version>
-        <hsqldb.version>1.8.0.10</hsqldb.version>
-        <repository.url>file://C:/Users/user/.m2/repository</repository.url>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -48,7 +32,6 @@
     </build>
 
     <dependencies>
-
         <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
         <dependency>
             <groupId>javax.servlet</groupId>

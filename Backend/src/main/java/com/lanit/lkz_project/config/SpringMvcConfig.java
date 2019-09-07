@@ -21,31 +21,32 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("*.html", "*.js").addResourceLocations("/");
+                .addResourceHandler("*.html", "*.js", "*.ico")
+                .addResourceLocations("/");
     }
 
 
-//    @Bean
-//    public MessageSource messageSource() {
-//        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-//        source.setBasename("messages");
-//        return source;
-//    }
-//
-//    @Bean
-//    public AuthenticationPrincipalArgumentResolver authenticationPrincipalArgumentResolver() {
-//        return new AuthenticationPrincipalArgumentResolver();
-//    }
-//
-//    @Override
-//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-//        argumentResolvers.add(authenticationPrincipalArgumentResolver());
-//    }
-//
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/*").allowedHeaders("*").allowedOrigins("*").allowedMethods("*")
-//                .allowCredentials(true);
-//    }
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.setBasename("messages");
+        return source;
+    }
+
+    @Bean
+    public AuthenticationPrincipalArgumentResolver authenticationPrincipalArgumentResolver() {
+        return new AuthenticationPrincipalArgumentResolver();
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(authenticationPrincipalArgumentResolver());
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/*").allowedHeaders("*").allowedOrigins("*").allowedMethods("*")
+                .allowCredentials(true);
+    }
 
 }
