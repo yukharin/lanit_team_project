@@ -8,8 +8,8 @@
         <p>{{user.firstName}} {{user.lastName}}</p>
       </div>
       <div class="account-header-logout-button">
-        <form method="post" action="/logout">
-          <input type="submit" value="выйти">
+        <form #form action='/lkz_project/logout' method='post'>
+          <input type="submit" class="account-header-logout-button" (click)="form.submit()" value="Выйти">
         </form>
       </div>
     </div>
