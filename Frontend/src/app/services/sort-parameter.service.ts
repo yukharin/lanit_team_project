@@ -8,7 +8,7 @@ import {SortParameter} from '../models/enums/SortParameter';
 })
 export class SortParameterService {
 
-  url = 'http://localhost:8080/lkz_project/sortParameters';
+  url = 'http://localhost:8080/lkz_project/api/sortParameters';
 
   constructor(private httpClient: HttpClient) {
   }

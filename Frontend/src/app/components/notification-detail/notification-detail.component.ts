@@ -66,14 +66,14 @@ export class NotificationDetailComponent implements OnInit {
       id: this.notification.id,
       notificationType: null,
       status: null,
-      dateResponse: null,
-      dateReceived: null,
+      dateResponse: undefined,
+      dateReceived: undefined,
       letterNumber: null,
       organization: null,
       userNotificationAuthor: null,
       actionsOfNotification: null
     };
-    this.accountService.addAction(action).subscribe(() => {
+    this.notificationService.addAction(action).subscribe(() => {
       this.router.navigateByUrl('');
     });
   }

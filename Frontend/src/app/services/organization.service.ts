@@ -8,7 +8,7 @@ import {Organization} from '../models/Organization';
 })
 export class OrganizationService {
 
-  url = 'http://localhost:8080/lkz_project/account/organizations';
+  url = 'http://localhost:8080/lkz_project/api/organizations';
 
 
   constructor(private httpClient: HttpClient) {

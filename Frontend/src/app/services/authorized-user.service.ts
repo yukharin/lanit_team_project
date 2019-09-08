@@ -8,7 +8,7 @@ import {User} from '../models/User';
 })
 export class AuthorizedUserService {
 
-  url = 'http://localhost:8080/lkz_project/account/principal';
+  url = 'http://localhost:8080/lkz_project/api/principal';
 
   constructor(private httpClient: HttpClient) {
   }

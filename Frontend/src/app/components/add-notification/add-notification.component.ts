@@ -2,12 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {OrganizationService} from '../../services/organization.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Organization} from '../../models/Organization';
-import {AccountService} from '../../services/account.service';
 import {Notification} from '../../models/Notification';
 import {DateFormatPipe} from '../../pipes/date-format.pipe';
 import {Router} from '@angular/router';
-import {ValidateResponseDate} from '../../validators/ValidateResponseDate';
-
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
   selector: 'app-add-notification',
@@ -20,7 +18,7 @@ export class AddNotificationComponent implements OnInit {
   notificationForm: FormGroup;
   notification: Notification;
 
-  constructor(private organizationService: OrganizationService, private formBuilder: FormBuilder, private accountService: AccountService,
+  constructor(private organizationService: OrganizationService, private formBuilder: FormBuilder, private notificationService: NotificationService,
               private dateFormatPipe: DateFormatPipe, private router: Router) {
     this.notification = {
       id: undefined,
@@ -62,7 +60,7 @@ export class AddNotificationComponent implements OnInit {
     console.log(this.dateFormatPipe.transform(this.notificationForm.controls.dateResponse.value));
     this.notification.dateResponse = this.dateFormatPipe.transform(this.notificationForm.controls.dateResponse.value);
     this.notification.organization.id = this.notificationForm.controls.organization.value;
-    this.accountService.addNotification(this.notification).subscribe(() => {
+    this.notificationService.addNotification(this.notification).subscribe(() => {
       this.router.navigateByUrl('');
     });
   };

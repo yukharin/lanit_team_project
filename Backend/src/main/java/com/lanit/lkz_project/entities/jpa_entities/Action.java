@@ -52,7 +52,7 @@ public class Action implements Serializable {
     @NotNull
     @PastOrPresent
     @Column(nullable = false, name = "date")
-    @JsonFormat(pattern = "yyyy-MM-dd , hh:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime date;
 
     @NotNull
