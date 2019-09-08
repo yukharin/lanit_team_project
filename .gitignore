@@ -1,17 +1,13 @@
-# FRONTEND LIBs
-/src/main/open_layers/dist
-/src/main/open_layers/.cache
-/src/main/open_layers/node_modules
-
+# FRONTEND LIBs:
+/src/main/ng_app/node_modules
+/src/main/ng_app/node
 /src/main/ng_app/dist
 /src/main/ng_app/.cache
-/src/main/ng_app/node_modules
+# + can be add: /src/main/ng_app/.idea
+# + can be add: /src/main/ng_app/.gitignore
 
-/src/main/ng_app/node
-
-/src/main/node/dist
-/src/main/node/.cache
-/src/main/node/node_modules
+# FRONTEND autoGenereted files:
+/src/main/webapp/lkz
 
 
 # Compiled class file
