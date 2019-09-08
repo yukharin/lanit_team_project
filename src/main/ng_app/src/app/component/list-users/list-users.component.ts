@@ -41,19 +41,19 @@ export class ListUsersComponent implements OnInit {
     // .subscribe(data => this.list-users=data["userList"]);
     //   .subscribe(data => this.list-users = data);
 
-    // this.http.get<TestUser>('http://localhost:8081/lkz_project_war_exploded/angular/test_user')
+    // this.http.get<TestUser>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/test_user')
     // .subscribe((testUser) => {
     //   this.testUser = testUser;
     //   console.log(this.testUser);
     // });
     //
-    // this.http.get<TestUser[]>('http://localhost:8081/lkz_project_war_exploded/angular/test_users')
+    // this.http.get<TestUser[]>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/test_users')
     // .subscribe((testUsers) => {
     //   this.testUsers = testUsers;
     //   console.log(this.testUsers);
     // });
 
-    this.http.get<User[]>('http://localhost:8081/lkz_project_war_exploded/angular/input/users')
+    this.http.get<User[]>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/input/users')
     .subscribe((users) => {
       this.users = users;
       console.log(this.users);
@@ -68,7 +68,7 @@ export class ListUsersComponent implements OnInit {
     let body = new HttpParams();
     body = body.set('id', user.id.toString());
 
-    this.http.post<boolean>('http://localhost:8081/lkz_project_war_exploded/angular/input/has_user', body, httpOptions)
+    this.http.post<boolean>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/input/has_user', body, httpOptions)
       .subscribe((hasUser) => {
 
         if (hasUser) this.router.navigate(['/notifications']);

@@ -59,7 +59,7 @@ export class AddAction implements OnInit, OnChanges{
     };
 
     this.http.get<AddAction4renderHtml>(
-      'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/add_action/addAction4renderHtml',
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/addAction4renderHtml',
       httpOptions)
       .subscribe((render) => {
         this.render = render;
@@ -91,7 +91,7 @@ export class AddAction implements OnInit, OnChanges{
     // this.actionPortionDto.content = this.addActionForm.get('content').value;
 
     this.http.post<boolean>(
-      'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/add_action/save',
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/save',
       JSON.stringify(this.actionPortionDto),
       this.httpOptionsJson)
       .subscribe((hasSaved) => {

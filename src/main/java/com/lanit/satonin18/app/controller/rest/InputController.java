@@ -39,7 +39,6 @@ public class InputController {
     private NotificationService notificationService;
 
 
-
 //    @RequestMapping("/test_user")
 //    public /*@ResponseBody*/ TestUser test_user() throws JsonProcessingException {
 //        TestUser testUser = new TestUser("ht", 3);

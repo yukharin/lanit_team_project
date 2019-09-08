@@ -14,9 +14,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "deleteOutputPath": false,
+            "deleteOutputPath": true,
+
+            //ATATION AUTO DELETE FOLDER
             //"outputPath": "dist/ngWeb",
             "outputPath": "../webapp/resources/ng",
+
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

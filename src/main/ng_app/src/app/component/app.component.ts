@@ -32,7 +32,7 @@ export class AppComponent  {}
   // }
 
   // private updateUser() {
-  //   this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/user')
+  //   this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/user')
   //     .subscribe((user) => {
   //       this.userFromParent = user;
   //       console.log(this.userFromParent);
@@ -40,7 +40,7 @@ export class AppComponent  {}
   // }
 
   // onChangeUserFromParent(id: number): void {
-  //   this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/user?id=' + id)
+  //   this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/user?id=' + id)
   //     .subscribe((user) => {
   //       this.userFromParent = user;
   //       console.log(this.userFromParent);

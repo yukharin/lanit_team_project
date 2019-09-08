@@ -63,29 +63,29 @@ export class NotificationsComponent implements OnInit, OnChanges {
   ngOnInit() {
     // const userId = this.route.snapshot.paramMap.get('userId');
 
-    // this.http.get<Notification[]>('http://localhost:8081/lkz_project_war_exploded/angular/user_notifications?userId=' + userId)
+    // this.http.get<Notification[]>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/user_notifications?userId=' + userId)
     // .subscribe((notifications) => {
     //   this.notifications = notifications;
     //   console.log(this.notifications);
     // });
 
 
-    // this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/get_user?id=' + userId)
+    // this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/get_user?id=' + userId)
     //   .subscribe((user) => {
     //     this.user = user;
     //     console.log(this.user);
     //   });
-    // this.http.get<Cabinet4renderHtml>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/cabinet4renderHtml?userId=' + userId)
+    // this.http.get<Cabinet4renderHtml>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/cabinet4renderHtml?userId=' + userId)
     //   .subscribe((render) => {
     //     this.render = render;
     //     console.log(this.render);
     //   });
-    // this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/get_user')
+    // this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/get_user')
     //   .subscribe((user) => {
     //     this.user = user;
     //     console.log(this.user);
     //   });
-    this.http.get<Cabinet4renderHtml>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/cabinet4renderHtml')
+    this.http.get<Cabinet4renderHtml>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/cabinet4renderHtml')
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -129,13 +129,13 @@ export class NotificationsComponent implements OnInit, OnChanges {
     // console.log(this.filtersForm.controls.idFilterStatus.value);
 
     // this.http.post<FilterForm>(
-    //   'http://localhost:8081/lkz_project_war_exploded/angular/filters', JSON.stringify(this.render.state.filterForm), this.httpOptions)
+    //   'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/filters', JSON.stringify(this.render.state.filterForm), this.httpOptions)
     //   .subscribe((str) => {
     //     this.response = str;
     //     console.log(this.response);
     //   });
     // if (this.response == "OK") {
-    //   this.http.get<any>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet4renderHtml?userId=' + this.user.id)
+    //   this.http.get<any>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet4renderHtml?userId=' + this.user.id)
     //     .subscribe((render) => {
     //       this.render = render;
     //       console.log(this.render);
@@ -146,8 +146,8 @@ export class NotificationsComponent implements OnInit, OnChanges {
     // }
 
     this.http.post<Cabinet4renderHtml>(
-      // 'http://localhost:8081/lkz_project_war_exploded/angular/filters', JSON.stringify(this.render.state.filterForm), this.httpOptions)
-      'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/filters', JSON.stringify(this.newFilterForm), this.httpOptionsJson)
+      // 'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/filters', JSON.stringify(this.render.state.filterForm), this.httpOptions)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/filters', JSON.stringify(this.newFilterForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -158,7 +158,7 @@ export class NotificationsComponent implements OnInit, OnChanges {
     this.newPaginationForm.page = event - 1;
 
     this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -173,7 +173,7 @@ export class NotificationsComponent implements OnInit, OnChanges {
   maxResultAply() {
     this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
     this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);

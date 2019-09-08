@@ -47,7 +47,7 @@ export class Actions implements OnInit, OnChanges {
   }
   ngOnInit() {
 
-    // this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/get_user') //todo notifications
+    // this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/get_user') //todo notifications
     //   .subscribe((user) => {
     //     this.user = user;
     //     console.log(this.user);
@@ -63,7 +63,7 @@ export class Actions implements OnInit, OnChanges {
       params: body
     };
 
-    this.http.get<TheNotification4renderHtml>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/theNotification4renderHtml', httpOptions)
+    this.http.get<TheNotification4renderHtml>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/theNotification4renderHtml', httpOptions)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -75,7 +75,7 @@ export class Actions implements OnInit, OnChanges {
     this.newPaginationForm.page = event - 1;
 
     this.http.post<TheNotification4renderHtml>(
-      'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -84,7 +84,7 @@ export class Actions implements OnInit, OnChanges {
   maxResultAply() {
     this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
     this.http.post<TheNotification4renderHtml>(
-      'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);

@@ -44,7 +44,7 @@ export class CommonHeaderUserComponent implements OnInit, OnChanges {
   }
 
   private extracted() {
-    this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/user')
+    this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/user')
       .subscribe((user) => {
         this.user = user;
         console.log(this.user);
