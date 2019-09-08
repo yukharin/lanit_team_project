@@ -28,7 +28,7 @@ public class AccountController {
 
     @PostMapping
     public PersonalAccountPageDto<Notification> getPage(
-             PersonalAccountPageDto<Notification> page,
+             @RequestBody PersonalAccountPageDto<Notification> page,
             @AuthenticationPrincipal User user) {
         personalAccountService.setAccountPageState(page, user);
         return page;
