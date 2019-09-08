@@ -9,7 +9,7 @@ import {Action} from '../models/Action';
 })
 export class AccountService {
 
-  url = 'http://localhost:8080/lkz_project/api/account/';
+  url = 'http://localhost:8080/lkz_project/api/account';
 
   httpOptions = {
     headers: new HttpHeaders({
