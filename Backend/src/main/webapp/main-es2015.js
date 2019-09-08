@@ -721,9 +721,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _services_organization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/organization.service */ "./src/app/services/organization.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _services_account_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/account.service */ "./src/app/services/account.service.ts");
-/* harmony import */ var _pipes_date_format_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../pipes/date-format.pipe */ "./src/app/pipes/date-format.pipe.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _pipes_date_format_pipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../pipes/date-format.pipe */ "./src/app/pipes/date-format.pipe.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_notification_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/notification.service */ "./src/app/services/notification.service.ts");
 
 
 
@@ -732,10 +732,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AddNotificationComponent = class AddNotificationComponent {
-    constructor(organizationService, formBuilder, accountService, dateFormatPipe, router) {
+    constructor(organizationService, formBuilder, notificationService, dateFormatPipe, router) {
         this.organizationService = organizationService;
         this.formBuilder = formBuilder;
-        this.accountService = accountService;
+        this.notificationService = notificationService;
         this.dateFormatPipe = dateFormatPipe;
         this.router = router;
         this.notification = {
@@ -774,7 +774,7 @@ let AddNotificationComponent = class AddNotificationComponent {
         console.log(this.dateFormatPipe.transform(this.notificationForm.controls.dateResponse.value));
         this.notification.dateResponse = this.dateFormatPipe.transform(this.notificationForm.controls.dateResponse.value);
         this.notification.organization.id = this.notificationForm.controls.organization.value;
-        this.accountService.addNotification(this.notification).subscribe(() => {
+        this.notificationService.addNotification(this.notification).subscribe(() => {
             this.router.navigateByUrl('');
         });
     }
@@ -783,9 +783,9 @@ let AddNotificationComponent = class AddNotificationComponent {
 AddNotificationComponent.ctorParameters = () => [
     { type: _services_organization_service__WEBPACK_IMPORTED_MODULE_2__["OrganizationService"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
-    { type: _services_account_service__WEBPACK_IMPORTED_MODULE_4__["AccountService"] },
-    { type: _pipes_date_format_pipe__WEBPACK_IMPORTED_MODULE_5__["DateFormatPipe"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] }
+    { type: _services_notification_service__WEBPACK_IMPORTED_MODULE_6__["NotificationService"] },
+    { type: _pipes_date_format_pipe__WEBPACK_IMPORTED_MODULE_4__["DateFormatPipe"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
 ];
 AddNotificationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -886,14 +886,14 @@ let NotificationDetailComponent = class NotificationDetailComponent {
             id: this.notification.id,
             notificationType: null,
             status: null,
-            dateResponse: null,
-            dateReceived: null,
+            dateResponse: undefined,
+            dateReceived: undefined,
             letterNumber: null,
             organization: null,
             userNotificationAuthor: null,
             actionsOfNotification: null
         };
-        this.accountService.addAction(action).subscribe(() => {
+        this.notificationService.addAction(action).subscribe(() => {
             this.router.navigateByUrl('');
         });
     }
@@ -1219,13 +1219,10 @@ __webpack_require__.r(__webpack_exports__);
 let AccountService = class AccountService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'http://localhost:8080/lkz_project/account/';
-        this.addActionUrl = 'http://localhost:8080/lkz_project/account/addAction';
-        this.addNotificationUrl = 'http://localhost:8080/lkz_project/account/addNotification';
+        this.url = 'http://localhost:8080/lkz_project/api/account/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:4200'
             })
         };
     }
@@ -1235,12 +1232,6 @@ let AccountService = class AccountService {
     getPageAndPass(personalAccount) {
         console.log('JSON!!: ' + JSON.stringify(personalAccount));
         return this.httpClient.post(this.url, JSON.stringify(personalAccount), this.httpOptions);
-    }
-    addAction(action) {
-        return this.httpClient.post(this.addActionUrl, JSON.stringify(action), this.httpOptions);
-    }
-    addNotification(notification) {
-        return this.httpClient.post(this.addNotificationUrl, JSON.stringify(notification), this.httpOptions);
     }
 };
 AccountService.ctorParameters = () => [
@@ -1275,7 +1266,7 @@ __webpack_require__.r(__webpack_exports__);
 let AuthorizedUserService = class AuthorizedUserService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'http://localhost:8080/lkz_project/account/principal';
+        this.url = 'http://localhost:8080/lkz_project/api/principal';
     }
     getUser() {
         return this.httpClient.get(this.url);
@@ -1313,13 +1304,24 @@ __webpack_require__.r(__webpack_exports__);
 let NotificationService = class NotificationService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'http://localhost:8080/lkz_project/account/notifications';
+        this.url = 'http://localhost:8080/lkz_project/api/notifications';
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+            })
+        };
     }
     deleteNotification(id) {
         return this.httpClient.delete(this.url + '/' + id);
     }
     getNotification(id) {
         return this.httpClient.get(this.url + '/' + id);
+    }
+    addNotification(notification) {
+        return this.httpClient.post(this.url, JSON.stringify(notification), this.httpOptions);
+    }
+    addAction(action) {
+        return this.httpClient.post(this.url + '/' + action.notification.id + '/actions', JSON.stringify(action), this.httpOptions);
     }
 };
 NotificationService.ctorParameters = () => [
@@ -1354,7 +1356,7 @@ __webpack_require__.r(__webpack_exports__);
 let OrganizationService = class OrganizationService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'http://localhost:8080/lkz_project/account/organizations';
+        this.url = 'http://localhost:8080/lkz_project/api/organizations';
     }
     getOrganizations() {
         return this.httpClient.get(this.url);
@@ -1392,7 +1394,7 @@ __webpack_require__.r(__webpack_exports__);
 let SortParameterService = class SortParameterService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'http://localhost:8080/lkz_project/sortParameters';
+        this.url = 'http://localhost:8080/lkz_project/api/sortParameters';
     }
     getSortParameters() {
         return this.httpClient.get(this.url);
@@ -1430,7 +1432,7 @@ __webpack_require__.r(__webpack_exports__);
 let TimeFilterService = class TimeFilterService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'http://localhost:8080/lkz_project/timeFilters';
+        this.url = 'http://localhost:8080/lkz_project/api/timeFilters';
     }
     getFilters() {
         return this.httpClient.get(this.url);

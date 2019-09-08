@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
-@RequestMapping("/account/organizations")
+@RequestMapping("/api/organizations")
 public class OrganizationController {
 
     @Autowired

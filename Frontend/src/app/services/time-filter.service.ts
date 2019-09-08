@@ -8,7 +8,7 @@ import {TimeFilter} from '../models/enums/TimeFilter';
 })
 export class TimeFilterService {
 
-  url = 'http://localhost:8080/lkz_project/timeFilters';
+  url = 'http://localhost:8080/lkz_project/api/timeFilters';
 
   constructor(private httpClient: HttpClient) {
   }

@@ -1,7 +1,6 @@
 package com.lanit.lkz_project.controllers.rest_controllers;
 
 import com.lanit.lkz_project.entities.data_transfer_objects.PersonalAccountPageDto;
-import com.lanit.lkz_project.entities.jpa_entities.Action;
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
 import com.lanit.lkz_project.entities.jpa_entities.User;
 import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
@@ -11,7 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class AccountController {
 
     @Autowired
@@ -20,17 +19,17 @@ public class AccountController {
     @Autowired
     PersonalAccountService personalAccountService;
 
-    @PostMapping("/")
-    public PersonalAccountPageDto<Notification> getPage(
-            @RequestBody PersonalAccountPageDto<Notification> page,
-            @AuthenticationPrincipal User user) {
+    @GetMapping
+    public PersonalAccountPageDto<Notification> getPage(@AuthenticationPrincipal User user) {
+        PersonalAccountPageDto<Notification> page = new PersonalAccountPageDto<>();
         personalAccountService.setAccountPageState(page, user);
         return page;
     }
 
-    @GetMapping("/")
-    public PersonalAccountPageDto<Notification> getPage(@AuthenticationPrincipal User user) {
-        PersonalAccountPageDto<Notification> page = new PersonalAccountPageDto<>();
+    @PostMapping
+    public PersonalAccountPageDto<Notification> getPage(
+            @RequestBody PersonalAccountPageDto<Notification> page,
+            @AuthenticationPrincipal User user) {
         personalAccountService.setAccountPageState(page, user);
         return page;
     }
@@ -40,16 +39,4 @@ public class AccountController {
         return user;
     }
 
-
-    @PostMapping("/addNotification")
-    public void addNotification(@RequestBody Notification notification,
-                                @AuthenticationPrincipal User user) {
-        personalAccountService.addNotification(notification, user);
-    }
-
-    @PostMapping("/addAction")
-    public void addAction(@RequestBody Action action,
-                          @AuthenticationPrincipal User user) {
-        personalAccountService.addAction(user, action);
-    }
 }

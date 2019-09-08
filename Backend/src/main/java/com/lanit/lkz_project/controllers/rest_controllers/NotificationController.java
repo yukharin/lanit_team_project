@@ -1,20 +1,25 @@
 package com.lanit.lkz_project.controllers.rest_controllers;
 
 import com.lanit.lkz_project.entities.jpa_entities.Notification;
+import com.lanit.lkz_project.entities.jpa_entities.User;
+import com.lanit.lkz_project.service.application_service.PersonalAccountService;
 import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
-@RequestMapping("/account/notifications")
+@RequestMapping("/api/notifications")
 public class NotificationController {
 
     @Autowired
-    NotificationService notificationService;
+    private NotificationService notificationService;
+
+    @Autowired
+    private PersonalAccountService personalAccountService;
 
     @GetMapping
     public List<Notification> getAll() {
@@ -29,8 +34,8 @@ public class NotificationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(Notification notification) {
-        notificationService.addNotification(notification);
+    public void create(@AuthenticationPrincipal User user, Notification notification) {
+        personalAccountService.addNotification(notification, user);
     }
 
 
