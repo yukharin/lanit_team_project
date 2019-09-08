@@ -36,6 +36,9 @@
         <java.version>8</java.version>
         <!--<hsqldb.version>1.8.0.10</hsqldb.version>-->
         <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
+
+        <node.version>v10.16.3</node.version>
+        <npm.version>6.9.0</npm.version>
     </properties>
 
     <dependencies>
@@ -295,6 +298,75 @@
             <!--<path>/</path>-->
             <!--</configuration>-->
             <!--</plugin>-->
+
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.28</version>
+
+                <configuration>
+                    <workingDirectory>./src/main/ng_app</workingDirectory>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <npmVersion>${npm.version}</npmVersion>
+                    <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
+                    <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
+                    <installDirectory>./src/main/ng_app</installDirectory>
+                    <!-- path=\ or / -->
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <!--<phase>generate-resources</phase>-->
+                    </execution>
+
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <!--<phase>generate-resources</phase>-->
+                        <!--<configuration>-->
+                            <!--<arguments>ci &#45;&#45;loglevel=error</arguments>-->
+                        <!--</configuration>-->
+                    </execution>
+
+                    <!--<execution>-->
+                        <!--<id>npm run-script build-prod</id>-->
+                        <!--<phase>prepare-package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>npm</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<arguments>run-script build</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                    <execution>
+                        <id>npm run build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>prod</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run-script build</arguments>
+                        </configuration>
+                        <phase>generate-resources</phase>
+                    </execution>
+
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>

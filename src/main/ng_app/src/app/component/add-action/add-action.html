@@ -1,0 +1,146 @@
+<!-- Angular классы CSS:
+Если элемент ввода еще не получал фокус, то устанавливается класс ng-untouched.
+Если же поле ввода уже получало фокус, то к нему применяется класс ng-touched.
+
+Если первоначальное значение в поле ввода было изменено, то устанавливается класс ng-dirty.
+Если же значение не изменялось с момента загрузки страницы, то к элементу ввода применяется класс ng-pristine
+
+Если значение в поле ввода корректно, то применяется класс ng-valid.
+Если же значение некорректно, то применяется класс ng-invalid
+-->
+
+<!--<app-common-header-user></app-common-header-user>-->
+<div id="common_header_user">
+  <table id="header_table">
+    <th style="text-align: left;">
+      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>
+      <!--      <h5 [routerLink]="['users']" class="error">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->
+    </th>
+    <th style="text-align: center;">
+      <h5 *ngIf="render.user">Oрганизация: {{render.user.organization.name}}</h5>
+    </th>
+    <th style="text-align: right;">
+      <!--            <span id="attention_in_header_table">-->
+      <!--                <c:if test="${user == null}">-->
+      <!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->
+      <!--                </c:if>-->
+      <!--                <c:if test="${user.organization.government}">-->
+      <!--                    Cотрудник органа власти-->
+      <!--                </c:if>-->
+      <!--            </span>-->
+      <div *ngIf="render.user" class="account-header-user_info">
+        <span id="attention_in_header_table" *ngIf="render.user.organization.government">Cотрудник органа власти</span>
+        <Br>
+        Текущий Пользователь: {{render.user.firstName}} {{render.user.lastName}}
+      </div>
+
+      <!--      <a class="href-nav-item"-->
+      <!--         href="/users">-->
+      <!--        -->
+      <!--      </a>-->
+      <a class="href-nav-item" [routerLink]="['/users']">Выйти</a>
+
+
+    </th>
+  </table>
+</div>
+
+<div id="content">
+  <div id="add_action" class="form-group">
+<!--    <form (ngSubmit)="addActionAply()"-->
+<!--          [formGroup]="addActionForm" >-->
+
+<!--      <input type="hidden" [value]="render.currentNotification.id"-->
+<!--             class="form-control" name="notificationId"-->
+<!--             [(ngModel)]="actionPortionDto.notificationId" #notificationId="ngModel" required >-->
+<!--    <div [hidden]="notificationId.valid" class="alert alert-danger">-->
+<!--      Error loading web-page !!!!-->
+<!--    </div>-->
+
+      <table class="table4input_data" style="width: auto">
+        <tr>
+          <th>Ответственный исполнитель заказчика:</th>
+          <td>
+            <select type="text" class="form-control" name="idUserImplementor"
+                    [(ngModel)]="actionPortionDto.idUserImplementor" #idUserImplementor="ngModel" required > <!--name="maxResult"-->
+              <option *ngFor="let tempUser of render.users"
+                      [value]="tempUser.id"
+                      [selected]="tempUser.id == render.user.id">
+                {{tempUser.firstName}} {{tempUser.lastName}}
+              </option>
+              <div [hidden]="idUserImplementor.valid || idUserImplementor.untouched" class="error alert alert-danger">
+                Некорректное поле
+              </div>
+            </select>
+<!--            <div [hidden]="name.valid || name.untouched" class="alert alert-danger">-->
+<!--              Не указано имя-->
+<!--            </div>-->
+          </td>
+        </tr>
+
+        <tr>
+          <th>Действие:</th>
+          <td>
+            <select type="text" class="form-control" name="idActionType"
+                    [(ngModel)]="actionPortionDto.idActionType" #idActionType="ngModel" required > <!--name="maxResult"-->
+              <option *ngFor="let tempActionType of render.listActionType"
+                      [value]="tempActionType.id">
+                {{tempActionType.name}}
+              </option>
+<!--              <%&#45;&#45;selected="${user.id.equals(tempUser.id)}&#45;&#45;%>-->
+              <div [hidden]="idActionType.valid || idActionType.untouched" class="error alert alert-danger">
+                Некорректное поле
+              </div>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Статус:</th>
+          <td>
+            <select type="text" class="form-control" name="idNotificationStatus"
+                    [(ngModel)]="actionPortionDto.idNotificationStatus" #idNotificationStatus="ngModel" required > <!--name="maxResult"-->
+              <option *ngFor="let tempStatus of render.listStatus"
+                      [value]="tempStatus.id">
+                {{tempStatus.name}}
+              </option>
+              <!--              <%&#45;&#45;selected="${user.id.equals(tempUser.id)}&#45;&#45;%>-->
+              <div [hidden]="idNotificationStatus.valid || idNotificationStatus.untouched" class="error alert alert-danger">
+                Некорректное поле
+              </div>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Комментарий:</th>
+          <td>
+            <textarea minlength="2" maxlength="300"
+                      rows="4" cols="50"
+                      class="form-control" name="content"
+                      [(ngModel)]="actionPortionDto.content" #content="ngModel" required ></textarea>
+            <div [hidden]="content.valid || content.untouched" class="error alert alert-danger">
+              Некорректное поле
+            </div>
+          </td>
+        </tr>
+
+      </table>
+
+      <Br>
+<!--      style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>-->
+      <button type="button"
+              [disabled]="idUserImplementor.invalid || idActionType.invalid || idNotificationStatus.invalid || content.invalid"
+              (click)="addActionAply()">
+      СОХРАНИТЬ
+      </button>
+
+      <!--      style="background-color: #4CAF50; color: white; display: inline-block;" <%--class="green_button"--%>-->
+      <button type="button" class="green_button"
+              [routerLink]="['..']">
+      ОТМЕНА
+      </button>
+<!--    </form>-->
+
+  </div>
+</div>

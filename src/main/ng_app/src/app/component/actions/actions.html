@@ -1,0 +1,124 @@
+<!--<app-common-header-user></app-common-header-user>-->
+<div id="common_header_user">
+  <table id="header_table">
+    <th style="text-align: left;">
+      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>
+      <!--      <h5 [routerLink]="['users']" class="error">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->
+    </th>
+    <th style="text-align: center;">
+      <h5 *ngIf="render.user" >Oрганизация: {{render.user.organization.name}} </h5>
+    </th>
+    <th style="text-align: right;">
+      <!--            <span id="attention_in_header_table">-->
+      <!--                <c:if test="${user == null}">-->
+      <!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->
+      <!--                </c:if>-->
+      <!--                <c:if test="${user.organization.government}">-->
+      <!--                    Cотрудник органа власти-->
+      <!--                </c:if>-->
+      <!--            </span>-->
+      <div *ngIf="render.user" class="account-header-user_info">
+        <span id="attention_in_header_table" *ngIf="render.user.organization.government">Cотрудник органа власти</span>
+        <Br>
+        Текущий Пользователь: {{render.user.firstName}} {{render.user.lastName}}
+      </div>
+
+      <!--      <a class="href-nav-item"-->
+      <!--         href="/users">-->
+      <!--        -->
+      <!--      </a>-->
+      <a class="href-nav-item" [routerLink]="['/users']">Выйти</a>
+
+
+    </th>
+  </table>
+</div>
+
+<div id="content">
+  <br>
+  button = controlled_visibility
+  <br>
+  LEFT INFA ABOUT NOTIFICATION
+  <br>
+
+<!--  <button type="button" [routerLink]="['notifications/', render.currentNotification.id, 'add_action']">ADD ACTIONS</button>-->
+  <button type="button" class="green_button" [routerLink]="['add_action']">ADD ACTIONS</button>
+  <br>
+
+  <div id="pagination">
+    <table>
+      <td style="text-align: left">
+        Найдено записей: {{render.pageImpl.totalElements}}
+      </td>
+      <td style="text-align: center">
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      </td>
+      <td style="text-align: right">
+        <div id="selectMaxResult">
+          Показывать по :
+          <form (ngSubmit)="maxResultAply()"
+                [formGroup]="maxResultForm" >
+
+            <select type="text" formControlName="maxResult" (change)="maxResultAply()"> <!--name="maxResult"-->
+              <option *ngFor="let maxResult of render.selectShowListMaxResult" [value]="maxResult"
+                      [selected]="maxResult==render.state.paginationForm.maxResult">
+                {{maxResult}}
+              </option>
+            </select>
+          </form>
+          <!--                  <select type="text" name="maxResult"-->
+          <!--                          onchange="-->
+          <!--                // document.getElementById('flagNeedSetFirstPage').setAttribute('value', 'true');-->
+          <!--                this.form.submit()"-->
+          <!--                  ><%&#45;&#45;multiple="true"&#45;&#45;%>-->
+          <!--                    <c:forEach items="${selectShowListMaxResult}" var="tempMaxResult">-->
+          <!--                      <c:choose>-->
+          <!--                        <c:when test="${tempMaxResult.equals(render.getPageImpl().getPageable().getPageSize())}">-->
+          <!--                          <option selected-->
+          <!--                                  value ="${tempMaxResult}">${tempMaxResult}</option>-->
+          <!--                        </c:when>-->
+          <!--                        <c:otherwise>-->
+          <!--                          <option value ="${tempMaxResult}">${tempMaxResult}</option>-->
+          <!--                        </c:otherwise>-->
+          <!--                      </c:choose>-->
+          <!--                    </c:forEach>-->
+          <!--                  </select>-->
+        </div>
+      </td>
+    </table>
+  </div>
+
+  <div id="list_actions">
+    <table>
+      <tr>
+        <th>(Mock)
+          <Br><input type="checkbox">
+        </th>
+        <th>№</th>
+        <th>Тип действия</th>
+        <th>Содержание</th>
+        <th>Дата действия</th>
+        <th>Исполнитель</th>
+        <th>Подразделение</th>
+        <th>Статус после изменения</th>
+      </tr>
+
+      <tr *ngFor = "let action of render.pageImpl.content | paginate: {
+      itemsPerPage: render.state.paginationForm.maxResult,
+      currentPage: render.state.paginationForm.page + 1,
+      totalItems : render.pageImpl.totalElements }; let i= index;"
+      >
+        <td><input type="checkbox"></td>
+        <td>{{(i+1) + render.state.paginationForm.page * render.state.paginationForm.maxResult}}</td>
+        <td>{{action.actionType.name}}</td>
+        <td>{{action.content}}</td>
+        <td>{{action.date | date :"yyyy-MM-dd"}}</td>
+        <td>{{action.userByIdImplementor.lastName}}</td><!--.name-->
+        <td>{{action.userByIdImplementor.organization.name}}</td>
+<!--        //    todo REPLACY (вдруг этот чувак уже поменял работу)-->
+        <td>{{action.statusAfterProcessing.name}}</td>
+      </tr>
+    </table>
+  </div>
+
+</div>

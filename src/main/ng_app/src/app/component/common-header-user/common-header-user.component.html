@@ -1,0 +1,34 @@
+<div id="common_header_user">
+  <table id="header_table">
+    <th style="text-align: left;">
+      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>
+<!--      <h5 [routerLink]="['users']" class="error">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->
+    </th>
+    <th style="text-align: center;">
+      <h5 *ngIf="user" >Oрганизация: {{user.organization.name}} </h5>
+    </th>
+    <th style="text-align: right;">
+<!--            <span id="attention_in_header_table">-->
+<!--                <c:if test="${user == null}">-->
+<!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->
+<!--                </c:if>-->
+<!--                <c:if test="${user.organization.government}">-->
+<!--                    Cотрудник органа власти-->
+<!--                </c:if>-->
+<!--            </span>-->
+      <div *ngIf="user" class="account-header-user_info">
+        <span id="attention_in_header_table" ng-disabled="user.organization.government">Cотрудник органа власти</span>
+        <Br>
+        Текущий Пользователь: {{user.firstName}} {{user.lastName}}
+      </div>
+
+<!--      <a class="href-nav-item"-->
+<!--         href="/users">-->
+<!--        -->
+<!--      </a>-->
+      <a class="href-nav-item" [routerLink]="['/users']">Выйти</a>
+
+
+    </th>
+  </table>
+</div>

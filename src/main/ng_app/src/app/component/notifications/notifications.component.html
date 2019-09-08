@@ -1,0 +1,218 @@
+<!--<app-common-header-user></app-common-header-user>-->
+<div id="common_header_user">
+  <table id="header_table">
+    <th style="text-align: left;">
+      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>
+      <!--      <h5 [routerLink]="['users']" class="error">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->
+    </th>
+    <th style="text-align: center;">
+      <h5 *ngIf="render.user" >Oрганизация: {{render.user.organization.name}} </h5>
+    </th>
+    <th style="text-align: right;">
+      <!--            <span id="attention_in_header_table">-->
+      <!--                <c:if test="${user == null}">-->
+      <!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->
+      <!--                </c:if>-->
+      <!--                <c:if test="${user.organization.government}">-->
+      <!--                    Cотрудник органа власти-->
+      <!--                </c:if>-->
+      <!--            </span>-->
+      <div *ngIf="render.user" class="account-header-user_info">
+        <span id="attention_in_header_table" *ngIf="render.user.organization.government">Cотрудник органа власти</span>
+        <Br>
+        Текущий Пользователь: {{render.user.firstName}} {{render.user.lastName}}
+      </div>
+
+      <!--      <a class="href-nav-item"-->
+      <!--         href="/users">-->
+      <!--        -->
+      <!--      </a>-->
+      <a class="href-nav-item" [routerLink]="['/users']">Выйти</a>
+
+
+    </th>
+  </table>
+</div>
+
+<div id="content">
+
+  <form (ngSubmit)="filterAply()"
+        [formGroup]="filtersForm" >
+    <!--  action="http://localhost:8081/lkz_project_war_exploded/angular/filters"  method="post"-->
+    <div id="filters">
+      Фильтры:<Br>
+      <table>
+        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[0].id)}}-->
+        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[1].id)}}-->
+        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[2].id)}}-->
+        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[3].id)}}-->
+
+        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[0].id)}}-->
+        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[1].id)}}-->
+        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[2].id)}}-->
+        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[3].id)}}-->
+
+        <td class="filterColumn" style="text-align: left; width: 30%;">
+          <!--        statuses4selectFilter-->
+          <!--        <div *ngFor = "let tempStatus of render.statuses4selectFilter">-->
+          <!--          {{tempStatus.name}}-->
+          <!--        <input-->
+          <!--                    class= "checkboxStatuses4select"-->
+          <!--                    type="checkbox"-->
+          <!--                    formControlName ="render.statuses4selectFilter[0].id"-->
+          <!--                    >-->
+          <!--        </div>-->
+
+          <!--          <div>-->
+          {{render.statuses4selectFilter[0].name}}
+          <input
+            [checked]="render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[0].id)"
+            class= "checkboxStatuses4select"
+            type="checkbox"
+            formControlName ="_0" value="true"
+            (change)="filterAply()"
+          >
+          <br>
+          <!--          </div>-->
+          <!--          <div>-->
+          {{render.statuses4selectFilter[1].name}}
+          <input
+            [checked]="render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[1].id)"
+            class= "checkboxStatuses4select"
+            type="checkbox"
+            formControlName ="_1" value="true"
+            (change)="filterAply()"
+          >
+          <br>
+          <!--          </div>-->
+          <!--          <div>-->
+          {{render.statuses4selectFilter[2].name}}
+          <input
+            [checked]="render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[2].id)"
+            class= "checkboxStatuses4select"
+            type="checkbox"
+            formControlName ="_2" value="true"
+            (change)="filterAply()"
+          >
+          <br>
+          <!--          </div>-->
+          <!--          <div>-->
+          {{render.statuses4selectFilter[3].name}}
+          <input
+            [checked]="render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[3].id)"
+            class= "checkboxStatuses4select"
+            type="checkbox"
+            formControlName ="_3" value="true"
+            (change)="filterAply()"
+          >
+        </td>
+        <td>
+          <!--        Показывать архивные уведомления = {{render.state.filterForm.showArchive}}-->
+          Показывать архивные уведомления:
+          <br>
+          <input
+            class= "checkboxshowArchive"
+            type="checkbox"
+            formControlName="showArchive"
+            [checked]="render.state.filterForm.showArchive"
+            (change)="filterAply()"
+          >
+          <!--                onchange="-->
+          <!--                // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);-->
+          <!--                this.form.submit()"-->
+
+          <!--        Показывать архивные уведомления
+                      formControlName="showArchive"
+                              name="showArchive" value="true"
+                              (click)="filterAply()"
+
+          -->
+          <!--        </input>-->
+        </td>
+        <td>
+          <input type="checkbox">(Mock)Быстрый фильтр<Br>
+        </td>
+        <td>
+          (Mock)Кнопка «Показать дополнительные фильтры»
+        </td>
+      </table>
+    </div>
+    <!--  <button class="account-filter-form-button-submit" id="apply_filters"-->
+    <!--          type="submit" value="Применить фильтр">ПРИМЕНИТЬ ФИЛЬТР-->
+    <!--  </button>-->
+  </form>
+
+  <div id="sort">
+    <!--          Сортировка по:-->
+    <!--          <select class="account-filter-form-sorting-select" id="select1" formControlName="sortParameter">-->
+    <!--            <option *ngFor="let sortParameter of sortParameters" [value]="sortParameter">{{sortParameter | sortParameterPipe}}</option>-->
+    <!--          </select>-->
+  </div>
+
+  <div id="pagination">
+    <table>
+      <td style="text-align: left">
+        Найдено записей: {{render.pageImpl.totalElements}}
+      </td>
+      <td style="text-align: center">
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      </td>
+      <td style="text-align: right">
+        <div id="selectMaxResult">
+          Показывать по :
+          <form (ngSubmit)="maxResultAply()"
+                [formGroup]="maxResultForm" >
+
+            <select type="text" formControlName="maxResult" (change)="maxResultAply()"> <!--name="maxResult"-->
+              <option *ngFor="let maxResult of render.selectShowListMaxResult" [value]="maxResult"
+                      [selected]="maxResult==render.state.paginationForm.maxResult">
+                {{maxResult}}
+              </option>
+            </select>
+          </form>
+        </div>
+      </td>
+    </table>
+  </div>
+
+
+  <div id="list_notifications">
+    <table>
+      <tr>
+        <th>(Mock)
+          <Br><input type="checkbox">
+        </th>
+        <th>№</th>
+        <th>Вид уведомления</th>
+        <th>Заказчик</th>
+        <th>Срок предоставления ответа</th>
+        <th>Статус обработки уведомления</th>
+        <th>Номер уведомления</th>
+        <th>Дата получения уведомления</th>
+        <th>Номер письма</th>
+      </tr>
+
+      <tr *ngFor = "let notification of render.pageImpl.content | paginate: {
+      itemsPerPage: render.state.paginationForm.maxResult,
+      currentPage: render.state.paginationForm.page + 1,
+      totalItems : render.pageImpl.totalElements }; let i= index;"
+
+          class="hoverElements"
+          (click)="open(notification)"
+      >
+        <!--        [routerLink]="['notifications', notification.id]"-->
+
+        <td><input type="checkbox"></td>
+        <td>{{(i+1) + render.state.paginationForm.page * render.state.paginationForm.maxResult}}</td>
+        <td>{{notification.notificationType}}</td>
+        <td>{{notification.organization.name}}</td>
+        <td>{{notification.dateResponse | date :"yyyy-MM-dd"}}</td>
+        <td>{{notification.status.name}}</td><!--.name-->
+        <td>{{notification.id}}</td>
+        <td>{{notification.dateReceived | date :"yyyy-MM-dd"}}</td>
+        <td>{{notification.letterNumber}}</td>
+      </tr>
+    </table>
+  </div>
+
+</div>>

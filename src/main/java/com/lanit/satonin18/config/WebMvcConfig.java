@@ -6,11 +6,7 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -50,13 +46,13 @@ public class WebMvcConfig
         return resolver;
     }
 
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry
-                .jsp()
-                .prefix("/WEB-INF/templates/")
-                .suffix(".jsp");
-    }
+//    @Override
+//    public void configureViewResolvers(ViewResolverRegistry registry) {
+//        registry
+//                .jsp()
+//                .prefix("/WEB-INF/views/")
+//                .suffix(".jsp");
+//    }
 
 //    @Override
 //    public void addViewControllers(ViewControllerRegistry registry) {
@@ -64,4 +60,9 @@ public class WebMvcConfig
 //                .addViewController("/login")
 //                .setViewName("inputForm");
 //    }
+
+    @Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
 }

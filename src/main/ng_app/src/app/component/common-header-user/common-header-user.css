@@ -1,0 +1,71 @@
+div{
+  margin: 9px 8px;
+}
+
+TABLE {
+  border-collapse: collapse; /* Убираем двойные линии между ячейками */
+  width: 100%;/*  width: 300px; Ширина таблицы */
+}
+TH, TD {
+  border: 1px solid black; /* Параметры рамки */
+  text-align: center; /* Выравнивание по центру */
+  padding: 1px; /* Поля вокруг текста */
+}
+TH {
+  background: #fc0; /* Цвет фона ячейки */
+  height: 40px; /* Высота ячеек */
+  /*vertical-align: bottom;  Выравнивание по нижнему краю */
+  padding: 0; /* Убираем поля вокруг текста */
+}
+#header_table th{
+  background: #ffccff;
+}
+#attention_in_header_table{
+  color: blue;
+}
+
+.href-nav-item {
+  background:#eaeaea; /*фон*/
+
+  border:1px solid #ccc;  /*рамка*/
+  padding: .2em .2em; /*отступы внутри*/
+  text-decoration: none; /*убрать подчеркивание ссылки*/
+}
+.href-nav-item-current {
+  background:#ff0000; /*фон*/
+  color: white;
+
+  border:1px solid #ccc;  /*рамка*/
+  padding: .2em .2em; /*отступы внутри*/
+  text-decoration: none; /*убрать подчеркивание ссылки*/
+}
+
+.green_button{
+  background-color: #4CAF50;
+  color: white;
+  display: inline-block;
+}
+
+.hidden_input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+span.radioDecorator > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+span.radioDecorator > input + button{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+}
+span.radioDecorator > input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */
+  border:2px solid #f00;
+}
+
+.error {
+  color: red;
+}
+.success {
+  color: green;
+}
+

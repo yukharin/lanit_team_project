@@ -1,0 +1,1300 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
+
+/***/ "./$$_lazy_route_resource lazy recursive":
+/*!******************************************************!*\
+  !*** ./$$_lazy_route_resource lazy namespace object ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncaught exception popping up in devtools
+	return Promise.resolve().then(function() {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/actions/actions.html":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/component/actions/actions.html ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<!--<app-common-header-user></app-common-header-user>-->\n<div id=\"common_header_user\">\n  <table id=\"header_table\">\n    <th style=\"text-align: left;\">\n      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>\n      <!--      <h5 [routerLink]=\"['users']\" class=\"error\">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->\n    </th>\n    <th style=\"text-align: center;\">\n      <h5 *ngIf=\"render.user\" >Oрганизация: {{render.user.organization.name}} </h5>\n    </th>\n    <th style=\"text-align: right;\">\n      <!--            <span id=\"attention_in_header_table\">-->\n      <!--                <c:if test=\"${user == null}\">-->\n      <!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->\n      <!--                </c:if>-->\n      <!--                <c:if test=\"${user.organization.government}\">-->\n      <!--                    Cотрудник органа власти-->\n      <!--                </c:if>-->\n      <!--            </span>-->\n      <div *ngIf=\"render.user\" class=\"account-header-user_info\">\n        <span id=\"attention_in_header_table\" *ngIf=\"render.user.organization.government\">Cотрудник органа власти</span>\n        <Br>\n        Текущий Пользователь: {{render.user.firstName}} {{render.user.lastName}}\n      </div>\n\n      <!--      <a class=\"href-nav-item\"-->\n      <!--         href=\"/users\">-->\n      <!--        -->\n      <!--      </a>-->\n      <a class=\"href-nav-item\" [routerLink]=\"['/users']\">Выйти</a>\n\n\n    </th>\n  </table>\n</div>\n\n<div id=\"content\">\n  <br>\n  button = controlled_visibility\n  <br>\n  LEFT INFA ABOUT NOTIFICATION\n  <br>\n\n<!--  <button type=\"button\" [routerLink]=\"['notifications/', render.currentNotification.id, 'add_action']\">ADD ACTIONS</button>-->\n  <button type=\"button\" class=\"green_button\" [routerLink]=\"['add_action']\">ADD ACTIONS</button>\n  <br>\n\n  <div id=\"pagination\">\n    <table>\n      <td style=\"text-align: left\">\n        Найдено записей: {{render.pageImpl.totalElements}}\n      </td>\n      <td style=\"text-align: center\">\n        <pagination-controls (pageChange)=\"pageChanged($event)\"></pagination-controls>\n      </td>\n      <td style=\"text-align: right\">\n        <div id=\"selectMaxResult\">\n          Показывать по :\n          <form (ngSubmit)=\"maxResultAply()\"\n                [formGroup]=\"maxResultForm\" >\n\n            <select type=\"text\" formControlName=\"maxResult\" (change)=\"maxResultAply()\"> <!--name=\"maxResult\"-->\n              <option *ngFor=\"let maxResult of render.selectShowListMaxResult\" [value]=\"maxResult\"\n                      [selected]=\"maxResult==render.state.paginationForm.maxResult\">\n                {{maxResult}}\n              </option>\n            </select>\n          </form>\n          <!--                  <select type=\"text\" name=\"maxResult\"-->\n          <!--                          onchange=\"-->\n          <!--                // document.getElementById('flagNeedSetFirstPage').setAttribute('value', 'true');-->\n          <!--                this.form.submit()\"-->\n          <!--                  ><%&#45;&#45;multiple=\"true\"&#45;&#45;%>-->\n          <!--                    <c:forEach items=\"${selectShowListMaxResult}\" var=\"tempMaxResult\">-->\n          <!--                      <c:choose>-->\n          <!--                        <c:when test=\"${tempMaxResult.equals(render.getPageImpl().getPageable().getPageSize())}\">-->\n          <!--                          <option selected-->\n          <!--                                  value =\"${tempMaxResult}\">${tempMaxResult}</option>-->\n          <!--                        </c:when>-->\n          <!--                        <c:otherwise>-->\n          <!--                          <option value =\"${tempMaxResult}\">${tempMaxResult}</option>-->\n          <!--                        </c:otherwise>-->\n          <!--                      </c:choose>-->\n          <!--                    </c:forEach>-->\n          <!--                  </select>-->\n        </div>\n      </td>\n    </table>\n  </div>\n\n  <div id=\"list_actions\">\n    <table>\n      <tr>\n        <th>(Mock)\n          <Br><input type=\"checkbox\">\n        </th>\n        <th>№</th>\n        <th>Тип действия</th>\n        <th>Содержание</th>\n        <th>Дата действия</th>\n        <th>Исполнитель</th>\n        <th>Подразделение</th>\n        <th>Статус после изменения</th>\n      </tr>\n\n      <tr *ngFor = \"let action of render.pageImpl.content | paginate: {\n      itemsPerPage: render.state.paginationForm.maxResult,\n      currentPage: render.state.paginationForm.page + 1,\n      totalItems : render.pageImpl.totalElements }; let i= index;\"\n      >\n        <td><input type=\"checkbox\"></td>\n        <td>{{(i+1) + render.state.paginationForm.page * render.state.paginationForm.maxResult}}</td>\n        <td>{{action.actionType.name}}</td>\n        <td>{{action.content}}</td>\n        <td>{{action.date | date :\"yyyy-MM-dd\"}}</td>\n        <td>{{action.userByIdImplementor.lastName}}</td><!--.name-->\n        <td>{{action.userByIdImplementor.organization.name}}</td>\n<!--        //    todo REPLACY (вдруг этот чувак уже поменял работу)-->\n        <td>{{action.statusAfterProcessing.name}}</td>\n      </tr>\n    </table>\n  </div>\n\n</div>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/add-action/add-action.html":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/component/add-action/add-action.html ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- Angular классы CSS:\r\nЕсли элемент ввода еще не получал фокус, то устанавливается класс ng-untouched.\r\nЕсли же поле ввода уже получало фокус, то к нему применяется класс ng-touched.\r\n\r\nЕсли первоначальное значение в поле ввода было изменено, то устанавливается класс ng-dirty.\r\nЕсли же значение не изменялось с момента загрузки страницы, то к элементу ввода применяется класс ng-pristine\r\n\r\nЕсли значение в поле ввода корректно, то применяется класс ng-valid.\r\nЕсли же значение некорректно, то применяется класс ng-invalid\r\n-->\r\n\r\n<!--<app-common-header-user></app-common-header-user>-->\r\n<div id=\"common_header_user\">\r\n  <table id=\"header_table\">\r\n    <th style=\"text-align: left;\">\r\n      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>\r\n      <!--      <h5 [routerLink]=\"['users']\" class=\"error\">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->\r\n    </th>\r\n    <th style=\"text-align: center;\">\r\n      <h5 *ngIf=\"render.user\">Oрганизация: {{render.user.organization.name}}</h5>\r\n    </th>\r\n    <th style=\"text-align: right;\">\r\n      <!--            <span id=\"attention_in_header_table\">-->\r\n      <!--                <c:if test=\"${user == null}\">-->\r\n      <!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->\r\n      <!--                </c:if>-->\r\n      <!--                <c:if test=\"${user.organization.government}\">-->\r\n      <!--                    Cотрудник органа власти-->\r\n      <!--                </c:if>-->\r\n      <!--            </span>-->\r\n      <div *ngIf=\"render.user\" class=\"account-header-user_info\">\r\n        <span id=\"attention_in_header_table\" *ngIf=\"render.user.organization.government\">Cотрудник органа власти</span>\r\n        <Br>\r\n        Текущий Пользователь: {{render.user.firstName}} {{render.user.lastName}}\r\n      </div>\r\n\r\n      <!--      <a class=\"href-nav-item\"-->\r\n      <!--         href=\"/users\">-->\r\n      <!--        -->\r\n      <!--      </a>-->\r\n      <a class=\"href-nav-item\" [routerLink]=\"['/users']\">Выйти</a>\r\n\r\n\r\n    </th>\r\n  </table>\r\n</div>\r\n\r\n<div id=\"content\">\r\n  <div id=\"add_action\" class=\"form-group\">\r\n<!--    <form (ngSubmit)=\"addActionAply()\"-->\r\n<!--          [formGroup]=\"addActionForm\" >-->\r\n\r\n<!--      <input type=\"hidden\" [value]=\"render.currentNotification.id\"-->\r\n<!--             class=\"form-control\" name=\"notificationId\"-->\r\n<!--             [(ngModel)]=\"actionPortionDto.notificationId\" #notificationId=\"ngModel\" required >-->\r\n<!--    <div [hidden]=\"notificationId.valid\" class=\"alert alert-danger\">-->\r\n<!--      Error loading web-page !!!!-->\r\n<!--    </div>-->\r\n\r\n      <table class=\"table4input_data\" style=\"width: auto\">\r\n        <tr>\r\n          <th>Ответственный исполнитель заказчика:</th>\r\n          <td>\r\n            <select type=\"text\" class=\"form-control\" name=\"idUserImplementor\"\r\n                    [(ngModel)]=\"actionPortionDto.idUserImplementor\" #idUserImplementor=\"ngModel\" required > <!--name=\"maxResult\"-->\r\n              <option *ngFor=\"let tempUser of render.users\"\r\n                      [value]=\"tempUser.id\"\r\n                      [selected]=\"tempUser.id == render.user.id\">\r\n                {{tempUser.firstName}} {{tempUser.lastName}}\r\n              </option>\r\n              <div [hidden]=\"idUserImplementor.valid || idUserImplementor.untouched\" class=\"error alert alert-danger\">\r\n                Некорректное поле\r\n              </div>\r\n            </select>\r\n<!--            <div [hidden]=\"name.valid || name.untouched\" class=\"alert alert-danger\">-->\r\n<!--              Не указано имя-->\r\n<!--            </div>-->\r\n          </td>\r\n        </tr>\r\n\r\n        <tr>\r\n          <th>Действие:</th>\r\n          <td>\r\n            <select type=\"text\" class=\"form-control\" name=\"idActionType\"\r\n                    [(ngModel)]=\"actionPortionDto.idActionType\" #idActionType=\"ngModel\" required > <!--name=\"maxResult\"-->\r\n              <option *ngFor=\"let tempActionType of render.listActionType\"\r\n                      [value]=\"tempActionType.id\">\r\n                {{tempActionType.name}}\r\n              </option>\r\n<!--              <%&#45;&#45;selected=\"${user.id.equals(tempUser.id)}&#45;&#45;%>-->\r\n              <div [hidden]=\"idActionType.valid || idActionType.untouched\" class=\"error alert alert-danger\">\r\n                Некорректное поле\r\n              </div>\r\n            </select>\r\n          </td>\r\n        </tr>\r\n\r\n        <tr>\r\n          <th>Статус:</th>\r\n          <td>\r\n            <select type=\"text\" class=\"form-control\" name=\"idNotificationStatus\"\r\n                    [(ngModel)]=\"actionPortionDto.idNotificationStatus\" #idNotificationStatus=\"ngModel\" required > <!--name=\"maxResult\"-->\r\n              <option *ngFor=\"let tempStatus of render.listStatus\"\r\n                      [value]=\"tempStatus.id\">\r\n                {{tempStatus.name}}\r\n              </option>\r\n              <!--              <%&#45;&#45;selected=\"${user.id.equals(tempUser.id)}&#45;&#45;%>-->\r\n              <div [hidden]=\"idNotificationStatus.valid || idNotificationStatus.untouched\" class=\"error alert alert-danger\">\r\n                Некорректное поле\r\n              </div>\r\n            </select>\r\n          </td>\r\n        </tr>\r\n\r\n        <tr>\r\n          <th>Комментарий:</th>\r\n          <td>\r\n            <textarea minlength=\"2\" maxlength=\"300\"\r\n                      rows=\"4\" cols=\"50\"\r\n                      class=\"form-control\" name=\"content\"\r\n                      [(ngModel)]=\"actionPortionDto.content\" #content=\"ngModel\" required ></textarea>\r\n            <div [hidden]=\"content.valid || content.untouched\" class=\"error alert alert-danger\">\r\n              Некорректное поле\r\n            </div>\r\n          </td>\r\n        </tr>\r\n\r\n      </table>\r\n\r\n      <Br>\r\n<!--      style=\"background-color: #4CAF50; color: white; display: inline-block;\" <%--class=\"green_button\"--%>-->\r\n      <button type=\"button\"\r\n              [disabled]=\"idUserImplementor.invalid || idActionType.invalid || idNotificationStatus.invalid || content.invalid\"\r\n              (click)=\"addActionAply()\">\r\n      СОХРАНИТЬ\r\n      </button>\r\n\r\n      <!--      style=\"background-color: #4CAF50; color: white; display: inline-block;\" <%--class=\"green_button\"--%>-->\r\n      <button type=\"button\" class=\"green_button\"\r\n              [routerLink]=\"['..']\">\r\n      ОТМЕНА\r\n      </button>\r\n<!--    </form>-->\r\n\r\n  </div>\r\n</div>\r\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/app.component.html":
+/*!************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/component/app.component.html ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<!--<app-common-header-user></app-common-header-user>-->\r\n<!--[user]=\"userFromParent\"-->\r\n<!--  [(user)]=\"userFromParent\"-->\r\n\r\n<router-outlet></router-outlet>\r\n<!--  (onChangedUser)=\"onChangeUserFromParent($event)\"-->\r\ntm@ \"OOOcompany\"\r\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/common-header-user/common-header-user.component.html":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/component/common-header-user/common-header-user.component.html ***!
+  \**********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"common_header_user\">\n  <table id=\"header_table\">\n    <th style=\"text-align: left;\">\n      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>\n<!--      <h5 [routerLink]=\"['users']\" class=\"error\">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->\n    </th>\n    <th style=\"text-align: center;\">\n      <h5 *ngIf=\"user\" >Oрганизация: {{user.organization.name}} </h5>\n    </th>\n    <th style=\"text-align: right;\">\n<!--            <span id=\"attention_in_header_table\">-->\n<!--                <c:if test=\"${user == null}\">-->\n<!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->\n<!--                </c:if>-->\n<!--                <c:if test=\"${user.organization.government}\">-->\n<!--                    Cотрудник органа власти-->\n<!--                </c:if>-->\n<!--            </span>-->\n      <div *ngIf=\"user\" class=\"account-header-user_info\">\n        <span id=\"attention_in_header_table\" ng-disabled=\"user.organization.government\">Cотрудник органа власти</span>\n        <Br>\n        Текущий Пользователь: {{user.firstName}} {{user.lastName}}\n      </div>\n\n<!--      <a class=\"href-nav-item\"-->\n<!--         href=\"/users\">-->\n<!--        -->\n<!--      </a>-->\n      <a class=\"href-nav-item\" [routerLink]=\"['/users']\">Выйти</a>\n\n\n    </th>\n  </table>\n</div>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/list-users/list-users.component.html":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/component/list-users/list-users.component.html ***!
+  \******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<!--<p>Tests</p>-->\r\n<!--<table>-->\r\n<!--  <tr *ngFor = \"let testUser of testUsers\">-->\r\n<!--    <td>-->\r\n<!--    Имя пользователя: {{testUser?.name}}-->\r\n<!--      <br>-->\r\n<!--    Возраст пользователя: {{testUser?.age}}-->\r\n<!--    </td>-->\r\n<!--  </tr>-->\r\n<!--</table>-->\r\n\r\n\r\n<p>Users</p>\r\n<table>\r\n  <tr *ngFor = \"let user of users\" class=\"hoverElements\">\r\n    <td (click)=\"input(user)\">\r\n<!--      <a href=\"/notification?userId={{user?.id}}\">войти</a>-->\r\n<!--      <a class=\"href-nav-item\" [routerLink]=\"['/notifications']\">Войти</a>-->\r\n<!--      <a class=\"href-nav-item\" [routerLink]=\"['/notifications?userId=', user?.id]\">Войти</a>-->\r\n\r\n<!--      <a class=\"href-nav-item\" [routerLink]=\"['/notifications', user?.id]\">Войти</a>-->\r\n<!--      <a class=\"href-nav-item\" [routerLink]=\"['/notifications', user?.id]\">Войти</a>-->\r\n      <!--(click)=\"selectUser(user?.id)\"-->\r\n\r\n\r\n<!--      <br>-->\r\n<!--      ID пользователя: {{user?.id}}-->\r\n<!--      <br>-->\r\n<!--      firstName пользователя:-->\r\n      {{user?.firstName}}\r\n<!--      <br>-->\r\n<!--      lastName пользователя:-->\r\n      {{user?.lastName}}\r\n      <br>\r\n<!--      organization.id = {{user.organization.id}}-->\r\n<!--      <br>-->\r\n      organization\r\n<!--      .name =-->\r\n      {{user.organization.name}}\r\n<!--      <br>-->\r\n      <span *ngIf=\"user.organization.government\">\r\n         (organization is government)\r\n      </span>\r\n      <br>\r\n    </td>\r\n  </tr>\r\n</table>\r\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/notifications/notifications.component.html":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/component/notifications/notifications.component.html ***!
+  \************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<!--<app-common-header-user></app-common-header-user>-->\n<div id=\"common_header_user\">\n  <table id=\"header_table\">\n    <th style=\"text-align: left;\">\n      <h5>ЛИЧНЫЙ КАБИНЕТ ЗАКАЗЧИКА</h5>\n      <!--      <h5 [routerLink]=\"['users']\" class=\"error\">(ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)</h5>-->\n    </th>\n    <th style=\"text-align: center;\">\n      <h5 *ngIf=\"render.user\" >Oрганизация: {{render.user.organization.name}} </h5>\n    </th>\n    <th style=\"text-align: right;\">\n      <!--            <span id=\"attention_in_header_table\">-->\n      <!--                <c:if test=\"${user == null}\">-->\n      <!--                    (ОБЯЗАТЕЛЬНО ВЫБЕРИТЕ ПОЛЬЗОВАТЕЛЯ !!!)-->\n      <!--                </c:if>-->\n      <!--                <c:if test=\"${user.organization.government}\">-->\n      <!--                    Cотрудник органа власти-->\n      <!--                </c:if>-->\n      <!--            </span>-->\n      <div *ngIf=\"render.user\" class=\"account-header-user_info\">\n        <span id=\"attention_in_header_table\" *ngIf=\"render.user.organization.government\">Cотрудник органа власти</span>\n        <Br>\n        Текущий Пользователь: {{render.user.firstName}} {{render.user.lastName}}\n      </div>\n\n      <!--      <a class=\"href-nav-item\"-->\n      <!--         href=\"/users\">-->\n      <!--        -->\n      <!--      </a>-->\n      <a class=\"href-nav-item\" [routerLink]=\"['/users']\">Выйти</a>\n\n\n    </th>\n  </table>\n</div>\n\n<div id=\"content\">\n\n  <form (ngSubmit)=\"filterAply()\"\n        [formGroup]=\"filtersForm\" >\n    <!--  action=\"http://localhost:8081/lkz_project_war_exploded/angular/filters\"  method=\"post\"-->\n    <div id=\"filters\">\n      Фильтры:<Br>\n      <table>\n        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[0].id)}}-->\n        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[1].id)}}-->\n        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[2].id)}}-->\n        <!--      {{render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[3].id)}}-->\n\n        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[0].id)}}-->\n        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[1].id)}}-->\n        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[2].id)}}-->\n        <!--      {{render.newCheckedMainListNotificStatusesId.indexOf(render.statuses4selectFilter[3].id)}}-->\n\n        <td class=\"filterColumn\" style=\"text-align: left; width: 30%;\">\n          <!--        statuses4selectFilter-->\n          <!--        <div *ngFor = \"let tempStatus of render.statuses4selectFilter\">-->\n          <!--          {{tempStatus.name}}-->\n          <!--        <input-->\n          <!--                    class= \"checkboxStatuses4select\"-->\n          <!--                    type=\"checkbox\"-->\n          <!--                    formControlName =\"render.statuses4selectFilter[0].id\"-->\n          <!--                    >-->\n          <!--        </div>-->\n\n          <!--          <div>-->\n          {{render.statuses4selectFilter[0].name}}\n          <input\n            [checked]=\"render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[0].id)\"\n            class= \"checkboxStatuses4select\"\n            type=\"checkbox\"\n            formControlName =\"_0\" value=\"true\"\n            (change)=\"filterAply()\"\n          >\n          <br>\n          <!--          </div>-->\n          <!--          <div>-->\n          {{render.statuses4selectFilter[1].name}}\n          <input\n            [checked]=\"render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[1].id)\"\n            class= \"checkboxStatuses4select\"\n            type=\"checkbox\"\n            formControlName =\"_1\" value=\"true\"\n            (change)=\"filterAply()\"\n          >\n          <br>\n          <!--          </div>-->\n          <!--          <div>-->\n          {{render.statuses4selectFilter[2].name}}\n          <input\n            [checked]=\"render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[2].id)\"\n            class= \"checkboxStatuses4select\"\n            type=\"checkbox\"\n            formControlName =\"_2\" value=\"true\"\n            (change)=\"filterAply()\"\n          >\n          <br>\n          <!--          </div>-->\n          <!--          <div>-->\n          {{render.statuses4selectFilter[3].name}}\n          <input\n            [checked]=\"render.newCheckedMainListNotificStatusesId.includes(render.statuses4selectFilter[3].id)\"\n            class= \"checkboxStatuses4select\"\n            type=\"checkbox\"\n            formControlName =\"_3\" value=\"true\"\n            (change)=\"filterAply()\"\n          >\n        </td>\n        <td>\n          <!--        Показывать архивные уведомления = {{render.state.filterForm.showArchive}}-->\n          Показывать архивные уведомления:\n          <br>\n          <input\n            class= \"checkboxshowArchive\"\n            type=\"checkbox\"\n            formControlName=\"showArchive\"\n            [checked]=\"render.state.filterForm.showArchive\"\n            (change)=\"filterAply()\"\n          >\n          <!--                onchange=\"-->\n          <!--                // document.getElementById('flagNeedSetFirstPage').setAttribute('value', true);-->\n          <!--                this.form.submit()\"-->\n\n          <!--        Показывать архивные уведомления\n                      formControlName=\"showArchive\"\n                              name=\"showArchive\" value=\"true\"\n                              (click)=\"filterAply()\"\n\n          -->\n          <!--        </input>-->\n        </td>\n        <td>\n          <input type=\"checkbox\">(Mock)Быстрый фильтр<Br>\n        </td>\n        <td>\n          (Mock)Кнопка «Показать дополнительные фильтры»\n        </td>\n      </table>\n    </div>\n    <!--  <button class=\"account-filter-form-button-submit\" id=\"apply_filters\"-->\n    <!--          type=\"submit\" value=\"Применить фильтр\">ПРИМЕНИТЬ ФИЛЬТР-->\n    <!--  </button>-->\n  </form>\n\n  <div id=\"sort\">\n    <!--          Сортировка по:-->\n    <!--          <select class=\"account-filter-form-sorting-select\" id=\"select1\" formControlName=\"sortParameter\">-->\n    <!--            <option *ngFor=\"let sortParameter of sortParameters\" [value]=\"sortParameter\">{{sortParameter | sortParameterPipe}}</option>-->\n    <!--          </select>-->\n  </div>\n\n  <div id=\"pagination\">\n    <table>\n      <td style=\"text-align: left\">\n        Найдено записей: {{render.pageImpl.totalElements}}\n      </td>\n      <td style=\"text-align: center\">\n        <pagination-controls (pageChange)=\"pageChanged($event)\"></pagination-controls>\n      </td>\n      <td style=\"text-align: right\">\n        <div id=\"selectMaxResult\">\n          Показывать по :\n          <form (ngSubmit)=\"maxResultAply()\"\n                [formGroup]=\"maxResultForm\" >\n\n            <select type=\"text\" formControlName=\"maxResult\" (change)=\"maxResultAply()\"> <!--name=\"maxResult\"-->\n              <option *ngFor=\"let maxResult of render.selectShowListMaxResult\" [value]=\"maxResult\"\n                      [selected]=\"maxResult==render.state.paginationForm.maxResult\">\n                {{maxResult}}\n              </option>\n            </select>\n          </form>\n        </div>\n      </td>\n    </table>\n  </div>\n\n\n  <div id=\"list_notifications\">\n    <table>\n      <tr>\n        <th>(Mock)\n          <Br><input type=\"checkbox\">\n        </th>\n        <th>№</th>\n        <th>Вид уведомления</th>\n        <th>Заказчик</th>\n        <th>Срок предоставления ответа</th>\n        <th>Статус обработки уведомления</th>\n        <th>Номер уведомления</th>\n        <th>Дата получения уведомления</th>\n        <th>Номер письма</th>\n      </tr>\n\n      <tr *ngFor = \"let notification of render.pageImpl.content | paginate: {\n      itemsPerPage: render.state.paginationForm.maxResult,\n      currentPage: render.state.paginationForm.page + 1,\n      totalItems : render.pageImpl.totalElements }; let i= index;\"\n\n          class=\"hoverElements\"\n          (click)=\"open(notification)\"\n      >\n        <!--        [routerLink]=\"['notifications', notification.id]\"-->\n\n        <td><input type=\"checkbox\"></td>\n        <td>{{(i+1) + render.state.paginationForm.page * render.state.paginationForm.maxResult}}</td>\n        <td>{{notification.notificationType}}</td>\n        <td>{{notification.organization.name}}</td>\n        <td>{{notification.dateResponse | date :\"yyyy-MM-dd\"}}</td>\n        <td>{{notification.status.name}}</td><!--.name-->\n        <td>{{notification.id}}</td>\n        <td>{{notification.dateReceived | date :\"yyyy-MM-dd\"}}</td>\n        <td>{{notification.letterNumber}}</td>\n      </tr>\n    </table>\n  </div>\n\n</div>>\n");
+
+/***/ }),
+
+/***/ "./node_modules/tslib/tslib.es6.js":
+/*!*****************************************!*\
+  !*** ./node_modules/tslib/tslib.es6.js ***!
+  \*****************************************/
+/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__extends", function() { return __extends; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__assign", function() { return __assign; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__rest", function() { return __rest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__decorate", function() { return __decorate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__param", function() { return __param; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__metadata", function() { return __metadata; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__awaiter", function() { return __awaiter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__generator", function() { return __generator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__exportStar", function() { return __exportStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__values", function() { return __values; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__read", function() { return __read; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spread", function() { return __spread; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spreadArrays", function() { return __spreadArrays; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__await", function() { return __await; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncGenerator", function() { return __asyncGenerator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncDelegator", function() { return __asyncDelegator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncValues", function() { return __asyncValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__makeTemplateObject", function() { return __makeTemplateObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importStar", function() { return __importStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importDefault", function() { return __importDefault; });
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __exportStar(m, exports) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+function __values(o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result.default = mod;
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+
+/***/ }),
+
+/***/ "./src/app/app.module.ts":
+/*!*******************************!*\
+  !*** ./src/app/app.module.ts ***!
+  \*******************************/
+/*! exports provided: AppModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _component_app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./component/app.component */ "./src/app/component/app.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _component_list_users_list_users_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./component/list-users/list-users.component */ "./src/app/component/list-users/list-users.component.ts");
+/* harmony import */ var _component_notifications_notifications_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./component/notifications/notifications.component */ "./src/app/component/notifications/notifications.component.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _component_common_header_user_common_header_user_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./component/common-header-user/common-header-user.component */ "./src/app/component/common-header-user/common-header-user.component.ts");
+/* harmony import */ var ngx_pagination__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-pagination */ "./node_modules/ngx-pagination/dist/ngx-pagination.js");
+/* harmony import */ var _component_actions_actions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./component/actions/actions */ "./src/app/component/actions/actions.ts");
+/* harmony import */ var _component_add_action_add_action__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./component/add-action/add-action */ "./src/app/component/add-action/add-action.ts");
+/* harmony import */ var _component_not_found_component_not_found_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./component/not-found.component/not-found.component */ "./src/app/component/not-found.component/not-found.component.ts");
+
+/*
+declarations: классы представлений (view classes), которые принадлежат модулю.
+    Angular имеет три типа классов представлений: компоненты (components), директивы (directives), каналы (pipes)
+exports: набор классов представлений, которые должны использоваться в шаблонах компонентов из других модулей
+imports: другие модули, классы которых необходимы для шаблонов компонентов из текущего модуля
+providers: классы, создающие сервисы, используемые модулем
+bootstrap: корневой компонент, который вызывается по умолчанию при загрузке приложения
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+const appRoutes = [
+    // {path: 'account/notifications/:id', component: NotificationDetailComponent},
+    // {path: 'account', component: AccountTableComponent},
+    // {path: '', redirectTo: 'account', pathMatch: 'full'},
+    // {path: 'account/notifications/:id/actions', component: ActionsHistoryComponent}
+    { path: 'users', component: _component_list_users_list_users_component__WEBPACK_IMPORTED_MODULE_6__["ListUsersComponent"] },
+    { path: 'notifications', component: _component_notifications_notifications_component__WEBPACK_IMPORTED_MODULE_7__["NotificationsComponent"] },
+    { path: 'notifications/:id', component: _component_actions_actions__WEBPACK_IMPORTED_MODULE_11__["Actions"] },
+    //todo хакер может перебором по id получить доступ к уведомению
+    //todo USE Guards (https://metanit.com/web/angular2/7.7.php)
+    { path: 'notifications/:id/add_action', component: _component_add_action_add_action__WEBPACK_IMPORTED_MODULE_12__["AddAction"] },
+    { path: '', redirectTo: 'users', pathMatch: 'full' },
+    { path: '**', component: _component_not_found_component_not_found_component__WEBPACK_IMPORTED_MODULE_13__["NotFoundComponent"] }
+];
+/*
+Если при разработке применяется webpack, нужно определить в файле webpack.config.js следующую секцию:
+devServer: {
+     historyApiFallback: true,
+}
+ */
+let AppModule = class AppModule {
+};
+AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+            ngx_pagination__WEBPACK_IMPORTED_MODULE_10__["NgxPaginationModule"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterModule"].forRoot(appRoutes)
+        ],
+        declarations: [
+            _component_not_found_component_not_found_component__WEBPACK_IMPORTED_MODULE_13__["NotFoundComponent"],
+            _component_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
+            _component_common_header_user_common_header_user_component__WEBPACK_IMPORTED_MODULE_9__["CommonHeaderUserComponent"],
+            _component_list_users_list_users_component__WEBPACK_IMPORTED_MODULE_6__["ListUsersComponent"],
+            _component_notifications_notifications_component__WEBPACK_IMPORTED_MODULE_7__["NotificationsComponent"],
+            _component_actions_actions__WEBPACK_IMPORTED_MODULE_11__["Actions"],
+            _component_add_action_add_action__WEBPACK_IMPORTED_MODULE_12__["AddAction"]
+        ],
+        bootstrap: [
+            _component_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]
+            // NotificationsComponent
+            // CommonHeaderUserComponent
+        ],
+        providers: [],
+    })
+], AppModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/actions/actions.css":
+/*!***********************************************!*\
+  !*** ./src/app/component/actions/actions.css ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("div{\r\n  margin: 9px 8px;\r\n}\r\n\r\nTABLE {\r\n  border-collapse: collapse; /* Убираем двойные линии между ячейками */\r\n  width: 100%;/*  width: 300px; Ширина таблицы */\r\n}\r\n\r\nTH, TD {\r\n  border: 1px solid black; /* Параметры рамки */\r\n  text-align: center; /* Выравнивание по центру */\r\n  padding: 1px; /* Поля вокруг текста */\r\n}\r\n\r\nTH {\r\n  background: #fc0; /* Цвет фона ячейки */\r\n  height: 40px; /* Высота ячеек */\r\n  /*vertical-align: bottom;  Выравнивание по нижнему краю */\r\n  padding: 0; /* Убираем поля вокруг текста */\r\n}\r\n\r\n#header_table th{\r\n  background: #ffccff;\r\n}\r\n\r\n#attention_in_header_table{\r\n  color: blue;\r\n}\r\n\r\n.href-nav-item {\r\n  background:#eaeaea; /*фон*/\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.href-nav-item-current {\r\n  background:#ff0000; /*фон*/\r\n  color: white;\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.green_button{\r\n  background-color: #4CAF50;\r\n  color: white;\r\n  display: inline-block;\r\n}\r\n\r\n.hidden_input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input + button{ /* IMAGE STYLES */\r\n  cursor:pointer;\r\n  border:2px solid transparent;\r\n}\r\n\r\nspan.radioDecorator > input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */\r\n  border:2px solid #f00;\r\n}\r\n\r\n.error {\r\n  color: red;\r\n}\r\n\r\n.success {\r\n  color: green;\r\n}\r\n\r\n.hoverElements:hover {background: #0078BF; color: #fff;}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L2FjdGlvbnMvYWN0aW9ucy5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UseUJBQXlCLEVBQUUseUNBQXlDO0VBQ3BFLFdBQVcsQ0FBQyxrQ0FBa0M7QUFDaEQ7O0FBQ0E7RUFDRSx1QkFBdUIsRUFBRSxvQkFBb0I7RUFDN0Msa0JBQWtCLEVBQUUsMkJBQTJCO0VBQy9DLFlBQVksRUFBRSx1QkFBdUI7QUFDdkM7O0FBQ0E7RUFDRSxnQkFBZ0IsRUFBRSxxQkFBcUI7RUFDdkMsWUFBWSxFQUFFLGlCQUFpQjtFQUMvQix5REFBeUQ7RUFDekQsVUFBVSxFQUFFLCtCQUErQjtBQUM3Qzs7QUFDQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFDQTtFQUNFLFdBQVc7QUFDYjs7QUFFQTtFQUNFLGtCQUFrQixFQUFFLE1BQU07O0VBRTFCLHFCQUFxQixHQUFHLFFBQVE7RUFDaEMsa0JBQWtCLEVBQUUsaUJBQWlCO0VBQ3JDLHFCQUFxQixFQUFFLDhCQUE4QjtBQUN2RDs7QUFDQTtFQUNFLGtCQUFrQixFQUFFLE1BQU07RUFDMUIsWUFBWTs7RUFFWixxQkFBcUIsR0FBRyxRQUFRO0VBQ2hDLGtCQUFrQixFQUFFLGlCQUFpQjtFQUNyQyxxQkFBcUIsRUFBRSw4QkFBOEI7QUFDdkQ7O0FBRUE7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLHFCQUFxQjtBQUN2Qjs7QUFFQSxlQUFlLGVBQWU7RUFDNUIsa0JBQWtCLEVBQUUsOEJBQThCO0VBQ2xELGtCQUFrQixFQUFFLG9DQUFvQztBQUMxRDs7QUFDQSw2QkFBNkIsZUFBZTtFQUMxQyxrQkFBa0IsRUFBRSw4QkFBOEI7RUFDbEQsa0JBQWtCLEVBQUUsb0NBQW9DO0FBQzFEOztBQUNBLHNDQUFzQyxpQkFBaUI7RUFDckQsY0FBYztFQUNkLDRCQUE0QjtBQUM5Qjs7QUFDQSw4Q0FBOEMsaUNBQWlDO0VBQzdFLHFCQUFxQjtBQUN2Qjs7QUFFQTtFQUNFLFVBQVU7QUFDWjs7QUFDQTtFQUNFLFlBQVk7QUFDZDs7QUFDQSxzQkFBc0IsbUJBQW1CLEVBQUUsV0FBVyxDQUFDIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50L2FjdGlvbnMvYWN0aW9ucy5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJkaXZ7XHJcbiAgbWFyZ2luOiA5cHggOHB4O1xyXG59XHJcblxyXG5UQUJMRSB7XHJcbiAgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsgLyog0KPQsdC40YDQsNC10Lwg0LTQstC+0LnQvdGL0LUg0LvQuNC90LjQuCDQvNC10LbQtNGDINGP0YfQtdC50LrQsNC80LggKi9cclxuICB3aWR0aDogMTAwJTsvKiAgd2lkdGg6IDMwMHB4OyDQqNC40YDQuNC90LAg0YLQsNCx0LvQuNGG0YsgKi9cclxufVxyXG5USCwgVEQge1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrOyAvKiDQn9Cw0YDQsNC80LXRgtGA0Ysg0YDQsNC80LrQuCAqL1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjsgLyog0JLRi9GA0LDQstC90LjQstCw0L3QuNC1INC/0L4g0YbQtdC90YLRgNGDICovXHJcbiAgcGFkZGluZzogMXB4OyAvKiDQn9C+0LvRjyDQstC+0LrRgNGD0LMg0YLQtdC60YHRgtCwICovXHJcbn1cclxuVEgge1xyXG4gIGJhY2tncm91bmQ6ICNmYzA7IC8qINCm0LLQtdGCINGE0L7QvdCwINGP0YfQtdC50LrQuCAqL1xyXG4gIGhlaWdodDogNDBweDsgLyog0JLRi9GB0L7RgtCwINGP0YfQtdC10LogKi9cclxuICAvKnZlcnRpY2FsLWFsaWduOiBib3R0b207ICDQktGL0YDQsNCy0L3QuNCy0LDQvdC40LUg0L/QviDQvdC40LbQvdC10LzRgyDQutGA0LDRjiAqL1xyXG4gIHBhZGRpbmc6IDA7IC8qINCj0LHQuNGA0LDQtdC8INC/0L7Qu9GPINCy0L7QutGA0YPQsyDRgtC10LrRgdGC0LAgKi9cclxufVxyXG4jaGVhZGVyX3RhYmxlIHRoe1xyXG4gIGJhY2tncm91bmQ6ICNmZmNjZmY7XHJcbn1cclxuI2F0dGVudGlvbl9pbl9oZWFkZXJfdGFibGV7XHJcbiAgY29sb3I6IGJsdWU7XHJcbn1cclxuXHJcbi5ocmVmLW5hdi1pdGVtIHtcclxuICBiYWNrZ3JvdW5kOiNlYWVhZWE7IC8q0YTQvtC9Ki9cclxuXHJcbiAgYm9yZGVyOjFweCBzb2xpZCAjY2NjOyAgLyrRgNCw0LzQutCwKi9cclxuICBwYWRkaW5nOiAuMmVtIC4yZW07IC8q0L7RgtGB0YLRg9C/0Ysg0LLQvdGD0YLRgNC4Ki9cclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7IC8q0YPQsdGA0LDRgtGMINC/0L7QtNGH0LXRgNC60LjQstCw0L3QuNC1INGB0YHRi9C70LrQuCovXHJcbn1cclxuLmhyZWYtbmF2LWl0ZW0tY3VycmVudCB7XHJcbiAgYmFja2dyb3VuZDojZmYwMDAwOyAvKtGE0L7QvSovXHJcbiAgY29sb3I6IHdoaXRlO1xyXG5cclxuICBib3JkZXI6MXB4IHNvbGlkICNjY2M7ICAvKtGA0LDQvNC60LAqL1xyXG4gIHBhZGRpbmc6IC4yZW0gLjJlbTsgLyrQvtGC0YHRgtGD0L/RiyDQstC90YPRgtGA0LgqL1xyXG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTsgLyrRg9Cx0YDQsNGC0Ywg0L/QvtC00YfQtdGA0LrQuNCy0LDQvdC40LUg0YHRgdGL0LvQutC4Ki9cclxufVxyXG5cclxuLmdyZWVuX2J1dHRvbntcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNENBRjUwO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbn1cclxuXHJcbi5oaWRkZW5faW5wdXR7IC8qIEhJREUgUkFESU8gKi9cclxuICB2aXNpYmlsaXR5OiBoaWRkZW47IC8qIE1ha2VzIGlucHV0IG5vdC1jbGlja2FibGUgKi9cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7IC8qIFJlbW92ZSBpbnB1dCBmcm9tIGRvY3VtZW50IGZsb3cgKi9cclxufVxyXG5zcGFuLnJhZGlvRGVjb3JhdG9yID4gaW5wdXR7IC8qIEhJREUgUkFESU8gKi9cclxuICB2aXNpYmlsaXR5OiBoaWRkZW47IC8qIE1ha2VzIGlucHV0IG5vdC1jbGlja2FibGUgKi9cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7IC8qIFJlbW92ZSBpbnB1dCBmcm9tIGRvY3VtZW50IGZsb3cgKi9cclxufVxyXG5zcGFuLnJhZGlvRGVjb3JhdG9yID4gaW5wdXQgKyBidXR0b257IC8qIElNQUdFIFNUWUxFUyAqL1xyXG4gIGN1cnNvcjpwb2ludGVyO1xyXG4gIGJvcmRlcjoycHggc29saWQgdHJhbnNwYXJlbnQ7XHJcbn1cclxuc3Bhbi5yYWRpb0RlY29yYXRvciA+IGlucHV0OmNoZWNrZWQgKyBidXR0b257IC8qIChSQURJTyBDSEVDS0VEKSBJTUFHRSBTVFlMRVMgKi9cclxuICBib3JkZXI6MnB4IHNvbGlkICNmMDA7XHJcbn1cclxuXHJcbi5lcnJvciB7XHJcbiAgY29sb3I6IHJlZDtcclxufVxyXG4uc3VjY2VzcyB7XHJcbiAgY29sb3I6IGdyZWVuO1xyXG59XHJcbi5ob3ZlckVsZW1lbnRzOmhvdmVyIHtiYWNrZ3JvdW5kOiAjMDA3OEJGOyBjb2xvcjogI2ZmZjt9XHJcbiJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/component/actions/actions.ts":
+/*!**********************************************!*\
+  !*** ./src/app/component/actions/actions.ts ***!
+  \**********************************************/
+/*! exports provided: Actions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Actions", function() { return Actions; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../models/input-output/form/FilterForm */ "./src/app/models/input-output/form/FilterForm.ts");
+/* harmony import */ var _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../models/input-output/form/PaginationForm */ "./src/app/models/input-output/form/PaginationForm.ts");
+/* harmony import */ var _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../models/input-output/form/OrderByForm */ "./src/app/models/input-output/form/OrderByForm.ts");
+
+
+// import { HttpService} from './http.service';
+
+
+
+
+
+
+let Actions = class Actions {
+    constructor(http, route, router) {
+        this.http = http;
+        this.route = route;
+        this.router = router;
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+        this.maxResultForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
+            maxResult: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](10) //todo replace
+        });
+        this.newFilterForm = new _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__["FilterForm"]();
+        this.newPaginationForm = new _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__["PaginationForm"]();
+        this.newOrderByForm = new _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__["OrderByForm"]();
+    }
+    // constructor(private httpService: HttpService) {}
+    ngOnChanges() {
+        console.log('Change');
+    }
+    ngOnInit() {
+        // this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/get_user') //todo notifications
+        //   .subscribe((user) => {
+        //     this.user = user;
+        //     console.log(this.user);
+        //   });
+        this.notificationId = this.route.snapshot.paramMap.get('id');
+        let body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
+        body = body.set('notificationId', this.notificationId.toString());
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/x-www-form-urlencoded'),
+            params: body
+        };
+        this.http.get('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/theNotification4renderHtml', httpOptions)
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+    }
+    pageChanged(event) {
+        this.newPaginationForm.page = event - 1;
+        this.http.post('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+    }
+    maxResultAply() {
+        this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
+        this.http.post('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+    }
+};
+Actions.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+];
+Actions = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-root',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./actions.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/actions/actions.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./actions.css */ "./src/app/component/actions/actions.css")).default]
+    })
+], Actions);
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/add-action/add-action.css":
+/*!*****************************************************!*\
+  !*** ./src/app/component/add-action/add-action.css ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("div{\r\n  margin: 9px 8px;\r\n}\r\n\r\nTABLE {\r\n  border-collapse: collapse; /* Убираем двойные линии между ячейками */\r\n  width: 100%;/*  width: 300px; Ширина таблицы */\r\n}\r\n\r\nTH, TD {\r\n  border: 1px solid black; /* Параметры рамки */\r\n  text-align: center; /* Выравнивание по центру */\r\n  padding: 1px; /* Поля вокруг текста */\r\n}\r\n\r\nTH {\r\n  background: #fc0; /* Цвет фона ячейки */\r\n  height: 40px; /* Высота ячеек */\r\n  /*vertical-align: bottom;  Выравнивание по нижнему краю */\r\n  padding: 0; /* Убираем поля вокруг текста */\r\n}\r\n\r\n#header_table th{\r\n  background: #ffccff;\r\n}\r\n\r\n#attention_in_header_table{\r\n  color: blue;\r\n}\r\n\r\n.href-nav-item {\r\n  background:#eaeaea; /*фон*/\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.href-nav-item-current {\r\n  background:#ff0000; /*фон*/\r\n  color: white;\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.green_button{\r\n  background-color: #4CAF50;\r\n  color: white;\r\n  display: inline-block;\r\n}\r\n\r\n.hidden_input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input + button{ /* IMAGE STYLES */\r\n  cursor:pointer;\r\n  border:2px solid transparent;\r\n}\r\n\r\nspan.radioDecorator > input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */\r\n  border:2px solid #f00;\r\n}\r\n\r\n.error {\r\n  color: red;\r\n}\r\n\r\n.success {\r\n  color: green;\r\n}\r\n\r\n.hoverElements:hover {background: #0078BF; color: #fff;}\r\n\r\ninput.ng-touched.ng-invalid {border:solid red 2px;}\r\n\r\ninput.ng-touched.ng-valid {border:solid green 2px;}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L2FkZC1hY3Rpb24vYWRkLWFjdGlvbi5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UseUJBQXlCLEVBQUUseUNBQXlDO0VBQ3BFLFdBQVcsQ0FBQyxrQ0FBa0M7QUFDaEQ7O0FBQ0E7RUFDRSx1QkFBdUIsRUFBRSxvQkFBb0I7RUFDN0Msa0JBQWtCLEVBQUUsMkJBQTJCO0VBQy9DLFlBQVksRUFBRSx1QkFBdUI7QUFDdkM7O0FBQ0E7RUFDRSxnQkFBZ0IsRUFBRSxxQkFBcUI7RUFDdkMsWUFBWSxFQUFFLGlCQUFpQjtFQUMvQix5REFBeUQ7RUFDekQsVUFBVSxFQUFFLCtCQUErQjtBQUM3Qzs7QUFDQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFDQTtFQUNFLFdBQVc7QUFDYjs7QUFFQTtFQUNFLGtCQUFrQixFQUFFLE1BQU07O0VBRTFCLHFCQUFxQixHQUFHLFFBQVE7RUFDaEMsa0JBQWtCLEVBQUUsaUJBQWlCO0VBQ3JDLHFCQUFxQixFQUFFLDhCQUE4QjtBQUN2RDs7QUFDQTtFQUNFLGtCQUFrQixFQUFFLE1BQU07RUFDMUIsWUFBWTs7RUFFWixxQkFBcUIsR0FBRyxRQUFRO0VBQ2hDLGtCQUFrQixFQUFFLGlCQUFpQjtFQUNyQyxxQkFBcUIsRUFBRSw4QkFBOEI7QUFDdkQ7O0FBRUE7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLHFCQUFxQjtBQUN2Qjs7QUFFQSxlQUFlLGVBQWU7RUFDNUIsa0JBQWtCLEVBQUUsOEJBQThCO0VBQ2xELGtCQUFrQixFQUFFLG9DQUFvQztBQUMxRDs7QUFDQSw2QkFBNkIsZUFBZTtFQUMxQyxrQkFBa0IsRUFBRSw4QkFBOEI7RUFDbEQsa0JBQWtCLEVBQUUsb0NBQW9DO0FBQzFEOztBQUNBLHNDQUFzQyxpQkFBaUI7RUFDckQsY0FBYztFQUNkLDRCQUE0QjtBQUM5Qjs7QUFDQSw4Q0FBOEMsaUNBQWlDO0VBQzdFLHFCQUFxQjtBQUN2Qjs7QUFFQTtFQUNFLFVBQVU7QUFDWjs7QUFDQTtFQUNFLFlBQVk7QUFDZDs7QUFDQSxzQkFBc0IsbUJBQW1CLEVBQUUsV0FBVyxDQUFDOztBQUV2RCw2QkFBNkIsb0JBQW9CLENBQUM7O0FBQ2xELDJCQUEyQixzQkFBc0IsQ0FBQyIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudC9hZGQtYWN0aW9uL2FkZC1hY3Rpb24uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiZGl2e1xyXG4gIG1hcmdpbjogOXB4IDhweDtcclxufVxyXG5cclxuVEFCTEUge1xyXG4gIGJvcmRlci1jb2xsYXBzZTogY29sbGFwc2U7IC8qINCj0LHQuNGA0LDQtdC8INC00LLQvtC50L3Ri9C1INC70LjQvdC40Lgg0LzQtdC20LTRgyDRj9GH0LXQudC60LDQvNC4ICovXHJcbiAgd2lkdGg6IDEwMCU7LyogIHdpZHRoOiAzMDBweDsg0KjQuNGA0LjQvdCwINGC0LDQsdC70LjRhtGLICovXHJcbn1cclxuVEgsIFREIHtcclxuICBib3JkZXI6IDFweCBzb2xpZCBibGFjazsgLyog0J/QsNGA0LDQvNC10YLRgNGLINGA0LDQvNC60LggKi9cclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7IC8qINCS0YvRgNCw0LLQvdC40LLQsNC90LjQtSDQv9C+INGG0LXQvdGC0YDRgyAqL1xyXG4gIHBhZGRpbmc6IDFweDsgLyog0J/QvtC70Y8g0LLQvtC60YDRg9CzINGC0LXQutGB0YLQsCAqL1xyXG59XHJcblRIIHtcclxuICBiYWNrZ3JvdW5kOiAjZmMwOyAvKiDQptCy0LXRgiDRhNC+0L3QsCDRj9GH0LXQudC60LggKi9cclxuICBoZWlnaHQ6IDQwcHg7IC8qINCS0YvRgdC+0YLQsCDRj9GH0LXQtdC6ICovXHJcbiAgLyp2ZXJ0aWNhbC1hbGlnbjogYm90dG9tOyAg0JLRi9GA0LDQstC90LjQstCw0L3QuNC1INC/0L4g0L3QuNC20L3QtdC80YMg0LrRgNCw0Y4gKi9cclxuICBwYWRkaW5nOiAwOyAvKiDQo9Cx0LjRgNCw0LXQvCDQv9C+0LvRjyDQstC+0LrRgNGD0LMg0YLQtdC60YHRgtCwICovXHJcbn1cclxuI2hlYWRlcl90YWJsZSB0aHtcclxuICBiYWNrZ3JvdW5kOiAjZmZjY2ZmO1xyXG59XHJcbiNhdHRlbnRpb25faW5faGVhZGVyX3RhYmxle1xyXG4gIGNvbG9yOiBibHVlO1xyXG59XHJcblxyXG4uaHJlZi1uYXYtaXRlbSB7XHJcbiAgYmFja2dyb3VuZDojZWFlYWVhOyAvKtGE0L7QvSovXHJcblxyXG4gIGJvcmRlcjoxcHggc29saWQgI2NjYzsgIC8q0YDQsNC80LrQsCovXHJcbiAgcGFkZGluZzogLjJlbSAuMmVtOyAvKtC+0YLRgdGC0YPQv9GLINCy0L3Rg9GC0YDQuCovXHJcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lOyAvKtGD0LHRgNCw0YLRjCDQv9C+0LTRh9C10YDQutC40LLQsNC90LjQtSDRgdGB0YvQu9C60LgqL1xyXG59XHJcbi5ocmVmLW5hdi1pdGVtLWN1cnJlbnQge1xyXG4gIGJhY2tncm91bmQ6I2ZmMDAwMDsgLyrRhNC+0L0qL1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuXHJcbiAgYm9yZGVyOjFweCBzb2xpZCAjY2NjOyAgLyrRgNCw0LzQutCwKi9cclxuICBwYWRkaW5nOiAuMmVtIC4yZW07IC8q0L7RgtGB0YLRg9C/0Ysg0LLQvdGD0YLRgNC4Ki9cclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7IC8q0YPQsdGA0LDRgtGMINC/0L7QtNGH0LXRgNC60LjQstCw0L3QuNC1INGB0YHRi9C70LrQuCovXHJcbn1cclxuXHJcbi5ncmVlbl9idXR0b257XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogIzRDQUY1MDtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG59XHJcblxyXG4uaGlkZGVuX2lucHV0eyAvKiBISURFIFJBRElPICovXHJcbiAgdmlzaWJpbGl0eTogaGlkZGVuOyAvKiBNYWtlcyBpbnB1dCBub3QtY2xpY2thYmxlICovXHJcbiAgcG9zaXRpb246IGFic29sdXRlOyAvKiBSZW1vdmUgaW5wdXQgZnJvbSBkb2N1bWVudCBmbG93ICovXHJcbn1cclxuc3Bhbi5yYWRpb0RlY29yYXRvciA+IGlucHV0eyAvKiBISURFIFJBRElPICovXHJcbiAgdmlzaWJpbGl0eTogaGlkZGVuOyAvKiBNYWtlcyBpbnB1dCBub3QtY2xpY2thYmxlICovXHJcbiAgcG9zaXRpb246IGFic29sdXRlOyAvKiBSZW1vdmUgaW5wdXQgZnJvbSBkb2N1bWVudCBmbG93ICovXHJcbn1cclxuc3Bhbi5yYWRpb0RlY29yYXRvciA+IGlucHV0ICsgYnV0dG9ueyAvKiBJTUFHRSBTVFlMRVMgKi9cclxuICBjdXJzb3I6cG9pbnRlcjtcclxuICBib3JkZXI6MnB4IHNvbGlkIHRyYW5zcGFyZW50O1xyXG59XHJcbnNwYW4ucmFkaW9EZWNvcmF0b3IgPiBpbnB1dDpjaGVja2VkICsgYnV0dG9ueyAvKiAoUkFESU8gQ0hFQ0tFRCkgSU1BR0UgU1RZTEVTICovXHJcbiAgYm9yZGVyOjJweCBzb2xpZCAjZjAwO1xyXG59XHJcblxyXG4uZXJyb3Ige1xyXG4gIGNvbG9yOiByZWQ7XHJcbn1cclxuLnN1Y2Nlc3Mge1xyXG4gIGNvbG9yOiBncmVlbjtcclxufVxyXG4uaG92ZXJFbGVtZW50czpob3ZlciB7YmFja2dyb3VuZDogIzAwNzhCRjsgY29sb3I6ICNmZmY7fVxyXG5cclxuaW5wdXQubmctdG91Y2hlZC5uZy1pbnZhbGlkIHtib3JkZXI6c29saWQgcmVkIDJweDt9XHJcbmlucHV0Lm5nLXRvdWNoZWQubmctdmFsaWQge2JvcmRlcjpzb2xpZCBncmVlbiAycHg7fVxyXG4iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/component/add-action/add-action.ts":
+/*!****************************************************!*\
+  !*** ./src/app/component/add-action/add-action.ts ***!
+  \****************************************************/
+/*! exports provided: AddAction */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddAction", function() { return AddAction; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _models_input_output_dto_valid_ActionPortionDto__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models/input-output/dto.valid/ActionPortionDto */ "./src/app/models/input-output/dto.valid/ActionPortionDto.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+
+
+// import { HttpService} from './http.service';
+
+
+
+
+let AddAction = class AddAction {
+    // addActionForm: FormGroup = new FormGroup({//todo replace
+    //   // notificationId: new FormControl(),
+    //   idUserImplementor: new FormControl(),
+    //   idActionType: new FormControl(),
+    //   idNotificationStatus: new FormControl(),
+    //   content: new FormControl()
+    // });
+    constructor(http, route, router, location) {
+        this.http = http;
+        this.route = route;
+        this.router = router;
+        this.location = location;
+        this.actionPortionDto = new _models_input_output_dto_valid_ActionPortionDto__WEBPACK_IMPORTED_MODULE_4__["ActionPortionDto"]();
+        this.httpOptionsJson = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+    // constructor(private httpService: HttpService) {}
+    ngOnChanges() {
+        console.log('Change');
+    }
+    ngOnInit() {
+        this.notificationId = this.route.snapshot.paramMap.get('id');
+        let body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
+        body = body.set('notificationId', this.notificationId.toString());
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/x-www-form-urlencoded'),
+            params: body
+        };
+        this.http.get('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/add_action/addAction4renderHtml', httpOptions)
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+    }
+    addActionAply() {
+        // this.notificationId = this.route.snapshot.paramMap.get('id');
+        // this.actionPortionDto.notificationId = Number( this.notificationId );
+        this.actionPortionDto.notificationId = this.render.currentNotification.id;
+        // console.log('------------------------------')
+        // console.log(this.addActionForm.get('notificationId').value);
+        // console.log(this.addActionForm.controls.notificationId.value);
+        // console.log('------------------------------')
+        // console.log(this.addActionForm.get('idUserImplementor').value);
+        // console.log(this.addActionForm.controls.idUserImplementor.value);
+        // console.log('------------------------------')
+        // console.log('------------------------------')
+        // console.log(this.notificationId );
+        // console.log( Number( this.notificationId ) );
+        // // this.actionPortionDto.notificationId = Number( this.addActionForm.get('notificationId').value );
+        //
+        // this.actionPortionDto.idUserImplementor = this.addActionForm.get('idUserImplementor').value;
+        // this.actionPortionDto.idActionType = this.addActionForm.get('idActionType').value;
+        // this.actionPortionDto.idNotificationStatus = this.addActionForm.get('idNotificationStatus').value;
+        // this.actionPortionDto.content = this.addActionForm.get('content').value;
+        this.http.post('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/the_notification/add_action/save', JSON.stringify(this.actionPortionDto), this.httpOptionsJson)
+            .subscribe((hasSaved) => {
+            if (hasSaved) {
+                // this.router.navigate(['..']);
+                // this.location.back();
+                this.router.navigate(['notifications/' + this.notificationId]); //todo replace
+            }
+            else {
+                // useValidateForm
+                alert("DONT SAVE !!!");
+            }
+        });
+    }
+};
+AddAction.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"] }
+];
+AddAction = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-root',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./add-action.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/add-action/add-action.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./add-action.css */ "./src/app/component/add-action/add-action.css")).default]
+    })
+], AddAction);
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/app.component.css":
+/*!*********************************************!*\
+  !*** ./src/app/component/app.component.css ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("/*h1, h2{color:navy;}*/\r\n/*p{font-size:13px;}*/\r\n/*:host {*/\r\n/*  font-family: Verdana;*/\r\n/*  color: #555;*/\r\n/*}*/\r\n/*div{*/\r\n/*  margin: 9px 8px;*/\r\n/*}*/\r\n/*TABLE {*/\r\n/*  border-collapse: collapse; !* Убираем двойные линии между ячейками *!*/\r\n/*  width: 100%;!*  width: 300px; Ширина таблицы *!*/\r\n/*}*/\r\n/*TH, TD {*/\r\n/*  border: 1px solid black; !* Параметры рамки *!*/\r\n/*  text-align: left; !* Выравнивание по центру *!*/\r\n/*  padding: 1px; !* Поля вокруг текста *!*/\r\n/*}*/\r\n/*TH {*/\r\n/*  background: #fc0; !* Цвет фона ячейки *!*/\r\n/*  height: 40px; !* Высота ячеек *!*/\r\n/*  !*vertical-align: bottom;  Выравнивание по нижнему краю *!*/\r\n/*  padding: 0; !* Убираем поля вокруг текста *!*/\r\n/*}*/\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L2FwcC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLHNCQUFzQjtBQUN0QixxQkFBcUI7QUFDckIsVUFBVTtBQUNWLDBCQUEwQjtBQUMxQixpQkFBaUI7QUFDakIsSUFBSTtBQUNKLE9BQU87QUFDUCxxQkFBcUI7QUFDckIsSUFBSTtBQUVKLFVBQVU7QUFDViwwRUFBMEU7QUFDMUUsb0RBQW9EO0FBQ3BELElBQUk7QUFDSixXQUFXO0FBQ1gsbURBQW1EO0FBQ25ELG1EQUFtRDtBQUNuRCwyQ0FBMkM7QUFDM0MsSUFBSTtBQUNKLE9BQU87QUFDUCw2Q0FBNkM7QUFDN0MscUNBQXFDO0FBQ3JDLCtEQUErRDtBQUMvRCxpREFBaUQ7QUFDakQsSUFBSSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qaDEsIGgye2NvbG9yOm5hdnk7fSovXHJcbi8qcHtmb250LXNpemU6MTNweDt9Ki9cclxuLyo6aG9zdCB7Ki9cclxuLyogIGZvbnQtZmFtaWx5OiBWZXJkYW5hOyovXHJcbi8qICBjb2xvcjogIzU1NTsqL1xyXG4vKn0qL1xyXG4vKmRpdnsqL1xyXG4vKiAgbWFyZ2luOiA5cHggOHB4OyovXHJcbi8qfSovXHJcblxyXG4vKlRBQkxFIHsqL1xyXG4vKiAgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsgISog0KPQsdC40YDQsNC10Lwg0LTQstC+0LnQvdGL0LUg0LvQuNC90LjQuCDQvNC10LbQtNGDINGP0YfQtdC50LrQsNC80LggKiEqL1xyXG4vKiAgd2lkdGg6IDEwMCU7ISogIHdpZHRoOiAzMDBweDsg0KjQuNGA0LjQvdCwINGC0LDQsdC70LjRhtGLICohKi9cclxuLyp9Ki9cclxuLypUSCwgVEQgeyovXHJcbi8qICBib3JkZXI6IDFweCBzb2xpZCBibGFjazsgISog0J/QsNGA0LDQvNC10YLRgNGLINGA0LDQvNC60LggKiEqL1xyXG4vKiAgdGV4dC1hbGlnbjogbGVmdDsgISog0JLRi9GA0LDQstC90LjQstCw0L3QuNC1INC/0L4g0YbQtdC90YLRgNGDICohKi9cclxuLyogIHBhZGRpbmc6IDFweDsgISog0J/QvtC70Y8g0LLQvtC60YDRg9CzINGC0LXQutGB0YLQsCAqISovXHJcbi8qfSovXHJcbi8qVEggeyovXHJcbi8qICBiYWNrZ3JvdW5kOiAjZmMwOyAhKiDQptCy0LXRgiDRhNC+0L3QsCDRj9GH0LXQudC60LggKiEqL1xyXG4vKiAgaGVpZ2h0OiA0MHB4OyAhKiDQktGL0YHQvtGC0LAg0Y/Rh9C10LXQuiAqISovXHJcbi8qICAhKnZlcnRpY2FsLWFsaWduOiBib3R0b207ICDQktGL0YDQsNCy0L3QuNCy0LDQvdC40LUg0L/QviDQvdC40LbQvdC10LzRgyDQutGA0LDRjiAqISovXHJcbi8qICBwYWRkaW5nOiAwOyAhKiDQo9Cx0LjRgNCw0LXQvCDQv9C+0LvRjyDQstC+0LrRgNGD0LMg0YLQtdC60YHRgtCwICohKi9cclxuLyp9Ki9cclxuIl19 */");
+
+/***/ }),
+
+/***/ "./src/app/component/app.component.ts":
+/*!********************************************!*\
+  !*** ./src/app/component/app.component.ts ***!
+  \********************************************/
+/*! exports provided: AppComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let AppComponent = class AppComponent {
+};
+AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-root',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/app.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./app.component.css */ "./src/app/component/app.component.css")).default]
+    })
+], AppComponent);
+
+// implements OnInit, OnChanges
+// userFromParent: User;
+// constructor(private http: HttpClient) { }
+// @Output() userNameChange = new EventEmitter<User>();
+// onNameChange(model: User) {
+//   this.user = model;
+//   this.userNameChange.emit(model);
+// }
+// ngOnInit() {
+//   console.log('init');
+// this.updateUser();
+// }
+// private updateUser() {
+//   this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/user')
+//     .subscribe((user) => {
+//       this.userFromParent = user;
+//       console.log(this.userFromParent);
+//     });
+// }
+// onChangeUserFromParent(id: number): void {
+//   this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/user?id=' + id)
+//     .subscribe((user) => {
+//       this.userFromParent = user;
+//       console.log(this.userFromParent);
+//     });
+//   console.log('onChangeUserFromParent');
+// }
+// ngOnChanges() {
+//   console.log('Change');
+// }
+// }
+
+
+/***/ }),
+
+/***/ "./src/app/component/common-header-user/common-header-user.component.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/component/common-header-user/common-header-user.component.ts ***!
+  \******************************************************************************/
+/*! exports provided: CommonHeaderUserComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonHeaderUserComponent", function() { return CommonHeaderUserComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+
+
+// import { HttpService} from './http.service';
+
+let CommonHeaderUserComponent = class CommonHeaderUserComponent {
+    // @Input()
+    // setUser(user: User): void {
+    //     this.user = user;
+    // }
+    // get user() { return this._user; }
+    // @Output() userNameChange = new EventEmitter<User>();
+    //
+    // onNameChange(model: User) {
+    //   this.user = model;
+    //   this.userNameChange.emit(model);
+    // }
+    // response: any;
+    constructor(http) {
+        this.http = http;
+    }
+    // constructor(private httpService: HttpService) {}
+    ngOnInit() {
+        this.extracted();
+    }
+    ngOnChanges() {
+        // this.extracted();
+        // console.log('Change');
+    }
+    extracted() {
+        this.http.get('http://localhost:8081/lkz_project_war_exploded/angular/user')
+            .subscribe((user) => {
+            this.user = user;
+            console.log(this.user);
+        });
+    }
+};
+CommonHeaderUserComponent.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+CommonHeaderUserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-common-header-user',
+        // selector: 'app-root',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./common-header-user.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/common-header-user/common-header-user.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./common-header-user.css */ "./src/app/component/common-header-user/common-header-user.css")).default]
+    })
+], CommonHeaderUserComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/common-header-user/common-header-user.css":
+/*!*********************************************************************!*\
+  !*** ./src/app/component/common-header-user/common-header-user.css ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("div{\r\n  margin: 9px 8px;\r\n}\r\n\r\nTABLE {\r\n  border-collapse: collapse; /* Убираем двойные линии между ячейками */\r\n  width: 100%;/*  width: 300px; Ширина таблицы */\r\n}\r\n\r\nTH, TD {\r\n  border: 1px solid black; /* Параметры рамки */\r\n  text-align: center; /* Выравнивание по центру */\r\n  padding: 1px; /* Поля вокруг текста */\r\n}\r\n\r\nTH {\r\n  background: #fc0; /* Цвет фона ячейки */\r\n  height: 40px; /* Высота ячеек */\r\n  /*vertical-align: bottom;  Выравнивание по нижнему краю */\r\n  padding: 0; /* Убираем поля вокруг текста */\r\n}\r\n\r\n#header_table th{\r\n  background: #ffccff;\r\n}\r\n\r\n#attention_in_header_table{\r\n  color: blue;\r\n}\r\n\r\n.href-nav-item {\r\n  background:#eaeaea; /*фон*/\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.href-nav-item-current {\r\n  background:#ff0000; /*фон*/\r\n  color: white;\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.green_button{\r\n  background-color: #4CAF50;\r\n  color: white;\r\n  display: inline-block;\r\n}\r\n\r\n.hidden_input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input + button{ /* IMAGE STYLES */\r\n  cursor:pointer;\r\n  border:2px solid transparent;\r\n}\r\n\r\nspan.radioDecorator > input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */\r\n  border:2px solid #f00;\r\n}\r\n\r\n.error {\r\n  color: red;\r\n}\r\n\r\n.success {\r\n  color: green;\r\n}\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L2NvbW1vbi1oZWFkZXItdXNlci9jb21tb24taGVhZGVyLXVzZXIuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBZTtBQUNqQjs7QUFFQTtFQUNFLHlCQUF5QixFQUFFLHlDQUF5QztFQUNwRSxXQUFXLENBQUMsa0NBQWtDO0FBQ2hEOztBQUNBO0VBQ0UsdUJBQXVCLEVBQUUsb0JBQW9CO0VBQzdDLGtCQUFrQixFQUFFLDJCQUEyQjtFQUMvQyxZQUFZLEVBQUUsdUJBQXVCO0FBQ3ZDOztBQUNBO0VBQ0UsZ0JBQWdCLEVBQUUscUJBQXFCO0VBQ3ZDLFlBQVksRUFBRSxpQkFBaUI7RUFDL0IseURBQXlEO0VBQ3pELFVBQVUsRUFBRSwrQkFBK0I7QUFDN0M7O0FBQ0E7RUFDRSxtQkFBbUI7QUFDckI7O0FBQ0E7RUFDRSxXQUFXO0FBQ2I7O0FBRUE7RUFDRSxrQkFBa0IsRUFBRSxNQUFNOztFQUUxQixxQkFBcUIsR0FBRyxRQUFRO0VBQ2hDLGtCQUFrQixFQUFFLGlCQUFpQjtFQUNyQyxxQkFBcUIsRUFBRSw4QkFBOEI7QUFDdkQ7O0FBQ0E7RUFDRSxrQkFBa0IsRUFBRSxNQUFNO0VBQzFCLFlBQVk7O0VBRVoscUJBQXFCLEdBQUcsUUFBUTtFQUNoQyxrQkFBa0IsRUFBRSxpQkFBaUI7RUFDckMscUJBQXFCLEVBQUUsOEJBQThCO0FBQ3ZEOztBQUVBO0VBQ0UseUJBQXlCO0VBQ3pCLFlBQVk7RUFDWixxQkFBcUI7QUFDdkI7O0FBRUEsZUFBZSxlQUFlO0VBQzVCLGtCQUFrQixFQUFFLDhCQUE4QjtFQUNsRCxrQkFBa0IsRUFBRSxvQ0FBb0M7QUFDMUQ7O0FBQ0EsNkJBQTZCLGVBQWU7RUFDMUMsa0JBQWtCLEVBQUUsOEJBQThCO0VBQ2xELGtCQUFrQixFQUFFLG9DQUFvQztBQUMxRDs7QUFDQSxzQ0FBc0MsaUJBQWlCO0VBQ3JELGNBQWM7RUFDZCw0QkFBNEI7QUFDOUI7O0FBQ0EsOENBQThDLGlDQUFpQztFQUM3RSxxQkFBcUI7QUFDdkI7O0FBRUE7RUFDRSxVQUFVO0FBQ1o7O0FBQ0E7RUFDRSxZQUFZO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnQvY29tbW9uLWhlYWRlci11c2VyL2NvbW1vbi1oZWFkZXItdXNlci5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJkaXZ7XHJcbiAgbWFyZ2luOiA5cHggOHB4O1xyXG59XHJcblxyXG5UQUJMRSB7XHJcbiAgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsgLyog0KPQsdC40YDQsNC10Lwg0LTQstC+0LnQvdGL0LUg0LvQuNC90LjQuCDQvNC10LbQtNGDINGP0YfQtdC50LrQsNC80LggKi9cclxuICB3aWR0aDogMTAwJTsvKiAgd2lkdGg6IDMwMHB4OyDQqNC40YDQuNC90LAg0YLQsNCx0LvQuNGG0YsgKi9cclxufVxyXG5USCwgVEQge1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrOyAvKiDQn9Cw0YDQsNC80LXRgtGA0Ysg0YDQsNC80LrQuCAqL1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjsgLyog0JLRi9GA0LDQstC90LjQstCw0L3QuNC1INC/0L4g0YbQtdC90YLRgNGDICovXHJcbiAgcGFkZGluZzogMXB4OyAvKiDQn9C+0LvRjyDQstC+0LrRgNGD0LMg0YLQtdC60YHRgtCwICovXHJcbn1cclxuVEgge1xyXG4gIGJhY2tncm91bmQ6ICNmYzA7IC8qINCm0LLQtdGCINGE0L7QvdCwINGP0YfQtdC50LrQuCAqL1xyXG4gIGhlaWdodDogNDBweDsgLyog0JLRi9GB0L7RgtCwINGP0YfQtdC10LogKi9cclxuICAvKnZlcnRpY2FsLWFsaWduOiBib3R0b207ICDQktGL0YDQsNCy0L3QuNCy0LDQvdC40LUg0L/QviDQvdC40LbQvdC10LzRgyDQutGA0LDRjiAqL1xyXG4gIHBhZGRpbmc6IDA7IC8qINCj0LHQuNGA0LDQtdC8INC/0L7Qu9GPINCy0L7QutGA0YPQsyDRgtC10LrRgdGC0LAgKi9cclxufVxyXG4jaGVhZGVyX3RhYmxlIHRoe1xyXG4gIGJhY2tncm91bmQ6ICNmZmNjZmY7XHJcbn1cclxuI2F0dGVudGlvbl9pbl9oZWFkZXJfdGFibGV7XHJcbiAgY29sb3I6IGJsdWU7XHJcbn1cclxuXHJcbi5ocmVmLW5hdi1pdGVtIHtcclxuICBiYWNrZ3JvdW5kOiNlYWVhZWE7IC8q0YTQvtC9Ki9cclxuXHJcbiAgYm9yZGVyOjFweCBzb2xpZCAjY2NjOyAgLyrRgNCw0LzQutCwKi9cclxuICBwYWRkaW5nOiAuMmVtIC4yZW07IC8q0L7RgtGB0YLRg9C/0Ysg0LLQvdGD0YLRgNC4Ki9cclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7IC8q0YPQsdGA0LDRgtGMINC/0L7QtNGH0LXRgNC60LjQstCw0L3QuNC1INGB0YHRi9C70LrQuCovXHJcbn1cclxuLmhyZWYtbmF2LWl0ZW0tY3VycmVudCB7XHJcbiAgYmFja2dyb3VuZDojZmYwMDAwOyAvKtGE0L7QvSovXHJcbiAgY29sb3I6IHdoaXRlO1xyXG5cclxuICBib3JkZXI6MXB4IHNvbGlkICNjY2M7ICAvKtGA0LDQvNC60LAqL1xyXG4gIHBhZGRpbmc6IC4yZW0gLjJlbTsgLyrQvtGC0YHRgtGD0L/RiyDQstC90YPRgtGA0LgqL1xyXG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTsgLyrRg9Cx0YDQsNGC0Ywg0L/QvtC00YfQtdGA0LrQuNCy0LDQvdC40LUg0YHRgdGL0LvQutC4Ki9cclxufVxyXG5cclxuLmdyZWVuX2J1dHRvbntcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNENBRjUwO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbn1cclxuXHJcbi5oaWRkZW5faW5wdXR7IC8qIEhJREUgUkFESU8gKi9cclxuICB2aXNpYmlsaXR5OiBoaWRkZW47IC8qIE1ha2VzIGlucHV0IG5vdC1jbGlja2FibGUgKi9cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7IC8qIFJlbW92ZSBpbnB1dCBmcm9tIGRvY3VtZW50IGZsb3cgKi9cclxufVxyXG5zcGFuLnJhZGlvRGVjb3JhdG9yID4gaW5wdXR7IC8qIEhJREUgUkFESU8gKi9cclxuICB2aXNpYmlsaXR5OiBoaWRkZW47IC8qIE1ha2VzIGlucHV0IG5vdC1jbGlja2FibGUgKi9cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7IC8qIFJlbW92ZSBpbnB1dCBmcm9tIGRvY3VtZW50IGZsb3cgKi9cclxufVxyXG5zcGFuLnJhZGlvRGVjb3JhdG9yID4gaW5wdXQgKyBidXR0b257IC8qIElNQUdFIFNUWUxFUyAqL1xyXG4gIGN1cnNvcjpwb2ludGVyO1xyXG4gIGJvcmRlcjoycHggc29saWQgdHJhbnNwYXJlbnQ7XHJcbn1cclxuc3Bhbi5yYWRpb0RlY29yYXRvciA+IGlucHV0OmNoZWNrZWQgKyBidXR0b257IC8qIChSQURJTyBDSEVDS0VEKSBJTUFHRSBTVFlMRVMgKi9cclxuICBib3JkZXI6MnB4IHNvbGlkICNmMDA7XHJcbn1cclxuXHJcbi5lcnJvciB7XHJcbiAgY29sb3I6IHJlZDtcclxufVxyXG4uc3VjY2VzcyB7XHJcbiAgY29sb3I6IGdyZWVuO1xyXG59XHJcblxyXG4iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/component/list-users/list-users.component.css":
+/*!***************************************************************!*\
+  !*** ./src/app/component/list-users/list-users.component.css ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("h1, h2{color:navy;}\r\np{font-size:13px;}\r\n:host {\r\n  font-family: Verdana;\r\n  color: #555;\r\n}\r\ndiv{\r\n  margin: 9px 8px;\r\n}\r\nTABLE {\r\n  border-collapse: collapse; /* Убираем двойные линии между ячейками */\r\n  width: 100%;/*  width: 300px; Ширина таблицы */\r\n}\r\nTH, TD {\r\n  border: 1px solid black; /* Параметры рамки */\r\n  text-align: left; /* Выравнивание по центру */\r\n  padding: 1px; /* Поля вокруг текста */\r\n}\r\nTH {\r\n  background: #fc0; /* Цвет фона ячейки */\r\n  height: 40px; /* Высота ячеек */\r\n  /*vertical-align: bottom;  Выравнивание по нижнему краю */\r\n  padding: 0; /* Убираем поля вокруг текста */\r\n}\r\n.hoverElements:hover {background: #0078BF; color: #fff;}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L2xpc3QtdXNlcnMvbGlzdC11c2Vycy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sVUFBVSxDQUFDO0FBQ2xCLEVBQUUsY0FBYyxDQUFDO0FBQ2pCO0VBQ0Usb0JBQW9CO0VBQ3BCLFdBQVc7QUFDYjtBQUNBO0VBQ0UsZUFBZTtBQUNqQjtBQUVBO0VBQ0UseUJBQXlCLEVBQUUseUNBQXlDO0VBQ3BFLFdBQVcsQ0FBQyxrQ0FBa0M7QUFDaEQ7QUFDQTtFQUNFLHVCQUF1QixFQUFFLG9CQUFvQjtFQUM3QyxnQkFBZ0IsRUFBRSwyQkFBMkI7RUFDN0MsWUFBWSxFQUFFLHVCQUF1QjtBQUN2QztBQUNBO0VBQ0UsZ0JBQWdCLEVBQUUscUJBQXFCO0VBQ3ZDLFlBQVksRUFBRSxpQkFBaUI7RUFDL0IseURBQXlEO0VBQ3pELFVBQVUsRUFBRSwrQkFBK0I7QUFDN0M7QUFDQSxzQkFBc0IsbUJBQW1CLEVBQUUsV0FBVyxDQUFDIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50L2xpc3QtdXNlcnMvbGlzdC11c2Vycy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDEsIGgye2NvbG9yOm5hdnk7fVxyXG5we2ZvbnQtc2l6ZToxM3B4O31cclxuOmhvc3Qge1xyXG4gIGZvbnQtZmFtaWx5OiBWZXJkYW5hO1xyXG4gIGNvbG9yOiAjNTU1O1xyXG59XHJcbmRpdntcclxuICBtYXJnaW46IDlweCA4cHg7XHJcbn1cclxuXHJcblRBQkxFIHtcclxuICBib3JkZXItY29sbGFwc2U6IGNvbGxhcHNlOyAvKiDQo9Cx0LjRgNCw0LXQvCDQtNCy0L7QudC90YvQtSDQu9C40L3QuNC4INC80LXQttC00YMg0Y/Rh9C10LnQutCw0LzQuCAqL1xyXG4gIHdpZHRoOiAxMDAlOy8qICB3aWR0aDogMzAwcHg7INCo0LjRgNC40L3QsCDRgtCw0LHQu9C40YbRiyAqL1xyXG59XHJcblRILCBURCB7XHJcbiAgYm9yZGVyOiAxcHggc29saWQgYmxhY2s7IC8qINCf0LDRgNCw0LzQtdGC0YDRiyDRgNCw0LzQutC4ICovXHJcbiAgdGV4dC1hbGlnbjogbGVmdDsgLyog0JLRi9GA0LDQstC90LjQstCw0L3QuNC1INC/0L4g0YbQtdC90YLRgNGDICovXHJcbiAgcGFkZGluZzogMXB4OyAvKiDQn9C+0LvRjyDQstC+0LrRgNGD0LMg0YLQtdC60YHRgtCwICovXHJcbn1cclxuVEgge1xyXG4gIGJhY2tncm91bmQ6ICNmYzA7IC8qINCm0LLQtdGCINGE0L7QvdCwINGP0YfQtdC50LrQuCAqL1xyXG4gIGhlaWdodDogNDBweDsgLyog0JLRi9GB0L7RgtCwINGP0YfQtdC10LogKi9cclxuICAvKnZlcnRpY2FsLWFsaWduOiBib3R0b207ICDQktGL0YDQsNCy0L3QuNCy0LDQvdC40LUg0L/QviDQvdC40LbQvdC10LzRgyDQutGA0LDRjiAqL1xyXG4gIHBhZGRpbmc6IDA7IC8qINCj0LHQuNGA0LDQtdC8INC/0L7Qu9GPINCy0L7QutGA0YPQsyDRgtC10LrRgdGC0LAgKi9cclxufVxyXG4uaG92ZXJFbGVtZW50czpob3ZlciB7YmFja2dyb3VuZDogIzAwNzhCRjsgY29sb3I6ICNmZmY7fVxyXG4iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/component/list-users/list-users.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/component/list-users/list-users.component.ts ***!
+  \**************************************************************/
+/*! exports provided: ListUsersComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListUsersComponent", function() { return ListUsersComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
+
+// import { HttpService} from './http.service';
+
+
+let ListUsersComponent = class ListUsersComponent {
+    // @Output()
+    // onChangedUser = new EventEmitter<number>();
+    //
+    // selectUser(userId: number) {
+    //   this.onChangedUser.emit(userId);
+    //   console.log('selectUser');
+    //   routerLink="['/notifications', user?.id]
+    //   this.route.
+    // }
+    // response: any;
+    constructor(http, router, route) {
+        this.http = http;
+        this.router = router;
+        this.route = route;
+    }
+    // constructor(private httpService: HttpService) {}
+    ngOnInit() {
+        // this.http.get('user.json') //Observable<any>
+        // this.httpService.getUsers()
+        // .subscribe((data:User) => this.user=data);
+        // .subscribe(data => this.list-users=data["userList"]);
+        //   .subscribe(data => this.list-users = data);
+        // this.http.get<TestUser>('http://localhost:8081/lkz_project_war_exploded/angular/test_user')
+        // .subscribe((testUser) => {
+        //   this.testUser = testUser;
+        //   console.log(this.testUser);
+        // });
+        //
+        // this.http.get<TestUser[]>('http://localhost:8081/lkz_project_war_exploded/angular/test_users')
+        // .subscribe((testUsers) => {
+        //   this.testUsers = testUsers;
+        //   console.log(this.testUsers);
+        // });
+        this.http.get('http://localhost:8081/lkz_project_war_exploded/angular/input/users')
+            .subscribe((users) => {
+            this.users = users;
+            console.log(this.users);
+        });
+    }
+    input(user) {
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/x-www-form-urlencoded')
+        };
+        let body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
+        body = body.set('id', user.id.toString());
+        this.http.post('http://localhost:8081/lkz_project_war_exploded/angular/input/has_user', body, httpOptions)
+            .subscribe((hasUser) => {
+            if (hasUser)
+                this.router.navigate(['/notifications']);
+        });
+    }
+};
+ListUsersComponent.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
+];
+ListUsersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        // selector: 'app-root',
+        selector: 'app-list-users-root',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./list-users.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/list-users/list-users.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./list-users.component.css */ "./src/app/component/list-users/list-users.component.css")).default]
+    })
+], ListUsersComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/not-found.component/not-found.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/component/not-found.component/not-found.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: NotFoundComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotFoundComponent", function() { return NotFoundComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let NotFoundComponent = class NotFoundComponent {
+};
+NotFoundComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        // selector: 'not-found-app',
+        selector: 'app-root',
+        template: `<h3>Страница не найдена</h3>
+  <h2><button [routerLink]="['']">перейти на главную</button></h2>`
+    })
+], NotFoundComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/notifications/notifications.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/component/notifications/notifications.component.ts ***!
+  \********************************************************************/
+/*! exports provided: NotificationsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationsComponent", function() { return NotificationsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../models/input-output/form/FilterForm */ "./src/app/models/input-output/form/FilterForm.ts");
+/* harmony import */ var _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../models/input-output/form/PaginationForm */ "./src/app/models/input-output/form/PaginationForm.ts");
+/* harmony import */ var _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../models/input-output/form/OrderByForm */ "./src/app/models/input-output/form/OrderByForm.ts");
+
+
+// import { HttpService} from './http.service';
+
+
+
+
+
+
+let NotificationsComponent = class NotificationsComponent {
+    constructor(http, route, router, formBuilder) {
+        this.http = http;
+        this.route = route;
+        this.router = router;
+        this.formBuilder = formBuilder;
+        // response: any;
+        // list: string[];
+        this.filtersForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
+            showArchive: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](false),
+            // idFilterStatus: new FormControl()
+            // idFilterStatus: new FormArray([])
+            _0: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](true),
+            _1: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](true),
+            _2: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](true),
+            _3: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](true),
+        });
+        this.maxResultForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
+            maxResult: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](10) //todo replace
+        });
+        this.newFilterForm = new _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__["FilterForm"]();
+        this.newPaginationForm = new _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__["PaginationForm"]();
+        this.newOrderByForm = new _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__["OrderByForm"]();
+        this.httpOptionsJson = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+    // constructor(private httpService: HttpService) {}
+    ngOnChanges() {
+        console.log('Change');
+    }
+    ngOnInit() {
+        // const userId = this.route.snapshot.paramMap.get('userId');
+        // this.http.get<Notification[]>('http://localhost:8081/lkz_project_war_exploded/angular/user_notifications?userId=' + userId)
+        // .subscribe((notifications) => {
+        //   this.notifications = notifications;
+        //   console.log(this.notifications);
+        // });
+        // this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/get_user?id=' + userId)
+        //   .subscribe((user) => {
+        //     this.user = user;
+        //     console.log(this.user);
+        //   });
+        // this.http.get<Cabinet4renderHtml>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/cabinet4renderHtml?userId=' + userId)
+        //   .subscribe((render) => {
+        //     this.render = render;
+        //     console.log(this.render);
+        //   });
+        // this.http.get<User>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/get_user')
+        //   .subscribe((user) => {
+        //     this.user = user;
+        //     console.log(this.user);
+        //   });
+        this.http.get('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/cabinet4renderHtml')
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+        // this.filtersForm = this.formBuilder.group({
+        //   showArchive: this.render.state.filterForm.showArchive,
+        //   // idFilterStatus: this.render.state.filterForm.idFilterStatus,
+        // });
+        // for ()
+        // if ( this.render.newCheckedMainListNotificStatusesId == 0 ) this.filtersForm._1 = new FormControl(trua);
+        // if ( this.filtersForm.get('_1').value ) this.newFilterForm.idFilterStatus.push(1)
+        // if ( this.filtersForm.get('_2').value ) this.newFilterForm.idFilterStatus.push(2)
+        // if ( this.filtersForm.get('_3').value ) this.newFilterForm.idFilterStatus.push(3)
+        // this.filtersForm.get('_0').value = this.render.newCheckedMainListNotificStatusesId;
+    }
+    filterAply() {
+        this.newFilterForm.showArchive = this.filtersForm.get('showArchive').value;
+        // this.newfilter.idFilterStatus = this.filtersForm.get('idFilterStatus').value;
+        // console.log('idFilterStatus');
+        // console.log(this.newfilter.idFilterStatus);
+        this.newFilterForm.idFilterStatus = new Array();
+        if (this.filtersForm.get('_0').value)
+            this.newFilterForm.idFilterStatus.push(0);
+        if (this.filtersForm.get('_1').value)
+            this.newFilterForm.idFilterStatus.push(1);
+        if (this.filtersForm.get('_2').value)
+            this.newFilterForm.idFilterStatus.push(2);
+        if (this.filtersForm.get('_3').value)
+            this.newFilterForm.idFilterStatus.push(3);
+        //
+        // this.newfilter.idFilterStatus = new Array(
+        //   this.filtersForm.get('NEW').value,
+        //   this.filtersForm.get('IN_WORK').value,
+        //   this.filtersForm.get('REJECTED').value,
+        //   this.filtersForm.get('OK').value,
+        // );
+        // this.filter.idFilterStatus = this.filtersForm.controls.idFilterStatus.value;
+        // console.log(this.filtersForm.controls.idFilterStatus.value);
+        // this.http.post<FilterForm>(
+        //   'http://localhost:8081/lkz_project_war_exploded/angular/filters', JSON.stringify(this.render.state.filterForm), this.httpOptions)
+        //   .subscribe((str) => {
+        //     this.response = str;
+        //     console.log(this.response);
+        //   });
+        // if (this.response == "OK") {
+        //   this.http.get<any>('http://localhost:8081/lkz_project_war_exploded/angular/cabinet4renderHtml?userId=' + this.user.id)
+        //     .subscribe((render) => {
+        //       this.render = render;
+        //       console.log(this.render);
+        //     });
+        // } else {
+        //   console.log('ERROR NO EDIT' + this.render);
+        //   alert('ERROR NO EDIT' + this.render);
+        // }
+        this.http.post(
+        // 'http://localhost:8081/lkz_project_war_exploded/angular/filters', JSON.stringify(this.render.state.filterForm), this.httpOptions)
+        'http://localhost:8081/lkz_project_war_exploded/angular/cabinet/filters', JSON.stringify(this.newFilterForm), this.httpOptionsJson)
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+    }
+    pageChanged(event) {
+        this.newPaginationForm.page = event - 1;
+        this.http.post('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+    }
+    open(notification) {
+        // this.router.navigate(['/notifications'], {queryParams: {'id': notification.id} });
+        this.router.navigate(['/notifications/' + notification.id]);
+    }
+    maxResultAply() {
+        this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
+        this.http.post('http://localhost:8081/lkz_project_war_exploded/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+            .subscribe((render) => {
+            this.render = render;
+            console.log(this.render);
+        });
+    }
+};
+NotificationsComponent.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] }
+];
+NotificationsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-root',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./notifications.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/component/notifications/notifications.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./notifications.css */ "./src/app/component/notifications/notifications.css")).default]
+    })
+], NotificationsComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/notifications/notifications.css":
+/*!***********************************************************!*\
+  !*** ./src/app/component/notifications/notifications.css ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("div{\r\n  margin: 9px 8px;\r\n}\r\n\r\nTABLE {\r\n  border-collapse: collapse; /* Убираем двойные линии между ячейками */\r\n  width: 100%;/*  width: 300px; Ширина таблицы */\r\n}\r\n\r\nTH, TD {\r\n  border: 1px solid black; /* Параметры рамки */\r\n  text-align: center; /* Выравнивание по центру */\r\n  padding: 1px; /* Поля вокруг текста */\r\n}\r\n\r\nTH {\r\n  background: #fc0; /* Цвет фона ячейки */\r\n  height: 40px; /* Высота ячеек */\r\n  /*vertical-align: bottom;  Выравнивание по нижнему краю */\r\n  padding: 0; /* Убираем поля вокруг текста */\r\n}\r\n\r\n#header_table th{\r\n  background: #ffccff;\r\n}\r\n\r\n#attention_in_header_table{\r\n  color: blue;\r\n}\r\n\r\n.href-nav-item {\r\n  background:#eaeaea; /*фон*/\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.href-nav-item-current {\r\n  background:#ff0000; /*фон*/\r\n  color: white;\r\n\r\n  border:1px solid #ccc;  /*рамка*/\r\n  padding: .2em .2em; /*отступы внутри*/\r\n  text-decoration: none; /*убрать подчеркивание ссылки*/\r\n}\r\n\r\n.green_button{\r\n  background-color: #4CAF50;\r\n  color: white;\r\n  display: inline-block;\r\n}\r\n\r\n.hidden_input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input{ /* HIDE RADIO */\r\n  visibility: hidden; /* Makes input not-clickable */\r\n  position: absolute; /* Remove input from document flow */\r\n}\r\n\r\nspan.radioDecorator > input + button{ /* IMAGE STYLES */\r\n  cursor:pointer;\r\n  border:2px solid transparent;\r\n}\r\n\r\nspan.radioDecorator > input:checked + button{ /* (RADIO CHECKED) IMAGE STYLES */\r\n  border:2px solid #f00;\r\n}\r\n\r\n.error {\r\n  color: red;\r\n}\r\n\r\n.success {\r\n  color: green;\r\n}\r\n\r\n.hoverElements:hover {background: #0078BF; color: #fff;}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L25vdGlmaWNhdGlvbnMvbm90aWZpY2F0aW9ucy5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UseUJBQXlCLEVBQUUseUNBQXlDO0VBQ3BFLFdBQVcsQ0FBQyxrQ0FBa0M7QUFDaEQ7O0FBQ0E7RUFDRSx1QkFBdUIsRUFBRSxvQkFBb0I7RUFDN0Msa0JBQWtCLEVBQUUsMkJBQTJCO0VBQy9DLFlBQVksRUFBRSx1QkFBdUI7QUFDdkM7O0FBQ0E7RUFDRSxnQkFBZ0IsRUFBRSxxQkFBcUI7RUFDdkMsWUFBWSxFQUFFLGlCQUFpQjtFQUMvQix5REFBeUQ7RUFDekQsVUFBVSxFQUFFLCtCQUErQjtBQUM3Qzs7QUFDQTtFQUNFLG1CQUFtQjtBQUNyQjs7QUFDQTtFQUNFLFdBQVc7QUFDYjs7QUFFQTtFQUNFLGtCQUFrQixFQUFFLE1BQU07O0VBRTFCLHFCQUFxQixHQUFHLFFBQVE7RUFDaEMsa0JBQWtCLEVBQUUsaUJBQWlCO0VBQ3JDLHFCQUFxQixFQUFFLDhCQUE4QjtBQUN2RDs7QUFDQTtFQUNFLGtCQUFrQixFQUFFLE1BQU07RUFDMUIsWUFBWTs7RUFFWixxQkFBcUIsR0FBRyxRQUFRO0VBQ2hDLGtCQUFrQixFQUFFLGlCQUFpQjtFQUNyQyxxQkFBcUIsRUFBRSw4QkFBOEI7QUFDdkQ7O0FBRUE7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLHFCQUFxQjtBQUN2Qjs7QUFFQSxlQUFlLGVBQWU7RUFDNUIsa0JBQWtCLEVBQUUsOEJBQThCO0VBQ2xELGtCQUFrQixFQUFFLG9DQUFvQztBQUMxRDs7QUFDQSw2QkFBNkIsZUFBZTtFQUMxQyxrQkFBa0IsRUFBRSw4QkFBOEI7RUFDbEQsa0JBQWtCLEVBQUUsb0NBQW9DO0FBQzFEOztBQUNBLHNDQUFzQyxpQkFBaUI7RUFDckQsY0FBYztFQUNkLDRCQUE0QjtBQUM5Qjs7QUFDQSw4Q0FBOEMsaUNBQWlDO0VBQzdFLHFCQUFxQjtBQUN2Qjs7QUFFQTtFQUNFLFVBQVU7QUFDWjs7QUFDQTtFQUNFLFlBQVk7QUFDZDs7QUFDQSxzQkFBc0IsbUJBQW1CLEVBQUUsV0FBVyxDQUFDIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50L25vdGlmaWNhdGlvbnMvbm90aWZpY2F0aW9ucy5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJkaXZ7XHJcbiAgbWFyZ2luOiA5cHggOHB4O1xyXG59XHJcblxyXG5UQUJMRSB7XHJcbiAgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsgLyog0KPQsdC40YDQsNC10Lwg0LTQstC+0LnQvdGL0LUg0LvQuNC90LjQuCDQvNC10LbQtNGDINGP0YfQtdC50LrQsNC80LggKi9cclxuICB3aWR0aDogMTAwJTsvKiAgd2lkdGg6IDMwMHB4OyDQqNC40YDQuNC90LAg0YLQsNCx0LvQuNGG0YsgKi9cclxufVxyXG5USCwgVEQge1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrOyAvKiDQn9Cw0YDQsNC80LXRgtGA0Ysg0YDQsNC80LrQuCAqL1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjsgLyog0JLRi9GA0LDQstC90LjQstCw0L3QuNC1INC/0L4g0YbQtdC90YLRgNGDICovXHJcbiAgcGFkZGluZzogMXB4OyAvKiDQn9C+0LvRjyDQstC+0LrRgNGD0LMg0YLQtdC60YHRgtCwICovXHJcbn1cclxuVEgge1xyXG4gIGJhY2tncm91bmQ6ICNmYzA7IC8qINCm0LLQtdGCINGE0L7QvdCwINGP0YfQtdC50LrQuCAqL1xyXG4gIGhlaWdodDogNDBweDsgLyog0JLRi9GB0L7RgtCwINGP0YfQtdC10LogKi9cclxuICAvKnZlcnRpY2FsLWFsaWduOiBib3R0b207ICDQktGL0YDQsNCy0L3QuNCy0LDQvdC40LUg0L/QviDQvdC40LbQvdC10LzRgyDQutGA0LDRjiAqL1xyXG4gIHBhZGRpbmc6IDA7IC8qINCj0LHQuNGA0LDQtdC8INC/0L7Qu9GPINCy0L7QutGA0YPQsyDRgtC10LrRgdGC0LAgKi9cclxufVxyXG4jaGVhZGVyX3RhYmxlIHRoe1xyXG4gIGJhY2tncm91bmQ6ICNmZmNjZmY7XHJcbn1cclxuI2F0dGVudGlvbl9pbl9oZWFkZXJfdGFibGV7XHJcbiAgY29sb3I6IGJsdWU7XHJcbn1cclxuXHJcbi5ocmVmLW5hdi1pdGVtIHtcclxuICBiYWNrZ3JvdW5kOiNlYWVhZWE7IC8q0YTQvtC9Ki9cclxuXHJcbiAgYm9yZGVyOjFweCBzb2xpZCAjY2NjOyAgLyrRgNCw0LzQutCwKi9cclxuICBwYWRkaW5nOiAuMmVtIC4yZW07IC8q0L7RgtGB0YLRg9C/0Ysg0LLQvdGD0YLRgNC4Ki9cclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7IC8q0YPQsdGA0LDRgtGMINC/0L7QtNGH0LXRgNC60LjQstCw0L3QuNC1INGB0YHRi9C70LrQuCovXHJcbn1cclxuLmhyZWYtbmF2LWl0ZW0tY3VycmVudCB7XHJcbiAgYmFja2dyb3VuZDojZmYwMDAwOyAvKtGE0L7QvSovXHJcbiAgY29sb3I6IHdoaXRlO1xyXG5cclxuICBib3JkZXI6MXB4IHNvbGlkICNjY2M7ICAvKtGA0LDQvNC60LAqL1xyXG4gIHBhZGRpbmc6IC4yZW0gLjJlbTsgLyrQvtGC0YHRgtGD0L/RiyDQstC90YPRgtGA0LgqL1xyXG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTsgLyrRg9Cx0YDQsNGC0Ywg0L/QvtC00YfQtdGA0LrQuNCy0LDQvdC40LUg0YHRgdGL0LvQutC4Ki9cclxufVxyXG5cclxuLmdyZWVuX2J1dHRvbntcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNENBRjUwO1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbn1cclxuXHJcbi5oaWRkZW5faW5wdXR7IC8qIEhJREUgUkFESU8gKi9cclxuICB2aXNpYmlsaXR5OiBoaWRkZW47IC8qIE1ha2VzIGlucHV0IG5vdC1jbGlja2FibGUgKi9cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7IC8qIFJlbW92ZSBpbnB1dCBmcm9tIGRvY3VtZW50IGZsb3cgKi9cclxufVxyXG5zcGFuLnJhZGlvRGVjb3JhdG9yID4gaW5wdXR7IC8qIEhJREUgUkFESU8gKi9cclxuICB2aXNpYmlsaXR5OiBoaWRkZW47IC8qIE1ha2VzIGlucHV0IG5vdC1jbGlja2FibGUgKi9cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7IC8qIFJlbW92ZSBpbnB1dCBmcm9tIGRvY3VtZW50IGZsb3cgKi9cclxufVxyXG5zcGFuLnJhZGlvRGVjb3JhdG9yID4gaW5wdXQgKyBidXR0b257IC8qIElNQUdFIFNUWUxFUyAqL1xyXG4gIGN1cnNvcjpwb2ludGVyO1xyXG4gIGJvcmRlcjoycHggc29saWQgdHJhbnNwYXJlbnQ7XHJcbn1cclxuc3Bhbi5yYWRpb0RlY29yYXRvciA+IGlucHV0OmNoZWNrZWQgKyBidXR0b257IC8qIChSQURJTyBDSEVDS0VEKSBJTUFHRSBTVFlMRVMgKi9cclxuICBib3JkZXI6MnB4IHNvbGlkICNmMDA7XHJcbn1cclxuXHJcbi5lcnJvciB7XHJcbiAgY29sb3I6IHJlZDtcclxufVxyXG4uc3VjY2VzcyB7XHJcbiAgY29sb3I6IGdyZWVuO1xyXG59XHJcbi5ob3ZlckVsZW1lbnRzOmhvdmVyIHtiYWNrZ3JvdW5kOiAjMDA3OEJGOyBjb2xvcjogI2ZmZjt9XHJcbiJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/models/input-output/dto.valid/ActionPortionDto.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/models/input-output/dto.valid/ActionPortionDto.ts ***!
+  \*******************************************************************/
+/*! exports provided: ActionPortionDto */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionPortionDto", function() { return ActionPortionDto; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class ActionPortionDto {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/models/input-output/form/FilterForm.ts":
+/*!********************************************************!*\
+  !*** ./src/app/models/input-output/form/FilterForm.ts ***!
+  \********************************************************/
+/*! exports provided: FilterForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterForm", function() { return FilterForm; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class FilterForm {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/models/input-output/form/OrderByForm.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/models/input-output/form/OrderByForm.ts ***!
+  \*********************************************************/
+/*! exports provided: OrderByForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderByForm", function() { return OrderByForm; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class OrderByForm {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/models/input-output/form/PaginationForm.ts":
+/*!************************************************************!*\
+  !*** ./src/app/models/input-output/form/PaginationForm.ts ***!
+  \************************************************************/
+/*! exports provided: PaginationForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaginationForm", function() { return PaginationForm; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class PaginationForm {
+    constructor() {
+        this.maxResult = null;
+        this.page = null;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.ts":
+/*!*****************************************!*\
+  !*** ./src/environments/environment.ts ***!
+  \*****************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
+const environment = {
+    production: false
+};
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+/***/ }),
+
+/***/ "./src/main.ts":
+/*!*********************!*\
+  !*** ./src/main.ts ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+
+if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].production) {
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["enableProdMode"])();
+}
+Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformBrowserDynamic"])()
+    .bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_3__["AppModule"])
+    .catch(err => console.error(err));
+
+
+/***/ }),
+
+/***/ 0:
+/*!***************************!*\
+  !*** multi ./src/main.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! C:\Users\saton\Desktop\lanit_team_project\src\main\ng_app\src\main.ts */"./src/main.ts");
+
+
+/***/ })
+
+},[[0,"runtime","vendor"]]]);
+//# sourceMappingURL=main-es2015.js.map

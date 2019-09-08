@@ -1,0 +1,1 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Using Parcel with OpenLayers</title><style>#map{width:400px;height:250px}</style><link rel="stylesheet" href="../../../resources/core/css/open_layers.87e34a8b.css"></head><body> <div id="map"></div> <script src="../../../resources/core/js/open_layers.e0ff072e.js"></script> </body></html>
