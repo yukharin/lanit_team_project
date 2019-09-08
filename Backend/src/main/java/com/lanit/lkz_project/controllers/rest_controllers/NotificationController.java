@@ -34,7 +34,7 @@ public class NotificationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@AuthenticationPrincipal User user, Notification notification) {
+    public void create(@AuthenticationPrincipal User user,@RequestBody Notification notification) {
         personalAccountService.addNotification(notification, user);
     }
 
