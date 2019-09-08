@@ -1,51 +1,52 @@
-package com.lanit.lkz_project.controllers.mvc_controllers;
-
-import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
-import com.lanit.lkz_project.service.application_service.PersonalAccountService;
-import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
-import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@Slf4j
-@Controller
-@RequestMapping("/account")
-public class PersonalAccountController {
-
-
-    private static int counter = 0;
-
-    {
-        counter++;
-        System.err.println("PersonalAccountController: " + counter);
-    }
-
-
-    @Value("${account_page}")
-    private String account_page;
-    @Value("${actions_history_page}")
-    private String actions_history_page;
-    @Value("${create_notification_page}")
-    private String create_notification_page;
-    @Value("${notification_info_page}")
-    private String notification_info_page;
-    @Value("${admin_page}")
-    private String admin_page;
-    @Value("${user_page}")
-    private String user_page;
-
-
-    @Autowired
-    private NotificationService notificationService;
-    @Autowired
-    private OrganizationService organizationService;
-    @Autowired
-    private PersonalAccountService personalAccountService;
-    @Autowired
-    private UserRepository userRepository;
+//
+//package com.lanit.lkz_project.controllers.mvc_controllers;
+//
+//import com.lanit.lkz_project.repositories.entitity_repositories.UserRepository;
+//import com.lanit.lkz_project.service.application_service.PersonalAccountService;
+//import com.lanit.lkz_project.service.jpa_entities_service.NotificationService;
+//import com.lanit.lkz_project.service.jpa_entities_service.OrganizationService;
+//import lombok.extern.slf4j.Slf4j;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//
+//@Slf4j
+//@Controller
+//@RequestMapping("/account")
+//public class PersonalAccountController {
+//
+//
+//    private static int counter = 0;
+//
+//    {
+//        counter++;
+//        System.err.println("PersonalAccountController: " + counter);
+//    }
+//
+//
+//    @Value("${account_page}")
+//    private String account_page;
+//    @Value("${actions_history_page}")
+//    private String actions_history_page;
+//    @Value("${create_notification_page}")
+//    private String create_notification_page;
+//    @Value("${notification_info_page}")
+//    private String notification_info_page;
+//    @Value("${admin_page}")
+//    private String admin_page;
+//    @Value("${user_page}")
+//    private String user_page;
+//
+//
+//    @Autowired
+//    private NotificationService notificationService;
+//    @Autowired
+//    private OrganizationService organizationService;
+//    @Autowired
+//    private PersonalAccountService personalAccountService;
+//    @Autowired
+//    private UserRepository userRepository;
 
 
 //    JavaScript + JSON edition
@@ -171,5 +172,5 @@ public class PersonalAccountController {
 //        modelAndView.setViewName(user_page);
 //        return modelAndView;
 //    }
-
-}
+//
+//}
