@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "extractCss": true,
             "deleteOutputPath": false,
             "outputPath": "../Backend/src/main/webapp/",
             "index": "src/index.html",
