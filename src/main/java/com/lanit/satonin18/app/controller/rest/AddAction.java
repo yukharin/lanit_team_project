@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.rest.cross;
+package com.lanit.satonin18.app.controller.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,8 +25,7 @@ import javax.validation.Valid;
 import java.sql.Timestamp;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-
+//@CrossOrigin(origins = "http://localhost:4200")
 @Controller("angularAddActionController")
 @RequestMapping("/angular/cabinet/the_notification/add_action")
 public class AddAction {

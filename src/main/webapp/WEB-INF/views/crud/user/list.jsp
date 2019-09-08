@@ -70,7 +70,7 @@
 </div>
 
 <div id="return">
-	<a href="${pageContext.request.contextPath}/"> Back to "input in personal cabinet"</a>
+	<a href="${pageContext.request.contextPath}/">Выйти</a>
 </div>
 
 </body>

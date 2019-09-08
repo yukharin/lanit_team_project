@@ -103,14 +103,18 @@
             СОХРАНИТЬ
         </button>
 
-        <button type="button"
-                onclick="
-                        // window.location.href='../..'
-                        window.location.href='${pageContext.request.contextPath}/'
-                        "
-        >
-            НАЗАД
-        </button>
+        <br>
+        <%--<button type="button"--%>
+                <%--onclick="--%>
+                        <%--// window.location.href='../..'--%>
+                        <%--window.location.href='${pageContext.request.contextPath}/'--%>
+                        <%--"--%>
+        <%-->--%>
+            <%--НАЗАД--%>
+        <%--</button>--%>
+        <div id="return">
+            <a href="${pageContext.request.contextPath}/">Выйти</a>
+        </div>
 
     </form:form>
 

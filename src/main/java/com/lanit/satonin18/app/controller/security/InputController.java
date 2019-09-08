@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.jsp;
+package com.lanit.satonin18.app.controller.security;
 
 import com.lanit.satonin18.app.service.entities_service.authorization.UserAccountService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
@@ -24,7 +24,8 @@ public class InputController {
 
     @GetMapping("/")
     public String redirectOnMainPage() {
-        return "redirect:/cabinet/notifications";
+//        return "redirect:/cabinet/notifications";
+        return "redirect:/start";
     }
 
     @GetMapping("/login")
@@ -35,7 +36,7 @@ public class InputController {
         model.addAttribute("error", request.getParameter("error"));
         model.addAttribute("messageRegistrationSuccess", request.getParameter("messageRegistrationSuccess"));
 
-        return new ModelAndView("inputForm");
+        return new ModelAndView("security/inputForm");
     }
 
     @GetMapping("/output")
@@ -51,6 +52,6 @@ public class InputController {
             }
         }
         authentication.setAuthenticated(false);
-        return "redirect:/"; //redirectOnMainPage
+        return "redirect:/";
     }
 }

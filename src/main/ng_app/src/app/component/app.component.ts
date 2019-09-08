@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 // import { HttpService} from './http.service';
 import {HttpClient} from '@angular/common/http';
-import {TestUser} from '../models/test/TestUser';
+import {TestUser} from '../model/test/TestUser';
 import {Observable} from 'rxjs';
-import {User} from '../models/entity/User';
+import {User} from '../model/entity/User';
 
 @Component({
   selector: 'app-root',

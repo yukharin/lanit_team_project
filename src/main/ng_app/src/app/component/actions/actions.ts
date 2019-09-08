@@ -2,16 +2,16 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 // import { HttpService} from './http.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TestUser} from '../../models/test/TestUser';
-import {User} from '../../models/entity/User';
-import {Notification} from '../../models/entity/Notification';
+import {TestUser} from '../../model/test/TestUser';
+import {User} from '../../model/entity/User';
+import {Notification} from '../../model/entity/Notification';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {FilterForm} from '../../models/input-output/form/FilterForm';
-import {Cabinet4renderHtml} from '../../models/input-output/Cabinet4renderHtml';
-import {PaginationForm} from '../../models/input-output/form/PaginationForm';
-import {OrderByForm} from '../../models/input-output/form/OrderByForm';
-import {TheNotification4renderHtml} from '../../models/input-output/TheNotification4renderHtml';
+import {FilterForm} from '../../model/input-output/form/FilterForm';
+import {Cabinet4renderHtml} from '../../model/input-output/Cabinet4renderHtml';
+import {PaginationForm} from '../../model/input-output/form/PaginationForm';
+import {OrderByForm} from '../../model/input-output/form/OrderByForm';
+import {TheNotification4renderHtml} from '../../model/input-output/TheNotification4renderHtml';
 
 @Component({
   selector: 'app-root',

@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+//    "build": "ng build",
+    "build": "ng build --prod",
+//    todo add simple build,
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -44,7 +46,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "source-map-explorer": "^1.4.0"
   },
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.1.",
   "main": "karma.conf.js",

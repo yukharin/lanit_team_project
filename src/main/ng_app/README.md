@@ -1,3 +1,6 @@
+# просмотр занимемого места JS файлов
+.\node_modules\.bin\source-map-explorer ..\webapp\resources\ng\main-es5.js
+
 # NgWeb
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.1.

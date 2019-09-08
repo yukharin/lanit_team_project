@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class StartController {
 
 	@GetMapping("/start")
-	public String printWelcome(ModelMap model) {
+	public String start(ModelMap model) {
 		return "start/index";
 	}
 

@@ -74,7 +74,6 @@ public class Registration {
 
         return new ModelAndView(
                 "redirect:/login?messageRegistrationSuccess"
-//                "/q"
         );
     }
 

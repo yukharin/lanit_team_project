@@ -20,12 +20,8 @@ import {Actions} from './component/actions/actions';
 import {AddAction} from './component/add-action/add-action';
 import {NotFoundComponent} from './component/not-found.component/not-found.component';
 
+//todo move in app-routing.module.ts
 const appRoutes: Routes = [
-  // {path: 'account/notifications/:id', component: NotificationDetailComponent},
-  // {path: 'account', component: AccountTableComponent},
-  // {path: '', redirectTo: 'account', pathMatch: 'full'},
-  // {path: 'account/notifications/:id/actions', component: ActionsHistoryComponent}
-
   {path: 'users', component: ListUsersComponent},
   {path: 'notifications', component: NotificationsComponent},
   {path: 'notifications/:id', component: Actions},

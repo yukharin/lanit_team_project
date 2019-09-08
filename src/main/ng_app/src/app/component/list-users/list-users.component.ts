@@ -2,8 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 // import { HttpService} from './http.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TestUser} from '../../models/test/TestUser';
-import {User} from '../../models/entity/User';
+import {TestUser} from '../../model/test/TestUser';
+import {User} from '../../model/entity/User';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({

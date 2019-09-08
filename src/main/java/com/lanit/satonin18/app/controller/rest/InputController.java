@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.rest.cross;
+package com.lanit.satonin18.app.controller.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,8 +26,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-
+//@CrossOrigin(origins = "http://localhost:4200")
 @Controller("angularInputController")
 @RequestMapping("/angular/input")
 public class InputController {

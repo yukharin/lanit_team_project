@@ -376,11 +376,8 @@ bootstrap: корневой компонент, который вызывает�
 
 
 
+//todo move in app-routing.module.ts
 const appRoutes = [
-    // {path: 'account/notifications/:id', component: NotificationDetailComponent},
-    // {path: 'account', component: AccountTableComponent},
-    // {path: '', redirectTo: 'account', pathMatch: 'full'},
-    // {path: 'account/notifications/:id/actions', component: ActionsHistoryComponent}
     { path: 'users', component: _component_list_users_list_users_component__WEBPACK_IMPORTED_MODULE_6__["ListUsersComponent"] },
     { path: 'notifications', component: _component_notifications_notifications_component__WEBPACK_IMPORTED_MODULE_7__["NotificationsComponent"] },
     { path: 'notifications/:id', component: _component_actions_actions__WEBPACK_IMPORTED_MODULE_11__["Actions"] },
@@ -458,9 +455,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../models/input-output/form/FilterForm */ "./src/app/models/input-output/form/FilterForm.ts");
-/* harmony import */ var _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../models/input-output/form/PaginationForm */ "./src/app/models/input-output/form/PaginationForm.ts");
-/* harmony import */ var _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../models/input-output/form/OrderByForm */ "./src/app/models/input-output/form/OrderByForm.ts");
+/* harmony import */ var _model_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../model/input-output/form/FilterForm */ "./src/app/model/input-output/form/FilterForm.ts");
+/* harmony import */ var _model_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../model/input-output/form/PaginationForm */ "./src/app/model/input-output/form/PaginationForm.ts");
+/* harmony import */ var _model_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../model/input-output/form/OrderByForm */ "./src/app/model/input-output/form/OrderByForm.ts");
 
 
 // import { HttpService} from './http.service';
@@ -483,9 +480,9 @@ let Actions = class Actions {
         this.maxResultForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
             maxResult: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](10) //todo replace
         });
-        this.newFilterForm = new _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__["FilterForm"]();
-        this.newPaginationForm = new _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__["PaginationForm"]();
-        this.newOrderByForm = new _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__["OrderByForm"]();
+        this.newFilterForm = new _model_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__["FilterForm"]();
+        this.newPaginationForm = new _model_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__["PaginationForm"]();
+        this.newOrderByForm = new _model_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__["OrderByForm"]();
     }
     // constructor(private httpService: HttpService) {}
     ngOnChanges() {
@@ -571,7 +568,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _models_input_output_dto_valid_ActionPortionDto__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models/input-output/dto.valid/ActionPortionDto */ "./src/app/models/input-output/dto.valid/ActionPortionDto.ts");
+/* harmony import */ var _model_input_output_dto_valid_ActionPortionDto__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../model/input-output/dto.valid/ActionPortionDto */ "./src/app/model/input-output/dto.valid/ActionPortionDto.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
 
 
@@ -593,7 +590,7 @@ let AddAction = class AddAction {
         this.route = route;
         this.router = router;
         this.location = location;
-        this.actionPortionDto = new _models_input_output_dto_valid_ActionPortionDto__WEBPACK_IMPORTED_MODULE_4__["ActionPortionDto"]();
+        this.actionPortionDto = new _model_input_output_dto_valid_ActionPortionDto__WEBPACK_IMPORTED_MODULE_4__["ActionPortionDto"]();
         this.httpOptionsJson = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -967,9 +964,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../models/input-output/form/FilterForm */ "./src/app/models/input-output/form/FilterForm.ts");
-/* harmony import */ var _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../models/input-output/form/PaginationForm */ "./src/app/models/input-output/form/PaginationForm.ts");
-/* harmony import */ var _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../models/input-output/form/OrderByForm */ "./src/app/models/input-output/form/OrderByForm.ts");
+/* harmony import */ var _model_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../model/input-output/form/FilterForm */ "./src/app/model/input-output/form/FilterForm.ts");
+/* harmony import */ var _model_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../model/input-output/form/PaginationForm */ "./src/app/model/input-output/form/PaginationForm.ts");
+/* harmony import */ var _model_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../model/input-output/form/OrderByForm */ "./src/app/model/input-output/form/OrderByForm.ts");
 
 
 // import { HttpService} from './http.service';
@@ -999,9 +996,9 @@ let NotificationsComponent = class NotificationsComponent {
         this.maxResultForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
             maxResult: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](10) //todo replace
         });
-        this.newFilterForm = new _models_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__["FilterForm"]();
-        this.newPaginationForm = new _models_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__["PaginationForm"]();
-        this.newOrderByForm = new _models_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__["OrderByForm"]();
+        this.newFilterForm = new _model_input_output_form_FilterForm__WEBPACK_IMPORTED_MODULE_5__["FilterForm"]();
+        this.newPaginationForm = new _model_input_output_form_PaginationForm__WEBPACK_IMPORTED_MODULE_6__["PaginationForm"]();
+        this.newOrderByForm = new _model_input_output_form_OrderByForm__WEBPACK_IMPORTED_MODULE_7__["OrderByForm"]();
         this.httpOptionsJson = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -1149,10 +1146,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/app/models/input-output/dto.valid/ActionPortionDto.ts":
-/*!*******************************************************************!*\
-  !*** ./src/app/models/input-output/dto.valid/ActionPortionDto.ts ***!
-  \*******************************************************************/
+/***/ "./src/app/model/input-output/dto.valid/ActionPortionDto.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/model/input-output/dto.valid/ActionPortionDto.ts ***!
+  \******************************************************************/
 /*! exports provided: ActionPortionDto */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1167,10 +1164,10 @@ class ActionPortionDto {
 
 /***/ }),
 
-/***/ "./src/app/models/input-output/form/FilterForm.ts":
-/*!********************************************************!*\
-  !*** ./src/app/models/input-output/form/FilterForm.ts ***!
-  \********************************************************/
+/***/ "./src/app/model/input-output/form/FilterForm.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/model/input-output/form/FilterForm.ts ***!
+  \*******************************************************/
 /*! exports provided: FilterForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1185,10 +1182,10 @@ class FilterForm {
 
 /***/ }),
 
-/***/ "./src/app/models/input-output/form/OrderByForm.ts":
-/*!*********************************************************!*\
-  !*** ./src/app/models/input-output/form/OrderByForm.ts ***!
-  \*********************************************************/
+/***/ "./src/app/model/input-output/form/OrderByForm.ts":
+/*!********************************************************!*\
+  !*** ./src/app/model/input-output/form/OrderByForm.ts ***!
+  \********************************************************/
 /*! exports provided: OrderByForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1203,10 +1200,10 @@ class OrderByForm {
 
 /***/ }),
 
-/***/ "./src/app/models/input-output/form/PaginationForm.ts":
-/*!************************************************************!*\
-  !*** ./src/app/models/input-output/form/PaginationForm.ts ***!
-  \************************************************************/
+/***/ "./src/app/model/input-output/form/PaginationForm.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/model/input-output/form/PaginationForm.ts ***!
+  \***********************************************************/
 /*! exports provided: PaginationForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
