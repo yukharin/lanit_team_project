@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-// import { HttpService} from './http.service';
 import {HttpClient} from '@angular/common/http';
-import {TestUser} from '../model/test/TestUser';
 import {Observable} from 'rxjs';
 import {User} from '../model/entity/User';
+import {ActivatedRoute, Router} from "@angular/router";
+import {Location} from "@angular/common";
+import {Cabinet4renderHtml} from "../model/input-output/Cabinet4renderHtml";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -11,44 +13,5 @@ import {User} from '../model/entity/User';
   styleUrls: ['./app.component.css'],
   // providers: [HttpService]
 })
-export class AppComponent  {}
-  // implements OnInit, OnChanges
-
-
-
-  // userFromParent: User;
-
-  // constructor(private http: HttpClient) { }
-  // @Output() userNameChange = new EventEmitter<User>();
-
-  // onNameChange(model: User) {
-  //   this.user = model;
-  //   this.userNameChange.emit(model);
-  // }
-
-  // ngOnInit() {
-  //   console.log('init');
-    // this.updateUser();
-  // }
-
-  // private updateUser() {
-  //   this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/user')
-  //     .subscribe((user) => {
-  //       this.userFromParent = user;
-  //       console.log(this.userFromParent);
-  //     });
-  // }
-
-  // onChangeUserFromParent(id: number): void {
-  //   this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/user?id=' + id)
-  //     .subscribe((user) => {
-  //       this.userFromParent = user;
-  //       console.log(this.userFromParent);
-  //     });
-  //   console.log('onChangeUserFromParent');
-  // }
-
-  // ngOnChanges() {
-  //   console.log('Change');
-  // }
-// }
+export class AppComponent {
+}

@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -21,12 +22,16 @@ public class InputController {
     @Autowired
     private UserAccountService userAccountService;
 
-
-    @GetMapping("/")
-    public String redirectOnMainPage() {
-//        return "redirect:/cabinet/notifications";
-        return "redirect:/start";
-    }
+	@GetMapping("/")
+	public String to_lkz()
+	{
+		return "redirect:/lkz";
+	}
+	@GetMapping("/lkz")
+	public String lkz()
+	{
+		return "forward:/lkz/index.html";
+	}
 
     @GetMapping("/login")
     public ModelAndView toLoginPage(
@@ -39,7 +44,8 @@ public class InputController {
         return new ModelAndView("security/inputForm");
     }
 
-    @GetMapping("/output")
+    //todo POST-request
+    @PostMapping("/output")
     public String output(Authentication authentication,
                          HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();

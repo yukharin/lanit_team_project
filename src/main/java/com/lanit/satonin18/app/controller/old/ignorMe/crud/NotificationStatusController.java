@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.crud;
+package com.lanit.satonin18.app.controller.old.ignorMe.crud;
 
 import com.lanit.satonin18.app.entity.enum_type.Status;
 import com.lanit.satonin18.app.service.entities_service.OrganizationService;

@@ -2,9 +2,10 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
 // import { HttpService} from './http.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TestUser} from '../../model/test/TestUser';
 import {User} from '../../model/entity/User';
 import {Notification} from '../../model/entity/Notification';
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-common-header-user',
@@ -13,43 +14,23 @@ import {Notification} from '../../model/entity/Notification';
   styleUrls: ['./common-header-user.css'],
   // providers: [HttpService]
 })
-export class CommonHeaderUserComponent implements OnInit, OnChanges {
-
-  // @Input()
+export class CommonHeaderUserComponent implements OnInit {
   user: User;
 
-  // @Input()
-  // setUser(user: User): void {
-  //     this.user = user;
-  // }
-  // get user() { return this._user; }
-
-  // @Output() userNameChange = new EventEmitter<User>();
-  //
-  // onNameChange(model: User) {
-  //   this.user = model;
-  //   this.userNameChange.emit(model);
-  // }
-  // response: any;
-
-  constructor(private http: HttpClient) { }
-  // constructor(private httpService: HttpService) {}
+  constructor(
+    // private httpService: HttpService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
-    this.extracted();
-  }
-  ngOnChanges() {
-    // this.extracted();
-    // console.log('Change');
-  }
-
-  private extracted() {
-    this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/user')
+    this.http.get<User>(
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/service/getUser')
       .subscribe((user) => {
         this.user = user;
         console.log(this.user);
       });
   }
-
-
 }

@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.jsp;
+package com.lanit.satonin18.app.controller.old.ignorMe.jsp;
 
 import com.lanit.satonin18.app.objects.input.form.OrderByForm;
 import com.lanit.satonin18.app.objects.input.form.PaginationForm;

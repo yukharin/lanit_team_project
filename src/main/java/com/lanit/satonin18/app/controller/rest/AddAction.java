@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.User;
+import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.entity.enum_type.ActionType;
 import com.lanit.satonin18.app.entity.enum_type.Status;
 import com.lanit.satonin18.app.objects.input.dto.valid.ActionPortionDto;
@@ -13,7 +14,9 @@ import com.lanit.satonin18.app.service.entities_service.ActionService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.OrganizationService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
+import com.lanit.satonin18.app.utils.CheckOnBuildJson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,15 +44,17 @@ public class AddAction {
 
     @GetMapping("/addAction4renderHtml")
     public AddAction4renderHtml formPage(
+            @AuthenticationPrincipal UserAccount userAccount,
             HttpSession session,
             @RequestParam int notificationId,
             Model model) throws JsonProcessingException {
-        User currentUser = userService.findById(1);
+        User currentUser = userAccount.getUser();
+
 //        Integer notificationId = (Integer) session.getAttribute("notificationId");
         Notification currentNotification = notificationService.findById(notificationId);
         AddAction4renderHtml render = new AddAction4renderHtml(currentUser, currentNotification, currentNotification.getOrganization().getUsers());
 
-        testOnBuildJson(render);
+        new CheckOnBuildJson().check(render);
 
         return render;
 //        addAttribute(model, currentUser, currentNotification);
@@ -61,11 +66,12 @@ public class AddAction {
 
     @PostMapping("/save")
     public boolean save(
+            @AuthenticationPrincipal UserAccount userAccount,
             Model model, HttpSession session,
             @Valid @RequestBody ActionPortionDto actionPortionDto,
             BindingResult bindingResult) {
-//            redir.addAttribute("actionPortionDto", actionPortionDto);
-        User currentUser = userService.findById(1);
+        User currentUser = userAccount.getUser();
+
 //            Integer notificationId = (Integer) session.getAttribute("notificationId");
         Notification currentNotification = notificationService.findById(actionPortionDto.getNotificationId());
 
@@ -104,18 +110,5 @@ public class AddAction {
 //                "redirect:/cabinet/the_notification/actions"
 //        );
         return true;
-    }
-
-//    private void addAttribute(Model model, User currentUser, Notification currentNotification) {
-//        model.addAttribute("user", currentUser);
-//        model.addAttribute("currentNotification", currentNotification);
-//        model.addAttribute("listActionType", Arrays.asList(ActionType.values()));
-//        model.addAttribute("listStatus", Arrays.asList(Status.values()));
-//    }
-
-    private void testOnBuildJson(Object obj) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String str = mapper.writeValueAsString(obj);
-        System.err.println("JSON: " + str);
     }
 }

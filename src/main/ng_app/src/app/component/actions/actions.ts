@@ -2,7 +2,6 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 // import { HttpService} from './http.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TestUser} from '../../model/test/TestUser';
 import {User} from '../../model/entity/User';
 import {Notification} from '../../model/entity/Notification';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -17,12 +16,10 @@ import {TheNotification4renderHtml} from '../../model/input-output/TheNotificati
   selector: 'app-root',
   templateUrl: './actions.html',
   styleUrls: ['./actions.css'],
-
   // providers: [HttpService]
 })
-export class Actions implements OnInit, OnChanges {
+export class Actions implements OnInit {
 
-  // user: User;
   render: TheNotification4renderHtml;
   notificationId;
   httpOptions = {
@@ -39,21 +36,13 @@ export class Actions implements OnInit, OnChanges {
   newOrderByForm: OrderByForm = new OrderByForm();
 
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
-  // constructor(private httpService: HttpService) {}
+  constructor(
+    // private httpService: HttpService
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
-  ngOnChanges() {
-    console.log('Change');
-  }
   ngOnInit() {
-
-    // this.http.get<User>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/get_user') //todo notifications
-    //   .subscribe((user) => {
-    //     this.user = user;
-    //     console.log(this.user);
-    //   });
-
-
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
     let body = new HttpParams();
@@ -62,7 +51,6 @@ export class Actions implements OnInit, OnChanges {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
       params: body
     };
-
     this.http.get<TheNotification4renderHtml>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/theNotification4renderHtml', httpOptions)
       .subscribe((render) => {
         this.render = render;
@@ -81,6 +69,7 @@ export class Actions implements OnInit, OnChanges {
         console.log(this.render);
       });
   }
+
   maxResultAply() {
     this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
     this.http.post<TheNotification4renderHtml>(

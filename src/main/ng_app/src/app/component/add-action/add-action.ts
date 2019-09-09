@@ -2,7 +2,6 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 // import { HttpService} from './http.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TestUser} from '../../model/test/TestUser';
 import {User} from '../../model/entity/User';
 import {Notification} from '../../model/entity/Notification';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -21,10 +20,9 @@ import {NgForm} from '@angular/forms';
   selector: 'app-root',
   templateUrl: './add-action.html',
   styleUrls: ['./add-action.css'],
-
   // providers: [HttpService]
 })
-export class AddAction implements OnInit, OnChanges{
+export class AddAction implements OnInit {
 
   notificationId: string;
   render: AddAction4renderHtml;
@@ -34,20 +32,14 @@ export class AddAction implements OnInit, OnChanges{
       'Content-Type': 'application/json'
     })
   };
-  // addActionForm: FormGroup = new FormGroup({//todo replace
-  //   // notificationId: new FormControl(),
-  //   idUserImplementor: new FormControl(),
-  //   idActionType: new FormControl(),
-  //   idNotificationStatus: new FormControl(),
-  //   content: new FormControl()
-  // });
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private location: Location) { }
-  // constructor(private httpService: HttpService) {}
+  constructor(
+    // private httpService: HttpService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location) { }
 
-  ngOnChanges() {
-    console.log('Change');
-  }
   ngOnInit() {
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
@@ -68,27 +60,7 @@ export class AddAction implements OnInit, OnChanges{
   }
 
   addActionAply() {
-    // this.notificationId = this.route.snapshot.paramMap.get('id');
-    // this.actionPortionDto.notificationId = Number( this.notificationId );
     this.actionPortionDto.notificationId = this.render.currentNotification.id;
-
-    // console.log('------------------------------')
-    // console.log(this.addActionForm.get('notificationId').value);
-    // console.log(this.addActionForm.controls.notificationId.value);
-    // console.log('------------------------------')
-    // console.log(this.addActionForm.get('idUserImplementor').value);
-    // console.log(this.addActionForm.controls.idUserImplementor.value);
-    // console.log('------------------------------')
-
-    // console.log('------------------------------')
-    // console.log(this.notificationId );
-    // console.log( Number( this.notificationId ) );
-    // // this.actionPortionDto.notificationId = Number( this.addActionForm.get('notificationId').value );
-    //
-    // this.actionPortionDto.idUserImplementor = this.addActionForm.get('idUserImplementor').value;
-    // this.actionPortionDto.idActionType = this.addActionForm.get('idActionType').value;
-    // this.actionPortionDto.idNotificationStatus = this.addActionForm.get('idNotificationStatus').value;
-    // this.actionPortionDto.content = this.addActionForm.get('content').value;
 
     this.http.post<boolean>(
       'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/save',
@@ -98,10 +70,9 @@ export class AddAction implements OnInit, OnChanges{
         if (hasSaved) {
           // this.router.navigate(['..']);
           // this.location.back();
-          this.router.navigate(['notifications/' + this.notificationId]); //todo replace
+          this.router.navigate(['notifications/' + this.notificationId]);//todo replace
         }
         else {
-          // useValidateForm
           alert("DONT SAVE !!!");
         }
       });

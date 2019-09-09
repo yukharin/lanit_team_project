@@ -1,0 +1,16 @@
+<p>Users</p>
+<table>
+  <tr *ngFor = "let user of users" class="hoverElements">
+    <td (click)="input(user)">
+      {{user?.firstName}}
+      {{user?.lastName}}
+      <br>
+      organization
+      {{user.organization.name}}
+      <span *ngIf="user.organization.government">
+         (organization is government)
+      </span>
+      <br>
+    </td>
+  </tr>
+</table>

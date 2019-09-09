@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.jsp;
+package com.lanit.satonin18.app.controller.security;
 
 import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.objects.input.dto.valid.RegistrationDto;
@@ -45,7 +45,7 @@ public class Registration {
             Model model) {
         addAttributes(model);
         return new ModelAndView(
-                "/registrationForm",
+                "security/registrationForm",
                 "registrationDto",
                 new RegistrationDto());
     }
@@ -65,7 +65,7 @@ public class Registration {
             addAttributes(model);
             return new ModelAndView(
 //                    "redirect:/cabinet/the_notification/add_action/register",
-                    "/registrationForm",
+                    "security//registrationForm",
                     "registrationDto",
                     registrationDto
             );

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.User;
+import com.lanit.satonin18.app.entity.authorization.UserAccount;
 import com.lanit.satonin18.app.entity.enum_type.Status;
 import com.lanit.satonin18.app.objects.input.form.FilterForm;
 import com.lanit.satonin18.app.objects.input.form.OrderByForm;
@@ -19,7 +20,9 @@ import com.lanit.satonin18.app.service.app_service.CabinetService;
 import com.lanit.satonin18.app.service.app_service.TheNotificationService;
 import com.lanit.satonin18.app.service.entities_service.NotificationService;
 import com.lanit.satonin18.app.service.entities_service.UserService;
+import com.lanit.satonin18.app.utils.CheckOnBuildJson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +45,7 @@ public class TheNotificationController {
 
     @PostMapping("/pagination")
     public TheNotification4renderHtml pagination(
+            @AuthenticationPrincipal UserAccount userAccount,
             @RequestParam int notificationId,
             HttpSession session,
             @RequestBody PaginationForm form) throws JsonProcessingException {
@@ -49,13 +53,7 @@ public class TheNotificationController {
 
         TheNotificationSessionState state = (TheNotificationSessionState)  session.getAttribute("theNotificationState");
         if (state == null) {
-//            OrderByForm orderByForm = new OrderByForm();
-//            validateAndSetDefaultVars(orderByForm);
-//
-//            state = new TheNotificationSessionState();
-//            state.setOrderByForm(orderByForm);
             state = createNewDefault4watchTheNotificationState();
-//            session.setAttribute("cabinetState", state);
         }
         state.setPaginationForm(form);
         if(state.getPaginationForm().getMaxResult() != form.getMaxResult())
@@ -63,27 +61,15 @@ public class TheNotificationController {
 
         session.setAttribute("theNotificationState", state);
 
-        Integer userId = (Integer) session.getAttribute("userId");
-//        return theNotification4renderHtml(userId, session);
-        return theNotification4renderHtml(notificationId, session);
-//        return "OK";
+        return theNotification4renderHtml(userAccount, notificationId, session);
     }
 
-//    @RequestMapping("/get_user")
-//    public /*@ResponseBody*/ User get_user() throws JsonProcessingException {
-//        User user = userService.findById(1);
-//
-//        testOnBuildJson(user);
-//
-//        return user;
-//    }
-
-    @RequestMapping("/theNotification4renderHtml")
+    @GetMapping("/theNotification4renderHtml")
     public /*@ResponseBody*/ TheNotification4renderHtml theNotification4renderHtml(
+            @AuthenticationPrincipal UserAccount userAccount,
             @RequestParam int notificationId,
             HttpSession session) throws JsonProcessingException {
-        User currentUser = userService.findById(1);
-//        session.setAttribute("userId", userId);
+        User currentUser = userAccount.getUser();
 
 //        Integer notificationId = (Integer) session.getAttribute("notificationId");
         Notification currentNotification = notificationService.findById(notificationId);
@@ -91,20 +77,12 @@ public class TheNotificationController {
         TheNotificationSessionState state = (TheNotificationSessionState)  session.getAttribute("theNotificationState");
         if(state == null){
             state = createNewDefault4watchTheNotificationState();
-
         }
         TheNotification4renderHtml render = new TheNotification4renderHtml(state, currentUser, currentNotification);
         theNotificationService.executeQuery(render, currentNotification);
 
-//        ArrayList<Integer> ids = new ArrayList<>();
-//        for (Status status:render.getCheckedMainListNotificStatuses()) {
-//            ids.add(status.getId());
-//        }
-//        render.setNewCheckedMainListNotificStatusesId(ids);
+        new CheckOnBuildJson().check(render);
 
-        testOnBuildJson(render);
-
-//        addAttributes_Action(model, render, currentUser, currentNotification);
         return render;
     }
 
@@ -119,12 +97,6 @@ public class TheNotificationController {
         state.setPaginationForm(paginationForm);
         state.setOrderByForm(orderByForm);
         return state;
-    }
-
-    private void testOnBuildJson(Object obj) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String str = mapper.writeValueAsString(obj);
-        System.err.println("JSON: " + str);
     }
 
     private void validateAndSetDefaultVars(PaginationForm dto) {
