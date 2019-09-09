@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.rest;
+package com.lanit.satonin18.app.controller.angular.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lanit.satonin18.app.entity.User;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
-@Controller("utilServiceController")
+@Controller("angularUtilServiceController")
 @RequestMapping("/angular/service")
 public class UtilServiceController {
 
@@ -22,9 +22,7 @@ public class UtilServiceController {
     public /*@ResponseBody*/ User cabinet4renderHtml(
             @AuthenticationPrincipal UserAccount userAccount) throws JsonProcessingException {
         User currentUser = userAccount.getUser();
-
         new CheckOnBuildJson().check(currentUser);
-
         return currentUser;
     }
 }

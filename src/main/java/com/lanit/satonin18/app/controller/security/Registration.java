@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-//@CrossOrigin
 @Controller("registrationController")
 //@RequestMapping("")
 public class Registration {
@@ -53,7 +52,6 @@ public class Registration {
     @PostMapping("/registration")
     public ModelAndView save(
             Model model, HttpSession session,
-//            RedirectAttributes redir,
             @Valid @ModelAttribute(name = "registrationDto") RegistrationDto registrationDto,
             BindingResult bindingResult) {
         UserAccount accountToCheck = userAccountService.findByUsername(registrationDto.getUsername());
@@ -64,8 +62,7 @@ public class Registration {
         if (bindingResult.hasErrors()) {
             addAttributes(model);
             return new ModelAndView(
-//                    "redirect:/cabinet/the_notification/add_action/register",
-                    "security//registrationForm",
+                    "security/registrationForm",
                     "registrationDto",
                     registrationDto
             );

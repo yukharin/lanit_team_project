@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 @Controller("addActionController")
 @RequestMapping("/cabinet/the_notification/add_action")
-public class AddAction {
+public class AddAction { //todo rename(add Controller)
     
     @Autowired
     private NotificationService notificationService;

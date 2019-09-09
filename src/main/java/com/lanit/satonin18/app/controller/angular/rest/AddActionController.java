@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.rest;
+package com.lanit.satonin18.app.controller.angular.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,7 @@ import java.sql.Timestamp;
 //@CrossOrigin(origins = "http://localhost:4200")
 @Controller("angularAddActionController")
 @RequestMapping("/angular/cabinet/the_notification/add_action")
-public class AddAction {
+public class AddActionController {
     
     @Autowired
     private NotificationService notificationService;
@@ -50,18 +50,12 @@ public class AddAction {
             Model model) throws JsonProcessingException {
         User currentUser = userAccount.getUser();
 
-//        Integer notificationId = (Integer) session.getAttribute("notificationId");
         Notification currentNotification = notificationService.findById(notificationId);
         AddAction4renderHtml render = new AddAction4renderHtml(currentUser, currentNotification, currentNotification.getOrganization().getUsers());
 
         new CheckOnBuildJson().check(render);
 
         return render;
-//        addAttribute(model, currentUser, currentNotification);
-//        return new ModelAndView(
-//                "cabinet/the_notification/add_actionForm",
-//                "actionPortionDto",
-//                new ActionPortionDto());
     }
 
     @PostMapping("/save")
@@ -72,16 +66,9 @@ public class AddAction {
             BindingResult bindingResult) {
         User currentUser = userAccount.getUser();
 
-//            Integer notificationId = (Integer) session.getAttribute("notificationId");
         Notification currentNotification = notificationService.findById(actionPortionDto.getNotificationId());
 
         if (bindingResult.hasErrors()) {
-//            addAttribute(model, currentUser, currentNotification);
-//            return new ModelAndView(
-//                    "cabinet/the_notification/add_actionForm",
-//                    "actionPortionDto",
-//                    actionPortionDto
-//            );
             return false;
         }
         ActionType actionType = ActionType.getById(actionPortionDto.getIdActionType());
@@ -106,9 +93,6 @@ public class AddAction {
 
         notificationService.save(currentNotification);//update
 
-//        return new ModelAndView(
-//                "redirect:/cabinet/the_notification/actions"
-//        );
         return true;
     }
 }

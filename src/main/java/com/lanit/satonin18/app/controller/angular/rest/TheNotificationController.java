@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.rest;
+package com.lanit.satonin18.app.controller.angular.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,7 +71,6 @@ public class TheNotificationController {
             HttpSession session) throws JsonProcessingException {
         User currentUser = userAccount.getUser();
 
-//        Integer notificationId = (Integer) session.getAttribute("notificationId");
         Notification currentNotification = notificationService.findById(notificationId);
 
         TheNotificationSessionState state = (TheNotificationSessionState)  session.getAttribute("theNotificationState");

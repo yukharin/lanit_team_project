@@ -1,4 +1,4 @@
-package com.lanit.satonin18.app.controller.rest;
+package com.lanit.satonin18.app.controller.angular.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

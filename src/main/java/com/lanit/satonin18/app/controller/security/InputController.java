@@ -44,7 +44,6 @@ public class InputController {
         return new ModelAndView("security/inputForm");
     }
 
-    //todo POST-request
     @PostMapping("/output")
     public String output(Authentication authentication,
                          HttpServletRequest request, HttpServletResponse response) {

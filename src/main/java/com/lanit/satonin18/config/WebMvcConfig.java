@@ -25,8 +25,8 @@ public class WebMvcConfig
         implements WebMvcConfigurer {
 
     @PostConstruct
-    private void p() {
-//        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwww");
+    private void w() {
+        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwww");
     }
 
     @Bean
@@ -38,21 +38,6 @@ public class WebMvcConfig
         resolver.setSuffix(".jsp");
         return resolver;
     }
-
-//    @Override
-//    public void configureViewResolvers(ViewResolverRegistry registry) {
-//        registry
-//                .jsp()
-//                .prefix("/WEB-INF/views/")
-//                .suffix(".jsp");
-//    }
-
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry
-//                .addViewController("/login")
-//                .setViewName("inputForm");
-//    }
 
     @Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -1,9 +1,117 @@
 <div id="content">
-  <br>
-  button = controlled_visibility
-  <br>
-  LEFT INFA ABOUT NOTIFICATION
-  <br>
+
+  <div id="common_info_about_notification">
+    <h5 style="text-transform: uppercase;">
+      {{render.currentNotification.notificationType}}
+    </h5>
+    <div class="controlled_visibility div-default-visibility-false" id="controlled_visibility-common_info_about_notification">
+      <table class="table4input_data" >
+        <tr>
+          <th>
+            Номер уведомления:
+          </th>
+          <td>
+            <input type="text" name="id" value="{{render.currentNotification.id}}"
+                   disabled>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Номер письма:
+          </th>
+          <td>
+            <input type="text" name="letterNumber" value="{{render.currentNotification.letterNumber}}"
+                   disabled>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Заказчик:
+          </th>
+          <td>
+            <input type="text" name="organization.name" value="{{render.currentNotification.organization.name}}"
+                   disabled>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!--DIV id="contract"-->
+
+  <div id="answer_preparation">
+    <h5 style="text-transform: uppercase;">
+      ПОДГОТОВКА ОТВЕТА
+    </h5>
+    <div class="controlled_visibility div-default-visibility-false" id="controlled_visibility-answer_preparation">
+      <table class="table4input_data">
+        <tr>
+          <th>
+            Ответ направлен:
+          </th>
+          <td>
+            (не понятна бизнес логика)(Mock)(Индикатор состояния)
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Срок предоставления ответа:
+          </th>
+          <td>
+            <input type="text" name="dateResponse" value="{{render.currentNotification.dateResponse | date :'yyyy-MM-dd'}}"
+                   disabled>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Заказчик:
+          </th>
+          <td>
+            <input type="text" name="organization.name" value="{{render.currentNotification.organization.name}}"
+                   disabled>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Дата последнего направления ответа:
+          </th>
+          <td>
+            <input type="text" name="MOCK_lastAction_Date" value="{{render.latestAction.date | date :'yyyy-MM-dd'}}"
+                   disabled>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Дата получения уведомления:
+          </th>
+          <td>
+            <input type="text" name="dateReceived" value="{{render.currentNotification.dateReceived | date :'yyyy-MM-dd'}}"
+                   disabled>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Статус уведомления:
+          </th>
+          <td>
+            <input type="text" name="status.name" value="{{render.currentNotification.status.name}}"
+                   disabled>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Куратор:
+          </th>
+          <td>
+            <input type="text" name="userByIdUserCuratorGos"
+                   value="{{render.currentNotification.userByIdUserCuratorGos.firstName.trim()}} {{render.currentNotification.userByIdUserCuratorGos.lastName.trim()}}"
+                   disabled>
+            (не понятна бизнес логика)(Mock)[Должно быть: Поле для ввода и отправки]
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
   <button type="button" class="green_button" [routerLink]="['add_action']">ADD ACTIONS</button>
   <br>
