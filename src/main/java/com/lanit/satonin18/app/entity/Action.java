@@ -1,5 +1,6 @@
 package com.lanit.satonin18.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lanit.satonin18.app.entity.enum_type.ActionType;
 import com.lanit.satonin18.app.entity.enum_type.Status;
 import lombok.*;
@@ -19,6 +20,7 @@ import java.sql.Timestamp;
 @EqualsAndHashCode
 //@NoArgsConstructor
 //@AllArgsConstructor
+@JsonIgnoreProperties({"notification"})
 public class Action
         implements Serializable {
 

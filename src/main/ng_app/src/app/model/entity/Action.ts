@@ -1,6 +1,7 @@
 import {User} from './User';
 import {ActionType} from './ActionType';
 import {Status} from './Status';
+import {Notification} from './Notification';
 
 export class Action {
   id: number;
@@ -9,5 +10,5 @@ export class Action {
   date: Date;
   userByIdImplementor: User;
   statusAfterProcessing: Status;
-  notification: Notification;
+  // notification: Notification;
 }
