@@ -27,14 +27,6 @@ public class WebMvcConfig
     @PostConstruct
     private void p() {
 //        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwww");
-//        String admin = "admin";
-//
-//        System.out.println(admin);
-//        String encoded = new BCryptPasswordEncoder().encode(admin);
-//        System.out.println(encoded);
-//
-//        boolean b = new BCryptPasswordEncoder().matches(admin, encoded);
-//        System.out.println(b);
     }
 
     @Bean
@@ -63,6 +55,8 @@ public class WebMvcConfig
 
     @Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/resources/**", "/lkz/**")
+                .addResourceLocations("/resources/", "/lkz/");
 	}
 }

@@ -323,16 +323,6 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
-             <!--NO WORK ! -->
-             <!--Embedded Apache Tomcat required for testing war -->
-            <!--<plugin>-->
-            <!--<groupId>org.apache.tomcat.maven</groupId>-->
-            <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-            <!--<version>2.2</version>-->
-            <!--<configuration>-->
-            <!--<path>/</path>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
 
             <plugin>
                 <groupId>com.github.eirslett</groupId>
@@ -351,34 +341,21 @@
 
                 <executions>
 
-                    <!--<execution>-->
-                        <!--<id>install node and npm</id>-->
-                        <!--<goals>-->
-                            <!--<goal>install-node-and-npm</goal>-->
-                        <!--</goals>-->
-                        <!--&lt;!&ndash;<phase>generate-resources</phase>&ndash;&gt;-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>npm install</id>-->
-                        <!--<goals>-->
-                            <!--<goal>npm</goal>-->
-                        <!--</goals>-->
-                        <!--&lt;!&ndash;<phase>generate-resources</phase>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<arguments>ci &#45;&#45;loglevel=error</arguments>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
 
-                    <!--<execution>-->
-                        <!--<id>npm run-script build-prod</id>-->
-                        <!--<phase>prepare-package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>npm</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<arguments>run-script build</arguments>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                    </execution>
+
+                    <!--TODO пололожить версия для продакшена run build-dev (+script: ng build &#45;&#45;prod)-->
                     <execution>
                         <id>npm run build</id>
                         <goals>
@@ -388,53 +365,12 @@
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
-                    <!--<execution>-->
-                        <!--<id>prod</id>-->
-                        <!--<goals>-->
-                            <!--<goal>npm</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<arguments>run-script build</arguments>-->
-                        <!--</configuration>-->
-                        <!--<phase>generate-resources</phase>-->
-                    <!--</execution>-->
-
-                    <!--TODO пололожить версия для продакшена run build-dev (+script: ng build &#45;&#45;prod)-->
 
                 </executions>
 
             </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.glassfish.maven.plugin</groupId>-->
-                <!--<artifactId>maven-glassfish-plugin</artifactId>-->
-                <!--<version>4.1.2</version>-->
-                <!--<configuration>-->
-                    <!--<user>admin</user>-->
-                    <!--<adminPassword>adminadmin</adminPassword>-->
-                    <!--<glassfishDirectory>C:\glassfish4</glassfishDirectory>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-
         </plugins>
     </build>
-
-    <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<uniqueVersion>false</uniqueVersion>-->
-            <!--<id>corp1</id>-->
-            <!--<name>Corporate Repository</name>-->
-            <!--&lt;!&ndash;<url>scp://repo/maven2</url>&ndash;&gt;-->
-            <!--<url>file:///home/thara/testesb/in</url>-->
-            <!--<layout>default</layout>-->
-        <!--</repository>-->
-        <!--&lt;!&ndash;<snapshotRepository>&ndash;&gt;-->
-            <!--&lt;!&ndash;<uniqueVersion>true</uniqueVersion>&ndash;&gt;-->
-            <!--&lt;!&ndash;<id>propSnap</id>&ndash;&gt;-->
-            <!--&lt;!&ndash;<name>Propellors Snapshots</name>&ndash;&gt;-->
-            <!--&lt;!&ndash;<url>sftp://propellers.net/maven</url>&ndash;&gt;-->
-            <!--&lt;!&ndash;<layout>legacy</layout>&ndash;&gt;-->
-        <!--&lt;!&ndash;</snapshotRepository>&ndash;&gt;-->
-    <!--</distributionManagement>-->
 
 </project>

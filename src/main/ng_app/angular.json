@@ -18,7 +18,8 @@
 
             //ATATION AUTO DELETE FOLDER
             //"outputPath": "dist/ngWeb",
-            "outputPath": "../webapp/resources/ng",
+//            "outputPath": "../webapp/resources/ng",
+            "outputPath": "../webapp/lkz",
 
             "index": "src/index.html",
             "main": "src/main.ts",
