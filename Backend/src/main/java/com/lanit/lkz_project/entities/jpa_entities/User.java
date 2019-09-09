@@ -35,29 +35,29 @@ public class User implements Serializable, UserDetails {
     @ManyToOne
     private Organization organization;
 
-    @NotBlank
-    @Size(min = 3, max = 45)
-    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$")
+    @NotBlank(groups = UserValidationGroup.class)
+    @Size(min = 3, max = 45, groups = UserValidationGroup.class)
+    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$", groups = UserValidationGroup.class)
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
 
-    @NotBlank
-    @Size(min = 3, max = 45)
-    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$")
+    @NotBlank(groups = UserValidationGroup.class)
+    @Size(min = 3, max = 45, groups = UserValidationGroup.class)
+    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$", groups = UserValidationGroup.class)
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
 
-    @NotBlank
-    @Size(min = 3, max = 45)
-    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$")
+    @NotBlank(groups =  UserValidationGroup.class)
+    @Size(min = 3, max = 45, groups = UserValidationGroup.class)
+    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9_]{2,44}$", groups = UserValidationGroup.class)
     @Column(name = "username", nullable = false, length = 45, unique = true)
     private String username;
 
-    @NotBlank
-    @Size(min = 8, max = 60)
+    @NotBlank(groups = UserValidationGroup.class)
+    @Size(min = 8, max = 60, groups = UserValidationGroup.class)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
-            message = "Пароль должен иметь как минимум одну заглавную букву, одну строчную и одну цифру")
+            message = "Пароль должен иметь как минимум одну заглавную букву, одну строчную и одну цифру", groups = UserValidationGroup.class)
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
@@ -65,7 +65,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate;
 
-    @NotNull
+    @NotNull(groups = UserValidationGroup.class)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "users_roles",
