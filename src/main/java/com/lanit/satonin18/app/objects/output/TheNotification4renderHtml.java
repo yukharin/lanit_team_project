@@ -65,37 +65,6 @@ public class TheNotification4renderHtml {
         this.state = state;
     }
 
-    //    public List<Integer> navigationPages;
-//
-//    public void calcNavigationPages() {
-//        navigationPages = new ArrayList<Integer>();
-//        int totalPages = pageImpl.getTotalPages();
-//        int currentPage = pageImpl.getPageable().getPageNumber();
-//        int maxNavigationPages = COMMON_DEFAULT_VARS.MAX_NAVIGATION_PAGES;
-//
-//        int current = currentPage > totalPages ? totalPages : currentPage;
-//        int begin = current - maxNavigationPages / 2;
-//        int end = current + maxNavigationPages / 2;
-//
-//        // The first temp_page
-//        navigationPages.add(1);
-//        if (begin > 2) {
-//            // Using for '...'
-//            navigationPages.add(-1);
-//        }
-//        for (int i = begin; i < end; i++) {
-//            if (i > 1 && i < totalPages) {
-//                navigationPages.add(i);
-//            }
-//        }
-//        if (end < totalPages - 2) {
-//            // Using for '...'
-//            navigationPages.add(-1);
-//        }
-//        // The last temp_page.
-//        navigationPages.add(totalPages);
-//    }
-
     public User getUser() {
         return user;
     }

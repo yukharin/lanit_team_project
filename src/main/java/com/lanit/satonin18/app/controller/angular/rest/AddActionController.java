@@ -2,6 +2,7 @@ package com.lanit.satonin18.app.controller.angular.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.lanit.satonin18.app.entity.Action;
 import com.lanit.satonin18.app.entity.Notification;
 import com.lanit.satonin18.app.entity.User;
@@ -26,6 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -49,13 +54,53 @@ public class AddActionController {
             @RequestParam int notificationId,
             Model model) throws JsonProcessingException {
         User currentUser = userAccount.getUser();
-
         Notification currentNotification = notificationService.findById(notificationId);
-        AddAction4renderHtml render = new AddAction4renderHtml(currentUser, currentNotification, currentNotification.getOrganization().getUsers());
+
+        List<Status> statuses = new ArrayList<>();
+        List<ActionType> actionTypes = new ArrayList<>();
+
+        selectAvailableStatusAndActionType(currentNotification, statuses, actionTypes);
+
+        AddAction4renderHtml render = new AddAction4renderHtml(
+                currentUser,
+                currentNotification,
+                currentNotification.getOrganization().getUsers(),
+                statuses,
+                actionTypes
+        );
 
         new CheckOnBuildJson().check(render);
 
         return render;
+    }
+
+    private void selectAvailableStatusAndActionType(Notification currentNotification, List<Status> statuses, List<ActionType> actionTypes) {
+        switch( currentNotification.getStatus() ) {
+            case NEW:
+                statuses.addAll(Arrays.asList(
+                        Status.IN_WORK
+                ));
+                actionTypes.addAll(Arrays.asList(
+                        ActionType.SENDING_ANSWER,
+                        ActionType.CONFORM_ANSWER,
+                        ActionType.REJECT_ANSWER
+                ));
+                break;
+            case IN_WORK:
+                statuses.addAll(Arrays.asList(
+                        Status.REJECTED,
+                        Status.OK
+                ));
+                actionTypes.addAll(Arrays.asList(
+                        ActionType.SENDING_ANSWER,
+                        ActionType.CONFORM_ANSWER,
+                        ActionType.REJECT_ANSWER
+                ));
+                break;
+            default:
+                /*NOP*/
+                break;
+        }
     }
 
     @PostMapping("/save")

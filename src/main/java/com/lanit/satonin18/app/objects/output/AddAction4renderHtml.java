@@ -16,7 +16,6 @@ public class AddAction4renderHtml {
     private User user;
     private Notification currentNotification;
     private List<User> users;
-    private final List<ActionType> listActionType = Arrays.asList(ActionType.values());
-    private final List<Status> listStatus = Arrays.asList(Status.values());
-
+    private List<Status> listStatus;// = Arrays.asList(Status.values());
+    private List<ActionType> listActionType;// = Arrays.asList(ActionType.values());
 }
