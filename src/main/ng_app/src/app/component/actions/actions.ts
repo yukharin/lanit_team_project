@@ -31,11 +31,6 @@ export class Actions implements OnInit {
     maxResult: new FormControl(10) //todo replace
   });
 
-  sortForm: FormGroup = new FormGroup({
-    desc: new FormControl(), //todo replace
-    orderFieldName: new FormControl(), //todo replace
-  });
-
   newFilterForm: FilterForm = new FilterForm();
   newPaginationForm: PaginationForm = new PaginationForm();
   newOrderByForm: OrderByForm = new OrderByForm();
@@ -88,7 +83,6 @@ export class Actions implements OnInit {
       });
   }
 
-
   add_action() {
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
@@ -113,21 +107,4 @@ export class Actions implements OnInit {
 
   }
 
-  // selectSort() {
-  //   if ( this.sortForm.get('desc').value )
-  //     this.newOrderByForm.desc = this.sortForm.get('desc').value;
-  //   else
-  //     this.newOrderByForm.desc = false;
-  //
-  //   this.newOrderByForm.orderFieldName = this.sortForm.get('orderFieldName').value;
-  //
-  //   this.http.post<TheNotification4renderHtml>(
-  //     // TODO replace get in post
-  //     'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/orderby?notificationId=' + this.notificationId,
-  //     JSON.stringify(this.newOrderByForm), this.httpOptionsJson)
-  //     .subscribe((render) => {
-  //       this.render = render;
-  //       console.log(this.render);
-  //     });
-  // }
 }

@@ -66,7 +66,7 @@
   <div id="selectSort">
     <form (ngSubmit)="selectSort()"
           [formGroup]="sortForm" >
-      selectSort :
+      Применить сортировку :
       <select type="text" formControlName="orderFieldName" (change)="selectSort()">
         <option *ngFor="let orderFieldName of render.columnTable" [value]="orderFieldName.varName"
                 [selected]="orderFieldName.varName.trim()==render.state.orderByForm.orderFieldName.trim()">
@@ -76,7 +76,6 @@
         </option>
       </select>
       <br>Применить обратный порядок:
-      <!--<input type="checkbox">-->
       <input
         type="checkbox" [checked]="render.state.orderByForm.desc"
         formControlName ="desc" value="true"

@@ -342,19 +342,19 @@
 
                 <executions>
 
-                    <!--<execution>-->
-                        <!--<id>install node and npm</id>-->
-                        <!--<goals>-->
-                            <!--<goal>install-node-and-npm</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
 
-                    <!--<execution>-->
-                        <!--<id>npm install</id>-->
-                        <!--<goals>-->
-                            <!--<goal>npm</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                    </execution>
 
                     <!--TODO пололожить версия для продакшена run build-dev (+script: ng build &#45;&#45;prod)-->
                     <execution>
