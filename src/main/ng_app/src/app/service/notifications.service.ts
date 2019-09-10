@@ -7,7 +7,7 @@ import {PaginationForm} from "../model/input-output/form/PaginationForm";
 import {Cabinet4renderHtml} from "../model/input-output/Cabinet4renderHtml";
 import {FilterForm} from "../model/input-output/form/FilterForm";
 import {OrderByForm} from "../model/input-output/form/OrderByForm";
-import {HttpUtil} from "./http.util";
+import {HttpUtil} from "./http-util";
 
 @Injectable()
 export class NotificationsService {

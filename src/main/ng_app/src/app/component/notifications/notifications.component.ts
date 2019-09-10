@@ -97,7 +97,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   open(notification: Notification) {
-    this.router.navigate(['/notifications/' + notification.id]);//todo check '/' beforeUrl
+    this.router.navigate(['/notifications/' + notification.id]); //todo check '/' beforeUrl
   }
 
   submitOrderBy() {

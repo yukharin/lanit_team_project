@@ -14,24 +14,24 @@ import {AddAction4renderHtml} from '../../model/input-output/AddAction4renderHtm
 import {ActionPortionDto} from '../../model/input-output/dto.valid/ActionPortionDto';
 import {Location} from '@angular/common';
 import {NgForm} from '@angular/forms';
-import {HttpUtil} from "../../service/http.util";
+import {HttpUtil} from "../../service/http-util";
 import {ActionsService} from "../../service/actions.service";
+import {AddActionService} from "../../service/add-action.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './add-action.html',
   styleUrls: ['./add-action.css'],
-  providers: [ActionsService]
+  providers: [AddActionService]
 })
 export class AddAction implements OnInit {
 
   notificationId: string;
   render: AddAction4renderHtml;
   actionPortionDto: ActionPortionDto = new ActionPortionDto();
-  myhttp: HttpUtil = new HttpUtil();
 
   constructor(
-    // private httpService: ActionsService,
+    private addActionService: AddActionService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
@@ -40,8 +40,7 @@ export class AddAction implements OnInit {
   ngOnInit() {
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
-    this.http.get<AddAction4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/addAction4renderHtml')
+    this.addActionService.getRender(this.notificationId)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -51,10 +50,7 @@ export class AddAction implements OnInit {
   addActionAply() {
     this.actionPortionDto.notificationId = this.render.currentNotification.id;
 
-    this.http.post<boolean>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/save',
-      JSON.stringify(this.actionPortionDto),
-      this.myhttp.httpOptionsJson)
+    this.addActionService.addAction(this.notificationId, this.actionPortionDto)
       .subscribe((hasSaved) => {
         if (hasSaved) {
           // this.router.navigate(['..']);

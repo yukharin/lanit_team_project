@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TheNotification4renderHtml} from "../model/input-output/TheNotification4renderHtml";
 import {PaginationForm} from "../model/input-output/form/PaginationForm";
-import {HttpUtil} from "./http.util";
+import {HttpUtil} from "./http-util";
 
 @Injectable()
 export class ActionsService {

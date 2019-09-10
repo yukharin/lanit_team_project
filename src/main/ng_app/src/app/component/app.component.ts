@@ -11,7 +11,7 @@ import {FormBuilder} from "@angular/forms";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  // providers: [ActionsService]
+  // providers: []
 })
 export class AppComponent {
 }
