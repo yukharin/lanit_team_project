@@ -79,6 +79,26 @@ public class CabinetController {
         return cabinet4renderHtml(userAccount, session);
     }
 
+    @PostMapping("/orderby")
+    public Cabinet4renderHtml orderby(
+            @AuthenticationPrincipal UserAccount userAccount,
+            HttpSession session,
+            @RequestBody OrderByForm form) throws JsonProcessingException {
+        validateAndSetDefaultVars(form);
+
+        CabinetSessionState state = (CabinetSessionState) session.getAttribute("cabinetState");
+        if (state == null) {
+            state = createNewDefault4watchCabinetState();
+        }
+        state.setOrderByForm(form);
+        state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+
+        session.setAttribute("cabinetState", state);
+
+        //todo replace (can be forward:/)
+        return cabinet4renderHtml(userAccount, session);
+    }
+
     @GetMapping("/cabinet4renderHtml")
     public /*@ResponseBody*/ Cabinet4renderHtml cabinet4renderHtml(
             @AuthenticationPrincipal UserAccount userAccount,

@@ -117,6 +117,28 @@
   <button type="button" class="green_button" (click)="add_action()">ADD ACTIONS</button>
   <br>
 
+  <!--<div id="selectSort">-->
+    <!--<form (ngSubmit)="selectSort()"-->
+          <!--[formGroup]="sortForm" >-->
+      <!--selectSort :-->
+      <!--<select type="text" formControlName="orderFieldName" (change)="selectSort()">-->
+        <!--<option *ngFor="let orderFieldName of render.columnTable" [value]="orderFieldName.varName"-->
+                <!--[selected]="orderFieldName.varName.trim()==render.state.orderByForm.orderFieldName.trim()">-->
+          <!--&lt;!&ndash;TODO equals string&ndash;&gt;-->
+
+          <!--{{orderFieldName.description}}-->
+        <!--</option>-->
+      <!--</select>-->
+      <!--<br>Применить обратный порядок:-->
+      <!--&lt;!&ndash;<input type="checkbox">&ndash;&gt;-->
+      <!--<input-->
+        <!--type="checkbox" [checked]="render.state.orderByForm.desc"-->
+        <!--formControlName ="desc" value="true"-->
+        <!--(change)="selectSort()"-->
+      <!--&gt;-->
+    <!--</form>-->
+  <!--</div>-->
+
   <div id="pagination">
 
     <table>

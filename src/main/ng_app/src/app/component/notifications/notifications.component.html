@@ -63,7 +63,26 @@
     </div>
   </form>
 
-  <div id="sort">
+  <div id="selectSort">
+    <form (ngSubmit)="selectSort()"
+          [formGroup]="sortForm" >
+      selectSort :
+      <select type="text" formControlName="orderFieldName" (change)="selectSort()">
+        <option *ngFor="let orderFieldName of render.columnTable" [value]="orderFieldName.varName"
+                [selected]="orderFieldName.varName.trim()==render.state.orderByForm.orderFieldName.trim()">
+          <!--TODO equals string-->
+
+          {{orderFieldName.description}}
+        </option>
+      </select>
+      <br>Применить обратный порядок:
+      <!--<input type="checkbox">-->
+      <input
+        type="checkbox" [checked]="render.state.orderByForm.desc"
+        formControlName ="desc" value="true"
+        (change)="selectSort()"
+      >
+    </form>
   </div>
 
   <div id="pagination">

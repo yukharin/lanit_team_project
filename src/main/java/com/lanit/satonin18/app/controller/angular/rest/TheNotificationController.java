@@ -64,6 +64,27 @@ public class TheNotificationController {
         return theNotification4renderHtml(userAccount, notificationId, session);
     }
 
+    @PostMapping("/orderby")
+    public TheNotification4renderHtml orderby(
+            @AuthenticationPrincipal UserAccount userAccount,
+            @RequestParam int notificationId,
+            HttpSession session,
+            @RequestBody OrderByForm form) throws JsonProcessingException {
+        validateAndSetDefaultVars(form);
+
+        TheNotificationSessionState state = (TheNotificationSessionState) session.getAttribute("theNotificationState");
+        if (state == null) {
+            state = createNewDefault4watchTheNotificationState();
+        }
+        state.setOrderByForm(form);
+        state.getPaginationForm().setPage(COMMON_DEFAULT_VARS.FIRST_PAGE);
+
+        session.setAttribute("theNotificationState", state);
+
+        //todo replace (can be forward:/)
+        return theNotification4renderHtml(userAccount, notificationId, session);
+    }
+
     @GetMapping("/theNotification4renderHtml")
     public /*@ResponseBody*/ TheNotification4renderHtml theNotification4renderHtml(
             @AuthenticationPrincipal UserAccount userAccount,

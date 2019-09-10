@@ -22,13 +22,18 @@ export class Actions implements OnInit {
 
   render: TheNotification4renderHtml;
   notificationId;
-  httpOptions = {
+  httpOptionsJson = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
   maxResultForm: FormGroup = new FormGroup({
     maxResult: new FormControl(10) //todo replace
+  });
+
+  sortForm: FormGroup = new FormGroup({
+    desc: new FormControl(), //todo replace
+    orderFieldName: new FormControl(), //todo replace
   });
 
   newFilterForm: FilterForm = new FilterForm();
@@ -51,7 +56,8 @@ export class Actions implements OnInit {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
       params: body
     };
-    this.http.get<TheNotification4renderHtml>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/theNotification4renderHtml', httpOptions)
+    this.http.get<TheNotification4renderHtml>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/theNotification4renderHtml',
+      httpOptions)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -63,7 +69,8 @@ export class Actions implements OnInit {
     this.newPaginationForm.page = event - 1;
 
     this.http.post<TheNotification4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId,
+      JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -73,12 +80,14 @@ export class Actions implements OnInit {
   maxResultAply() {
     this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
     this.http.post<TheNotification4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId, JSON.stringify(this.newPaginationForm), this.httpOptions)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId,
+      JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
       });
   }
+
 
   add_action() {
     this.notificationId = this.route.snapshot.paramMap.get('id');
@@ -89,7 +98,9 @@ export class Actions implements OnInit {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
       params: body
     };
-    this.http.get<boolean>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/canBeAdd', httpOptions)
+    // TODO replace get in post
+    this.http.get<boolean>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/canBeAdd',
+      httpOptions)
       .subscribe((canBeAdd) => {
         console.log(canBeAdd);
 
@@ -101,4 +112,22 @@ export class Actions implements OnInit {
       });
 
   }
+
+  // selectSort() {
+  //   if ( this.sortForm.get('desc').value )
+  //     this.newOrderByForm.desc = this.sortForm.get('desc').value;
+  //   else
+  //     this.newOrderByForm.desc = false;
+  //
+  //   this.newOrderByForm.orderFieldName = this.sortForm.get('orderFieldName').value;
+  //
+  //   this.http.post<TheNotification4renderHtml>(
+  //     // TODO replace get in post
+  //     'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/orderby?notificationId=' + this.notificationId,
+  //     JSON.stringify(this.newOrderByForm), this.httpOptionsJson)
+  //     .subscribe((render) => {
+  //       this.render = render;
+  //       console.log(this.render);
+  //     });
+  // }
 }

@@ -9,6 +9,7 @@ import {FilterForm} from '../../model/input-output/form/FilterForm';
 import {Cabinet4renderHtml} from '../../model/input-output/Cabinet4renderHtml';
 import {PaginationForm} from '../../model/input-output/form/PaginationForm';
 import {OrderByForm} from '../../model/input-output/form/OrderByForm';
+import {TheNotification4renderHtml} from "../../model/input-output/TheNotification4renderHtml";
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,10 @@ export class NotificationsComponent implements OnInit {
   maxResultForm: FormGroup = new FormGroup({
     maxResult: new FormControl(10) //todo replace
     });
+  sortForm: FormGroup = new FormGroup({
+    desc: new FormControl(), //todo replace
+    orderFieldName: new FormControl(), //todo replace
+  });
 
   newFilterForm: FilterForm = new FilterForm();
   newPaginationForm: PaginationForm = new PaginationForm();
@@ -69,7 +74,8 @@ export class NotificationsComponent implements OnInit {
     if ( this.filtersForm.get('_3').value ) this.newFilterForm.idFilterStatus.push(3)
 
     this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/filters', JSON.stringify(this.newFilterForm), this.httpOptionsJson)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/filters',
+      JSON.stringify(this.newFilterForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -80,7 +86,8 @@ export class NotificationsComponent implements OnInit {
     this.newPaginationForm.page = event - 1;
 
     this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination',
+      JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -95,7 +102,25 @@ export class NotificationsComponent implements OnInit {
   maxResultAply() {
     this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
     this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination', JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination',
+      JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+      .subscribe((render) => {
+        this.render = render;
+        console.log(this.render);
+      });
+  }
+
+  selectSort() {
+    if ( this.sortForm.get('desc').value )
+      this.newOrderByForm.desc = this.sortForm.get('desc').value;
+    else
+      this.newOrderByForm.desc = false;
+
+    this.newOrderByForm.orderFieldName = this.sortForm.get('orderFieldName').value;
+
+    this.http.post<Cabinet4renderHtml>(
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/orderby',
+      JSON.stringify(this.newOrderByForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
