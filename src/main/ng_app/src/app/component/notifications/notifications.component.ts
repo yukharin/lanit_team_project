@@ -88,6 +88,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   open(notification: Notification) {
+    //todo remove '/'
     this.router.navigate(['/notifications/' + notification.id]);
   }
 

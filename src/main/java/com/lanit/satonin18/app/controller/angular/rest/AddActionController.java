@@ -47,6 +47,23 @@ public class AddActionController {
     @Autowired
     private OrganizationService organizationService;
 
+    @GetMapping("/canBeAdd")
+    public boolean canBeAdd(
+            @AuthenticationPrincipal UserAccount userAccount,
+            HttpSession session,
+            @RequestParam int notificationId,
+            Model model) throws JsonProcessingException {
+        User currentUser = userAccount.getUser();
+        Notification currentNotification = notificationService.findById(notificationId);
+
+        List<Status> statuses = new ArrayList<>();
+        List<ActionType> actionTypes = new ArrayList<>();
+
+        selectAvailableStatusAndActionType(currentNotification, statuses, actionTypes);
+
+        if(statuses.isEmpty() || actionTypes.isEmpty()) return false;
+        return true;
+    }
     @GetMapping("/addAction4renderHtml")
     public AddAction4renderHtml formPage(
             @AuthenticationPrincipal UserAccount userAccount,

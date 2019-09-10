@@ -75,6 +75,7 @@ public class CabinetController {
 
         session.setAttribute("cabinetState", state);
 
+        //todo replace (can be forward:/)
         return cabinet4renderHtml(userAccount, session);
     }
 

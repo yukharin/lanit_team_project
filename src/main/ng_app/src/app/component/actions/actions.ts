@@ -79,4 +79,26 @@ export class Actions implements OnInit {
         console.log(this.render);
       });
   }
+
+  add_action() {
+    this.notificationId = this.route.snapshot.paramMap.get('id');
+
+    let body = new HttpParams();
+    body = body.set('notificationId', this.notificationId.toString());
+    const httpOptions = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
+      params: body
+    };
+    this.http.get<boolean>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/canBeAdd', httpOptions)
+      .subscribe((canBeAdd) => {
+        console.log(canBeAdd);
+
+        if(canBeAdd) {this.router.navigate([
+          // 'add_action'
+          'notifications/' + this.notificationId + '/add_action'
+        ]);}
+        else { alert("Уведомление находится уже в статусе Одобренного или Отклоненого");}
+      });
+
+  }
 }
