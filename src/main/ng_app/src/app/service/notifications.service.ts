@@ -11,7 +11,7 @@ import {HttpUtil} from "./http.util";
 
 @Injectable()
 export class NotificationsService {
-  myhttp: HttpUtil
+  myhttp: HttpUtil = new HttpUtil();
 
   constructor(private http: HttpClient) { }
 

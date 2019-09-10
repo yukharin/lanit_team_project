@@ -16,7 +16,7 @@ import {NotificationsService} from "../../service/notifications.service";
   selector: 'app-root',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.css'],
-  // providers: [ActionsService]
+  providers: [NotificationsService]
 })
 export class NotificationsComponent implements OnInit {
 
@@ -60,7 +60,7 @@ export class NotificationsComponent implements OnInit {
     this.notificationsService.getRender()
       .subscribe((render) => {
         this.render = render;
-        // console.log(this.render);
+        console.log(this.render);
       });
   }
 

@@ -1,5 +1,4 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-// import { ActionsService} from './http.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../model/entity/User';
@@ -16,19 +15,20 @@ import {ActionPortionDto} from '../../model/input-output/dto.valid/ActionPortion
 import {Location} from '@angular/common';
 import {NgForm} from '@angular/forms';
 import {HttpUtil} from "../../service/http.util";
+import {ActionsService} from "../../service/actions.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './add-action.html',
   styleUrls: ['./add-action.css'],
-  // providers: [ActionsService]
+  providers: [ActionsService]
 })
 export class AddAction implements OnInit {
 
   notificationId: string;
   render: AddAction4renderHtml;
   actionPortionDto: ActionPortionDto = new ActionPortionDto();
-  myhttp: HttpUtil;
+  myhttp: HttpUtil = new HttpUtil();
 
   constructor(
     // private httpService: ActionsService,

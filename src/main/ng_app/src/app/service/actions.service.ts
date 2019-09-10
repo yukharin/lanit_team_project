@@ -8,7 +8,7 @@ import {HttpUtil} from "./http.util";
 
 @Injectable()
 export class ActionsService {
-  myhttp: HttpUtil
+  myhttp: HttpUtil = new HttpUtil();
 
   constructor(private http: HttpClient) { }
 
