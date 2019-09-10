@@ -33,7 +33,7 @@ import java.util.Collections;
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
 @Controller("angularTheNotificationController")
-@RequestMapping("/angular/cabinet/the_notification")
+@RequestMapping("/angular/cabinet/the_notification/{id}")
 public class TheNotificationController {
 
     @Autowired
@@ -46,7 +46,7 @@ public class TheNotificationController {
     @PostMapping("/pagination")
     public TheNotification4renderHtml pagination(
             @AuthenticationPrincipal UserAccount userAccount,
-            @RequestParam int notificationId,
+            @PathVariable("id") int notificationId,
             HttpSession session,
             @RequestBody PaginationForm form) throws JsonProcessingException {
         validateAndSetDefaultVars(form);
@@ -67,7 +67,7 @@ public class TheNotificationController {
     @PostMapping("/orderby")
     public TheNotification4renderHtml orderby(
             @AuthenticationPrincipal UserAccount userAccount,
-            @RequestParam int notificationId,
+            @PathVariable("id") int notificationId,
             HttpSession session,
             @RequestBody OrderByForm form) throws JsonProcessingException {
         validateAndSetDefaultVars(form);
@@ -88,7 +88,7 @@ public class TheNotificationController {
     @GetMapping("/theNotification4renderHtml")
     public /*@ResponseBody*/ TheNotification4renderHtml theNotification4renderHtml(
             @AuthenticationPrincipal UserAccount userAccount,
-            @RequestParam int notificationId,
+            @PathVariable("id") int notificationId,
             HttpSession session) throws JsonProcessingException {
         User currentUser = userAccount.getUser();
 

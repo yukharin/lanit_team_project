@@ -35,7 +35,6 @@ export class Actions implements OnInit {
   newPaginationForm: PaginationForm = new PaginationForm();
   newOrderByForm: OrderByForm = new OrderByForm();
 
-
   constructor(
     // private httpService: HttpService
     private http: HttpClient,
@@ -45,26 +44,26 @@ export class Actions implements OnInit {
   ngOnInit() {
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
-    let body = new HttpParams();
-    body = body.set('notificationId', this.notificationId.toString());
+    // let body = new HttpParams();
+    // body = body.set('notificationId', this.notificationId.toString());
     const httpOptions = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
-      params: body
+      // params: body
     };
-    this.http.get<TheNotification4renderHtml>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/theNotification4renderHtml',
+    this.http.get<TheNotification4renderHtml>(
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/theNotification4renderHtml',
       httpOptions)
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
       });
-
   }
 
   pageChanged(event) {
     this.newPaginationForm.page = event - 1;
 
     this.http.post<TheNotification4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId,
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/pagination',
       JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
@@ -75,7 +74,7 @@ export class Actions implements OnInit {
   maxResultAply() {
     this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
     this.http.post<TheNotification4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/pagination?notificationId=' + this.notificationId,
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/pagination',
       JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
       .subscribe((render) => {
         this.render = render;
@@ -87,13 +86,13 @@ export class Actions implements OnInit {
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
     let body = new HttpParams();
-    body = body.set('notificationId', this.notificationId.toString());
+    // body = body.set('notificationId', this.notificationId.toString());
     const httpOptions = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
-      params: body
+      // params: body
     };
     // TODO replace get in post
-    this.http.get<boolean>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/canBeAdd',
+    this.http.get<boolean>('http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/canAdd',
       httpOptions)
       .subscribe((canBeAdd) => {
         console.log(canBeAdd);
@@ -104,7 +103,6 @@ export class Actions implements OnInit {
         ]);}
         else { alert("Уведомление находится уже в статусе Одобренного или Отклоненого");}
       });
-
   }
 
 }

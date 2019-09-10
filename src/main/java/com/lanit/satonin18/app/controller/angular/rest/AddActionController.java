@@ -35,7 +35,7 @@ import java.util.List;
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
 @Controller("angularAddActionController")
-@RequestMapping("/angular/cabinet/the_notification/add_action")
+@RequestMapping("/angular/cabinet/the_notification/{id}/add_action")
 public class AddActionController {
     
     @Autowired
@@ -47,11 +47,11 @@ public class AddActionController {
     @Autowired
     private OrganizationService organizationService;
 
-    @GetMapping("/canBeAdd")
+    @GetMapping("/canAdd")
     public boolean canBeAdd(
             @AuthenticationPrincipal UserAccount userAccount,
             HttpSession session,
-            @RequestParam int notificationId,
+            @PathVariable("id") int notificationId,
             Model model) throws JsonProcessingException {
         User currentUser = userAccount.getUser();
         Notification currentNotification = notificationService.findById(notificationId);
@@ -64,11 +64,12 @@ public class AddActionController {
         if(statuses.isEmpty() || actionTypes.isEmpty()) return false;
         return true;
     }
+
     @GetMapping("/addAction4renderHtml")
     public AddAction4renderHtml formPage(
             @AuthenticationPrincipal UserAccount userAccount,
             HttpSession session,
-            @RequestParam int notificationId,
+            @PathVariable("id") int notificationId,
             Model model) throws JsonProcessingException {
         User currentUser = userAccount.getUser();
         Notification currentNotification = notificationService.findById(notificationId);

@@ -43,15 +43,15 @@ export class AddAction implements OnInit {
   ngOnInit() {
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
-    let body = new HttpParams();
-    body = body.set('notificationId', this.notificationId.toString());
+    // let body = new HttpParams();
+    // body = body.set('notificationId', this.notificationId.toString());
     const httpOptions = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
-      params: body
+      // params: body
     };
 
     this.http.get<AddAction4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/addAction4renderHtml',
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/addAction4renderHtml',
       httpOptions)
       .subscribe((render) => {
         this.render = render;
@@ -63,7 +63,7 @@ export class AddAction implements OnInit {
     this.actionPortionDto.notificationId = this.render.currentNotification.id;
 
     this.http.post<boolean>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/add_action/save',
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/save',
       JSON.stringify(this.actionPortionDto),
       this.httpOptionsJson)
       .subscribe((hasSaved) => {
