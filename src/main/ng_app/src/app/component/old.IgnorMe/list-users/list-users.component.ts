@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-// import { HttpService} from './http.service';
+// import { ActionsService} from './http.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../../model/entity/User';
@@ -10,14 +10,14 @@ import {ActivatedRoute, Router} from '@angular/router';
   selector: 'app-list-users-root',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.css'],
-  // providers: [HttpService]
+  // providers: [ActionsService]
 })
 export class ListUsersComponent implements OnInit {
 
   users: User[];
 
   constructor(
-    // private httpService: HttpService,
+    // private httpService: ActionsService,
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute) { }

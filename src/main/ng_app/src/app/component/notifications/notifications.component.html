@@ -1,6 +1,6 @@
 <div id="content">
 
-  <form (ngSubmit)="filterAply()"
+  <form (ngSubmit)="submitFilter()"
         [formGroup]="filtersForm" >
     <div id="filters">
       Фильтры:<Br>
@@ -12,7 +12,7 @@
             class= "checkboxStatuses4select"
             type="checkbox"
             formControlName ="_0" value="true"
-            (change)="filterAply()"
+            (change)="submitFilter()"
           >
           <br>
           {{render.statuses4selectFilter[1].name}}
@@ -21,7 +21,7 @@
             class= "checkboxStatuses4select"
             type="checkbox"
             formControlName ="_1" value="true"
-            (change)="filterAply()"
+            (change)="submitFilter()"
           >
           <br>
           {{render.statuses4selectFilter[2].name}}
@@ -30,7 +30,7 @@
             class= "checkboxStatuses4select"
             type="checkbox"
             formControlName ="_2" value="true"
-            (change)="filterAply()"
+            (change)="submitFilter()"
           >
           <br>
           {{render.statuses4selectFilter[3].name}}
@@ -39,7 +39,7 @@
             class= "checkboxStatuses4select"
             type="checkbox"
             formControlName ="_3" value="true"
-            (change)="filterAply()"
+            (change)="submitFilter()"
           >
         </td>
         <td>
@@ -50,7 +50,7 @@
             type="checkbox"
             formControlName="showArchive"
             [checked]="render.state.filterForm.showArchive"
-            (change)="filterAply()"
+            (change)="submitFilter()"
           >
         </td>
         <td>
@@ -64,10 +64,10 @@
   </form>
 
   <div id="selectSort">
-    <form (ngSubmit)="selectSort()"
+    <form (ngSubmit)="submitOrderBy()"
           [formGroup]="sortForm" >
       Применить сортировку :
-      <select type="text" formControlName="orderFieldName" (change)="selectSort()">
+      <select type="text" formControlName="orderFieldName" (change)="submitOrderBy()">
         <option *ngFor="let orderFieldName of render.columnTable" [value]="orderFieldName.varName"
                 [selected]="orderFieldName.varName.trim()==render.state.orderByForm.orderFieldName.trim()">
           <!--TODO equals string-->
@@ -79,7 +79,7 @@
       <input
         type="checkbox" [checked]="render.state.orderByForm.desc"
         formControlName ="desc" value="true"
-        (change)="selectSort()"
+        (change)="submitOrderBy()"
       >
     </form>
   </div>

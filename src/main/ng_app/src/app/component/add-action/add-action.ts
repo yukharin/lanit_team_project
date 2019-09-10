@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-// import { HttpService} from './http.service';
+// import { ActionsService} from './http.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../model/entity/User';
@@ -15,26 +15,23 @@ import {AddAction4renderHtml} from '../../model/input-output/AddAction4renderHtm
 import {ActionPortionDto} from '../../model/input-output/dto.valid/ActionPortionDto';
 import {Location} from '@angular/common';
 import {NgForm} from '@angular/forms';
+import {HttpUtil} from "../../service/http.util";
 
 @Component({
   selector: 'app-root',
   templateUrl: './add-action.html',
   styleUrls: ['./add-action.css'],
-  // providers: [HttpService]
+  // providers: [ActionsService]
 })
 export class AddAction implements OnInit {
 
   notificationId: string;
   render: AddAction4renderHtml;
   actionPortionDto: ActionPortionDto = new ActionPortionDto();
-  httpOptionsJson = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  myhttp: HttpUtil;
 
   constructor(
-    // private httpService: HttpService,
+    // private httpService: ActionsService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
@@ -43,16 +40,8 @@ export class AddAction implements OnInit {
   ngOnInit() {
     this.notificationId = this.route.snapshot.paramMap.get('id');
 
-    // let body = new HttpParams();
-    // body = body.set('notificationId', this.notificationId.toString());
-    const httpOptions = {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
-      // params: body
-    };
-
     this.http.get<AddAction4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/addAction4renderHtml',
-      httpOptions)
+      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/addAction4renderHtml')
       .subscribe((render) => {
         this.render = render;
         console.log(this.render);
@@ -65,7 +54,7 @@ export class AddAction implements OnInit {
     this.http.post<boolean>(
       'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/the_notification/' + this.notificationId + '/add_action/save',
       JSON.stringify(this.actionPortionDto),
-      this.httpOptionsJson)
+      this.myhttp.httpOptionsJson)
       .subscribe((hasSaved) => {
         if (hasSaved) {
           // this.router.navigate(['..']);

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-// import { HttpService} from './http.service';
+// import { ActionsService} from './http.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../model/entity/User';
@@ -12,13 +12,13 @@ import {FormBuilder} from "@angular/forms";
   // selector: 'app-root',
   templateUrl: './common-header-user.component.html',
   styleUrls: ['./common-header-user.css'],
-  // providers: [HttpService]
+  // providers: [ActionsService]
 })
 export class CommonHeaderUserComponent implements OnInit {
   user: User;
 
   constructor(
-    // private httpService: HttpService,
+    // private httpService: ActionsService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,

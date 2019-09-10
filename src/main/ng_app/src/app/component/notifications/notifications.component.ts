@@ -10,12 +10,13 @@ import {Cabinet4renderHtml} from '../../model/input-output/Cabinet4renderHtml';
 import {PaginationForm} from '../../model/input-output/form/PaginationForm';
 import {OrderByForm} from '../../model/input-output/form/OrderByForm';
 import {TheNotification4renderHtml} from "../../model/input-output/TheNotification4renderHtml";
+import {NotificationsService} from "../../service/notifications.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.css'],
-  // providers: [HttpService]
+  // providers: [ActionsService]
 })
 export class NotificationsComponent implements OnInit {
 
@@ -48,7 +49,7 @@ export class NotificationsComponent implements OnInit {
   };
 
   constructor(
-    // private httpService: HttpService,
+    private notificationsService: NotificationsService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
@@ -56,15 +57,14 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/cabinet4renderHtml')
+    this.notificationsService.getRender()
       .subscribe((render) => {
         this.render = render;
-        console.log(this.render);
+        // console.log(this.render);
       });
   }
 
-  filterAply() {
+  submitFilter() {
     this.newFilterForm.showArchive = this.filtersForm.get('showArchive').value;
 
     this.newFilterForm.idFilterStatus = new Array<number>();
@@ -73,57 +73,45 @@ export class NotificationsComponent implements OnInit {
     if ( this.filtersForm.get('_2').value ) this.newFilterForm.idFilterStatus.push(2)
     if ( this.filtersForm.get('_3').value ) this.newFilterForm.idFilterStatus.push(3)
 
-    this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/filters',
-      JSON.stringify(this.newFilterForm), this.httpOptionsJson)
+    this.notificationsService.submitFilter(this.newFilterForm)
       .subscribe((render) => {
         this.render = render;
-        console.log(this.render);
+        // console.log(this.render);
       });
   }
 
   pageChanged(event) {
     this.newPaginationForm.page = event - 1;
-
-    this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination',
-      JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
+    this.submitPagination()
+  }
+  maxResultAply() {
+    this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
+    this.submitPagination()
+  }
+  private submitPagination() {
+    this.notificationsService.submitPagination(this.newPaginationForm)
       .subscribe((render) => {
         this.render = render;
-        console.log(this.render);
+        // console.log(this.render);
       });
   }
 
   open(notification: Notification) {
-    //todo remove '/'
-    this.router.navigate(['/notifications/' + notification.id]);
+    this.router.navigate(['/notifications/' + notification.id]);//todo check '/' beforeUrl
   }
 
-  maxResultAply() {
-    this.newPaginationForm.maxResult = this.maxResultForm.get('maxResult').value;
-    this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/pagination',
-      JSON.stringify(this.newPaginationForm), this.httpOptionsJson)
-      .subscribe((render) => {
-        this.render = render;
-        console.log(this.render);
-      });
-  }
+  submitOrderBy() {
+    this.newOrderByForm.orderFieldName = this.sortForm.get('orderFieldName').value;
 
-  selectSort() {
     if ( this.sortForm.get('desc').value )
       this.newOrderByForm.desc = this.sortForm.get('desc').value;
     else
       this.newOrderByForm.desc = false;
 
-    this.newOrderByForm.orderFieldName = this.sortForm.get('orderFieldName').value;
-
-    this.http.post<Cabinet4renderHtml>(
-      'http://localhost:8080/lkz_project-1.0-SNAPSHOT/angular/cabinet/orderby',
-      JSON.stringify(this.newOrderByForm), this.httpOptionsJson)
+    this.notificationsService.submitOrderBy(this.newOrderByForm)
       .subscribe((render) => {
         this.render = render;
-        console.log(this.render);
+        // console.log(this.render);
       });
   }
 }
