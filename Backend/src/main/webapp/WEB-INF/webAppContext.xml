@@ -9,12 +9,12 @@
     <context:component-scan base-package="com.lanit.lkz_project"/>
     <jpa:repositories base-package="com.lanit.lkz_project.repositories" repository-impl-postfix="CustomImpl"/>
 
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="${driverClassName}"
-          p:url="${url}" p:username="${user}"
-          p:password="${password}"/>
-    <context:property-placeholder location="classpath:DaoProperties.properties"/>
+<!--    <bean id="dataSource"-->
+<!--          class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+<!--          p:driverClassName="${driverClassName}"-->
+<!--          p:url="${url}" p:username="${user}"-->
+<!--          p:password="${password}"/>-->
+<!--    <context:property-placeholder location="classpath:DaoProperties.properties"/>-->
 
     <jee:jndi-lookup id="dataSource"
                      jndi-name="jdbc/dataSource"
