@@ -287,7 +287,7 @@
         </dependency>
 
     </dependencies>
-
+<!--////////////////////////////////////////////////////////////////////////////////-->
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
@@ -296,8 +296,10 @@
             </resource>
         </resources>
 
-        <!--TODO поставить plugin очистки-->
         <plugins>
+            <!--TODO поставить plugin очистки-->
+
+            <!--compiler (java.version)-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -307,24 +309,8 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
 
+            <!--compiler angular files (+ install npm and node)-->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -369,6 +355,15 @@
 
                 </executions>
 
+            </plugin>
+
+            <!--WAR (no xml) (todo BUT store only glassFish.xml)-->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
             </plugin>
 
         </plugins>
