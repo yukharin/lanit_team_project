@@ -25,9 +25,9 @@ public class InputController {
 	@GetMapping("/")
 	public String to_lkz()
 	{
-		return "redirect:/lkz";
+		return "redirect:/lkz/";
 	}
-	@GetMapping("/lkz")
+	@GetMapping("/lkz/")
 	public String lkz()
 	{
 		return "forward:/lkz/index.html";
