@@ -310,9 +310,8 @@
     <!--////////////////////////////////////////////////////////////////////////////////-->
 
     <profiles>
-
         <profile>
-            <id>compile-angular-files</id>
+            <id>gener-angular-files</id>
             <build>
                 <plugins>
                     <!--clean-->
@@ -379,7 +378,58 @@
         </profile>
 
         <profile>
-            <id>tomcat</id>
+            <id>war-exploded</id>
+            <build>
+                <plugins>
+                    <!--WAR exploded-->
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <!--(configs without .xml, BUT store 1 glassFish.xml)-->
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <!-- <webXml>src\main\webapp\WEB-INF\web.xml</webXml> -->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-war</id>
+                                <phase>none</phase>
+                            </execution>
+                            <execution>
+                                <id>war-exploded</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exploded</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>war</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <!--(configs without .xml, BUT store 1 glassFish.xml)-->
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <!-- <webXml>src\main\webapp\WEB-INF\web.xml</webXml> -->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>server-tomcat(noImpl)</id>
             <build>
                 <plugins>
                     <!--work only: mvn run-war-->
@@ -395,15 +445,23 @@
                             <!--<username>admin</username>-->
                             <!--<password>password</password>-->
 
-                            <!--<update>true</update>-->
+                            <update>true</update>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>runTomcat</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
 
         <profile>
-            <id>glassfish</id>
+            <id>server-glassfish(noImpl)</id>
             <properties>
                 <glassfish.home>C:\\glassfish4\\glassfish</glassfish.home>
                 <glassfish.user>admin</glassfish.user>
@@ -442,7 +500,6 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
 
     <build><!--LIFECYCLE: clean,site,defaul-->
@@ -466,30 +523,6 @@
                     <target>${java.version}</target>
                     <!--<encoding>${project.build.sourceEncoding}</encoding>-->
                 </configuration>
-            </plugin>
-
-            <!--WAR exploded-->
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <!--(configs without .xml, BUT store 1 glassFish.xml)-->
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!-- <webXml>src\main\webapp\WEB-INF\web.xml</webXml> -->
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>default-war</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>war-exploded</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>exploded</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!--site-->
