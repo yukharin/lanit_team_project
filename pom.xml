@@ -288,6 +288,7 @@
 
     </dependencies>
 <!--////////////////////////////////////////////////////////////////////////////////-->
+
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
@@ -299,7 +300,7 @@
         <plugins>
             <!--TODO поставить plugin очистки-->
 
-            <!--compiler (java.version)-->
+            <!--compiler with java.version-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -342,7 +343,7 @@
                         </goals>
                     </execution>
 
-                    <!--TODO пололожить версия для продакшена run build-dev (+script: ng build &#45;&#45;prod)-->
+                    <!--TODO пололожить версия для продакшена run build-dev (+script: ng build - - prod)-->
                     <execution>
                         <id>npm run build</id>
                         <goals>
@@ -352,21 +353,86 @@
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
-
                 </executions>
-
             </plugin>
 
-            <!--WAR (no xml) (todo BUT store only glassFish.xml)-->
+            <!--WAR (configs without .xml, BUT store 1 glassFish.xml)-->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!-- <webXml>src\main\webapp\WEB-INF\web.xml</webXml> -->
                 </configuration>
             </plugin>
 
+            <!--for work: mvn site-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+
+            <!--for work: mvn deploy (edit in /.m2/settings.xml)-->
+            <!--clean package glassfish:deploy -e -X &#45;&#45;debug-->
+            <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
+                    <user>admin</user>
+                    <passwordFile>${local.glassfish.passfile}</passwordFile>
+                    <!--<adminPassword>${local.glassfish.adminPassword}</adminPassword>-->
+                    <domain>
+                        <name>domain1</name>
+                        <httpPort>8080</httpPort>
+                        <adminPort>4848</adminPort>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${project.artifactId}</name>
+                            <artifact>target/${project.build.finalName}.war</artifact>
+                        </component>
+                    </components>
+                    <debug>true</debug>
+                    <terse>false</terse>
+                    <echo>true</echo>
+                </configuration>
+
+                <!--<?xml version="1.0" encoding="UTF-8"?>-->
+                <!--<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"-->
+                <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+                <!--xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">-->
+                <!--<profiles>-->
+                <!--<profile>-->
+                <!--<id>glassfish-context</id>-->
+                <!--<properties>-->
+                <!--<local.glassfish.home>C:\\glassfish4\\glassfish</local.glassfish.home>-->
+                <!--<local.glassfish.user>admin</local.glassfish.user>-->
+                <!--<local.glassfish.domain>domain1</local.glassfish.domain>-->
+                <!--<local.glassfish.passfile>-->
+                <!--${local.glassfish.home}\\domains\\${local.glassfish.domain}\\config\\domain-passwords-->
+                <!--</local.glassfish.passfile>-->
+                <!--</properties>-->
+                <!--</profile>-->
+                <!--</profiles>-->
+
+                <!--<activeProfiles>-->
+                <!--<activeProfile>glassfish-context</activeProfile>-->
+                <!--</activeProfiles>-->
+                <!--</settings>-->
+            </plugin>
+
         </plugins>
+
+        <!--<finalName>Glassfish_HelloWorld</finalName>-->
+        <finalName>lkz_project-1.0-SNAPSHOT</finalName>
     </build>
 
 </project>
