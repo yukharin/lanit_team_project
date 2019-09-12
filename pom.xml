@@ -468,14 +468,28 @@
                 </configuration>
             </plugin>
 
-            <!--WAR (configs without .xml, BUT store 1 glassFish.xml)-->
+            <!--WAR exploded-->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
+                    <!--(configs without .xml, BUT store 1 glassFish.xml)-->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <!-- <webXml>src\main\webapp\WEB-INF\web.xml</webXml> -->
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-war</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>war-exploded</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--site-->
