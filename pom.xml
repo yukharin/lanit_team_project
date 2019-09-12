@@ -12,6 +12,9 @@
     <name>lkz_project</name>
 
     <properties>
+        <build.finalName>lkz_project-1.0-SNAPSHOT</build.finalName>
+
+
         <hibernate.validator>5.4.2.Final</hibernate.validator>
         <!--<hibernate.validator>6.0.2.Final</hibernate.validator>-->
         <!--<hibernate.validator>4.2.0.Final</hibernate.validator>-->
@@ -290,6 +293,8 @@
 <!--////////////////////////////////////////////////////////////////////////////////-->
 
     <build>
+        <finalName>${build.finalName}</finalName>
+
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -312,49 +317,49 @@
             </plugin>
 
             <!--compiler angular files (+ install npm and node)-->
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>0.0.28</version>
+            <!--<plugin>-->
+                <!--<groupId>com.github.eirslett</groupId>-->
+                <!--<artifactId>frontend-maven-plugin</artifactId>-->
+                <!--<version>0.0.28</version>-->
 
-                <configuration>
-                    <workingDirectory>./src/main/ng_app</workingDirectory>
-                    <nodeVersion>${node.version}</nodeVersion>
-                    <npmVersion>${npm.version}</npmVersion>
-                    <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
-                    <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
-                    <installDirectory>./src/main/ng_app</installDirectory>
-                    <!-- path=\ or / -->
-                </configuration>
+                <!--<configuration>-->
+                    <!--<workingDirectory>./src/main/ng_app</workingDirectory>-->
+                    <!--<nodeVersion>${node.version}</nodeVersion>-->
+                    <!--<npmVersion>${npm.version}</npmVersion>-->
+                    <!--<nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>-->
+                    <!--<npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>-->
+                    <!--<installDirectory>./src/main/ng_app</installDirectory>-->
+                    <!--&lt;!&ndash; path=\ or / &ndash;&gt;-->
+                <!--</configuration>-->
 
-                <executions>
+                <!--<executions>-->
 
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                    </execution>
+                    <!--<execution>-->
+                        <!--<id>install node and npm</id>-->
+                        <!--<goals>-->
+                            <!--<goal>install-node-and-npm</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
 
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                    </execution>
+                    <!--<execution>-->
+                        <!--<id>npm install</id>-->
+                        <!--<goals>-->
+                            <!--<goal>npm</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
 
-                    <!--TODO пололожить версия для продакшена run build-dev (+script: ng build - - prod)-->
-                    <execution>
-                        <id>npm run build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+                    <!--&lt;!&ndash;TODO пололожить версия для продакшена run build-dev (+script: ng build - - prod)&ndash;&gt;-->
+                    <!--<execution>-->
+                        <!--<id>npm run build</id>-->
+                        <!--<goals>-->
+                            <!--<goal>npm</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<arguments>run build</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
 
             <!--WAR (configs without .xml, BUT store 1 glassFish.xml)-->
             <plugin>
@@ -379,60 +384,73 @@
             </plugin>
 
             <!--for work: mvn deploy (edit in /.m2/settings.xml)-->
-            <!--clean package glassfish:deploy -e -X &#45;&#45;debug-->
+            <!--TOMCAT-->
             <plugin>
-                <groupId>org.glassfish.maven.plugin</groupId>
-                <artifactId>maven-glassfish-plugin</artifactId>
-                <version>2.1</version>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
                 <configuration>
-                    <glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
-                    <user>admin</user>
-                    <passwordFile>${local.glassfish.passfile}</passwordFile>
-                    <!--<adminPassword>${local.glassfish.adminPassword}</adminPassword>-->
-                    <domain>
-                        <name>domain1</name>
-                        <httpPort>8080</httpPort>
-                        <adminPort>4848</adminPort>
-                    </domain>
-                    <components>
-                        <component>
-                            <name>${project.artifactId}</name>
-                            <artifact>target/${project.build.finalName}.war</artifact>
-                        </component>
-                    </components>
-                    <debug>true</debug>
-                    <terse>false</terse>
-                    <echo>true</echo>
+                    <!--<url>http://127.0.0.1:8080/${build.finalName}/</url>-->
+                    <url>http://localhost:8080/${build.finalName}/</url>
+                    <server>tomcatServer</server>
+                    <path>/${build.finalName}</path><!--DONT WORK ALIAS ${project.build.finalName}-->
+                    <!--<username>admin</username>-->
+                    <!--<password>password</password>-->
                 </configuration>
-
-                <!--<?xml version="1.0" encoding="UTF-8"?>-->
-                <!--<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"-->
-                <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-                <!--xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">-->
-                <!--<profiles>-->
-                <!--<profile>-->
-                <!--<id>glassfish-context</id>-->
-                <!--<properties>-->
-                <!--<local.glassfish.home>C:\\glassfish4\\glassfish</local.glassfish.home>-->
-                <!--<local.glassfish.user>admin</local.glassfish.user>-->
-                <!--<local.glassfish.domain>domain1</local.glassfish.domain>-->
-                <!--<local.glassfish.passfile>-->
-                <!--${local.glassfish.home}\\domains\\${local.glassfish.domain}\\config\\domain-passwords-->
-                <!--</local.glassfish.passfile>-->
-                <!--</properties>-->
-                <!--</profile>-->
-                <!--</profiles>-->
-
-                <!--<activeProfiles>-->
-                <!--<activeProfile>glassfish-context</activeProfile>-->
-                <!--</activeProfiles>-->
-                <!--</settings>-->
             </plugin>
+
+            <!--clean package glassfish:deploy -e -X &#45;&#45;debug-->
+            <!--<plugin>-->
+                <!--<groupId>org.glassfish.maven.plugin</groupId>-->
+                <!--<artifactId>maven-glassfish-plugin</artifactId>-->
+                <!--<version>2.1</version>-->
+                <!--<configuration>-->
+                    <!--<glassfishDirectory>${local.glassfish.home}</glassfishDirectory>-->
+                    <!--<user>admin</user>-->
+                    <!--<passwordFile>${local.glassfish.passfile}</passwordFile>-->
+                    <!--&lt;!&ndash;<adminPassword>${local.glassfish.adminPassword}</adminPassword>&ndash;&gt;-->
+                    <!--<domain>-->
+                        <!--<name>domain1</name>-->
+                        <!--<httpPort>8080</httpPort>-->
+                        <!--<adminPort>4848</adminPort>-->
+                    <!--</domain>-->
+                    <!--<components>-->
+                        <!--<component>-->
+                            <!--<name>${project.artifactId}</name>-->
+                            <!--<artifact>target/${project.build.finalName}.war</artifact>-->
+                        <!--</component>-->
+                    <!--</components>-->
+                    <!--<debug>true</debug>-->
+                    <!--<terse>false</terse>-->
+                    <!--<echo>true</echo>-->
+                <!--</configuration>-->
+
+                <!--&lt;!&ndash;<?xml version="1.0" encoding="UTF-8"?>&ndash;&gt;-->
+                <!--&lt;!&ndash;<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"&ndash;&gt;-->
+                <!--&lt;!&ndash;xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&ndash;&gt;-->
+                <!--&lt;!&ndash;xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">&ndash;&gt;-->
+                <!--&lt;!&ndash;<profiles>&ndash;&gt;-->
+                <!--&lt;!&ndash;<profile>&ndash;&gt;-->
+                <!--&lt;!&ndash;<id>glassfish-context</id>&ndash;&gt;-->
+                <!--&lt;!&ndash;<properties>&ndash;&gt;-->
+                <!--&lt;!&ndash;<local.glassfish.home>C:\\glassfish4\\glassfish</local.glassfish.home>&ndash;&gt;-->
+                <!--&lt;!&ndash;<local.glassfish.user>admin</local.glassfish.user>&ndash;&gt;-->
+                <!--&lt;!&ndash;<local.glassfish.domain>domain1</local.glassfish.domain>&ndash;&gt;-->
+                <!--&lt;!&ndash;<local.glassfish.passfile>&ndash;&gt;-->
+                <!--&lt;!&ndash;${local.glassfish.home}\\domains\\${local.glassfish.domain}\\config\\domain-passwords&ndash;&gt;-->
+                <!--&lt;!&ndash;</local.glassfish.passfile>&ndash;&gt;-->
+                <!--&lt;!&ndash;</properties>&ndash;&gt;-->
+                <!--&lt;!&ndash;</profile>&ndash;&gt;-->
+                <!--&lt;!&ndash;</profiles>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<activeProfiles>&ndash;&gt;-->
+                <!--&lt;!&ndash;<activeProfile>glassfish-context</activeProfile>&ndash;&gt;-->
+                <!--&lt;!&ndash;</activeProfiles>&ndash;&gt;-->
+                <!--&lt;!&ndash;</settings>&ndash;&gt;-->
+            <!--</plugin>-->
 
         </plugins>
 
-        <!--<finalName>Glassfish_HelloWorld</finalName>-->
-        <finalName>lkz_project-1.0-SNAPSHOT</finalName>
     </build>
 
 </project>
